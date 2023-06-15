@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "your-test-command",
-		"build": "your-build-command",
+		"build": "node-sass scss -o dist",
 		"watch": "your-watch-command",
 		"lint": "your-lint-command"
 	},
@@ -26,5 +26,8 @@
 	"bugs": {
 		"url": "https://github.com/BhoenixStudio/Beather/issues"
 	},
-	"homepage": "https://github.com/BhoenixStudio/Beather#readme"
+	"homepage": "https://github.com/BhoenixStudio/Beather#readme",
+	"devDependencies": {
+		"node-sass": "^9.0.0"
+	}
 }

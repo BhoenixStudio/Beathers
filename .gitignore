@@ -1,0 +1,27 @@
+# Ignore system-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore build artifacts
+/build
+/dist
+/node_modules
+
+# Ignore package managers
+/npm-debug.log
+yarn-error.log
+pip-log.txt
+
+# Ignore IDE and editor files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.swp
+
+# Ignore log files
+*.log
+
+# Ignore temporary files
+.tmp/
+.temp/
