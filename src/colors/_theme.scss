@@ -1,0 +1,105 @@
+// Theme Colors ------------------------------------------------------------
+
+$themeColor1: 1 $color1 $color1Dark;
+$themeColor2: 2 $color2 $color2Dark;
+$themeColor3: 3 $color3 $color3Dark;
+$themeColor4: 4 $color4 $color4Dark;
+$themeColor5: 5 $color5 $color5Dark;
+$themeColor6: 6 $color6 $color6Dark;
+$themeColors: $themeColor1, $themeColor2, $themeColor3, $themeColor4,
+    $themeColor5, $themeColor6;
+// title, lightColor, darkColor //
+
+.color {
+    @each $title, $lightValue, $darkValue in $themeColors {
+        $lV: $lightValue;
+        $dV: $darkValue;
+
+        &-#{$title} {
+            @if $lV {
+                color: $lV;
+            }
+
+            @if $dV {
+                .dark & {
+                    color: $dV;
+                }
+            }
+
+            &.no-hover:hover,
+            &.no-focus:focus {
+                @if $lV {
+                    color: $lV !important;
+                }
+
+                @if $dV {
+                    .dark & {
+                        color: $dV !important;
+                    }
+                }
+            }
+        }
+
+        &-bg {
+            &-#{$title} {
+                @if $lV {
+                    background-color: $lV;
+                }
+
+                @if $dV {
+                    .dark & {
+                        background-color: $dV;
+                    }
+                }
+
+                &.no-hover:hover,
+                &.no-focus:focus {
+                    @if $lV {
+                        background-color: $lV !important;
+                    }
+
+                    @if $dV {
+                        .dark & {
+                            background-color: $dV !important;
+                        }
+                    }
+                }
+
+                @each $title, $value in $opacities {
+                    &.bg-op {
+                        &#{$title} {
+                            @if $lV {
+                                background-color: rgba($lV, $value);
+                            }
+
+                            @if $dV {
+                                .dark & {
+                                    background-color: rgba($dV, $value);
+                                }
+                            }
+
+                            &.no-hover:hover,
+                            &.no-focus:focus {
+                                @if $lV {
+                                    background-color: rgba(
+                                        $lV,
+                                        $value
+                                    ) !important;
+                                }
+
+                                @if $dV {
+                                    .dark & {
+                                        background-color: rgba(
+                                            $dV,
+                                            $value
+                                        ) !important;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,152 @@
+// Base Colors ------------------------------------------------------------
+
+$tTC1: null $t1 $t1Dark $secondBg $secondBgDark;
+$tTC2: 1 null null $color1 $color1Dark;
+$tTC3: 2 null null $color2 $color2Dark;
+$tTC4: 3 null null $color3 $color3Dark;
+$tTC5: 4 null null $color4 $color4Dark;
+$tTC6: 5 null null $color5 $color5Dark;
+$tTC7: 6 null null $color6 $color6Dark;
+$toolTipColors: $tTC1, $tTC2, $tTC3, $tTC4, $tTC5, $tTC6, $tTC7;
+// Title, Color, DarkColor, bgColor, DarkBgColor //
+
+$tTS1: null 12 10 1;
+$tTS2: medium 16 10 1.25;
+$tTS3: large 20 15 1.5;
+$tTS4: huge 25 20 2;
+$tooltipSizes: $tTS1, $tTS2, $tTS3, $tTS4;
+// Title, fontSize, padding, width //
+
+$tTDir1: top null 100 50 null -50 null;
+$tTDir2: end 50 null 100 null null -50;
+$tTDir3: bottom 100 null 50 null -50 null;
+$tTDir4: start 50 null null 100 null -50;
+$tooltipDirections: $tTDir1, $tTDir2, $tTDir3, $tTDir4;
+// Title, top, bottom, left, right, transformX, transformY //
+
+$px: 'px';
+$percent: '%';
+$maxWidth: #{200}#{$px};
+
+[toolTipText] {
+    position: relative;
+    cursor: help;
+
+    &::after {
+        content: attr(toolTipText);
+        display: block;
+        position: absolute;
+        width: max-content;
+        max-width: $maxWidth;
+        overflow-x: hidden;
+        opacity: 0;
+        box-shadow: 0 0 #{10}#{$px} 0 rgba($black, 0.1);
+        pointer-events: none;
+        border-radius: #{5}#{$px};
+        backdrop-filter: blur(#{3}#{$px});
+        z-index: 1000;
+
+        font-family: 'regular', sans-serif;
+        text-align: center;
+
+        transition: all 0.15s ease-in-out;
+    }
+
+    &.tooltip-fixed,
+    &:hover {
+        &::after {
+            opacity: 1;
+            pointer-events: all;
+        }
+    }
+
+    @each $title, $color, $colorDark, $bgColor, $bgColorDark in $toolTipColors {
+        $colorClass: if($title, '.color-tooltip-', '');
+        $colorValue: if($color, $color, $white);
+        $colorValueDark: if($colorDark, $colorDark, $white);
+
+        &#{$colorClass}#{$title} {
+            &::after {
+                @if $bgColor {
+                    background-color: $bgColor;
+                    color: $colorValue;
+                }
+
+                @if $bgColorDark {
+                    .dark & {
+                        background-color: $bgColorDark;
+                        color: $colorValueDark;
+                    }
+                }
+            }
+        }
+    }
+
+    @each $title, $fontSize, $padding, $width in $tooltipSizes {
+        $sizeClass: if($title, '.tooltip-', '');
+
+        &#{$sizeClass}#{$title} {
+            &::after {
+                font-size: #{$fontSize}#{$px};
+                padding: #{$padding}#{$px};
+                max-width: calc($maxWidth * $width);
+            }
+        }
+    }
+
+    @each $title, $top, $bottom, $left, $right, $transformX, $transformY in $tooltipDirections {
+        $dirClass: if($title, '.tooltip-', '');
+        $XAxisClass: if(($title ==start) or ($title ==end), true, false);
+        $margin: if($XAxisClass, 0 #{5}#{$px}, #{5}#{$px} 0);
+
+        &#{$dirClass}#{$title} {
+            &::after {
+                @if $top {
+                    top: #{$top}#{$percent};
+                }
+
+                @if $right {
+                    right: #{$right}#{$percent};
+                }
+
+                @if $bottom {
+                    bottom: #{$bottom}#{$percent};
+                }
+
+                @if $left {
+                    left: #{$left}#{$percent};
+                }
+
+                @if $transformX and $transformY {
+                    transform: translate(#{$transformX}#{$percent}, #{$transformY}#{$percent});
+                }
+
+                @if $transformX and not($transformY) {
+                    transform: translateX(#{$transformX}#{$percent});
+                }
+
+                @if $transformY and not($transformX) {
+                    transform: translateY(#{$transformY}#{$percent});
+                }
+
+                @if ($XAxisClass) {
+                    margin: $margin;
+                }
+
+                .rtl & {
+                    @if ($XAxisClass) {
+                        @if $right {
+                            right: unset;
+                            left: #{$right}#{$percent};
+                        }
+
+                        @if $left {
+                            left: unset;
+                            right: #{$left}#{$percent};
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

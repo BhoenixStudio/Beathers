@@ -1,0 +1,16 @@
+// Dividers ------------------------------------------------------------
+
+$dividerDirections: "x" "width", "y" "height";
+$unit: "px";
+
+.divider- {
+    @each $dir, $prop in $dividerDirections {
+        &#{$dir} {
+            @for $i from 1 through 3 {
+                &#{$i} {
+                    #{$prop}: #{$i}#{$unit};
+                }
+            }
+        }
+    }
+}

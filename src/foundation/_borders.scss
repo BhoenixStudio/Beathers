@@ -1,0 +1,166 @@
+$borderStyle: solid;
+
+$borderColor1: "white" $white;
+$borderColor2: "black" $black;
+$borderColor3: null $border $borderDark;
+$borderColor4: 1 $color1 $color1Dark;
+$borderColor5: 2 $color2 $color2Dark;
+$borderColor6: 3 $color3 $color3Dark;
+$borderColor7: 4 $color4 $color4Dark;
+$borderColor8: 5 $color5 $color5Dark;
+$borderColor9: 6 $color6 $color6Dark;
+$borderColor10: "t1" $t1 $t1Dark;
+$borderColor11: "t2" $t2 $t2Dark;
+$borderColor12: "d1" $d1 $d1Dark;
+$borderColor13: "d2" $d2 $d2Dark;
+$borderColor14: "d3" $d3 $d3Dark;
+$borderColor15: "origin" $origin $originDark;
+$borderColor16: "main" $mainBg $mainBgDark;
+$borderColor17: "sec" $secondBg $secondBgDark;
+$borderColor18: "third" $thirdBg $thirdBgDark;
+$borderColor19: "placeholder" $placeholder $placeholderDark;
+$borderColor20: "custom1" $customColor1;
+$borderColor21: "custom2" $customColor2;
+$borderColor22: "custom3" $customColor3;
+$borderColor23: "custom4" $customColor4;
+$borderColor24: "custom5" $customColor5;
+$borderColor25: "custom6" $customColor6;
+$borderColor26: "custom7" $customColor7;
+$borderColor27: "custom8" $customColor8;
+$borderColor28: "custom9" $customColor9;
+$borderColor29: "custom10" $customColor10;
+$borderColor30: "star" $stars;
+$borderColor31: "success" $success;
+$borderColor32: "primary" $primary;
+$borderColor33: "danger" $danger;
+$borderColor34: "warning" $warning;
+$borderColor35: "info" $info;
+$borderColor36: "gray" $gray;
+$borderColor37: "facebook" $faceBook;
+$borderColor38: "facebook-messenger" $faceBookMessenger;
+$borderColor39: "whatsapp" $whatsApp;
+$borderColor40: "instagram" $instagram;
+$borderColor41: "google" $google;
+$borderColor42: "signal" $signal;
+$borderColor43: "twitter" $twitter;
+$borderColor44: "telegram" $telegram;
+$borderColor45: "youtube" $youtube;
+$borderColor46: "linkedin" $linkedIn;
+$borderColor47: "behance" $beHance;
+$borderColor48: "github" $gitHub;
+$borderColor49: "gitlab" $gitLab;
+$borderColor50: "wechat" $weChat;
+$borderColor51: "tiktok" $tikTok;
+$borderColor52: "snapchat" $snapChat;
+$borderColor53: "pinterest" $pinterest;
+$borderColor54: "reddit" $reddit;
+$borderColor55: "msTeams" $msTeams;
+$borderColor56: "twitch" $twitch;
+$borderColor57: "dribbble" $dribbble;
+$borderColors: $borderColor1, $borderColor2, $borderColor3, $borderColor4,
+    $borderColor5, $borderColor6, $borderColor7, $borderColor8, $borderColor9,
+    $borderColor11, $borderColor12, $borderColor13, $borderColor14,
+    $borderColor15, $borderColor16, $borderColor17, $borderColor18,
+    $borderColor19, $borderColor20, $borderColor21, $borderColor22,
+    $borderColor23, $borderColor24, $borderColor25, $borderColor26,
+    $borderColor27, $borderColor28, $borderColor29, $borderColor30,
+    $borderColor31, $borderColor32, $borderColor33, $borderColor34,
+    $borderColor35, $borderColor36, $borderColor37, $borderColor38,
+    $borderColor39, $borderColor40, $borderColor41, $borderColor42,
+    $borderColor43, $borderColor44, $borderColor45, $borderColor46,
+    $borderColor47, $borderColor48, $borderColor49, $borderColor50,
+    $borderColor51, $borderColor52, $borderColor53, $borderColor54,
+    $borderColor55, $borderColor56, $borderColor57;
+// title, lightColor, darkColor //
+
+$directions: null, "top", "bottom", "start", "end";
+$unit: "px";
+
+@for $i from 1 through 5 {
+    .border {
+        @each $dir in $directions {
+            $dirDivider: if($dir, "-", "");
+            $dirValue: $dir;
+            @if ($dir == "start") {
+                $dirValue: "left";
+            }
+            @if ($dir == "end") {
+                $dirValue: "right";
+            }
+
+            &#{$dirDivider} {
+                &#{$dir} {
+                    &#{$i} {
+                        @each $title, $light, $dark in $borderColors {
+                            $dash: "";
+                            @if ($title) {
+                                $dash: if(
+                                    ($title != 1) or
+                                        ($title != 2) or
+                                        ($title != 3) or
+                                        ($title != 4) or
+                                        ($title != 5) or
+                                        ($title != 6),
+                                    "-",
+                                    ""
+                                );
+                            }
+
+                            &.color-border {
+                                &#{$dash} {
+                                    &#{$title} {
+                                        border#{$dirDivider}#{$dirValue}: #{$i}#{$unit}
+                                            $borderStyle
+                                            $light;
+
+                                        @if $dark {
+                                            .dark & {
+                                                border#{$dirDivider}#{$dirValue}: #{$i}#{$unit}
+                                                    $borderStyle
+                                                    $dark;
+                                            }
+
+                                            .rtl.dark & {
+                                                @if $dir == "start" {
+                                                    border-left: unset;
+                                                    border-right: #{$i}#{$unit}
+                                                        $borderStyle
+                                                        $dark;
+                                                }
+                                                @if $dir == "end" {
+                                                    border-right: unset;
+                                                    border-left: #{$i}#{$unit}
+                                                        $borderStyle
+                                                        $dark;
+                                                }
+                                            }
+                                        }
+
+                                        .rtl & {
+                                            @if $dir == "start" {
+                                                border-left: unset;
+                                                border-right: #{$i}#{$unit}
+                                                    $borderStyle
+                                                    $light;
+                                            }
+                                            @if $dir == "end" {
+                                                border-right: unset;
+                                                border-left: #{$i}#{$unit}
+                                                    $borderStyle
+                                                    $light;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.no-border {
+    border: unset !important;
+}

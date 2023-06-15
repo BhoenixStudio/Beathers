@@ -1,0 +1,132 @@
+// Resets ------------------------------------------------------------
+body {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    font-family: 'regular', sans-serif;
+    text-align: start;
+    background-color: $secondBg;
+    color: $d1;
+    height: 100%;
+    overflow-x: hidden;
+
+    .dark & {
+        background-color: $secondBgDark;
+        color: $d1Dark;
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+p {
+    margin: 0;
+}
+
+:focus,
+button:focus,
+.btn.focus,
+.btn:focus {
+    outline: unset !important;
+    box-shadow: unset !important;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+
+    scrollbar-color: #6d6d6d rgba(245, 246, 248, 0);
+    scrollbar-width: thin;
+}
+
+ul {
+    margin: unset;
+    list-style: none;
+    padding: 0;
+
+    li {
+        margin-bottom: unset;
+    }
+}
+
+a {
+    text-decoration: unset;
+    transition: all 200ms ease-in-out;
+}
+
+::selection {
+    background-color: rgba($color2, 0.1) !important;
+    color: $color2 !important;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+
+    &-track {
+        background-color: #f5f6f8;
+        border-radius: unset;
+    }
+
+    &-thumb {
+        border-radius: 7px;
+        background: #6d6d6d;
+    }
+
+    .dark & {
+        &-track {
+            background-color: #2c2c2c;
+        }
+
+        &-thumb {
+            background: #6d6d6d;
+        }
+    }
+}
+
+.no-bg {
+    background: unset !important;
+
+    &.no-hover:hover {
+        background: unset !important;
+    }
+}
+
+.form-control {
+    padding: 6px 15px;
+
+    &:focus {
+        background-color: $secondBg;
+        border-color: $border;
+    }
+}
+
+.invalid {
+    margin-bottom: 5px !important;
+
+    &.show-feed-back {
+        + .invalid-text {
+            display: block !important;
+        }
+    }
+}
+
+.no-events {
+    pointer-events: none;
+}
+
+.no-position {
+    position: unset !important;
+}
+
+.scroll-smooth {
+    scroll-behavior: smooth;
+}

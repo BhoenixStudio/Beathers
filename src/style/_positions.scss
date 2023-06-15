@@ -1,0 +1,53 @@
+// Positions ------------------------------------------------------------
+
+// Main positions
+$positions: static, relative, fixed, absolute, sticky;
+$unit: "%";
+
+@each $size in $mediaQueries {
+    @include mQMin($size) {
+        $sizeDivider: if($size, "-", "");
+
+        .position {
+            &#{$sizeDivider} {
+                &#{$size} {
+                    @each $name in $positions {
+                        &-#{$name} {
+                            position: $name;
+
+                            @if $name == "absolute" or $name == "fixed" {
+                                @for $i from 0 through 5 {
+                                    &.inset {
+                                        &#{$sizeDivider} {
+                                            &#{$size} {
+                                                &#{$i} {
+                                                    inset: #{$i}#{$unit};
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                &.position {
+                                    &#{$sizeDivider} {
+                                        &#{$size} {
+                                            &-center {
+                                                top: 50%;
+                                                left: 50%;
+                                                transform: translate(
+                                                    -50%,
+                                                    -50%
+                                                );
+                                                width: max-content;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

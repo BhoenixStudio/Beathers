@@ -1,0 +1,9 @@
+// Opacities ------------------------------------------------------------
+
+@each $name, $value in $opacities {
+    .op- {
+        &#{$name} {
+            opacity: $value;
+        }
+    }
+}

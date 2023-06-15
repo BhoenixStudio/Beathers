@@ -1,0 +1,34 @@
+// Alerts ------------------------------------------------------------
+
+$alert1: 'success' $success $successDark;
+$alert2: 'primary' $primary $primaryDark;
+$alert3: 'danger' $danger $dangerDark;
+$alert4: 'warning' $warning $warningDark;
+$alert5: 'info' $info $infoDark;
+$alert6: 'gray' $gray $grayDark;
+$alerts: $alert1, $alert2, $alert3, $alert4, $alert5, $alert6;
+// title, Color //
+
+$alertBorderType: dashed;
+$alertRadius: 5px;
+
+// Alert style
+.bds-alert {
+    @each $title, $color, $colorDark in $alerts {
+        &.#{$title} {
+            display: flex;
+            flex-direction: column;
+            background-color: rgba($color, 0.2);
+            color: $color;
+            border: 1px $alertBorderType $color;
+            border-radius: $alertRadius;
+            padding: 8px 10px;
+
+            .dark & {
+                background-color: rgba($colorDark, 0.2);
+                color: $colorDark;
+                border: 1px $alertBorderType $colorDark;
+            }
+        }
+    }
+}
