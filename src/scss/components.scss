@@ -6,15 +6,15 @@
 */
 
 // Settings ------------------------------------------------------------
-@import "../settings/variables";
+@import "./settings/variables";
 
-@import "../settings/breakpoints";
+@import "./settings/breakpoints";
 
 // components ------------------------------------------------------------
-@import "../components/alerts";
+@import "./components/alerts";
 
-@import "../components/checkboxes";
+@import "./components/checkboxes";
 
-@import "../components/switches";
+@import "./components/switches";
 
-@import "../components/tooltips";
+@import "./components/tooltips";

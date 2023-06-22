@@ -6,15 +6,18 @@
 */
 
 // Settings ------------------------------------------------------------
-@import "../settings/variables";
+@import "./settings/variables";
 
-@import "../settings/breakpoints";
+@import "./settings/breakpoints";
 
-// Fonts ------------------------------------------------------------
-@import "../fonts/fonts";
+@import "./settings/_configs";
 
-@import "../fonts/sizes";
+// style ------------------------------------------------------------
 
-@import "../fonts/weights";
+@import "./style/overflows";
 
-@import "../fonts/styles";
+@import "./style/positions";
+
+@import "./style/shadows";
+
+@import "./style/space";

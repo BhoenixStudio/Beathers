@@ -6,17 +6,17 @@
 */
 
 // Settings ------------------------------------------------------------
-@import "../settings/variables";
+@import "./settings/variables";
 
-@import "../settings/breakpoints";
+@import "./settings/breakpoints";
 
 // Colors ------------------------------------------------------------
-@import "../colors/base";
+@import "./colors/base";
 
-@import "../colors/layouts";
+@import "./colors/layouts";
 
-@import "../colors/theme";
+@import "./colors/theme";
 
-@import "../colors/social";
+@import "./colors/social";
 
-@import "../colors/custom";
+@import "./colors/custom";

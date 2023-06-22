@@ -6,18 +6,17 @@
 */
 
 // Settings ------------------------------------------------------------
-@import "../settings/variables";
+@import "./settings/variables";
 
-@import "../settings/breakpoints";
+@import "./settings/breakpoints";
 
 // Foundation ------------------------------------------------------------
+@import "./foundation/dividers";
 
-@import "../foundation/dividers";
+@import "./foundation/borders";
 
-@import "../foundation/borders";
+@import "./foundation/cursors";
 
-@import "../foundation/cursors";
+@import "./foundation/opacities";
 
-@import "../foundation/opacities";
-
-@import "../foundation/radiuses";
+@import "./foundation/radiuses";
