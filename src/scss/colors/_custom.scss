@@ -1,27 +1,26 @@
 // Custom Colors ------------------------------------------------------------
 
-$customColor1: "1" $customColor1;
-$customColor2: "2" $customColor2;
-$customColor3: "3" $customColor3;
-$customColor4: "4" $customColor4;
-$customColor5: "5" $customColor5;
-$customColor6: "6" $customColor6;
-$customColor7: "7" $customColor7;
-$customColor8: "8" $customColor8;
-$customColor9: "9" $customColor9;
-$customColor10: "10" $customColor10;
-$customColor11: "star" $stars;
-$customColor12: "success" $success;
-$customColor13: "primary" $primary;
-$customColor14: "danger" $danger;
-$customColor15: "warning" $warning;
-$customColor16: "info" $info;
-$customColor17: "gray" $gray;
+$customColor1: '1' $customColor1;
+$customColor2: '2' $customColor2;
+$customColor3: '3' $customColor3;
+$customColor4: '4' $customColor4;
+$customColor5: '5' $customColor5;
+$customColor6: '6' $customColor6;
+$customColor7: '7' $customColor7;
+$customColor8: '8' $customColor8;
+$customColor9: '9' $customColor9;
+$customColor10: '10' $customColor10;
+$customColor11: 'star' $stars;
+$customColor12: 'success' $success;
+$customColor13: 'primary' $primary;
+$customColor14: 'danger' $danger;
+$customColor15: 'warning' $warning;
+$customColor16: 'info' $info;
+$customColor17: 'gray' $gray;
 
-$customColors: $customColor1, $customColor2, $customColor3, $customColor4,
-    $customColor5, $customColor6, $customColor7, $customColor8, $customColor9,
-    $customColor10, $customColor11, $customColor12, $customColor13,
-    $customColor14, $customColor15, $customColor16, $customColor17;
+$customColors: $customColor1, $customColor2, $customColor3, $customColor4, $customColor5, $customColor6, $customColor7,
+    $customColor8, $customColor9, $customColor10, $customColor11, $customColor12, $customColor13, $customColor14,
+    $customColor15, $customColor16, $customColor17;
 // title, lightColor, darkColor //
 
 .color {
@@ -30,20 +29,20 @@ $customColors: $customColor1, $customColor2, $customColor3, $customColor4,
         $dV: $darkValue;
 
         $classNameStatus: if(
-            ($title == "1") or
-                ($title == "2") or
-                ($title == "3") or
-                ($title == "4") or
-                ($title == "5") or
-                ($title == "6") or
-                ($title == "7") or
-                ($title == "8") or
-                ($title == "9") or
-                ($title == "10"),
+            ($title == '1') or
+                ($title == '2') or
+                ($title == '3') or
+                ($title == '4') or
+                ($title == '5') or
+                ($title == '6') or
+                ($title == '7') or
+                ($title == '8') or
+                ($title == '9') or
+                ($title == '10'),
             true,
             false
         );
-        $className: if($classNameStatus == true, "-custom", null);
+        $className: if($classNameStatus == true, '-custom', null);
 
         &#{$className} {
             &-#{$title} {
@@ -112,18 +111,12 @@ $customColors: $customColor1, $customColor2, $customColor3, $customColor4,
                                 &.no-hover:hover,
                                 &.no-focus:focus {
                                     @if $lV {
-                                        background-color: rgba(
-                                            $lV,
-                                            $value
-                                        ) !important;
+                                        background-color: rgba($lV, $value) !important;
                                     }
 
                                     @if $dV {
                                         .dark & {
-                                            background-color: rgba(
-                                                $dV,
-                                                $value
-                                            ) !important;
+                                            background-color: rgba($dV, $value) !important;
                                         }
                                     }
                                 }

@@ -1,7 +1,7 @@
 // Dividers ------------------------------------------------------------
 
-$dividerDirections: "x" "width", "y" "height";
-$unit: "px";
+$dividerDirections: 'x' 'width', 'y' 'height';
+$unit: 'px';
 
 .divider- {
     @each $dir, $prop in $dividerDirections {

@@ -6,8 +6,7 @@ $switchColor3: 3 $color3 $color3Dark;
 $switchColor4: 4 $color4 $color4Dark;
 $switchColor5: 5 $color5 $color5Dark;
 $switchColor6: 6 $color6 $color6Dark;
-$switchColors: $switchColor1, $switchColor2, $switchColor3, $switchColor4,
-    $switchColor5, $switchColor6;
+$switchColors: $switchColor1, $switchColor2, $switchColor3, $switchColor4, $switchColor5, $switchColor6;
 // title, color, darkColor //
 
 $containerHeight: 26px;
@@ -44,9 +43,7 @@ $switchBtnActiveDark: #d3d3d3;
                 }
 
                 &::before {
-                    $inputTranslateValue: calc(
-                        ($containerWidth / 2) - ($containerPadding / 2)
-                    );
+                    $inputTranslateValue: calc(($containerWidth / 2) - ($containerPadding / 2));
 
                     background-color: $switchBtnActive;
                     @if $activeBgDark {
@@ -101,7 +98,7 @@ $switchBtnActiveDark: #d3d3d3;
         &::before {
             $spanTranslateValue: calc($containerPadding / 2);
 
-            content: "";
+            content: '';
             position: absolute;
             height: calc($containerHeight - $containerPadding);
             width: calc($containerHeight - $containerPadding);

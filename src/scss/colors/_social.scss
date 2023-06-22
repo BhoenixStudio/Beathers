@@ -1,29 +1,28 @@
 // Social Colors ------------------------------------------------------------
 
-$social1: "facebook" $faceBook;
-$social2: "facebook-messenger" $faceBookMessenger;
-$social3: "whatsapp" $whatsApp;
-$social4: "instagram" $instagram;
-$social5: "google" $google;
-$social6: "signal" $signal;
-$social7: "twitter" $twitter;
-$social8: "telegram" $telegram;
-$social9: "youtube" $youtube;
-$social10: "linkedin" $linkedIn;
-$social11: "behance" $beHance;
-$social12: "github" $gitHub;
-$social13: "gitlab" $gitLab;
-$social14: "wechat" $weChat;
-$social15: "tiktok" $tikTok;
-$social16: "snapchat" $snapChat;
-$social17: "pinterest" $pinterest;
-$social18: "reddit" $reddit;
-$social19: "msTeams" $msTeams;
-$social20: "twitch" $twitch;
-$social21: "dribbble" $dribbble;
-$socialMedia: $social1, $social2, $social3, $social4, $social5, $social6,
-    $social7, $social8, $social9, $social10, $social11, $social12, $social13,
-    $social14, $social15, $social16, $social17, $social18, $social19, $social20,
+$social1: 'facebook' $faceBook;
+$social2: 'facebook-messenger' $faceBookMessenger;
+$social3: 'whatsapp' $whatsApp;
+$social4: 'instagram' $instagram;
+$social5: 'google' $google;
+$social6: 'signal' $signal;
+$social7: 'twitter' $twitter;
+$social8: 'telegram' $telegram;
+$social9: 'youtube' $youtube;
+$social10: 'linkedin' $linkedIn;
+$social11: 'behance' $beHance;
+$social12: 'github' $gitHub;
+$social13: 'gitlab' $gitLab;
+$social14: 'wechat' $weChat;
+$social15: 'tiktok' $tikTok;
+$social16: 'snapchat' $snapChat;
+$social17: 'pinterest' $pinterest;
+$social18: 'reddit' $reddit;
+$social19: 'msTeams' $msTeams;
+$social20: 'twitch' $twitch;
+$social21: 'dribbble' $dribbble;
+$socialMedia: $social1, $social2, $social3, $social4, $social5, $social6, $social7, $social8, $social9, $social10,
+    $social11, $social12, $social13, $social14, $social15, $social16, $social17, $social18, $social19, $social20,
     $social21;
 // title, lightColor, darkColor //
 
@@ -98,18 +97,12 @@ $socialMedia: $social1, $social2, $social3, $social4, $social5, $social6,
                             &.no-hover:hover,
                             &.no-focus:focus {
                                 @if $lV {
-                                    background-color: rgba(
-                                        $lV,
-                                        $value
-                                    ) !important;
+                                    background-color: rgba($lV, $value) !important;
                                 }
 
                                 @if $dV {
                                     .dark & {
-                                        background-color: rgba(
-                                            $dV,
-                                            $value
-                                        ) !important;
+                                        background-color: rgba($dV, $value) !important;
                                     }
                                 }
                             }

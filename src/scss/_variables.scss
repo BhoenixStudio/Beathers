@@ -4,105 +4,99 @@
 // Color Settings ------------------------------------------------------------
 
 // Theme colors
-$color1: #1d3d70;
-$color1Dark: #29abe2;
-$color2: #bad0ec;
-$color2Dark: #6dcae9;
-$color3: null;
-$color3Dark: null;
-$color4: null;
-$color4Dark: null;
-$color5: null;
-$color5Dark: null;
-$color6: null;
-$color6Dark: null;
+$themeColors: (
+    'color1': #1d3d70,
+    'color2': #29abe2,
+    'color3': null,
+) !default;
+$themeDarkColors: (
+        'color1': #29abe2,
+        'color2': #6dcae9,
+    ) + $themeColors !default;
 
-// Basic layout colors
-$white: #fff;
-$black: #000;
+// Layout
+$layoutColors: (
+    'white': #fff,
+    'black': #000,
+    'mainBg': #fff,
+    'secondBg': #f8f8ff,
+    'thirdBg': #dadae7,
+    't1': #303030,
+    't2': #404040,
+    'd1': #606060,
+    'd2': #808080,
+    'd3': #909090,
+    'placeholder': #909090,
+    'border': #cbcbcb,
+) !default;
+$layoutDarkColors: (
+        'mainBg': #1a1d21,
+        'secondBg': #2e2e3f,
+        'thirdBg': #5c5c6b,
+        't1': #fafafa,
+        't2': #f5f5f5,
+        'd1': #d8d8d8,
+        'd2': #bdbdbd,
+        'd3': #9e9e9e,
+        'placeholder': #9e9e9e,
+        'border': #505050,
+    ) + $layoutColors !default;
 
-// Light layout colors
-$mainBg: #fff;
-$secondBg: #f8f8ff;
-$thirdBg: #dadae7;
-$t1: #303030;
-$t2: #404040;
-$d1: #606060;
-$d2: #808080;
-$d3: #909090;
-$placeholder: #909090;
-$border: #cbcbcb;
-$origin: #fff;
+// Custom
+$customsColors: (
+    'customColor1': #4289c7,
+    'customColor2': #39c2cb,
+    'customColor3': #36c07e,
+    'customColor4': #a84fd1,
+    'customColor5': #df4f60,
+    'customColor6': #dec338,
+    'customColor7': #ea6e2c,
+    'customColor8': #a66d38,
+    'customColor9': #eb30a0,
+    'customColor10': #1e24a5,
+    'faceBook': #3b5998,
+    'faceBookMessenger': #006aff,
+    'whatsApp': #25d366,
+    'instagram': #3f729b,
+    'google': #4285f4,
+    'signal': #2190e8,
+    'twitter': #00acee,
+    'telegram': #0088cc,
+    'youtube': #ff0000,
+    'linkedIn': #0077b5,
+    'beHance': #053eff,
+    'gitHub': #171515,
+    'gitLab': #fca326,
+    'weChat': #09b83e,
+    'tikTok': #ff0050,
+    'snapChat': #fffc00,
+    'pinterest': #e60023,
+    'reddit': #ff4500,
+    'msTeams': #464eb8,
+    'twitch': #6441a5,
+    'dribbble': #ea4c89,
+    'success': #22a31a,
+    'successDark': #8ae370,
+    'primary': #4d8ab6,
+    'primaryDark': #4d8ab6,
+    'danger': #ce2530,
+    'dangerDark': #ff1c00,
+    'warning': #ec9a3c,
+    'warningDark': #f5b963,
+    'info': #439297,
+    'infoDark': #439297,
+    'gray': #8c8c8c,
+    'grayDark': #aeaeae,
+    'stars': #fbba00,
+    'starsDark': #f2ca5a,
+) !default;
 
-// Dark layout colors
-$mainBgDark: #1a1d21;
-$secondBgDark: #2e2e3f;
-$thirdBgDark: #5c5c6b;
-$t1Dark: #fafafa;
-$t2Dark: #f5f5f5;
-$d1Dark: #d8d8d8;
-$d2Dark: #bdbdbd;
-$d3Dark: #9e9e9e;
-$placeholderDark: #9e9e9e;
-$borderDark: #505050;
-$originDark: #000;
-
-// Custom colors
-$customColor1: #4289c7;
-$customColor2: #39c2cb;
-$customColor3: #36c07e;
-$customColor4: #a84fd1;
-$customColor5: #df4f60;
-$customColor6: #dec338;
-$customColor7: #ea6e2c;
-$customColor8: #a66d38;
-$customColor9: #eb30a0;
-$customColor10: #1e24a5;
-
-// Social colors
-$faceBook: #3b5998;
-$faceBookMessenger: #006aff;
-$whatsApp: #25d366;
-$instagram: #3f729b;
-$google: #4285f4;
-$signal: #2190e8;
-$twitter: #00acee;
-$telegram: #0088cc;
-$youtube: #ff0000;
-$linkedIn: #0077b5;
-$beHance: #053eff;
-$gitHub: #171515;
-$gitLab: #fca326;
-$weChat: #09b83e;
-$tikTok: #ff0050;
-$snapChat: #fffc00;
-$pinterest: #e60023;
-$reddit: #ff4500;
-$msTeams: #464eb8;
-$twitch: #6441a5;
-$dribbble: #ea4c89;
-
-// Alerts colors
-$success: #22a31a;
-$successDark: #8ae370;
-$primary: #4d8ab6;
-$primaryDark: #4d8ab6;
-$danger: #ce2530;
-$dangerDark: #ff1c00;
-$warning: #ec9a3c;
-$warningDark: #f5b963;
-$info: #439297;
-$infoDark: #439297;
-$gray: #8c8c8c;
-$grayDark: #aeaeae;
-$stars: #fbba00;
-$starsDark: #f2ca5a;
-
+// Old platform
 // Font Settings ------------------------------------------------------------
 // For local fonts only
 
-$fontMainPath: "/fonts/";
-$fontFormat: "woff2";
+$fontMainPath: '/fonts/';
+$fontFormat: 'woff2';
 
 // English Font
 $enLight: en-alexandria-light;
@@ -110,7 +104,7 @@ $enRegular: en-alexandria-regular;
 $enMedium: en-alexandria-medium;
 $enBold: en-alexandria-bold;
 $ُenUniCode: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122,
-	U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 
 // Arabic Font
 $arLight: ar-alexandria-light;
@@ -136,7 +130,7 @@ $arUniCode2: null;
 // Barcode font
 $barcodeFont: barcode-font;
 $ُbarcodeFontUniCode: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
-	U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 
 // Opacities Settings ------------------------------------------------------------
 // Block Opacities

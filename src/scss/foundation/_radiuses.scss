@@ -1,19 +1,18 @@
 // Radiuses ------------------------------------------------------------
 
-$radiusDirection: null, "top", "bottom", "start", "end", "top-start", "top-end",
-    "bottom-end", "bottom-start";
+$radiusDirection: null, 'top', 'bottom', 'start', 'end', 'top-start', 'top-end', 'bottom-end', 'bottom-start';
 $radiusValues: 5, 10, 15, 25, 50;
-$unit: "px";
+$unit: 'px';
 
 @each $size in $mediaQueries {
     @include mQMin($size) {
-        $sizeDivider: if($size, "-", "");
+        $sizeDivider: if($size, '-', '');
 
         .radius {
             &#{$sizeDivider} {
                 &#{$size} {
                     @each $dir in $radiusDirection {
-                        $dirDivider: if($dir, "-", "");
+                        $dirDivider: if($dir, '-', '');
 
                         &#{$dirDivider} {
                             &#{$dir} {
@@ -25,66 +24,48 @@ $unit: "px";
                                         @if $dir == null {
                                             border-radius: #{$v}#{$u};
                                         }
-                                        @if $dir == "top" {
-                                            border-radius: #{$v}#{$u}
-                                                #{$v}#{$u}
-                                                0
-                                                0;
+                                        @if $dir == 'top' {
+                                            border-radius: #{$v}#{$u} #{$v}#{$u} 0 0;
                                         }
-                                        @if $dir == "bottom" {
-                                            border-radius: 0
-                                                0
-                                                #{$v}#{$u}
-                                                #{$v}#{$u};
+                                        @if $dir == 'bottom' {
+                                            border-radius: 0 0 #{$v}#{$u} #{$v}#{$u};
                                         }
-                                        @if $dir == "start" {
-                                            border-radius: #{$v}#{$u}
-                                                0
-                                                0
-                                                #{$v}#{$u};
+                                        @if $dir == 'start' {
+                                            border-radius: #{$v}#{$u} 0 0 #{$v}#{$u};
                                         }
-                                        @if $dir == "end" {
-                                            border-radius: 0
-                                                #{$v}#{$u}
-                                                #{$v}#{$u}
-                                                0;
+                                        @if $dir == 'end' {
+                                            border-radius: 0 #{$v}#{$u} #{$v}#{$u} 0;
                                         }
-                                        @if $dir == "top-start" {
+                                        @if $dir == 'top-start' {
                                             border-radius: #{$v}#{$u} 0 0 0;
                                         }
-                                        @if $dir == "top-end" {
+                                        @if $dir == 'top-end' {
                                             border-radius: 0 #{$v}#{$u} 0 0;
                                         }
-                                        @if $dir == "bottom-end" {
+                                        @if $dir == 'bottom-end' {
                                             border-radius: 0 0 #{$v}#{$u} 0;
                                         }
-                                        @if $dir == "bottom-start" {
+                                        @if $dir == 'bottom-start' {
                                             border-radius: 0 0 0 #{$v}#{$u};
                                         }
 
                                         .rtl & {
-                                            @if $dir == "start" {
-                                                border-radius: 0
-                                                    #{$v}#{$u}
-                                                    #{$v}#{$u}
-                                                    0;
+                                            @if $dir == 'start' {
+                                                border-radius: 0 #{$v}#{$u} #{$v}#{$u} 0;
                                             }
-                                            @if $dir == "end" {
-                                                border-radius: #{$v}#{$u}
-                                                    0
-                                                    0
-                                                    #{$v}#{$u};
+                                            @if $dir == 'end' {
+                                                border-radius: #{$v}#{$u} 0 0 #{$v}#{$u};
                                             }
-                                            @if $dir == "top-start" {
+                                            @if $dir == 'top-start' {
                                                 border-radius: 0 #{$v}#{$u} 0 0;
                                             }
-                                            @if $dir == "top-end" {
+                                            @if $dir == 'top-end' {
                                                 border-radius: #{$v}#{$u} 0 0 0;
                                             }
-                                            @if $dir == "bottom-end" {
+                                            @if $dir == 'bottom-end' {
                                                 border-radius: 0 0 0 #{$v}#{$u};
                                             }
-                                            @if $dir == "bottom-start" {
+                                            @if $dir == 'bottom-start' {
                                                 border-radius: 0 0 #{$v}#{$u} 0;
                                             }
                                         }

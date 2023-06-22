@@ -6,8 +6,7 @@ $themeColor3: 3 $color3 $color3Dark;
 $themeColor4: 4 $color4 $color4Dark;
 $themeColor5: 5 $color5 $color5Dark;
 $themeColor6: 6 $color6 $color6Dark;
-$themeColors: $themeColor1, $themeColor2, $themeColor3, $themeColor4,
-    $themeColor5, $themeColor6;
+$themeColors: $themeColor1, $themeColor2, $themeColor3, $themeColor4, $themeColor5, $themeColor6;
 // title, lightColor, darkColor //
 
 .color {
@@ -81,18 +80,12 @@ $themeColors: $themeColor1, $themeColor2, $themeColor3, $themeColor4,
                             &.no-hover:hover,
                             &.no-focus:focus {
                                 @if $lV {
-                                    background-color: rgba(
-                                        $lV,
-                                        $value
-                                    ) !important;
+                                    background-color: rgba($lV, $value) !important;
                                 }
 
                                 @if $dV {
                                     .dark & {
-                                        background-color: rgba(
-                                            $dV,
-                                            $value
-                                        ) !important;
+                                        background-color: rgba($dV, $value) !important;
                                     }
                                 }
                             }

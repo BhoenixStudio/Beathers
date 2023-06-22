@@ -1,49 +1,49 @@
 {
-  "name": "beather",
-  "version": "3.2.13",
-  "description": "Beather is a lightweight SCSS library that serves as a comprehensive design system for your projects. It offers a structured and consistent approach to manage colors, fonts, and other design related variables, making it easier to maintain a cohesive visual identity across your application.",
-  "main": "index.js",
-  "scripts": {
-    "build": "rimraf dist && sass --style compressed --source-map --embed-sources --no-error-css src/scss/:dist/css/",
-    "build-expanded": "rimraf dist && sass --style expanded --source-map --embed-sources --no-error-css src/scss/:dist/css/expanded/",
-    "clean-build": "rimraf dist",
-    "watch": "nodemon --watch src/scss/ --ext scss --exec \"npm-run-all build\"",
-    "format:check": "prettier --check --ignore-path .gitignore .",
-    "format:fix": "prettier --write --ignore-path .gitignore ."
-  },
-  "keywords": [
-    "Design-system",
-    "Bhoenix",
-    "Feather",
-    "Beather",
-    "SCSS",
-    "CSS",
-    "responsive",
-    "front-end",
-    "framework",
-    "web"
-  ],
-  "author": "Bhoenix studio",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/BhoenixStudio/Beather.git"
-  },
-  "bugs": {
-    "url": "https://github.com/BhoenixStudio/Beather/issues"
-  },
-  "homepage": "https://github.com/BhoenixStudio/Beather#readme",
-  "devDependencies": {
-    "autoprefixer": "^10.4.14",
-    "nodemon": "^2.0.22",
-    "npm-run-all": "^4.1.5",
-    "postcss": "^8.4.24",
-    "postcss-cli": "^10.1.0",
-    "rimraf": "^5.0.1",
-    "sass": "^1.63.6"
-  },
-  "files": [
-    "dist/{css}/*.{css,map}",
-    "src/scss/**/*.scss"
-  ]
+    "name": "beather",
+    "version": "3.2.13",
+    "description": "Beather is a lightweight SCSS library that serves as a comprehensive design system for your projects. It offers a structured and consistent approach to manage colors, fonts, and other design related variables, making it easier to maintain a cohesive visual identity across your application.",
+    "main": "index.js",
+    "scripts": {
+        "build": "rimraf dist && sass --style compressed --source-map --embed-sources --no-error-css src/scss/:dist/css/",
+        "build-expanded": "rimraf dist && sass --style expanded --source-map --embed-sources --no-error-css src/scss/:dist/css/expanded/",
+        "clean-build": "rimraf dist",
+        "watch": "nodemon --watch src/scss/ --ext scss --exec \"npm-run-all build\"",
+        "format:check": "prettier --check --ignore-path .gitignore .",
+        "format:fix": "prettier --write --ignore-path .gitignore ."
+    },
+    "keywords": [
+        "Design-system",
+        "Bhoenix",
+        "Feather",
+        "Beather",
+        "SCSS",
+        "CSS",
+        "responsive",
+        "front-end",
+        "framework",
+        "web"
+    ],
+    "author": "Bhoenix studio",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/BhoenixStudio/Beather.git"
+    },
+    "bugs": {
+        "url": "https://github.com/BhoenixStudio/Beather/issues"
+    },
+    "homepage": "https://github.com/BhoenixStudio/Beather#readme",
+    "devDependencies": {
+        "autoprefixer": "^10.4.14",
+        "nodemon": "^2.0.22",
+        "npm-run-all": "^4.1.5",
+        "postcss": "^8.4.24",
+        "postcss-cli": "^10.1.0",
+        "rimraf": "^5.0.1",
+        "sass": "^1.63.6"
+    },
+    "files": [
+        "dist/{css}/*.{css,map}",
+        "src/scss/**/*.scss"
+    ]
 }

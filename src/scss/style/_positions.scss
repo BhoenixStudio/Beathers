@@ -2,11 +2,11 @@
 
 // Main positions
 $positions: static, relative, fixed, absolute, sticky;
-$unit: "%";
+$unit: '%';
 
 @each $size in $mediaQueries {
     @include mQMin($size) {
-        $sizeDivider: if($size, "-", "");
+        $sizeDivider: if($size, '-', '');
 
         .position {
             &#{$sizeDivider} {
@@ -15,7 +15,7 @@ $unit: "%";
                         &-#{$name} {
                             position: $name;
 
-                            @if $name == "absolute" or $name == "fixed" {
+                            @if $name == 'absolute' or $name == 'fixed' {
                                 @for $i from 0 through 5 {
                                     &.inset {
                                         &#{$sizeDivider} {
@@ -34,10 +34,7 @@ $unit: "%";
                                             &-center {
                                                 top: 50%;
                                                 left: 50%;
-                                                transform: translate(
-                                                    -50%,
-                                                    -50%
-                                                );
+                                                transform: translate(-50%, -50%);
                                                 width: max-content;
                                             }
                                         }
