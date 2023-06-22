@@ -2,7 +2,7 @@
     <a href="https://beather.bhoenixstudio.com">
         <img src="./public/images/identity/logo.png" alt="Beather logo" width="700" height="312">
     </a>
-    <h1 align="center">Beather</h1>
+    <h1 align="center">Beather <small>v3.2.13</small></h1>
     <p align="center">The Perfect Fusion of Strength and Featherlight Agility</p>
     <br>
     <br>
@@ -19,7 +19,6 @@
 
 [![Version](https://img.shields.io/npm/v/beather.svg)](https://www.npmjs.com/package/beather)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://travis-ci.org/BhoenixStudio/beather.svg?branch=master)](https://travis-ci.org/BhoenixStudio/beather)
 
 ## Description
 
