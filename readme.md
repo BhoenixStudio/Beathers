@@ -1,4 +1,21 @@
-# Beather Library
+<div align="center">
+    <a href="https://beather.bhoenixstudio.com">
+        <img src="./public/images/identity/logo.png" alt="Beather logo" width="700" height="312">
+    </a>
+    <h1 align="center">Beather</h1>
+    <p align="center">The Perfect Fusion of Strength and Featherlight Agility</p>
+    <br>
+    <br>
+    <p align='center'>
+    <a href="https://beather.bhoenixstudio.com"><strong>Explore our documents</strong></a>
+    <br>
+    <a href="https://github.com/BhoenixStudio/Beather/issues/new?template=bug_report.md">Report bug</a>
+    ·
+    <a href="https://github.com/BhoenixStudio/Beather/issues/new?template=feature_request.md">Request feature</a>
+    </p>
+</div>
+
+# Beather
 
 [![Version](https://img.shields.io/npm/v/beather.svg)](https://www.npmjs.com/package/beather)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -21,16 +38,6 @@ Install the package using npm:
 ```shell
 npm install beather
 yarn add beather
-```
-
-## Usage
-
-To start using the Beather Library in your project, follow these steps:
-
-```
-1-
-2-
-3-
 ```
 
 Feel free to refer to the [documentation](https://beather.bhoenixstudio.com) for more usage examples and detailed explanations of all available features in the Beather Library.
