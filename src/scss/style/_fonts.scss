@@ -1,0 +1,115 @@
+/*!
+* Fonts ----- ----- ----- ----- 
+*/
+
+// Font families ----- -----
+// Calling the $fonts from the variables file
+@each $font, $fontData in $fonts {
+    // Retrieve values from $fontData
+    $title: map-get($fontData, 'title');
+    $unicodeRange: map-get($fontData, 'unicodeRange');
+    $styles: map-get($fontData, 'styles');
+
+    // Check if $title and $styles exist
+    @if $title and $styles {
+        // Generate @font-face declarations for each style
+        @each $style, $weight in $styles {
+            @font-face {
+                // Set font-family based on $font, $style and $weight
+                font-family: '#{$font}-#{$style}';
+                font-weight: $weight;
+                font-style: normal;
+                font-display: swap;
+                // Set source for the font file
+                src: local('#{$title}-#{$style}'),
+                    url(unquote('#{$fontMainPath}#{$title}-#{$style}.#{$fontFormat}')) format('#{$fontFormat}');
+                // Check if $unicodeRange exists and apply it
+                @if $unicodeRange {
+                    unicode-range: unquote($unicodeRange);
+                }
+            }
+        }
+    }
+}
+
+// Font sizes ----- -----
+@each $fontSize, $value in $fontSizes {
+    $multiSizes: multiSizes(); // Generate the map of sizes and dividers
+
+    // Generate a class selector for each font size
+    .#{$fontSize} {
+        @each $size, $divider in $multiSizes {
+            @include mQ(min, $size) {
+                // Generate a sub-selector based on the divider
+                &#{$divider} {
+                    // Generate a sub-selector based on the media query size
+                    &#{$size} {
+                        // Apply the font-size value
+                        font-size: $value;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Font styles ----- -----
+@each $type, $values in $fontStyles {
+    $multiSizes: multiSizes(); // Generate the map of sizes and dividers
+
+    @each $value in $values {
+        // Generate a class selector for each value
+        .#{$value} {
+            @each $size, $divider in $multiSizes {
+                @include mQ(min, $size) {
+                    // Generate a sub-selector based on the divider
+                    &#{$divider} {
+                        // Generate a sub-selector based on the media query size
+                        &#{$size} {
+                            @if $type == 'transform' {
+                                // Apply text-transform value
+                                text-transform: $value;
+                            } @else if $type == 'decoration' {
+                                // Apply text-decoration value
+                                text-decoration: $value;
+                            } @else if $type == 'styles' {
+                                // Apply font-style value
+                                font-style: $value;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Font Weights ----- -----
+@each $fontKey, $fontData in $fonts {
+    $multiSizes: multiSizes(); // Generate the map of sizes and dividers
+    $styles: map-get($fontData, 'styles');
+
+    @each $style, $weight in $styles {
+        @if $style {
+            // Generate a class selector for each style
+            .#{$fontKey}-#{$style} {
+                @each $size, $divider in $multiSizes {
+                    @include mQ(min, $size) {
+                        // Generate a sub-selector based on the divider
+                        &#{$divider} {
+                            // Generate a sub-selector based on the media query size
+                            &#{$size} {
+                                font-family: '#{$fontKey}-#{$style}', $defaultFontFamilies;
+                                font-weight: if($weight, $weight, 400);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*!
+----- ----- ----- ----- End of Fonts
+*/

@@ -1,137 +1,204 @@
 // Define the site colors here
-// Note: I you don't want define the variable, please put "null" instead of the value.
 
-// Color Settings ------------------------------------------------------------
-
-// Theme colors
+// Colors ----- ----- ----- -----
 $themeColors: (
-    'color1': #1d3d70,
-    'color2': #29abe2,
-    'color3': null,
+    'color-1': (
+        'light': #1d3d70,
+        'dark': #29abe2,
+    ),
+    'color-2': (
+        'light': #29abe2,
+        'dark': #6dcae9,
+    ),
+    'color-3': (
+        'light': null,
+        'dark': null,
+    ),
 ) !default;
-$themeDarkColors: (
-        'color1': #29abe2,
-        'color2': #6dcae9,
-    ) + $themeColors !default;
-
-// Layout
 $layoutColors: (
-    'white': #fff,
-    'black': #000,
-    'mainBg': #fff,
-    'secondBg': #f8f8ff,
-    'thirdBg': #dadae7,
-    't1': #303030,
-    't2': #404040,
-    'd1': #606060,
-    'd2': #808080,
-    'd3': #909090,
-    'placeholder': #909090,
-    'border': #cbcbcb,
+    'white': (
+        'light': #ffffff,
+        'dark': #ffffff,
+    ),
+    'black': (
+        'light': #000000,
+        'dark': #000000,
+    ),
+    'main': (
+        'light': #ffffff,
+        'dark': #1a1d21,
+    ),
+    'second': (
+        'light': #f8f8ff,
+        'dark': #2e2e3f,
+    ),
+    'third': (
+        'light': #dadae7,
+        'dark': #5c5c6b,
+    ),
+    't1': (
+        'light': #303030,
+        'dark': #fafafa,
+    ),
+    't2': (
+        'light': #404040,
+        'dark': #f5f5f5,
+    ),
+    'd1': (
+        'light': #606060,
+        'dark': #d8d8d8,
+    ),
+    'd2': (
+        'light': #808080,
+        'dark': #bdbdbd,
+    ),
+    'd3': (
+        'light': #909090,
+        'dark': #9e9e9e,
+    ),
+    'placeholder': (
+        'light': #909090,
+        'dark': #9e9e9e,
+    ),
+    'border': (
+        'light': #cbcbcb,
+        'dark': #505050,
+    ),
 ) !default;
-$layoutDarkColors: (
-        'mainBg': #1a1d21,
-        'secondBg': #2e2e3f,
-        'thirdBg': #5c5c6b,
-        't1': #fafafa,
-        't2': #f5f5f5,
-        'd1': #d8d8d8,
-        'd2': #bdbdbd,
-        'd3': #9e9e9e,
-        'placeholder': #9e9e9e,
-        'border': #505050,
-    ) + $layoutColors !default;
-
-// Custom
 $customsColors: (
-    'customColor1': #4289c7,
-    'customColor2': #39c2cb,
-    'customColor3': #36c07e,
-    'customColor4': #a84fd1,
-    'customColor5': #df4f60,
-    'customColor6': #dec338,
-    'customColor7': #ea6e2c,
-    'customColor8': #a66d38,
-    'customColor9': #eb30a0,
-    'customColor10': #1e24a5,
-    'faceBook': #3b5998,
-    'faceBookMessenger': #006aff,
-    'whatsApp': #25d366,
+    'custom-1': #4289c7,
+    'custom-2': #39c2cb,
+    'custom-3': #36c07e,
+    'custom-4': #a84fd1,
+    'custom-5': #df4f60,
+    'custom-6': #dec338,
+    'custom-7': #ea6e2c,
+    'custom-8': #a66d38,
+    'custom-9': #eb30a0,
+    'custom-10': #1e24a5,
+    'facebook': #3b5998,
+    'messenger': #006aff,
+    'whatsapp': #25d366,
     'instagram': #3f729b,
     'google': #4285f4,
     'signal': #2190e8,
     'twitter': #00acee,
     'telegram': #0088cc,
     'youtube': #ff0000,
-    'linkedIn': #0077b5,
-    'beHance': #053eff,
-    'gitHub': #171515,
-    'gitLab': #fca326,
-    'weChat': #09b83e,
-    'tikTok': #ff0050,
-    'snapChat': #fffc00,
+    'linkedin': #0077b5,
+    'behance': #053eff,
+    'github': #171515,
+    'gitlab': #fca326,
+    'wechat': #09b83e,
+    'tiktok': #ff0050,
+    'snapchat': #fffc00,
     'pinterest': #e60023,
     'reddit': #ff4500,
-    'msTeams': #464eb8,
+    'teams': #464eb8,
     'twitch': #6441a5,
     'dribbble': #ea4c89,
     'success': #22a31a,
-    'successDark': #8ae370,
     'primary': #4d8ab6,
-    'primaryDark': #4d8ab6,
     'danger': #ce2530,
-    'dangerDark': #ff1c00,
     'warning': #ec9a3c,
-    'warningDark': #f5b963,
     'info': #439297,
-    'infoDark': #439297,
     'gray': #8c8c8c,
-    'grayDark': #aeaeae,
     'stars': #fbba00,
-    'starsDark': #f2ca5a,
 ) !default;
 
-// Old platform
-// Font Settings ------------------------------------------------------------
-// For local fonts only
+// Fonts ----- ----- ----- -----
+$defaultFontFamilies: system-ui, -apple-system,  Roboto, Arial, sans-serif !default;
+$fontMainPath: '/fonts/' !default;
+$fontFormat: 'woff2' !default;
+$fonts: (
+    'en': (
+        'title': en-alexandria,
+        'unicodeRange':
+            'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD',
+        'styles': (
+            'light': 300,
+            'regular': 400,
+            'medium': 500,
+            'bold': 700,
+        ),
+    ),
+    'en2': (
+        'title': null,
+        'unicodeRange': null,
+        'styles': null,
+    ),
+    'ar': (
+        'title': ar-alexandria,
+        'unicodeRange': 'U+0600-06FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE80-FEFC',
+        'styles': (
+            'light': 300,
+            'regular': 400,
+            'medium': 500,
+            'bold': 700,
+            'black': 900,
+        ),
+    ),
+    'ar2': (
+        'title': null,
+        'unicodeRange': null,
+        'styles': null,
+    ),
+) !default;
+$fontSizes: (
+    'h1': 96px,
+    'h2': 60px,
+    'h3': 40px,
+    'h4': 34px,
+    'h5': 24px,
+    'h6': 20px,
+    'subtitle1': 16px,
+    'subtitle2': 14px,
+    'body1': 16px,
+    'body2': 14px,
+    'button': 14px,
+    'caption': 12px,
+    'overline': 10px,
+) !default;
+$fontStyles: (
+    'transform': (
+        uppercase,
+        lowercase,
+        capitalize,
+    ),
+    'decoration': (
+        underline,
+        line-through,
+    ),
+    'styles': (
+        wavy,
+        double,
+        dotted,
+        dashed,
+    ),
+) !default;
 
-$fontMainPath: '/fonts/';
-$fontFormat: 'woff2';
+// Settings ----- ----- ----- -----
+$mediaQueries: (null, sm, md, lg, xl, xxl) !default;
+$breakpoints: (
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px,
+) !default;
 
-// English Font
-$enLight: en-alexandria-light;
-$enRegular: en-alexandria-regular;
-$enMedium: en-alexandria-medium;
-$enBold: en-alexandria-bold;
-$ُenUniCode: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122,
-    U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-
-// Arabic Font
-$arLight: ar-alexandria-light;
-$arRegular: ar-alexandria-regular;
-$arMedium: ar-alexandria-medium;
-$arBold: ar-alexandria-bold;
-$arUniCode: U+0600-06FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE80-FEFC;
-
-// English Font 2
-$enLight2: null;
-$enRegular2: null;
-$enMedium2: null;
-$enBold2: null;
-$ُenUniCode2: null;
-
-// Arabic Font 2
-$arLight2: null;
-$arRegular2: null;
-$arMedium2: null;
-$arBold2: null;
-$arUniCode2: null;
-
-// Barcode font
-$barcodeFont: barcode-font;
-$ُbarcodeFontUniCode: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
-    U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-
-// Opacities Settings ------------------------------------------------------------
-// Block Opacities
-$opacities: 05 0.05, 10 0.1, 20 0.2, 25 0.25, 30 0.3, 40 0.4, 50 0.5, 60 0.6, 70 0.7, 75 0.75, 80 0.8, 90 0.9;
+// Opacities
+$opacities: (
+    '05:' 0.05,
+    '10:' 0.1,
+    '20:' 0.2,
+    '25:' 0.25,
+    '30:' 0.3,
+    '40:' 0.4,
+    '50:' 0.5,
+    '60:' 0.6,
+    '70:' 0.7,
+    '75:' 0.75,
+    '80:' 0.8,
+    '90:' 0.9
+) !default;

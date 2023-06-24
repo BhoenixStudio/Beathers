@@ -6,8 +6,8 @@
     "scripts": {
         "build": "rimraf dist && sass --style compressed --source-map --embed-sources --no-error-css src/scss/:dist/css/",
         "build-expanded": "rimraf dist && sass --style expanded --source-map --embed-sources --no-error-css src/scss/:dist/css/expanded/",
-        "clean-build": "rimraf dist",
         "watch": "nodemon --watch src/scss/ --ext scss --exec \"npm-run-all build\"",
+        "clean-build": "rimraf dist",
         "format:check": "prettier --check --ignore-path .gitignore .",
         "format:fix": "prettier --write --ignore-path .gitignore ."
     },
