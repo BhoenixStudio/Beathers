@@ -1,0 +1,40 @@
+// Extract color variants ----- ----- ----- -----
+@function extractColorVariants($collection, $color, $variant: null) {
+    // Retrieve the map for the specified color
+    $colorMap: map-get($collection, $color);
+
+    @if $variant == null {
+        // If no variant is specified, return the entire color map
+        @return $colorMap;
+    } @else {
+        @return map-get($colorMap, $variant); // Return the map for the specified variant
+    }
+}
+// How to call
+// ex: color: extractColorVariants($themeColors, 'color-1', 'default/lighter/darker')
+
+// Extract color variants ----- ----- ----- -----
+@mixin colorVariants($propertyMap, $collection, $light: 'default', $dark: 'lighter') {
+    @each $property, $value in $propertyMap {
+        // Extract the color value from the property map
+        $color: if(type-of($value) == list, nth($value, 1), $value);
+        // Extract the opacity value from the property map
+        $opacity: if(type-of($value) == list, nth($value, 2), 1);
+        // Extract the light color variant from the collection
+        $lightColor: extractColorVariants($collection, $color, $light);
+        // Extract the dark color variant from the collection
+        $darkColor: extractColorVariants($collection, $color, $dark);
+
+        // Apply the light color variant with the specified opacity
+        #{$property}: rgba($lightColor, $opacity);
+
+        @if $darkColor and $dark {
+            .dark & {
+                // Apply the dark color variant with the specified opacity when inside the `.dark` parent selector
+                #{$property}: rgba($darkColor, $opacity);
+            }
+        }
+    }
+}
+// How to call
+// ex: color: colorVariants('color-1' or ('color-1', 0.5), $themeColors)

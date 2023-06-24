@@ -1,0 +1,36 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    position: relative;
+    font-family: 'en1-regular', sans-serif;
+    overflow-x: hidden;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:focus,
+button:focus,
+.btn.focus,
+.btn:focus {
+    outline: unset !important;
+    box-shadow: unset !important;
+}
+
+ul {
+    margin: unset;
+    list-style: none;
+    padding: 0;
+
+    li {
+        margin-bottom: unset;
+    }
+}
+
+a {
+    text-decoration: unset;
+}

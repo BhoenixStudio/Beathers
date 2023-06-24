@@ -13,14 +13,15 @@
 
 // Settings ----- ----- ----- -----
 @import './variables';
-
-// Functions ----- ----- ----- -----
 @import './functions/mediaQueries';
+@import './functions/colors';
 
 // Configs ----- ----- ----- -----
+// @import './configs/resets';
+@import './configs/configs';
 
 // Style ----- ----- ----- -----
-@import './style/fonts';
+// @import './style/fonts';
 
 // @import './settings/configs';
 // @import './settings/resets';

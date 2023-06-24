@@ -3,16 +3,19 @@
 // Colors ----- ----- ----- -----
 $themeColors: (
     'color-1': (
-        'light': #1d3d70,
-        'dark': #29abe2,
+        'lighter': #75a1d4,
+        'default': #1d3d70,
+        'darker': #0e2250,
     ),
     'color-2': (
-        'light': #29abe2,
-        'dark': #6dcae9,
+        'lighter': #7de2f6,
+        'default': #29abe2,
+        'darker': #1465a2,
     ),
     'color-3': (
-        'light': null,
-        'dark': null,
+        'lighter': null,
+        'default': null,
+        'darker': null,
     ),
 ) !default;
 $layoutColors: (
@@ -107,7 +110,7 @@ $customsColors: (
 ) !default;
 
 // Fonts ----- ----- ----- -----
-$defaultFontFamilies: system-ui, -apple-system,  Roboto, Arial, sans-serif !default;
+$defaultFontFamilies: system-ui, -apple-system, Roboto, Arial, sans-serif !default;
 $fontMainPath: '/fonts/' !default;
 $fontFormat: 'woff2' !default;
 $fonts: (

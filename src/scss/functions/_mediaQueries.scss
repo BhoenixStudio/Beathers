@@ -14,6 +14,8 @@
         @content;
     }
 }
+// How to call
+// ex: color: mQ(min or max, xs/md/lg/xl/xxl)
 
 // Multi Queries Sizes ----- ----- ----- -----
 @function multiSizes() {
@@ -32,3 +34,6 @@
     }
     @return $map; // Return the generated map
 }
+// How to call
+// ex: $multiSizes: multiSizes();
+//     @each $size, $divider in $multiSizes { @include mQ(min, $size) { &#{$divider} { &#{$size} {your code}}}
