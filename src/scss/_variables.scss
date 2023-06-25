@@ -2,21 +2,21 @@
 
 // Colors ----- ----- ----- -----
 $themeColors: (
-    'color-1': (
+    '1': (
         'lighter': #75a1d4,
         'default': #1d3d70,
         'darker': #0e2250,
     ),
-    'color-2': (
-        'lighter': #7de2f6,
-        'default': #29abe2,
-        'darker': #1465a2,
-    ),
-    'color-3': (
-        'lighter': null,
-        'default': null,
-        'darker': null,
-    ),
+    // '2': (
+    //     'lighter': #7de2f6,
+    //     'default': #29abe2,
+    //     'darker': #1465a2,
+    // ),
+    // '3': (
+    //     'lighter': null,
+    //     'default': null,
+    //     'darker': null,
+    // ),
 ) !default;
 $layoutColors: (
     'white': (
@@ -107,6 +107,12 @@ $customsColors: (
     'info': #439297,
     'gray': #8c8c8c,
     'stars': #fbba00,
+) !default;
+
+$colorsPropertiesMap: (
+    null: color,
+    bg: background-color,
+    border: border-color,
 ) !default;
 
 // Fonts ----- ----- ----- -----

@@ -1,0 +1,13 @@
+/*!
+* Colors ----- ----- ----- ----- 
+*/
+// Colors ----- -----
+// Calling the colors from the variables file
+.color {
+    &- {
+        @include colorClassVariants($themeColors);
+    }
+}
+/*!
+----- ----- ----- ----- End of Colors
+*/
