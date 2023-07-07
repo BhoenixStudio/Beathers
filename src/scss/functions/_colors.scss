@@ -48,6 +48,7 @@
             @each $propertyClass, $propertyValue in $colorsPropertiesMap {
                 $divider: if($propertyClass, '-', '');
 
+                // Generate class selector for color variants based on property and title
                 &#{$propertyClass}#{$divider}#{$title} {
                     @include colorVariants(
                         (
@@ -58,6 +59,42 @@
                         $dark
                     );
 
+                    &.no-hover:hover,
+                    &.no-focus:focus {
+                        @include colorVariants(
+                            (
+                                $propertyValue: $title,
+                            ),
+                            $collection,
+                            $light,
+                            $dark
+                        );
+                    }
+
+                    // Generate color variants based on opacity if property is 'bg' or 'border'
+                    @if $propertyClass == bg or $propertyClass == border {
+                        @each $opacity in $opacities {
+                            &.#{$propertyClass} {
+                                &-op {
+                                    &#{$opacity} {
+                                        @include colorVariants(
+                                            (
+                                                $propertyValue: (
+                                                    $title,
+                                                    calc($opacity / 100),
+                                                ),
+                                            ),
+                                            $collection,
+                                            $light,
+                                            $dark
+                                        );
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // Generate additional variants based on $extractVariants flag
                     @if $extractVariants {
                         @each $variant, $variantValue in $variants {
                             $variantClass: if($propertyClass, #{$propertyClass}-#{$variant}, $variant);
@@ -65,6 +102,11 @@
                             @if $propertyValue {
                                 &.#{$variantClass} {
                                     #{$propertyValue}: $variantValue;
+
+                                    &.no-hover:hover,
+                                    &.no-focus:focus {
+                                        #{$propertyValue}: $variantValue;
+                                    }
                                 }
                             }
                         }
@@ -74,3 +116,23 @@
         }
     }
 }
+// How to call
+// ex: @include colorClassVariants(themeColors,default,lighter,true);
+
+// Extract custom color Classes ----- ----- ----- -----
+@mixin customColorClassVariants($collection) {
+    @each $title, $value in $collection {
+        @if $title and $value {
+            @each $propertyClass, $propertyValue in $colorsPropertiesMap {
+                $divider: if($propertyClass, '-', '');
+
+                // Generate class selector for color variants based on property and title
+                &#{$propertyClass}#{$divider}#{$title} {
+                    #{$propertyValue}: $value;
+                }
+            }
+        }
+    }
+}
+// How to call
+// ex: @include colorClassVariants(customsColors);

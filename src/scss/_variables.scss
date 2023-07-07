@@ -7,25 +7,23 @@ $themeColors: (
         'default': #1d3d70,
         'darker': #0e2250,
     ),
-    // '2': (
-    //     'lighter': #7de2f6,
-    //     'default': #29abe2,
-    //     'darker': #1465a2,
-    // ),
-    // '3': (
-    //     'lighter': null,
-    //     'default': null,
-    //     'darker': null,
-    // ),
+    '2': (
+        'lighter': #7de2f6,
+        'default': #29abe2,
+        'darker': #1465a2,
+    ),
+    '3': (
+        'lighter': null,
+        'default': null,
+        'darker': null,
+    ),
 ) !default;
 $layoutColors: (
     'white': (
         'light': #ffffff,
-        'dark': #ffffff,
     ),
     'black': (
         'light': #000000,
-        'dark': #000000,
     ),
     'main': (
         'light': #ffffff,
@@ -197,17 +195,4 @@ $breakpoints: (
 ) !default;
 
 // Opacities
-$opacities: (
-    '05:' 0.05,
-    '10:' 0.1,
-    '20:' 0.2,
-    '25:' 0.25,
-    '30:' 0.3,
-    '40:' 0.4,
-    '50:' 0.5,
-    '60:' 0.6,
-    '70:' 0.7,
-    '75:' 0.75,
-    '80:' 0.8,
-    '90:' 0.9
-) !default;
+$opacities: (5, 10, 20, 25, 30, 40, 50, 60, 70, 75, 80, 90) !default;
