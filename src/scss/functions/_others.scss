@@ -1,0 +1,17 @@
+@mixin tooltipDirection($dir, $collection) {
+    $direction: map-get($collection, $dir);
+
+    &:hover {
+        &::before {
+            @each $property, $value in map-get($direction, 'before') {
+                #{$property}: $value;
+            }
+        }
+
+        &::after {
+            @each $property, $value in map-get($direction, 'after') {
+                #{$property}: $value;
+            }
+        }
+    }
+}

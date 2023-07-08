@@ -15,6 +15,7 @@
 @import './variables';
 @import './functions/mediaQueries';
 @import './functions/colors';
+@import './functions/_others';
 
 // Configs ----- ----- ----- -----
 // @import './configs/resets';
@@ -23,6 +24,7 @@
 // Style ----- ----- ----- -----
 // @import './style/fonts';
 // @import './style/colors';
+@import './style/components';
 
 // old
 // @import './style/overflows';

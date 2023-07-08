@@ -1,0 +1,182 @@
+/*!
+* Components ----- ----- ----- ----- 
+*/
+
+// Alerts ----- -----
+// .alert- {
+//     @each $title, $color in $customsColors {
+//         @if $title and index(('success', 'primary', 'danger', 'warning', 'info'), $title) {
+//             display: flex;
+//             background-color: rgba($color, 0.2);
+//             color: $color;
+//             border: 1px dashed $color;
+//             padding: 0.75rem;
+//         }
+//     }
+// }
+
+// Tooltip ----- -----
+$tooltipDirections: (
+    'block-start': (
+        'before': (
+            'inset-inline': 0,
+            'inset-block-end': -0.25rem,
+        ),
+        'after': (
+            'inset-inline': 0,
+            'inset-block-end': calc(-100% - 1rem),
+        ),
+    ),
+    'block-end': (
+        'before': (
+            'inset-inline': 0,
+            'inset-block-start': -0.25rem,
+        ),
+        'after': (
+            'inset-inline': 0,
+            'inset-block-start': calc(-100% - 1rem),
+        ),
+    ),
+    'inline-start': (
+        'before': (
+            'inset-inline-start': -0.25rem,
+            'inset-block': 0,
+        ),
+        'after': (
+            'inset-inline-start': calc(-100% - 1rem),
+            'inset-block': 0,
+        ),
+    ),
+    'inline-end': (
+        'before': (
+            'inset-inline-end': -0.25rem,
+            'inset-block': 0,
+        ),
+        'after': (
+            'inset-inline-end': calc(-100% - 1rem),
+            'inset-block': 0,
+        ),
+    ),
+) !default;
+$tooltipSizes: (
+    'small': (
+        gap: 0.25rem,
+        font-size: 10px,
+        padding: 0.25rem,
+        border-radius: 0.25rem,
+        width: 80%,
+    ),
+    'medium': (
+        gap: 0.5rem,
+        font-size: 13px,
+        padding: 0.5rem,
+        border-radius: 0.5rem,
+        width: 100%,
+    ),
+    'big': (
+        gap: 0.75rem,
+        font-size: 16px,
+        padding: 0.75rem,
+        border-radius: 0.75rem,
+        width: 120%,
+    ),
+) !default;
+$tooltipDefaultSize: map-get($tooltipSizes, 'medium');
+
+[data-tooltip] {
+    position: relative;
+    cursor: help;
+    @include tooltipDirection('block-end', $tooltipDirections);
+
+    &::before,
+    &::after {
+        position: absolute;
+        inset: 0;
+        transition: all 0.3s bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    &::before {
+        content: '';
+        height: 0.75rem;
+        width: 0.75rem;
+        @include colorVariants(
+            (
+                background-color: 'second',
+            ),
+            $layoutColors,
+            'light',
+            'dark'
+        );
+        transform: translate(-50%) rotate(45deg);
+    }
+    &::after {
+        content: attr(data-tooltip);
+        display: flex;
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+        @include colorVariants(
+            (
+                color: 't1',
+                background-color: 'second',
+            ),
+            $layoutColors,
+            'light',
+            'dark'
+        );
+        overflow-x: hidden;
+        opacity: 0;
+        @each $property, $value in $tooltipDefaultSize {
+            #{$property}: $value;
+        }
+        pointer-events: none;
+        z-index: 1000;
+    }
+
+    &:hover {
+        &::after {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+
+    &.tooltip- {
+        @each $dir, $widget in $tooltipDirections {
+            &#{$dir} {
+                @include tooltipDirection($dir, $tooltipDirections);
+            }
+        }
+
+        @each $size, $values in $tooltipSizes {
+            @if $size != 'medium' {
+                &#{$size} {
+                    @each $property, $value in $values {
+                        #{$property}: $value;
+                    }
+                }
+            }
+        }
+    }
+
+    &.color-tooltip- {
+        @each $title, $variants in $themeColors {
+            @if $title {
+                @each $propertyClass, $propertyValue in $colorsPropertiesMap {
+                    $divider: if($propertyClass, '-', '');
+
+                    @if $propertyClass != border {
+                        &#{$propertyClass}#{$divider}#{$title} {
+                            @include colorVariants(
+                                (
+                                    $propertyValue: $title,
+                                ),
+                                $themeColors
+                            );
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*!
+----- ----- ----- ----- End of Components
+*/

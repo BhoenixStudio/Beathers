@@ -5,13 +5,13 @@
 // Colors ----- -----
 .color {
     &- {
-        // Generate theme colors
+        // Generate theme colors ----- -----
         @include colorClassVariants($themeColors);
 
-        // Generate Layout colors
+        // Generate Layout colors ----- -----
         @include colorClassVariants($layoutColors, 'light', 'dark', false);
 
-        // Generate custom colors
+        // Generate custom colors ----- -----
         @include customColorClassVariants($customsColors);
     }
 }
