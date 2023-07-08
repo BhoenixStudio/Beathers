@@ -27,13 +27,21 @@
 
         @if $lightColor {
             // Apply the light color variant with the specified opacity
-            #{$property}: rgba($lightColor, $opacity);
+            @if $opacity and $opacity != 1 {
+                #{$property}: rgba($lightColor, $opacity);
+            } @else {
+                #{$property}: $lightColor;
+            }
         }
 
         @if $darkColor and $dark {
             .dark & {
                 // Apply the dark color variant with the specified opacity when inside the `.dark` parent selector
-                #{$property}: rgba($darkColor, $opacity);
+                @if $opacity and $opacity != 1 {
+                    #{$property}: rgba($darkColor, $opacity);
+                } @else {
+                    #{$property}: $darkColor;
+                }
             }
         }
     }
@@ -59,8 +67,7 @@
                         $dark
                     );
 
-                    &.no-hover:hover,
-                    &.no-focus:focus {
+                    &-hover:hover {
                         @include colorVariants(
                             (
                                 $propertyValue: $title,
@@ -71,25 +78,34 @@
                         );
                     }
 
+                    @if index(('t1', 't2', 't3', 'd1', 'd2', 'd3'), $title) and $propertyClass == null {
+                        &-placeholder::placeholder {
+                            @include colorVariants(
+                                (
+                                    $propertyValue: $title,
+                                ),
+                                $collection,
+                                $light,
+                                $dark
+                            );
+                        }
+                    }
+
                     // Generate color variants based on opacity if property is 'bg' or 'border'
                     @if $propertyClass == bg or $propertyClass == border {
                         @each $opacity in $opacities {
-                            &.#{$propertyClass} {
-                                &-op {
-                                    &#{$opacity} {
-                                        @include colorVariants(
-                                            (
-                                                $propertyValue: (
-                                                    $title,
-                                                    calc($opacity / 100),
-                                                ),
-                                            ),
-                                            $collection,
-                                            $light,
-                                            $dark
-                                        );
-                                    }
-                                }
+                            &-#{$opacity} {
+                                @include colorVariants(
+                                    (
+                                        $propertyValue: (
+                                            $title,
+                                            calc($opacity / 100),
+                                        ),
+                                    ),
+                                    $collection,
+                                    $light,
+                                    $dark
+                                );
                             }
                         }
                     }
@@ -102,11 +118,6 @@
                             @if $propertyValue {
                                 &.#{$variantClass} {
                                     #{$propertyValue}: $variantValue;
-
-                                    &.no-hover:hover,
-                                    &.no-focus:focus {
-                                        #{$propertyValue}: $variantValue;
-                                    }
                                 }
                             }
                         }
