@@ -1,17 +1,21 @@
+// Tooltip direction properties ----- ----- ----- -----
 @mixin tooltipDirection($dir, $collection) {
+    // Retrieve the specific direction from the collection
     $direction: map-get($collection, $dir);
-
     &:hover {
         &::before {
             @each $property, $value in map-get($direction, 'before') {
+                // Apply the CSS property and value for the '::before' pseudo-element.
                 #{$property}: $value;
             }
         }
-
         &::after {
             @each $property, $value in map-get($direction, 'after') {
+                // Apply the CSS property and value for the '::before' pseudo-element.
                 #{$property}: $value;
             }
         }
     }
 }
+// How to call
+// ex: tooltipDirection('inline-start', $tooltipDirections)
