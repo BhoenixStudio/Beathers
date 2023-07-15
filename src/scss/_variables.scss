@@ -181,6 +181,7 @@ $fontStyles: (
 
 // Settings ----- ----- ----- -----
 $mediaQueries: (null, sm, md, lg, xl, xxl) !default;
+$columnsBased: 12 !default;
 $breakpoints: (
     sm: 576px,
     md: 768px,

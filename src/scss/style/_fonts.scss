@@ -1,6 +1,7 @@
 /*!
 * Fonts ----- ----- ----- ----- 
 */
+$multiSizes: multiSizes(); // Generate the map of sizes and dividers
 
 // Font families ----- -----
 // Calling the $fonts from the variables file
@@ -34,8 +35,6 @@
 
 // Font sizes ----- -----
 @each $fontSize, $value in $fontSizes {
-    $multiSizes: multiSizes(); // Generate the map of sizes and dividers
-
     // Generate a class selector for each font size
     .#{$fontSize} {
         @each $size, $divider in $multiSizes {
@@ -55,8 +54,6 @@
 
 // Font styles ----- -----
 @each $type, $values in $fontStyles {
-    $multiSizes: multiSizes(); // Generate the map of sizes and dividers
-
     @each $value in $values {
         // Generate a class selector for each value
         .#{$value} {
@@ -86,7 +83,6 @@
 
 // Font Weights ----- -----
 @each $fontKey, $fontData in $fonts {
-    $multiSizes: multiSizes(); // Generate the map of sizes and dividers
     $styles: map-get($fontData, 'styles');
 
     @each $style, $weight in $styles {

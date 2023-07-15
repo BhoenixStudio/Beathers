@@ -1,0 +1,133 @@
+/*!
+* Grid ----- ----- ----- ----- 
+*/
+$multiSizes: multiSizes(); // Generate the map of sizes and dividers
+
+// Wrappers ----- -----
+$flexProperties: (
+    flex-wrap: (
+        wrap,
+        nowrap,
+    ),
+    flex-direction: (
+        row,
+        row-reverse,
+        column,
+        column-reverse,
+    ),
+) !default;
+
+.grid {
+    display: grid;
+}
+
+.flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    @each $property, $values in $flexProperties {
+        @each $value in $values {
+            &.flex- {
+                @each $size, $divider in $multiSizes {
+                    @include mQ(min, $size) {
+                        // Generate a sub-selector based on the divider
+                        &#{$size} {
+                            &#{$divider} {
+                                &#{$value} {
+                                    #{$property}: $value;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Columns ----- -----
+.col {
+    @for $i from 0 through $columnsBased {
+        $basis: 0;
+        $grow: if($i == 0, 1, 0);
+        $width: if($i == 0, 100%, calc(100% / $i));
+        $classDivider: if($i == 0, '', '-');
+        $class: if($i == 0, '', $i);
+
+        @each $size, $divider in $multiSizes {
+            @include mQ(min, $size) {
+                // Generate a sub-selector based on the divider
+                &#{$divider} {
+                    &#{$size} {
+                        &#{$classDivider} {
+                            &#{$class} {
+                                flex: $basis $grow $width;
+                                width: 100%;
+                                max-width: $width;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Justify ----- -----
+$justify: (
+    justify: (
+        content: (
+            start: flex-start,
+            center: center,
+            end: flex-end,
+            between: space-between,
+            around: space-around,
+            evenly: space-evenly,
+        ),
+    ),
+    align: (
+        content: (
+            start: flex-start,
+            center: center,
+            end: flex-end,
+            around: space-around,
+            between: space-between,
+            stretch: stretch,
+        ),
+        items: (
+            start: flex-start,
+            center: center,
+            end: flex-end,
+            stretch: stretch,
+            baseline: baseline,
+        ),
+    ),
+) !default;
+
+@each $way, $selections in $justify {
+    .#{$way}- {
+        @each $selection, $properties in $selections {
+            &#{$selection}- {
+                @each $property, $value in $properties {
+                    @each $size, $divider in $multiSizes {
+                        @include mQ(min, $size) {
+                            // Generate a sub-selector based on the divider
+                            &#{$size} {
+                                &#{$divider} {
+                                    &#{$property} {
+                                        #{$way}-#{$selection}: $value;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*!
+----- ----- ----- ----- End of Grid
+*/
