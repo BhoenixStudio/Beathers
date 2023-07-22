@@ -44,6 +44,15 @@ $overflows: (
     }
 }
 
+// Opacities ----- -----
+.op {
+    @each $class, $value in $opacities {
+        &-#{$class} {
+            opacity: $value;
+        }
+    }
+}
+
 /*!
 ----- ----- ----- ----- End of Displays
 */
