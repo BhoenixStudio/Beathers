@@ -1,5 +1,5 @@
 {
-    "name": "beather",
+    "name": "beathers",
     "version": "3.2.13",
     "description": "Beather is a lightweight SCSS library that serves as a comprehensive design system for your projects. It offers a structured and consistent approach to manage colors, fonts, and other design related variables, making it easier to maintain a cohesive visual identity across your application.",
     "main": "index.js",
@@ -15,7 +15,7 @@
         "Design-system",
         "Bhoenix",
         "Feather",
-        "Beather",
+        "Beathers",
         "SCSS",
         "CSS",
         "responsive",
@@ -27,12 +27,12 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/BhoenixStudio/Beather.git"
+        "url": "git+https://github.com/BhoenixStudio/Beathers.git"
     },
     "bugs": {
-        "url": "https://github.com/BhoenixStudio/Beather/issues"
+        "url": "https://github.com/BhoenixStudio/Beathers/issues"
     },
-    "homepage": "https://github.com/BhoenixStudio/Beather#readme",
+    "homepage": "https://github.com/BhoenixStudio/Beathers#readme",
     "devDependencies": {
         "autoprefixer": "^10.4.14",
         "nodemon": "^2.0.22",
