@@ -19,3 +19,8 @@
 }
 // How to call
 // ex: tooltipDirection('inline-start', $tooltipDirections)
+
+// Shadow Value ----- ----- ----- -----
+@function shadowValue($value) {
+    @return if($value != 0, #{$value}#{'px'}, $value)
+}

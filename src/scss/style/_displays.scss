@@ -1,23 +1,19 @@
 /*!
 * Displays ----- ----- ----- ----- 
 */
+
 $multiSizes: multiSizes(); // Generate the map of sizes and dividers
 
-$displays: (
-    inline,
-    block,
-    inline-block,
-    inline-flex,
-    inline-grid,
-    table,
-    table-cell,
-    table-column,
-    table-row,
-    none,
-    initial,
-    inherit
+$displays: (inline, block, inline-block, flex, inline-flex, inline-grid, table, table-cell, none) !default;
+$overflowsDirections: (null, '-x', '-y') !default;
+$overflows: (
+    v: visible,
+    h: hidden,
+    a: auto,
+    s: scroll,
 ) !default;
 
+// Displays ----- -----
 .d- {
     @each $display in $displays {
         @each $size, $divider in $multiSizes {
@@ -34,6 +30,20 @@ $displays: (
         }
     }
 }
+
+// Overflows ----- -----
+.overflow {
+    @each $dir in $overflowsDirections {
+        &#{$dir} {
+            @each $class, $value in $overflows {
+                &-#{$class} {
+                    overflow#{$dir}: $value;
+                }
+            }
+        }
+    }
+}
+
 /*!
 ----- ----- ----- ----- End of Displays
 */
