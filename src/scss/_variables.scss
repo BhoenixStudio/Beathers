@@ -192,6 +192,7 @@ $breakpoints: (
 
 // Opacities ----- -----
 $opacities: (10, 20, 30, 40, 50, 60, 70, 80, 90) !default;
+$radiuses: (5, 10, 15) !default;
 
 // Shadows ----- -----
 $shadows: (
@@ -221,7 +222,7 @@ $shadows: (
         y: 4,
         blur: 10,
         spread: 0,
-        opacity: 0.30,
+        opacity: 0.3,
     ),
     'ambient': (
         x: 0,

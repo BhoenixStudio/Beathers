@@ -1,0 +1,97 @@
+/*!
+* Borders ----- ----- ----- ----- 
+*/
+$multiSizes: multiSizes(); // Generate the map of sizes and dividers
+
+$bordersDirections: (
+    null: border,
+    '-top': border-block-start,
+    '-bottom': border-block-end,
+    '-start': border-inline-start,
+    '-end': border-inline-end,
+) !default;
+$radiusDirection: (
+    null: (
+        border-radius,
+    ),
+    '-top': (
+        border-start-start-radius,
+        border-start-end-radius,
+    ),
+    '-bottom': (
+        border-end-start-radius,
+        border-end-end-radius,
+    ),
+    '-start': (
+        border-start-start-radius,
+        border-end-start-radius,
+    ),
+    '-end': (
+        border-start-end-radius,
+        border-end-end-radius,
+    ),
+    '-top-start': (
+        border-start-start-radius,
+    ),
+    '-top-end': (
+        border-start-end-radius,
+    ),
+    '-bottom-start': (
+        border-end-start-radius,
+    ),
+    '-bottom-end': (
+        border-end-end-radius,
+    ),
+) !default;
+
+// Borders ----- -----
+.border {
+    @each $dir, $property in $bordersDirections {
+        &#{$dir} {
+            @each $size, $divider in $multiSizes {
+                @include mQ(min, $size) {
+                    // Generate a sub-selector based on the divider
+                    &#{$divider} {
+                        &#{$size} {
+                            @for $i from 1 through 5 {
+                                $value: if($i == 1, '', -#{$i});
+
+                                &#{$value} {
+                                    #{$property}: $i#{'px'} solid;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Radiuses ----- -----
+.radius {
+    @each $size, $divider in $multiSizes {
+        @include mQ(min, $size) {
+            // Generate a sub-selector based on the divider
+            &#{$divider} {
+                &#{$size} {
+                    @each $dir, $properties in $radiusDirection {
+                        &#{$dir} {
+                            @each $value in $radiuses {
+                                &-#{$value} {
+                                    @each $property in $properties {
+                                        #{$property}: #{$value}#{'px'};
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*!
+----- ----- ----- ----- End of Borders
+*/
