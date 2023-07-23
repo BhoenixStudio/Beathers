@@ -1,0 +1,139 @@
+// Checkbox ----- -----
+$checkSize: var(--check-size, 16px);
+$checkRadiuses: (
+    'checkbox': calc($checkSize / 10),
+    'radio': 50%,
+) !default;
+
+.check {
+    input {
+        appearance: none;
+        outline-width: calc($checkSize / 6);
+        outline-style: solid;
+        @include colorVariants(
+            (
+                outline-color: (
+                    '1',
+                    0.7,
+                ),
+            ),
+            $themeColors
+        );
+        outline-offset: calc($checkSize / 4);
+        width: $checkSize;
+        height: $checkSize;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 350ms ease;
+
+        @each $type, $radius in $checkRadiuses {
+            &[type='#{$type}'] {
+                border-radius: $radius;
+            }
+        }
+
+        &:checked {
+            background-color: currentColor;
+        }
+
+        &:focus {
+            outline-width: calc($checkSize / 6);
+            outline-style: solid;
+            @include colorVariants(
+                (
+                    outline-color: (
+                        '1',
+                        0.7,
+                    ),
+                ),
+                $themeColors
+            );
+        }
+    }
+
+    &.icon {
+        input {
+            &:checked {
+                background-color: unset;
+
+                &:before {
+                    content: '\2713';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-40%, -60%);
+                    font-size: calc($checkSize + 4px);
+                    font-weight: 600;
+                    color: currentColor;
+                }
+            }
+        }
+    }
+}
+
+// Switch ----- -----
+$switchSize: var(--switch-size, 25px);
+$switchPadding: var(--switch-padding, 4px);
+$black: extractColorVariants($layoutColors, 'black', 'light');
+
+.switch {
+    position: relative;
+    display: inline-flex;
+    height: $switchSize;
+    width: calc($switchSize * 2);
+    aspect-ratio: 1/2;
+    border-radius: calc($switchSize / 2);
+    @include colorVariants(
+        (
+            background-color: 'third',
+        ),
+        $layoutColors,
+        'light',
+        'dark'
+    );
+    transition: all 0.4s ease-in-out;
+    box-shadow: 0 0 4px rgba($black, 0.15);
+    cursor: pointer;
+
+    span {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translate($switchPadding, -50%);
+        width: calc($switchSize - $switchPadding);
+        height: calc($switchSize - $switchPadding);
+        aspect-ratio: 1;
+        @include colorVariants(
+            (
+                background-color: 'main',
+            ),
+            $layoutColors,
+            'light',
+            'dark'
+        );
+        transition: all 0.4s ease-in-out;
+
+        .rtl & {
+            left: unset;
+            right: 0;
+            transform: translate(calc(-1 * $switchPadding), -50%);
+        }
+    }
+
+    input {
+        display: none;
+
+        &:checked {
+            & + span {
+                $translateValue: calc((($switchSize * 2) / 2) - ($switchPadding / 2));
+
+                background-color: currentColor;
+                transform: translate($translateValue, -50%);
+
+                .rtl & {
+                    transform: translate(calc(-1 * $translateValue), -50%);
+                }
+            }
+        }
+    }
+}
