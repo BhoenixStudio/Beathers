@@ -189,12 +189,68 @@ $breakpoints: (
     xl: 1200px,
     xxl: 1400px,
 ) !default;
+$containers: (
+    null: (
+        null: 100%,
+        sm: 540px,
+        md: 720px,
+        lg: 960px,
+        xl: 1140px,
+        xxl: 1320px,
+    ),
+    sm: (
+        null: 100%,
+        sm: 540px,
+        md: 720px,
+        lg: 960px,
+        xl: 1140px,
+        xxl: 1320px,
+    ),
+    md: (
+        null: 100%,
+        sm: 100%,
+        md: 720px,
+        lg: 960px,
+        xl: 1140px,
+        xxl: 1320px,
+    ),
+    lg: (
+        null: 100%,
+        sm: 100%,
+        md: 100%,
+        lg: 960px,
+        xl: 1140px,
+        xxl: 1320px,
+    ),
+    xl: (
+        null: 100%,
+        sm: 100%,
+        md: 100%,
+        lg: 100%,
+        xl: 1140px,
+        xxl: 1320px,
+    ),
+    xxl: (
+        null: 100%,
+        sm: 100%,
+        md: 100%,
+        lg: 100%,
+        xl: 100%,
+        xxl: 1320px,
+    ),
+    'fluid': (
+        null: 100%,
+        sm: 100%,
+        md: 100%,
+        lg: 100%,
+        xl: 100%,
+        xxl: 100%,
+    ),
+) !default;
 
-// Opacities ----- -----
+// Others Configs ----- -----
 $opacities: (10, 20, 30, 40, 50, 60, 70, 80, 90) !default;
 $radiuses: (5, 10, 15) !default;
-
-// Shadows ----- -----
 $shadows: (
     'light': (
         x: 0,

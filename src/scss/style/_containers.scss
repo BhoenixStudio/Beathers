@@ -1,0 +1,28 @@
+/*!
+* Containers ----- ----- ----- ----- 
+*/
+$multiSizes: multiSizes(); // Generate the map of sizes and dividers
+
+.container {
+    @each $containerSize, $maxWidths in $containers {
+        $divider: if($containerSize, '-', '');
+
+        &#{$divider} {
+            &#{$containerSize} {
+                width: 100%;
+                padding-inline: 0.75rem;
+                margin-inline: auto;
+
+                @each $key, $maxWidth in $maxWidths {
+                    @include mQ(min, $key) {
+                        max-width: $maxWidth;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*!
+----- ----- ----- ----- End of Containers
+*/
