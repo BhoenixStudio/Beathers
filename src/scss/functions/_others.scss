@@ -22,5 +22,5 @@
 
 // Shadow Value ----- ----- ----- -----
 @function shadowValue($value) {
-    @return if($value != 0, #{$value}#{'px'}, $value)
+    @return if($value != 0, #{$value}#{'px'}, $value);
 }
