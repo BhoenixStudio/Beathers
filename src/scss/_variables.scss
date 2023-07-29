@@ -114,36 +114,39 @@ $fontMainPath: '/fonts/' !default;
 $fontFormat: 'woff2' !default;
 $fonts: (
     'en': (
-        'title': en-alexandria,
-        'unicodeRange':
-            'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD',
-        'styles': (
-            'light': 300,
-            'regular': 400,
-            'medium': 500,
-            'bold': 700,
+        1: (
+            'title': en-alexandria,
+            'unicode':
+                'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD',
+            'styles': (
+                'light': 300,
+                'regular': 400,
+                'medium': 500,
+                'bold': 700,
+            ),
         ),
-    ),
-    'en2': (
-        'title': null,
-        'unicodeRange': null,
-        'styles': null,
+        2: (
+            'title': null,
+            'unicode': null,
+            'styles': null,
+        ),
     ),
     'ar': (
-        'title': ar-alexandria,
-        'unicodeRange': 'U+0600-06FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE80-FEFC',
-        'styles': (
-            'light': 300,
-            'regular': 400,
-            'medium': 500,
-            'bold': 700,
-            'black': 900,
+        1: (
+            'title': ar-alexandria,
+            'unicode': 'U+0600-06FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE80-FEFC',
+            'styles': (
+                'light': 300,
+                'regular': 400,
+                'medium': 500,
+                'bold': 700,
+            ),
         ),
-    ),
-    'ar2': (
-        'title': null,
-        'unicodeRange': null,
-        'styles': null,
+        2: (
+            'title': null,
+            'unicode': null,
+            'styles': null,
+        ),
     ),
 ) !default;
 $fontSizes: (
@@ -190,62 +193,12 @@ $breakpoints: (
     xxl: 1400px,
 ) !default;
 $containers: (
-    null: (
-        null: 100%,
-        sm: 540px,
-        md: 720px,
-        lg: 960px,
-        xl: 1140px,
-        xxl: 1320px,
-    ),
-    sm: (
-        null: 100%,
-        sm: 540px,
-        md: 720px,
-        lg: 960px,
-        xl: 1140px,
-        xxl: 1320px,
-    ),
-    md: (
-        null: 100%,
-        sm: 100%,
-        md: 720px,
-        lg: 960px,
-        xl: 1140px,
-        xxl: 1320px,
-    ),
-    lg: (
-        null: 100%,
-        sm: 100%,
-        md: 100%,
-        lg: 960px,
-        xl: 1140px,
-        xxl: 1320px,
-    ),
-    xl: (
-        null: 100%,
-        sm: 100%,
-        md: 100%,
-        lg: 100%,
-        xl: 1140px,
-        xxl: 1320px,
-    ),
-    xxl: (
-        null: 100%,
-        sm: 100%,
-        md: 100%,
-        lg: 100%,
-        xl: 100%,
-        xxl: 1320px,
-    ),
-    'fluid': (
-        null: 100%,
-        sm: 100%,
-        md: 100%,
-        lg: 100%,
-        xl: 100%,
-        xxl: 100%,
-    ),
+    null: 100%,
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1140px,
+    xxl: 1320px,
 ) !default;
 
 // Others Configs ----- -----

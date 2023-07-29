@@ -2,20 +2,28 @@
 * Containers ----- ----- ----- ----- 
 */
 $multiSizes: multiSizes(); // Generate the map of sizes and dividers
+$containersSizes: (
+    null: containerSize(),
+    sm: containerSize('sm'),
+    md: containerSize('md'),
+    lg: containerSize('lg'),
+    xl: containerSize('xl'),
+    xxl: containerSize('xxl'),
+) !default;
 
 .container {
-    @each $containerSize, $maxWidths in $containers {
+    @each $containerSize, $maxWidths in $containersSizes {
         $divider: if($containerSize, '-', '');
 
         &#{$divider} {
             &#{$containerSize} {
+                display: flex;
+                flex-direction: column;
                 width: 100%;
-                padding-inline: 0.75rem;
-                margin-inline: auto;
 
                 @each $key, $maxWidth in $maxWidths {
                     @include mQ(min, $key) {
-                        max-width: $maxWidth;
+                        padding-inline: containerPadding($key, $maxWidth);
                     }
                 }
             }
