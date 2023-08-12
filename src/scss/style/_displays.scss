@@ -5,7 +5,7 @@
 $multiSizes: multiSizes(); // Generate the map of sizes and dividers
 
 $displays: (inline, block, inline-block, flex, inline-flex, inline-grid, table, table-cell, none) !default;
-$overflowsDirections: (null, '-x', '-y') !default;
+$overflowsDirections: (null, 'x', 'y') !default;
 $overflows: (
     v: visible,
     h: hidden,
@@ -14,17 +14,14 @@ $overflows: (
 ) !default;
 
 // Displays ----- -----
-.d- {
-    @each $display in $displays {
-        @each $size, $divider in $multiSizes {
+@each $display in $displays {
+    @each $size, $divider in $multiSizes {
+        $mainClass: if($size, '#{$size}#{$divider}d-', 'd-');
+
+        .#{$mainClass} {
             @include mQ(min, $size) {
-                // Generate a sub-selector based on the divider
-                &#{$size} {
-                    &#{$divider} {
-                        &#{$display} {
-                            display: $display;
-                        }
-                    }
+                &#{$display} {
+                    display: $display;
                 }
             }
         }
@@ -32,24 +29,23 @@ $overflows: (
 }
 
 // Overflows ----- -----
-.overflow {
-    @each $dir in $overflowsDirections {
-        &#{$dir} {
-            @each $class, $value in $overflows {
-                &-#{$class} {
-                    overflow#{$dir}: $value;
-                }
+@each $dir in $overflowsDirections {
+    $mainClass: if($dir, '#{$dir}#{\:}overflow', 'overflow');
+    $property: if($dir, 'overflow-#{$dir}', 'overflow');
+
+    .#{$mainClass} {
+        @each $class, $value in $overflows {
+            &-#{$class} {
+                #{$property}: $value;
             }
         }
     }
 }
 
 // Opacities ----- -----
-.op {
-    @each $value in $opacities {
-        &-#{$value} {
-            opacity: calc($value / 100);
-        }
+@each $value in $opacities {
+    .op#{\:}#{$value} {
+        opacity: calc($value / 100);
     }
 }
 

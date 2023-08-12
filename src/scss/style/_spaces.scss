@@ -3,10 +3,13 @@
 */
 $multiSizes: multiSizes(); // Generate the map of sizes and dividers
 
-$spacesProperties: (null, min, max) !default;
 $spacesDirections: (
-    'w': 5,
-    'h': 25,
+    'w': width 5,
+    'min-w': min-width 25,
+    'max-w': max-width 25,
+    'h': height 25,
+    'min-h': min-height 25,
+    'max-h': max-height 25,
 ) !default;
 
 $guttersClasses: (
@@ -44,28 +47,20 @@ $guttersValues: (
 ) !default;
 
 // Spaces ----- -----
-@each $property in $spacesProperties {
-    @each $dir, $step in $spacesDirections {
-        $propertyDivider: if($property, \:, '');
-        $propertySelector: if($property, #{$property}#{$propertyDivider}#{$dir}, #{$dir});
-        $direction: if($dir == 'w', width, height);
+@each $dir, $properties in $spacesDirections {
+    $direction: nth($properties, 1);
+    $step: nth($properties, 2);
 
-        .#{$propertySelector} {
-            @each $size, $divider in $multiSizes {
-                @include mQ(min, $size) {
-                    &#{$divider} {
-                        &#{$size} {
-                            &- {
-                                @for $i from 0 through 100 {
-                                    $value: $i * $step;
+    @each $size, $divider in $multiSizes {
+        $mainClass: if($size, #{$size}#{$divider}#{$dir}, $dir);
+        @include mQ(min, $size) {
+            .#{$mainClass} {
+                @for $i from 0 through 100 {
+                    $value: $i * $step;
 
-                                    @if ($value % $step == 0) and ($value <= 100) {
-                                        &#{$value} {
-                                            #{$direction}: #{$value}#{'%'};
-                                        }
-                                    }
-                                }
-                            }
+                    @if ($value != 0) and ($value % $step == 0) and ($value <= 100) {
+                        &-#{$value} {
+                            #{$direction}: #{$value}#{'%'};
                         }
                     }
                 }
@@ -76,20 +71,17 @@ $guttersValues: (
 
 // Gutters ----- -----
 @each $class, $properties in $guttersClasses {
-    .#{$class} {
-        @each $classProperty, $propertyDir in $properties {
-            &#{$classProperty} {
-                &- {
-                    @each $size, $divider in $multiSizes {
+    @each $size, $divider in $multiSizes {
+        $mainClass: if($size, #{$size}#{$divider}#{$class}, $class);
+
+        .#{$mainClass} {
+            @each $classProperty, $propertyDir in $properties {
+                &#{$classProperty} {
+                    &- {
                         @include mQ(min, $size) {
-                            // Generate a sub-selector based on the divider
-                            &#{$size} {
-                                &#{$divider} {
-                                    @each $valueClass, $value in $guttersValues {
-                                        &#{$valueClass} {
-                                            #{$propertyDir}: $value;
-                                        }
-                                    }
+                            @each $valueClass, $value in $guttersValues {
+                                &#{$valueClass} {
+                                    #{$propertyDir}: $value;
                                 }
                             }
                         }

@@ -81,19 +81,13 @@ $processedStyles: ();
 
             @if $style and not index($processedStyles, $styleClass) {
                 $processedStyles: append($processedStyles, $styleClass);
+                @each $size, $divider in $multiSizes {
+                    $mainClass: if($size, #{$size}#{$divider}#{$styleClass}, $styleClass);
 
-                .#{$styleClass} {
-                    // Generate a class selector for each style
-                    @each $size, $divider in $multiSizes {
+                    .#{$mainClass} {
                         @include mQ(min, $size) {
-                            // Generate a sub-selector based on the divider
-                            &#{$divider} {
-                                // Generate a sub-selector based on the media query size
-                                &#{$size} {
-                                    font-family: '#{$styleClass}', $defaultFontFamilies;
-                                    font-weight: if($weight, $weight, 400);
-                                }
-                            }
+                            font-family: '#{$styleClass}', $defaultFontFamilies;
+                            font-weight: if($weight, $weight, 400);
                         }
                     }
                 }

@@ -21,14 +21,12 @@
 @function multiSizes() {
     $map: (); // Initialize an empty map
     @each $size in $mediaQueries {
-        $divider: if($size, '-', ''); // Calculate the divider based on the size
+        $divider: if($size, \:, ''); // Calculate the divider based on the size
         // Merge the current map with the new key-value pair
         $map: map-merge(
             $map,
             (
-                // Add the size and divider as a key-value pair to the map
-                $size:
-                    $divider
+                $size: $divider,
             )
         );
     }

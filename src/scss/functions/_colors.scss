@@ -17,11 +17,9 @@
 
 // Extract color variants ----- ----- ----- -----
 @function extractColorVariants($collection, $color, $variant: null) {
-    // Retrieve the map for the specified color
     $colorMap: map-get($collection, $color);
 
     @if $variant == null {
-        // If no variant is specified, return the entire color map
         @return $colorMap;
     } @else {
         @return map-get($colorMap, $variant); // Return the map for the specified variant
@@ -33,17 +31,12 @@
 // Extract color variants ----- ----- ----- -----
 @mixin colorVariants($propertyMap, $collection, $light: 'default', $dark: 'lighter') {
     @each $property, $value in $propertyMap {
-        // Extract the color value from the property map
         $color: if(type-of($value) == list, nth($value, 1), $value);
-        // Extract the opacity value from the property map
         $opacity: if(type-of($value) == list, nth($value, 2), 1);
-        // Extract the light color variant from the collection
         $lightColor: extractColorVariants($collection, $color, $light);
-        // Extract the dark color variant from the collection
         $darkColor: extractColorVariants($collection, $color, $dark);
 
         @if $lightColor {
-            // Apply the light color variant with the specified opacity
             @if $opacity and $opacity != 1 {
                 #{$property}: rgba($lightColor, $opacity);
             } @else {
@@ -53,7 +46,6 @@
 
         @if $darkColor and $dark {
             .dark & {
-                // Apply the dark color variant with the specified opacity when inside the `.dark` parent selector
                 @if $opacity and $opacity != 1 {
                     #{$property}: rgba($darkColor, $opacity);
                 } @else {
@@ -71,10 +63,9 @@
     @each $title, $variants in $collection {
         @if $title {
             @each $propertyClass, $propertyValue in $colorsPropertiesMap {
-                $divider: if($propertyClass, '-', '');
+                $mainClass: if($propertyClass, '#{$propertyClass}#{\:}color-#{$title}', 'color-#{$title}');
 
-                // Generate class selector for color variants based on property and title
-                &#{$propertyClass}#{$divider}#{$title} {
+                .#{$mainClass} {
                     @include colorVariants(
                         (
                             $propertyValue: $title,
@@ -84,19 +75,41 @@
                         $dark
                     );
 
-                    &-hover:hover {
-                        @include colorVariants(
-                            (
-                                $propertyValue: $title,
-                            ),
-                            $collection,
-                            $light,
-                            $dark
-                        );
+                    &#{\:hover} {
+                        &:hover {
+                            @include colorVariants(
+                                (
+                                    $propertyValue: $title,
+                                ),
+                                $collection,
+                                $light,
+                                $dark
+                            );
+                        }
+
+                        @if $propertyClass == bg or $propertyClass == border {
+                            @each $opacity in $opacities {
+                                &#{\:}#{$opacity} {
+                                    &:hover {
+                                        @include colorVariants(
+                                            (
+                                                $propertyValue: (
+                                                    $title,
+                                                    calc($opacity / 100),
+                                                ),
+                                            ),
+                                            $collection,
+                                            $light,
+                                            $dark
+                                        );
+                                    }
+                                }
+                            }
+                        }
                     }
 
-                    @if index(('t1', 't2', 't3', 'd1', 'd2', 'd3'), $title) and $propertyClass == null {
-                        &-placeholder::placeholder {
+                    @if $propertyClass == null {
+                        &#{\:placeholder}::placeholder {
                             @include colorVariants(
                                 (
                                     $propertyValue: $title,
@@ -108,10 +121,9 @@
                         }
                     }
 
-                    // Generate color variants based on opacity if property is 'bg' or 'border'
                     @if $propertyClass == bg or $propertyClass == border {
                         @each $opacity in $opacities {
-                            &-#{$opacity} {
+                            &#{\:}#{$opacity} {
                                 @include colorVariants(
                                     (
                                         $propertyValue: (
@@ -127,18 +139,21 @@
                         }
                     }
 
-                    // Generate additional variants based on $extractVariants flag
-                    @if $extractVariants {
-                        @each $variant, $variantValue in $variants {
-                            $variantClass: if($propertyClass, #{$propertyClass}-#{$variant}, $variant);
+                    // @if $extractVariants {
+                    //     @each $variant, $variantValue in $variants {
+                    //         $variantClass: if(
+                    //             $propertyClass,
+                    //             #{$propertyClass}#{\:}#{$variant},
+                    //             'color#{\:}#{$variant}'
+                    //         );
 
-                            @if $propertyValue {
-                                &.#{$variantClass} {
-                                    #{$propertyValue}: $variantValue;
-                                }
-                            }
-                        }
-                    }
+                    //         @if $propertyValue {
+                    //             &.#{$variantClass} {
+                    //                 #{$propertyValue}: $variantValue;
+                    //             }
+                    //         }
+                    //     }
+                    // }
                 }
             }
         }

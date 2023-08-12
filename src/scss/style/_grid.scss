@@ -5,16 +5,8 @@ $multiSizes: multiSizes(); // Generate the map of sizes and dividers
 
 // Wrappers ----- -----
 $flexProperties: (
-    flex-wrap: (
-        wrap,
-        nowrap,
-    ),
-    flex-direction: (
-        row,
-        row-reverse,
-        column,
-        column-reverse,
-    ),
+    flex-wrap: wrap nowrap,
+    flex-direction: row row-reverse column column-reverse,
 ) !default;
 
 .grid {
@@ -28,17 +20,12 @@ $flexProperties: (
 
     @each $property, $values in $flexProperties {
         @each $value in $values {
-            &.flex- {
-                @each $size, $divider in $multiSizes {
-                    @include mQ(min, $size) {
-                        // Generate a sub-selector based on the divider
-                        &#{$size} {
-                            &#{$divider} {
-                                &#{$value} {
-                                    #{$property}: $value;
-                                }
-                            }
-                        }
+            @each $size, $divider in $multiSizes {
+                $mainClass: if($size, #{$size}#{$divider}#{$value}, $value);
+
+                @include mQ(min, $size) {
+                    &.#{$mainClass} {
+                        #{$property}: $value;
                     }
                 }
             }
@@ -47,26 +34,23 @@ $flexProperties: (
 }
 
 // Columns ----- -----
-.col {
-    @for $i from 0 through $columnsBased {
-        $basis: 0;
-        $grow: if($i == 0, 1, 0);
-        $width: if($i == 0, 100%, calc(100% / $i));
-        $classDivider: if($i == 0, '', '-');
-        $class: if($i == 0, '', $i);
+@for $i from 0 through $columnsBased {
+    $basis: 0;
+    $grow: if($i == 0, 1, 0);
+    $width: if($i == 0, 100%, calc(100% / $i));
+    $classDivider: if($i == 0, '', '-');
+    $class: if($i == 0, '', $i);
 
-        @each $size, $divider in $multiSizes {
+    @each $size, $divider in $multiSizes {
+        $mainClass: if($size, '#{$size}#{$divider}col', 'col');
+
+        .#{$mainClass} {
             @include mQ(min, $size) {
-                // Generate a sub-selector based on the divider
-                &#{$divider} {
-                    &#{$size} {
-                        &#{$classDivider} {
-                            &#{$class} {
-                                flex: $basis $grow $width;
-                                width: 100%;
-                                max-width: $width;
-                            }
-                        }
+                &#{$classDivider} {
+                    &#{$class} {
+                        flex: $basis $grow $width;
+                        width: 100%;
+                        max-width: $width;
                     }
                 }
             }
@@ -119,19 +103,16 @@ $justify: (
 ) !default;
 
 @each $way, $selections in $justify {
-    .#{$way}- {
-        @each $selection, $properties in $selections {
-            &#{$selection}- {
-                @each $property, $value in $properties {
-                    @each $size, $divider in $multiSizes {
+    @each $size, $divider in $multiSizes {
+        $mainClass: if($size, '#{$size}#{$divider}#{$way}-', '#{$way}-');
+
+        .#{$mainClass} {
+            @each $selection, $properties in $selections {
+                &#{$selection}- {
+                    @each $property, $value in $properties {
                         @include mQ(min, $size) {
-                            // Generate a sub-selector based on the divider
-                            &#{$size} {
-                                &#{$divider} {
-                                    &#{$property} {
-                                        #{$way}-#{$selection}: $value;
-                                    }
-                                }
+                            &#{$property} {
+                                #{$way}-#{$selection}: $value;
                             }
                         }
                     }

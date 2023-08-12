@@ -3,31 +3,27 @@
 */
 
 // Colors ----- -----
-.color {
-    &- {
-        // Generate theme colors ----- -----
-        @include colorClassVariants($themeColors);
+// Generate theme colors ----- -----
+@include colorClassVariants($themeColors);
 
-        // Generate Layout colors ----- -----
-        @include colorClassVariants($layoutColors, 'light', 'dark', false);
+// Generate Layout colors ----- -----
+@include colorClassVariants($layoutColors, 'light', 'dark', false);
 
-        // Generate custom colors ----- -----
-        @include customColorClassVariants($customsColors);
-    }
-}
+// Generate custom colors ----- -----
+// @include customColorClassVariants($customsColors);
 
 // Current-color
-.current-color {
-    color: currentColor;
+// .current-color {
+//     color: currentColor;
 
-    &-bg {
-        background-color: currentColor;
-    }
+//     &-bg {
+//         background-color: currentColor;
+//     }
 
-    &-border {
-        border-color: currentColor;
-    }
-}
+//     &-border {
+//         border-color: currentColor;
+//     }
+// }
 
 /*!
 ----- ----- ----- ----- End of Colors

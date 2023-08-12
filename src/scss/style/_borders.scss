@@ -45,21 +45,18 @@ $radiusDirection: (
 ) !default;
 
 // Borders ----- -----
-.border {
-    @each $dir, $property in $bordersDirections {
-        &#{$dir} {
-            @each $size, $divider in $multiSizes {
-                @include mQ(min, $size) {
-                    // Generate a sub-selector based on the divider
-                    &#{$divider} {
-                        &#{$size} {
-                            @for $i from 1 through 5 {
-                                $value: if($i == 1, '', -#{$i});
+@each $dir, $property in $bordersDirections {
+    @each $size, $divider in $multiSizes {
+        $mainClass: if($size, '#{$size}#{$divider}border', 'border');
 
-                                &#{$value} {
-                                    #{$property}: $i#{'px'} solid;
-                                }
-                            }
+        .#{$mainClass} {
+            &#{$dir} {
+                @include mQ(min, $size) {
+                    @for $i from 1 through 5 {
+                        $value: if($i == 1, '', '-#{$i}');
+
+                        &#{$value} {
+                            #{$property}: $i#{'px'} solid;
                         }
                     }
                 }
@@ -69,21 +66,23 @@ $radiusDirection: (
 }
 
 // Radiuses ----- -----
-.radius {
-    @each $size, $divider in $multiSizes {
+@each $size, $divider in $multiSizes {
+    $mainClass: if($size, '#{$size}#{$divider}radius', 'radius');
+
+    .#{$mainClass} {
         @include mQ(min, $size) {
-            // Generate a sub-selector based on the divider
-            &#{$divider} {
-                &#{$size} {
-                    @each $dir, $properties in $radiusDirection {
-                        &#{$dir} {
-                            @each $value in $radiuses {
-                                &-#{$value} {
-                                    @each $property in $properties {
-                                        #{$property}: #{$value}#{'px'};
-                                    }
-                                }
+            @each $dir, $properties in $radiusDirection {
+                &#{$dir} {
+                    @each $value in $radiuses {
+                        &-#{$value} {
+                            @each $property in $properties {
+                                #{$property}: #{$value}#{'px'};
                             }
+                        }
+                    }
+                    &-full {
+                        @each $property in $properties {
+                            #{$property}: 50%;
                         }
                     }
                 }
