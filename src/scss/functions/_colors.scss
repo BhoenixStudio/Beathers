@@ -1,3 +1,20 @@
+// Convert to RGB ----- ----- ----- -----
+@function convertToRgb($hex, $opacity: 1) {
+    $r: null;
+    $g: null;
+    $b: null;
+
+    @if type-of($hex) == color {
+        $r: red($hex);
+        $g: green($hex);
+        $b: blue($hex);
+    }
+
+    @return if($r and $g and $b, rgba($r, $g, $b, $opacity), '');
+}
+// How to call
+// ex: color: rgba(convertToRgb(#ffffff), 1)
+
 // Extract color variants ----- ----- ----- -----
 @function extractColorVariants($collection, $color, $variant: null) {
     // Retrieve the map for the specified color

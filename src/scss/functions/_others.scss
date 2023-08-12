@@ -25,75 +25,8 @@
     @return if($value != 0, #{$value}#{'px'}, $value);
 }
 
-// Container size ----- ----- ----- -----
-@function containerSize($breakpoint: null) {
-    $sm: map-get($containers, 'sm');
-    $md: map-get($containers, 'md');
-    $lg: map-get($containers, 'lg');
-    $xl: map-get($containers, 'xl');
-    $xxl: map-get($containers, 'xxl');
-
-    $values: (
-        null: 100%,
-        sm: $sm,
-        md: $md,
-        lg: $lg,
-        xl: $xl,
-        xxl: $xxl,
-    );
-
-    @if $breakpoint == sm {
-        $values: (
-            null: 100%,
-            sm: $sm,
-            md: $md,
-            lg: $lg,
-            xl: $xl,
-            xxl: $xxl,
-        );
-    } @else if $breakpoint == md {
-        $values: (
-            null: 100%,
-            sm: 100%,
-            md: $md,
-            lg: $lg,
-            xl: $xl,
-            xxl: $xxl,
-        );
-    } @else if $breakpoint == lg {
-        $values: (
-            null: 100%,
-            sm: 100%,
-            md: 100%,
-            lg: $lg,
-            xl: $xl,
-            xxl: $xxl,
-        );
-    } @else if $breakpoint == xl {
-        $values: (
-            null: 100%,
-            sm: 100%,
-            md: 100%,
-            lg: 100%,
-            xl: $xl,
-            xxl: $xxl,
-        );
-    } @else if $breakpoint == xxl {
-        $values: (
-            null: 100%,
-            sm: 100%,
-            md: 100%,
-            lg: 100%,
-            xl: 100%,
-            xxl: $xxl,
-        );
-    }
-
-    @return $values;
-}
-
-// Container padding ----- ----- ----- -----
-@function containerPadding($breakpoint, $maxWidth) {
+// Wrappers size ----- ----- ----- -----
+@function wrapperPadding($breakpoint, $maxWidth) {
     $padding: 0.75rem;
 
     @if $breakpoint and $maxWidth != null and $maxWidth != 100% {
@@ -101,7 +34,7 @@
 
         @if $originalSize {
             $value: calc($originalSize - $maxWidth);
-            $padding: calc(($value / 2) + 0.75rem);
+            $padding: if($value > 0, calc(($value / 2) + $padding), $padding);
         }
     }
 

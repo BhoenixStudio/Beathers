@@ -85,6 +85,11 @@ $justify: (
             around: space-around,
             evenly: space-evenly,
         ),
+        self: (
+            auto: auto,
+            center: center,
+            stretch: stretch,
+        ),
     ),
     align: (
         content: (
@@ -96,6 +101,14 @@ $justify: (
             stretch: stretch,
         ),
         items: (
+            start: flex-start,
+            center: center,
+            end: flex-end,
+            stretch: stretch,
+            baseline: baseline,
+        ),
+        self: (
+            auto: auto,
             start: flex-start,
             center: center,
             end: flex-end,

@@ -3,6 +3,7 @@
 */
 $multiSizes: multiSizes(); // Generate the map of sizes and dividers
 
+$spacesProperties: (null, min, max) !default;
 $spacesDirections: (
     'w': 5,
     'h': 25,
@@ -34,6 +35,7 @@ $guttersClasses: (
     ),
 ) !default;
 $guttersValues: (
+    auto: auto,
     1: 0.25rem,
     2: 0.5rem,
     3: 0.75rem,
@@ -42,22 +44,25 @@ $guttersValues: (
 ) !default;
 
 // Spaces ----- -----
-@each $dir, $step in $spacesDirections {
-    $direction: if($dir == 'w', width, height);
+@each $property in $spacesProperties {
+    @each $dir, $step in $spacesDirections {
+        $propertyDivider: if($property, \:, '');
+        $propertySelector: if($property, #{$property}#{$propertyDivider}#{$dir}, #{$dir});
+        $direction: if($dir == 'w', width, height);
 
-    .#{$dir} {
-        @each $size, $divider in $multiSizes {
-            @include mQ(min, $size) {
-                // Generate a sub-selector based on the divider
-                &#{$divider} {
-                    &#{$size} {
-                        &- {
-                            @for $i from 0 through 100 {
-                                $value: $i * $step;
+        .#{$propertySelector} {
+            @each $size, $divider in $multiSizes {
+                @include mQ(min, $size) {
+                    &#{$divider} {
+                        &#{$size} {
+                            &- {
+                                @for $i from 0 through 100 {
+                                    $value: $i * $step;
 
-                                @if ($value % $step == 0) and ($value <= 100) {
-                                    &#{$value} {
-                                        #{$direction}: #{$value}#{'%'};
+                                    @if ($value % $step == 0) and ($value <= 100) {
+                                        &#{$value} {
+                                            #{$direction}: #{$value}#{'%'};
+                                        }
                                     }
                                 }
                             }

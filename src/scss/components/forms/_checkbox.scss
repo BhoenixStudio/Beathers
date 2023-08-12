@@ -6,7 +6,12 @@ $checkRadiuses: (
 ) !default;
 
 .check {
+    display: flex;
+    flex-direction: row;
+    gap: 0.75rem;
+
     input {
+        position: relative;
         appearance: none;
         outline-width: calc($checkSize / 6);
         outline-style: solid;

@@ -46,9 +46,9 @@ $overflows: (
 
 // Opacities ----- -----
 .op {
-    @each $class, $value in $opacities {
-        &-#{$class} {
-            opacity: $value;
+    @each $value in $opacities {
+        &-#{$value} {
+            opacity: calc($value / 100);
         }
     }
 }
