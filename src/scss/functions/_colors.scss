@@ -139,21 +139,21 @@
                         }
                     }
 
-                    // @if $extractVariants {
-                    //     @each $variant, $variantValue in $variants {
-                    //         $variantClass: if(
-                    //             $propertyClass,
-                    //             #{$propertyClass}#{\:}#{$variant},
-                    //             'color#{\:}#{$variant}'
-                    //         );
+                    @if $extractVariants {
+                        @each $variant, $variantValue in $variants {
+                            $variantClass: if(
+                                $propertyClass,
+                                #{$propertyClass}#{\:}#{$variant},
+                                'color#{\:}#{$variant}'
+                            );
 
-                    //         @if $propertyValue {
-                    //             &.#{$variantClass} {
-                    //                 #{$propertyValue}: $variantValue;
-                    //             }
-                    //         }
-                    //     }
-                    // }
+                            @if $propertyValue {
+                                &.#{$variantClass} {
+                                    #{$propertyValue}: $variantValue;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
