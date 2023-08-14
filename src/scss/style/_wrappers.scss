@@ -13,7 +13,7 @@ $multiSizes: multiSizes(); // Generate the map of sizes and dividers
 
         @each $size, $divider in $multiSizes {
             @include mQ(min, $size) {
-                padding-inline: wrapperPadding($size, $maxWidth);
+                padding-inline: if($size, wrapperPadding($size, $maxWidth) !important, wrapperPadding($size, $maxWidth));
             }
         }
     }

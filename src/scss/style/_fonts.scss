@@ -35,17 +35,12 @@ $processedStyles: ();
 // Font sizes ----- -----
 @each $fontSize, $value in $fontSizes {
     // Generate a class selector for each font size
-    .#{$fontSize} {
-        @each $size, $divider in $multiSizes {
-            @include mQ(min, $size) {
-                // Generate a sub-selector based on the divider
-                &#{$divider} {
-                    // Generate a sub-selector based on the media query size
-                    &#{$size} {
-                        // Apply the font-size value
-                        font-size: $value;
-                    }
-                }
+    @each $size, $divider in $multiSizes {
+        $mainClass: if($size, #{$size}#{$divider}#{$fontSize}, $fontSize);
+
+        @include mQ(min, $size) {
+            .#{$mainClass} {
+                font-size: if($size, $value !important, $value);
             }
         }
     }
@@ -86,11 +81,25 @@ $processedStyles: ();
 
                     .#{$mainClass} {
                         @include mQ(min, $size) {
-                            font-family: '#{$styleClass}', $defaultFontFamilies;
-                            font-weight: if($weight, $weight, 400);
+                            font-family: if($size, $styleClass !important, $styleClass), $defaultFontFamilies;
+                            font-weight: if($size, $weight !important, $weight);
                         }
                     }
                 }
+            }
+        }
+    }
+}
+
+// Font Aligns ----- -----
+$aligns: (left, start, right, end, justify, center) !default;
+@each $dir in $aligns {
+    @each $size, $divider in $multiSizes {
+        $mainClass: if($size, '#{$size}#{$divider}text-#{$dir}', 'text-#{$dir}');
+
+        .#{$mainClass} {
+            @include mQ(min, $size) {
+                text-align: if($size, $dir !important, $dir);
             }
         }
     }

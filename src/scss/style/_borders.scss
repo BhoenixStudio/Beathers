@@ -56,7 +56,7 @@ $radiusDirection: (
                         $value: if($i == 1, '', '-#{$i}');
 
                         &#{$value} {
-                            #{$property}: $i#{'px'} solid;
+                            #{$property}: if($size, $i#{'px'} solid !important, $i#{'px'} solid);
                         }
                     }
                 }
@@ -76,13 +76,13 @@ $radiusDirection: (
                     @each $value in $radiuses {
                         &-#{$value} {
                             @each $property in $properties {
-                                #{$property}: #{$value}#{'px'};
+                                #{$property}: if($size, #{$value}#{'px'} !important, #{$value}#{'px'});
                             }
                         }
                     }
                     &-full {
                         @each $property in $properties {
-                            #{$property}: 50%;
+                            #{$property}: if($size, 50% !important, 50%);
                         }
                     }
                 }

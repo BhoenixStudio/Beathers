@@ -60,7 +60,7 @@ $guttersValues: (
 
                     @if ($value != 0) and ($value % $step == 0) and ($value <= 100) {
                         &-#{$value} {
-                            #{$direction}: #{$value}#{'%'};
+                            #{$direction}: if($size, #{$value}#{'%'} !important, #{$value}#{'%'});
                         }
                     }
                 }
@@ -81,7 +81,7 @@ $guttersValues: (
                         @include mQ(min, $size) {
                             @each $valueClass, $value in $guttersValues {
                                 &#{$valueClass} {
-                                    #{$propertyDir}: $value;
+                                    #{$propertyDir}: if($size, $value !important, $value);
                                 }
                             }
                         }

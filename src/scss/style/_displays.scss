@@ -21,7 +21,7 @@ $overflows: (
         .#{$mainClass} {
             @include mQ(min, $size) {
                 &#{$display} {
-                    display: $display;
+                    display: if($size, $display !important, $display);
                 }
             }
         }

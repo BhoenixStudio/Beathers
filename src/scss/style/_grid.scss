@@ -25,7 +25,7 @@ $flexProperties: (
 
                 @include mQ(min, $size) {
                     &.#{$mainClass} {
-                        #{$property}: $value;
+                        #{$property}: if($size, $value !important, $value);
                     }
                 }
             }
@@ -48,9 +48,9 @@ $flexProperties: (
             @include mQ(min, $size) {
                 &#{$classDivider} {
                     &#{$class} {
-                        flex: $basis $grow $width;
-                        width: 100%;
-                        max-width: $width;
+                        flex: if($size, $basis $grow $width !important, $basis $grow $width);
+                        width: if($size, 100% !important, 100%);
+                        max-width: if($size, $width !important, $width);
                     }
                 }
             }
@@ -111,7 +111,7 @@ $justify: (
                 .#{$mainClass} {
                     @include mQ(min, $size) {
                         &#{$property} {
-                            #{$way}-#{$selection}: $value;
+                            #{$way}-#{$selection}: if($size, $value !important, $value);
                         }
                     }
                 }
