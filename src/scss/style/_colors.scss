@@ -10,20 +10,20 @@
 @include colorClassVariants($layoutColors, 'light', 'dark', false);
 
 // Generate custom colors ----- -----
-// @include customColorClassVariants($customsColors);
+@include customColorClassVariants($customsColors);
 
 // Current-color
-// .current-color {
-//     color: currentColor;
+.current-color {
+    color: currentColor;
 
-//     &-bg {
-//         background-color: currentColor;
-//     }
+    &-bg {
+        background-color: currentColor;
+    }
 
-//     &-border {
-//         border-color: currentColor;
-//     }
-// }
+    &-border {
+        border-color: currentColor;
+    }
+}
 
 /*!
 ----- ----- ----- ----- End of Colors

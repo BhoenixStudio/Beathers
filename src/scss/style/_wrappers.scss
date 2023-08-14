@@ -3,21 +3,17 @@
 */
 $multiSizes: multiSizes(); // Generate the map of sizes and dividers
 
-.wrapper {
-    @each $wrapperSize, $maxWidth in $wrappers {
-        $divider: if($wrapperSize, '-', '');
+@each $size, $maxWidth in $wrappers {
+    $mainClass: if($size, '#{$size}#{\:}wrapper', 'wrapper');
 
-        &#{$divider} {
-            &#{$wrapperSize} {
-                display: flex;
-                flex-direction: column;
-                max-width: 100%;
+    .#{$mainClass} {
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
 
-                @each $size, $divider in $multiSizes {
-                    @include mQ(min, $size) {
-                        padding-inline: wrapperPadding($size, $maxWidth);
-                    }
-                }
+        @each $size, $divider in $multiSizes {
+            @include mQ(min, $size) {
+                padding-inline: wrapperPadding($size, $maxWidth);
             }
         }
     }

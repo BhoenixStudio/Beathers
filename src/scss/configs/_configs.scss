@@ -1,3 +1,6 @@
+/*!
+* Fonts ----- ----- ----- ----- 
+*/
 ::selection {
     @include colorVariants(
         (
@@ -40,27 +43,20 @@
     }
 }
 
-.no-bg {
-    background: unset;
-    background-color: unset;
-}
-
-.no-border {
-    border: unset;
-}
-
-.no-radius {
-    border-radius: unset;
-}
-
-.no-events {
-    pointer-events: none;
-}
-
-.no-position {
-    position: unset;
+@each $option, $properties in $clearanceOptions {
+    @each $property, $value in $properties {
+        .important\:#{$option} {
+            #{$property}: $value !important;
+        }
+        .#{$option} {
+            #{$property}: $value;
+        }
+    }
 }
 
 .scroll-smooth {
     scroll-behavior: smooth;
 }
+/*!
+----- ----- ----- ----- End of Colors
+*/

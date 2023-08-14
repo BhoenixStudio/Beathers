@@ -104,16 +104,14 @@ $justify: (
 
 @each $way, $selections in $justify {
     @each $size, $divider in $multiSizes {
-        $mainClass: if($size, '#{$size}#{$divider}#{$way}-', '#{$way}-');
+        @each $selection, $properties in $selections {
+            @each $property, $value in $properties {
+                $mainClass: if($size, '#{$size}#{$divider}#{$way}-#{$selection}#{\:}', '#{$way}-#{$selection}#{\:}');
 
-        .#{$mainClass} {
-            @each $selection, $properties in $selections {
-                &#{$selection}- {
-                    @each $property, $value in $properties {
-                        @include mQ(min, $size) {
-                            &#{$property} {
-                                #{$way}-#{$selection}: $value;
-                            }
+                .#{$mainClass} {
+                    @include mQ(min, $size) {
+                        &#{$property} {
+                            #{$way}-#{$selection}: $value;
                         }
                     }
                 }

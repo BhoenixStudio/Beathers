@@ -165,12 +165,11 @@
 // Extract custom color Classes ----- ----- ----- -----
 @mixin customColorClassVariants($collection) {
     @each $title, $value in $collection {
-        @if $title and $value {
+        @if $value {
             @each $propertyClass, $propertyValue in $colorsPropertiesMap {
-                $divider: if($propertyClass, '-', '');
+                $mainClass: if($propertyClass, '#{$propertyClass}#{\:}color-#{$title}', 'color-#{$title}');
 
-                // Generate class selector for color variants based on property and title
-                &#{$propertyClass}#{$divider}#{$title} {
+                .#{$mainClass} {
                     #{$propertyValue}: $value;
                 }
             }

@@ -4,7 +4,7 @@ html {
 
 body {
     position: relative;
-    font-family: 'en1-regular', 'ar1-regular', sans-serif;
+    font-family: 'regular', $defaultFontFamilies;
     overflow-x: hidden;
 }
 
@@ -14,9 +14,7 @@ body {
 }
 
 :focus,
-button:focus,
-.btn.focus,
-.btn:focus {
+button:focus {
     outline: unset !important;
     box-shadow: unset !important;
 }

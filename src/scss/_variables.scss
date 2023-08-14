@@ -256,3 +256,21 @@ $shadows: (
         opacity: 0.15,
     ),
 ) !default;
+$clearanceOptions: (
+    no-bg: (
+        background: unset,
+        background-color: unset,
+    ),
+    no-border: (
+        border: unset,
+    ),
+    no-radius: (
+        border-radius: unset,
+    ),
+    no-events: (
+        pointer-events: none,
+    ),
+    no-position: (
+        position: unset,
+    ),
+) !default;
