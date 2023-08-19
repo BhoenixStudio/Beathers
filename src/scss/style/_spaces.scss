@@ -5,11 +5,11 @@ $multiSizes: multiSizes(); // Generate the map of sizes and dividers
 
 $spacesDirections: (
     'w': width 5,
-    'min-w': min-width 25,
-    'max-w': max-width 25,
-    'h': height 25,
-    'min-h': min-height 25,
-    'max-h': max-height 25,
+    'min-w': min-width 5,
+    'max-w': max-width 5,
+    'h': height 5,
+    'min-h': min-height 5,
+    'max-h': max-height 5,
 ) !default;
 
 $guttersClasses: (
@@ -59,7 +59,7 @@ $guttersValues: (
                     $value: $i * $step;
 
                     @if ($value != 0) and ($value % $step == 0) and ($value <= 100) {
-                        &-#{$value} {
+                        &#{\:}#{$value} {
                             #{$direction}: if($size, #{$value}#{'%'} !important, #{$value}#{'%'});
                         }
                     }

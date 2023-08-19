@@ -1,20 +1,3 @@
-// Convert to RGB ----- ----- ----- -----
-@function convertToRgb($hex, $opacity: 1) {
-    $r: null;
-    $g: null;
-    $b: null;
-
-    @if type-of($hex) == color {
-        $r: red($hex);
-        $g: green($hex);
-        $b: blue($hex);
-    }
-
-    @return if($r and $g and $b, rgba($r, $g, $b, $opacity), '');
-}
-// How to call
-// ex: color: rgba(convertToRgb(#ffffff), 1)
-
 // Extract color variants ----- ----- ----- -----
 @function extractColorVariants($collection, $color, $variant: null) {
     $colorMap: map-get($collection, $color);
@@ -40,7 +23,7 @@
             @if $opacity and $opacity != 1 {
                 #{$property}: rgba($lightColor, $opacity);
             } @else {
-                #{$property}: $lightColor;
+                #{$property}: rgb($lightColor);
             }
         }
 
@@ -49,7 +32,7 @@
                 @if $opacity and $opacity != 1 {
                     #{$property}: rgba($darkColor, $opacity);
                 } @else {
-                    #{$property}: $darkColor;
+                    #{$property}: rgb($darkColor);
                 }
             }
         }
@@ -149,7 +132,7 @@
 
                             @if $propertyValue {
                                 &.#{$variantClass} {
-                                    #{$propertyValue}: $variantValue;
+                                    #{$propertyValue}: rgb($variantValue);
                                 }
                             }
                         }
@@ -170,7 +153,7 @@
                 $mainClass: if($propertyClass, '#{$propertyClass}#{\:}color-#{$title}', 'color-#{$title}');
 
                 .#{$mainClass} {
-                    #{$propertyValue}: $value;
+                    #{$propertyValue}: rgb($value);
                 }
             }
         }
