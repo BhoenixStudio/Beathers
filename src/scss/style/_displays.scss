@@ -49,6 +49,13 @@ $overflows: (
     }
 }
 
+// Blur ----- -----
+@each $value in $blurValues {
+    .bg#{\:}blur#{\:}#{$value} {
+        backdrop-filter: blur(#{$value}#{px});
+    }
+}
+
 /*!
 ----- ----- ----- ----- End of Displays
 */

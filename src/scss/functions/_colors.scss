@@ -154,6 +154,30 @@
 
                 .#{$mainClass} {
                     #{$propertyValue}: rgb($value);
+
+                    &#{\:hover} {
+                        &:hover {
+                            #{$propertyValue}: rgb($value);
+                        }
+
+                        @if $propertyClass == bg or $propertyClass == border {
+                            @each $opacity in $opacities {
+                                &#{\:}#{$opacity} {
+                                    &:hover {
+                                        #{$propertyValue}: rgba($value, $opacity);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    @if $propertyClass == bg or $propertyClass == border {
+                        @each $opacity in $opacities {
+                            &#{\:}#{$opacity} {
+                                #{$propertyValue}: rgba($value, $opacity);
+                            }
+                        }
+                    }
                 }
             }
         }
