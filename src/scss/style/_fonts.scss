@@ -105,6 +105,16 @@ $aligns: (left, start, right, end, justify, center) !default;
     }
 }
 
+// Text truncate ----- -----
+@for $i from 1 through 5 {
+    .text-lines#{\:}#{$i} {
+        display: -webkit-box;
+        -webkit-line-clamp: #{$i};
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}
+
 /*!
 ----- ----- ----- ----- End of Fonts
 */
