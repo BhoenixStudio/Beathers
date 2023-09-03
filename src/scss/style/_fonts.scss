@@ -99,7 +99,7 @@ $aligns: (left, start, right, end, justify, center) !default;
 
         .#{$mainClass} {
             @include mQ(min, $size) {
-                text-align: if($size, $dir !important, $dir);
+                text-align: $dir;
             }
         }
     }

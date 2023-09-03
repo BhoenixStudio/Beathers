@@ -4,6 +4,7 @@
 $multiSizes: multiSizes(); // Generate the map of sizes and dividers
 
 // Wrappers ----- -----
+$rowGutter: var(--row-gutter, 0.25rem) !default;
 $flexProperties: (
     flex-wrap: wrap nowrap,
     flex-direction: row row-reverse column column-reverse,
@@ -26,6 +27,39 @@ $flexProperties: (
                 @include mQ(min, $size) {
                     &.#{$mainClass} {
                         #{$property}: if($size, $value !important, $value);
+
+                        @if $value == row or $value == row-reverse {
+                            margin-top: calc($rowGutter * -1);
+                            margin-inline: calc($rowGutter * -0.5);
+
+                            > :not(.no-gutter) {
+                                flex-shrink: 0;
+                                max-width: 100%;
+                                padding-inline: calc($rowGutter * 0.5);
+                                margin-top: $rowGutter;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.row,
+    &.row-reverse {
+        @each $size, $divider in $multiSizes {
+            @include mQ(min, $size) {
+                $mainClass: if($size, '#{$size}#{$divider}cols', 'cols');
+
+                @for $i from 0 through calc($columnsBased / 2) {
+                    $class: if($i == 0, auto, $i);
+                    $width: if($i == 0, auto, calc(100% / $i));
+
+                    &.#{$mainClass}#{\:}#{$class} {
+                        > * {
+                            flex: 0 0 auto;
+                            width: $width;
+                        }
                     }
                 }
             }
@@ -34,31 +68,18 @@ $flexProperties: (
 }
 
 // Columns ----- -----
-@for $i from 0 through $columnsBased {
-    $basis: 0;
-    $grow: if($i == 0, 1, 0);
-    $width: if($i == 0, 100%, calc(($i / $columnsBased) * 100%));
-    $classDivider: if($i == 0, '', #{\:});
-    $class: if($i == 0, '', $i);
+@each $size, $divider in $multiSizes {
+    @include mQ(min, $size) {
+        @for $i from 0 through $columnsBased {
+            $width: if($i == 0, 100%, calc(($i / $columnsBased) * 100%));
+            $class: if($i == 0, '', $i);
 
-    @each $size, $divider in $multiSizes {
-        $mainClass: if($size, '#{$size}#{$divider}col', 'col');
+            $mainClass: if($size, '#{$size}#{$divider}col', 'col');
+            $classSize: if($i == 0, #{$class}, #{\:}#{$class});
 
-        .#{$mainClass} {
-            @include mQ(min, $size) {
-                &#{$classDivider} {
-                    &#{$class} {
-                        flex: if($size, $basis $grow $width !important, $basis $grow $width);
-                        width: if($size, $width !important, $width);
-                        max-width: 100%;
-                        padding-inline: unset !important;
-                    }
-                }
-                &#{\:}auto {
-                    flex: if($size, 0 0 auto !important, 0 0 auto);
-                    width: if($size, auto !important, auto);
-                    max-width: 100%;
-                    padding-inline: unset !important;
+            .#{$mainClass} {
+                &#{$classSize} {
+                    width: $width;
                 }
             }
         }
