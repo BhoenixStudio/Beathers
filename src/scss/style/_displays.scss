@@ -12,6 +12,7 @@ $overflows: (
     a: auto,
     s: scroll,
 ) !default;
+$fits: (cover, fill, contain, none) !default;
 
 // Displays ----- -----
 @each $display in $displays {
@@ -46,6 +47,10 @@ $overflows: (
 @each $value in $opacities {
     .op#{\:}#{$value} {
         opacity: calc($value / 100);
+
+        &#{\:}hover:hover {
+            opacity: calc($value / 100);
+        }
     }
 }
 
@@ -53,6 +58,25 @@ $overflows: (
 @each $value in $blurValues {
     .bg#{\:}blur#{\:}#{$value} {
         backdrop-filter: blur(#{$value}#{px});
+
+        &#{\:}hover:hover {
+            backdrop-filter: blur(#{$value}#{px});
+        }
+    }
+}
+
+// Fits ----- -----
+@each $fit in $fits {
+    @each $size, $divider in $multiSizes {
+        $mainClass: if($size, '#{$size}#{$divider}object-fit', 'object-fit');
+
+        .#{$mainClass} {
+            @include mQ(min, $size) {
+                &#{\:}#{$fit} {
+                    object-fit: $fit;
+                }
+            }
+        }
     }
 }
 

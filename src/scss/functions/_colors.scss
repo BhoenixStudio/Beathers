@@ -70,22 +70,20 @@
                             );
                         }
 
-                        @if $propertyClass == bg or $propertyClass == border {
-                            @each $opacity in $opacities {
-                                &#{\:}#{$opacity} {
-                                    &:hover {
-                                        @include colorVariants(
-                                            (
-                                                $propertyValue: (
-                                                    $title,
-                                                    calc($opacity / 100),
-                                                ),
+                        @each $opacity in $opacities {
+                            &#{\:}#{$opacity} {
+                                &:hover {
+                                    @include colorVariants(
+                                        (
+                                            $propertyValue: (
+                                                $title,
+                                                calc($opacity / 100),
                                             ),
-                                            $collection,
-                                            $light,
-                                            $dark
-                                        );
-                                    }
+                                        ),
+                                        $collection,
+                                        $light,
+                                        $dark
+                                    );
                                 }
                             }
                         }
@@ -104,21 +102,19 @@
                         }
                     }
 
-                    @if $propertyClass == bg or $propertyClass == border {
-                        @each $opacity in $opacities {
-                            &#{\:}#{$opacity} {
-                                @include colorVariants(
-                                    (
-                                        $propertyValue: (
-                                            $title,
-                                            calc($opacity / 100),
-                                        ),
+                    @each $opacity in $opacities {
+                        &#{\:}#{$opacity} {
+                            @include colorVariants(
+                                (
+                                    $propertyValue: (
+                                        $title,
+                                        calc($opacity / 100),
                                     ),
-                                    $collection,
-                                    $light,
-                                    $dark
-                                );
-                            }
+                                ),
+                                $collection,
+                                $light,
+                                $dark
+                            );
                         }
                     }
 
@@ -160,22 +156,18 @@
                             #{$propertyValue}: rgb($value);
                         }
 
-                        @if $propertyClass == bg or $propertyClass == border {
-                            @each $opacity in $opacities {
-                                &#{\:}#{$opacity} {
-                                    &:hover {
-                                        #{$propertyValue}: rgba($value, $opacity);
-                                    }
+                        @each $opacity in $opacities {
+                            &#{\:}#{$opacity} {
+                                &:hover {
+                                    #{$propertyValue}: rgba($value, $opacity);
                                 }
                             }
                         }
                     }
 
-                    @if $propertyClass == bg or $propertyClass == border {
-                        @each $opacity in $opacities {
-                            &#{\:}#{$opacity} {
-                                #{$propertyValue}: rgba($value, $opacity);
-                            }
+                    @each $opacity in $opacities {
+                        &#{\:}#{$opacity} {
+                            #{$propertyValue}: rgba($value, $opacity);
                         }
                     }
                 }

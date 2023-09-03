@@ -33,8 +33,8 @@ $guttersClasses: (
     ),
     g: (
         null: gap,
-        x: row-gap,
-        y: column-gap,
+        x: column-gap,
+        y: row-gap,
     ),
 ) !default;
 $guttersValues: (
@@ -44,6 +44,11 @@ $guttersValues: (
     3: 0.75rem,
     4: 1rem,
     5: 1.5rem,
+    6: 2rem,
+    7: 2.5rem,
+    8: 3rem,
+    9: 3.5rem,
+    10: 4rem,
 ) !default;
 
 // Spaces ----- -----

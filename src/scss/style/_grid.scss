@@ -37,8 +37,8 @@ $flexProperties: (
 @for $i from 0 through $columnsBased {
     $basis: 0;
     $grow: if($i == 0, 1, 0);
-    $width: if($i == 0, 100%, calc(100% / $i));
-    $classDivider: if($i == 0, '', '-');
+    $width: if($i == 0, 100%, calc(($i / $columnsBased) * 100%));
+    $classDivider: if($i == 0, '', #{\:});
     $class: if($i == 0, '', $i);
 
     @each $size, $divider in $multiSizes {
@@ -49,9 +49,16 @@ $flexProperties: (
                 &#{$classDivider} {
                     &#{$class} {
                         flex: if($size, $basis $grow $width !important, $basis $grow $width);
-                        width: if($size, 100% !important, 100%);
-                        max-width: if($size, $width !important, $width);
+                        width: if($size, $width !important, $width);
+                        max-width: 100%;
+                        padding-inline: unset !important;
                     }
+                }
+                &#{\:}auto {
+                    flex: if($size, 0 0 auto !important, 0 0 auto);
+                    width: if($size, auto !important, auto);
+                    max-width: 100%;
+                    padding-inline: unset !important;
                 }
             }
         }
