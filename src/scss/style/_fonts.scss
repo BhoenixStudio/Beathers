@@ -33,14 +33,12 @@ $processedStyles: ();
 }
 
 // Font sizes ----- -----
-@each $fontSize, $value in $fontSizes {
-    // Generate a class selector for each font size
-    @each $size, $divider in $multiSizes {
-        $mainClass: if($size, #{$size}#{$divider}#{$fontSize}, $fontSize);
-
-        @include mQ(min, $size) {
+@each $size, $divider in $multiSizes {
+    @include mQ(min, $size) {
+        @each $fontSize, $value in $fontSizes {
+            $mainClass: if($size, #{$size}#{$divider}#{$fontSize}, $fontSize);
             .#{$mainClass} {
-                font-size: if($size, $value !important, $value);
+                font-size: $value;
             }
         }
     }
