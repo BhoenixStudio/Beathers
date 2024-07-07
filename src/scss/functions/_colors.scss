@@ -155,7 +155,7 @@
             @each $opacity in $opacities {
               &#{\:}#{$opacity} {
                 &:hover {
-                  #{$propertyValue}: rgba($value, $opacity / 100);
+                  #{$propertyValue}: rgba($value, calc($opacity / 100));
                 }
               }
             }
@@ -163,7 +163,7 @@
 
           @each $opacity in $opacities {
             &#{\:}#{$opacity} {
-              #{$propertyValue}: rgba($value, $opacity / 100);
+              #{$propertyValue}: rgba($value, calc($opacity / 100));
             }
           }
         }
