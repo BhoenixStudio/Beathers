@@ -6,25 +6,25 @@ $insetPositions: null, inline, block;
 
 // positions ----- -----
 .p- {
-    @each $position in $positions {
-        &#{$position} {
-            position: $position;
-        }
+  @each $position in $positions {
+    &#{$position} {
+      position: $position;
     }
+  }
 }
 
 // positions Settings ----- -----
 .inset {
-    @each $position in $insetPositions {
-        $divider: if($position, '-', '');
-        &#{$divider} {
-            &#{$position} {
-                &-full {
-                    inset#{$divider}#{$position}: 0;
-                }
-            }
+  @each $position in $insetPositions {
+    $divider: if($position, '-', '');
+    &#{$divider} {
+      &#{$position} {
+        &-full {
+          inset#{$divider}#{$position}: 0;
         }
+      }
     }
+  }
 }
 
 /*!

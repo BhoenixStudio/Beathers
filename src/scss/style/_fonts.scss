@@ -6,111 +6,112 @@ $processedStyles: ();
 
 // Font families ----- -----
 @each $lang, $fontsData in $fonts {
-    @each $key, $fontFace in $fontsData {
-        $title: map-get($fontFace, 'title');
-        $unicode: map-get($fontFace, 'unicode');
-        $styles: map-get($fontFace, 'styles');
-        $fontKey: if($key != 1, $key, '');
+  @each $key, $fontFace in $fontsData {
+    $title: map-get($fontFace, 'title');
+    $unicode: map-get($fontFace, 'unicode');
+    $styles: map-get($fontFace, 'styles');
+    $fontKey: if($key != 1, $key, '');
 
-        @if $title and $styles {
-            @each $style, $weight in $styles {
-                $fontName: if($fontKey, #{$style}#{$fontKey}, $style);
+    @if $title and $styles {
+      @each $style, $weight in $styles {
+        $fontName: if($fontKey, #{$style}#{$fontKey}, $style);
 
-                @font-face {
-                    font-family: '#{$fontName}';
-                    font-weight: $weight;
-                    font-style: normal;
-                    font-display: swap;
-                    src: local('#{$title}-#{$style}'),
-                        url(unquote('#{$fontMainPath}#{$title}-#{$style}.#{$fontFormat}')) format('#{$fontFormat}');
-                    @if $unicode {
-                        unicode-range: unquote($unicode);
-                    }
-                }
-            }
+        @font-face {
+          font-family: '#{$fontName}';
+          font-weight: $weight;
+          font-style: normal;
+          font-display: swap;
+          src:
+            local('#{$title}-#{$style}'),
+            url(unquote('#{$fontMainPath}#{$title}-#{$style}.#{$fontFormat}')) format('#{$fontFormat}');
+          @if $unicode {
+            unicode-range: unquote($unicode);
+          }
         }
+      }
     }
+  }
 }
 
 // Font sizes ----- -----
 @each $size, $divider in $multiSizes {
-    @include mQ(min, $size) {
-        @each $fontSize, $value in $fontSizes {
-            $mainClass: if($size, #{$size}#{$divider}#{$fontSize}, $fontSize);
-            .#{$mainClass} {
-                font-size: $value;
-            }
-        }
+  @include mQ(min, $size) {
+    @each $fontSize, $value in $fontSizes {
+      $mainClass: if($size, #{$size}#{$divider}#{$fontSize}, $fontSize);
+      .#{$mainClass} {
+        font-size: $value;
+      }
     }
+  }
 }
 
 // Font styles ----- -----
 @each $type, $values in $fontStyles {
-    @each $value in $values {
-        // Generate a class selector for each value
-        .#{$value} {
-            @if $type == 'transform' {
-                // Apply text-transform value
-                text-transform: $value;
-            } @else if $type == 'decoration' {
-                // Apply text-decoration value
-                text-decoration: $value;
-            } @else if $type == 'styles' {
-                // Apply font-style value
-                font-style: $value;
-            }
-        }
+  @each $value in $values {
+    // Generate a class selector for each value
+    .#{$value} {
+      @if $type == 'transform' {
+        // Apply text-transform value
+        text-transform: $value;
+      } @else if $type == 'decoration' {
+        // Apply text-decoration value
+        text-decoration: $value;
+      } @else if $type == 'styles' {
+        // Apply font-style value
+        font-style: $value;
+      }
     }
+  }
 }
 
 // Font Weights ----- -----
 @each $lang, $fontsData in $fonts {
-    @each $key, $fontFace in $fontsData {
-        $styles: map-get($fontFace, 'styles');
-        $fontKey: if($key != 1, $key, '');
+  @each $key, $fontFace in $fontsData {
+    $styles: map-get($fontFace, 'styles');
+    $fontKey: if($key != 1, $key, '');
 
-        @each $style, $weight in $styles {
-            $styleClass: if($fontKey, #{$style}#{$fontKey}, $style);
+    @each $style, $weight in $styles {
+      $styleClass: if($fontKey, #{$style}#{$fontKey}, $style);
 
-            @if $style and not index($processedStyles, $styleClass) {
-                $processedStyles: append($processedStyles, $styleClass);
-                @each $size, $divider in $multiSizes {
-                    $mainClass: if($size, #{$size}#{$divider}#{$styleClass}, $styleClass);
+      @if $style and not index($processedStyles, $styleClass) {
+        $processedStyles: append($processedStyles, $styleClass);
+        @each $size, $divider in $multiSizes {
+          $mainClass: if($size, #{$size}#{$divider}#{$styleClass}, $styleClass);
 
-                    .#{$mainClass} {
-                        @include mQ(min, $size) {
-                            font-family: if($size, $styleClass !important, $styleClass), $defaultFontFamilies;
-                            font-weight: if($size, $weight !important, $weight);
-                        }
-                    }
-                }
+          .#{$mainClass} {
+            @include mQ(min, $size) {
+              font-family: if($size, $styleClass !important, $styleClass), $defaultFontFamilies;
+              font-weight: if($size, $weight !important, $weight);
             }
+          }
         }
+      }
     }
+  }
 }
 
 // Font Aligns ----- -----
 $aligns: (left, start, right, end, justify, center) !default;
 @each $dir in $aligns {
-    @each $size, $divider in $multiSizes {
-        $mainClass: if($size, '#{$size}#{$divider}text-#{$dir}', 'text-#{$dir}');
+  @each $size, $divider in $multiSizes {
+    $mainClass: if($size, '#{$size}#{$divider}text-#{$dir}', 'text-#{$dir}');
 
-        .#{$mainClass} {
-            @include mQ(min, $size) {
-                text-align: $dir;
-            }
-        }
+    .#{$mainClass} {
+      @include mQ(min, $size) {
+        text-align: if($size, $dir !important, $dir);
+      }
     }
+  }
 }
 
 // Text truncate ----- -----
 @for $i from 1 through 5 {
-    .text-lines#{\:}#{$i} {
-        display: -webkit-box;
-        -webkit-line-clamp: #{$i};
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
+  .text-lines#{\:}#{$i} {
+    display: -webkit-box;
+    -webkit-line-clamp: #{$i};
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 }
 
 /*!

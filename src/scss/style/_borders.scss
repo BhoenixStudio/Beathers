@@ -4,98 +4,90 @@
 $multiSizes: multiSizes(); // Generate the map of sizes and dividers
 
 $bordersDirections: (
-    null: border,
-    '-top': border-block-start,
-    '-bottom': border-block-end,
-    '-start': border-inline-start,
-    '-end': border-inline-end,
+  null: border,
+  '-top': border-block-start,
+  '-bottom': border-block-end,
+  '-start': border-inline-start,
+  '-end': border-inline-end,
 ) !default;
 $radiusDirection: (
-    null: (
-        border-radius,
-    ),
-    '-top': (
-        border-start-start-radius,
-        border-start-end-radius,
-    ),
-    '-bottom': (
-        border-end-start-radius,
-        border-end-end-radius,
-    ),
-    '-start': (
-        border-start-start-radius,
-        border-end-start-radius,
-    ),
-    '-end': (
-        border-start-end-radius,
-        border-end-end-radius,
-    ),
-    '-top-start': (
-        border-start-start-radius,
-    ),
-    '-top-end': (
-        border-start-end-radius,
-    ),
-    '-bottom-start': (
-        border-end-start-radius,
-    ),
-    '-bottom-end': (
-        border-end-end-radius,
-    ),
+  null: (
+    border-radius,
+  ),
+  '-top': (
+    border-start-start-radius,
+    border-start-end-radius,
+  ),
+  '-bottom': (
+    border-end-start-radius,
+    border-end-end-radius,
+  ),
+  '-start': (
+    border-start-start-radius,
+    border-end-start-radius,
+  ),
+  '-end': (
+    border-start-end-radius,
+    border-end-end-radius,
+  ),
+  '-top-start': (
+    border-start-start-radius,
+  ),
+  '-top-end': (
+    border-start-end-radius,
+  ),
+  '-bottom-start': (
+    border-end-start-radius,
+  ),
+  '-bottom-end': (
+    border-end-end-radius,
+  ),
 ) !default;
 
 // Borders ----- -----
 @each $dir, $property in $bordersDirections {
-    @each $size, $divider in $multiSizes {
-        @for $i from 1 through 5 {
-            $mainClass: if($size, "#{$size}#{$divider}border", "border");
+  @each $size, $divider in $multiSizes {
+    @for $i from 1 through 5 {
+      $mainClass: if($size, '#{$size}#{$divider}border', 'border');
 
-            @include mQ(min, $size) {
-                .#{$mainClass} {
-                    &#{$dir} {
-                        &-#{$i} {
-                            #{$property}-width: if(
-                                $size,
-                                #{$i}#{px} !important,
-                                #{$i}#{px}
-                            );
-                            #{$property}-style: if(
-                                $size,
-                                solid !important,
-                                solid
-                            );
-                        }
-                    }
-                }
+      @include mQ(min, $size) {
+        .#{$mainClass} {
+          &#{$dir} {
+            &-#{$i} {
+              #{$property}-width: if($size, #{$i}#{px} !important, #{$i}#{px});
+              #{$property}-style: if($size, solid !important, solid);
             }
+          }
         }
+      }
     }
+  }
 }
 
 // Radiuses ----- -----
 @each $size, $divider in $multiSizes {
-    $mainClass: if($size, '#{$size}#{$divider}radius', 'radius');
+  $mainClass: if($size, '#{$size}#{$divider}radius', 'radius');
 
-    .#{$mainClass} {
-        @include mQ(min, $size) {
-            @each $dir, $properties in $radiusDirection {
-                &#{$dir} {
-                    @each $value in $radiuses {
-                        &-#{$value} {
-                            @each $property in $properties {
-                                #{$property}: if($size, #{$value}#{'px'} !important, #{$value}#{'px'});
-                            }
-                        }
-                    }
-                    &-full {
-                        @each $property in $properties {
-                            #{$property}: if($size, 50% !important, 50%);
-                        }
-                    }
-                }
+  .#{$mainClass} {
+    @include mQ(min, $size) {
+      @each $dir, $properties in $radiusDirection {
+        &#{$dir} {
+          @each $value in $radiuses {
+            &-#{$value} {
+              @each $property in $properties {
+                #{$property}: if($size, #{$value}#{'px'} !important, #{$value}#{'px'});
+              }
             }
+          }
+          &-full {
+            @each $property in $properties {
+              #{$property}: if($size, 100vw !important, 100vw);
+            }
+          }
         }
+      }
     }
+  }
 }
 
 /*!

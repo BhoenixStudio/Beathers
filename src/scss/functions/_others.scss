@@ -1,42 +1,61 @@
 // Tooltip direction properties ----- ----- ----- -----
 @mixin tooltipDirection($dir, $collection) {
-    // Retrieve the specific direction from the collection
-    $direction: map-get($collection, $dir);
-    &:hover {
-        &::before {
-            @each $property, $value in map-get($direction, 'before') {
-                // Apply the CSS property and value for the '::before' pseudo-element.
-                #{$property}: $value;
-            }
-        }
-        &::after {
-            @each $property, $value in map-get($direction, 'after') {
-                // Apply the CSS property and value for the '::before' pseudo-element.
-                #{$property}: $value;
-            }
-        }
+  // Retrieve the specific direction from the collection
+  $direction: map-get($collection, $dir);
+  &:hover {
+    &::before {
+      @each $property, $value in map-get($direction, 'before') {
+        // Apply the CSS property and value for the '::before' pseudo-element.
+        #{$property}: $value;
+      }
     }
+    &::after {
+      @each $property, $value in map-get($direction, 'after') {
+        // Apply the CSS property and value for the '::before' pseudo-element.
+        #{$property}: $value;
+      }
+    }
+  }
 }
 // How to call
 // ex: tooltipDirection('inline-start', $tooltipDirections)
 
 // Shadow Value ----- ----- ----- -----
 @function shadowValue($value) {
-    @return if($value != 0, #{$value}#{'px'}, $value);
+  @return if($value != 0, #{$value}#{'px'}, $value);
 }
 
 // Wrappers size ----- ----- ----- -----
 @function wrapperPadding($breakpoint, $maxWidth) {
-    $padding: 0.75rem;
+  $padding: 0.75rem;
 
-    @if $breakpoint and $maxWidth != null and $maxWidth != 100% {
-        $originalSize: map-get($breakpoints, $breakpoint);
+  @if $breakpoint and $maxWidth != null and $maxWidth != 100% {
+    $originalSize: map-get($breakpoints, $breakpoint);
 
-        @if $originalSize {
-            $value: calc($originalSize - $maxWidth);
-            $padding: if($value > 0, calc(($value / 2) + $padding), $padding);
-        }
+    @if $originalSize {
+      $value: calc($originalSize - $maxWidth);
+      $padding: if($value > 0, calc(($value / 2) + $padding), $padding);
     }
+  }
 
-    @return $padding;
+  @return $padding;
+}
+
+// Animations
+@function transition($duration: 350ms, $type: linear, $property: all, $delay: 0ms) {
+  $timingFunction: ease-in-out;
+
+  @if $type == 'dim' {
+    $timingFunction: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  } @else if $type == 'menu' {
+    $timingFunction: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  } @else if $type == 'modal' {
+    $timingFunction: cubic-bezier(0, 2.5, 1, 1);
+  } @else if $type == 'modalOut' {
+    $timingFunction: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  } @else if $type == 'social' {
+    $timingFunction: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  @return $property $duration $timingFunction $delay;
 }
