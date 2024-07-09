@@ -77,10 +77,11 @@ $processedStyles: ();
         $processedStyles: append($processedStyles, $styleClass);
         @each $size, $divider in $multiSizes {
           $mainClass: if($size, #{$size}#{$divider}#{$styleClass}, $styleClass);
+          $mainValue: #{$styleClass}, #{$defaultFontFamilies};
 
           .#{$mainClass} {
             @include mQ(min, $size) {
-              font-family: if($size, $styleClass !important, $styleClass), $defaultFontFamilies;
+              font-family: if($size, $mainValue !important, $mainValue);
               font-weight: if($size, $weight !important, $weight);
             }
           }
