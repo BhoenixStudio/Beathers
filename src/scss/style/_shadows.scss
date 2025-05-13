@@ -1,0 +1,18 @@
+@use 'sass:map';
+@use '../settings/configs' as configs;
+
+/*! * Shadows ----- ----- ----- ----- */
+.shadow {
+  @each $class, $values in configs.$shadows {
+    $x: map.get($values, x);
+    $y: map.get($values, y);
+    $blur: map.get($values, blur);
+    $spread: map.get($values, spread);
+    $opacity: map.get($values, opacity);
+
+    &-#{$class} {
+      box-shadow: shadowValue($x) shadowValue($y) shadowValue($blur) shadowValue($spread) rgba(0, 0, 0, $opacity);
+    }
+  }
+}
+/*! ----- ----- ----- ----- End of Shadows */

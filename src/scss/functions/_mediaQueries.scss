@@ -1,0 +1,41 @@
+@use 'sass:map';
+@use 'sass:string';
+@use '../settings/configs' as configs;
+
+// Breakpoints ----- ----- ----- -----
+@mixin mQ($type, $key) {
+  // Retrieve the size value from the breakpoints map using the provided key
+  $size: map.get(configs.$breakpoints, $key);
+
+  @if $size {
+    // Check if a valid size value exists
+    // Generate the media query using the provided type and size
+    @media (string.unquote('#{$type}-width'): $size) {
+      @content; // Content to be included within the media query
+    }
+  } @else {
+    // If no valid size value exists, apply the content without a media query
+    @content;
+  }
+}
+// How to call
+// ex: color: mQ(min or max, xs/md/lg/xl/xxl)
+
+// Multi Queries Sizes ----- ----- ----- -----
+@function multiSizes() {
+  $map: (); // Initialize an empty map
+  @each $size in configs.$mediaQueries {
+    $divider: if($size, \:, ''); // Calculate the divider based on the size
+    // Merge the current map with the new key-value pair
+    $map: map.merge(
+      $map,
+      (
+        $size: $divider,
+      )
+    );
+  }
+  @return $map; // Return the generated map
+}
+// How to call
+// ex: $multiSizes: multiSizes();
+//     @each $size, $divider in $multiSizes { @include mQ(min, $size) { &#{$divider} { &#{$size} {your code}}}

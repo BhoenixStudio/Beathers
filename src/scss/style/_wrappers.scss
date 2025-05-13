@@ -1,0 +1,21 @@
+@use 'sass:list';
+@use '../settings/configs' as configs;
+@use '../functions/mediaQueries' as mQ;
+
+/*!* Wrappers ----- ----- ----- ----- */
+@each $wSize, $properties in configs.$wrappers {
+  $mainWSize: if($wSize, '#{$wSize}#{\:}wrapper', 'wrapper');
+
+  $size: list.nth($properties, 1);
+  $px: list.nth($properties, 2);
+
+  .#{$mainWSize} {
+    width: 100%;
+    padding-inline: $px;
+
+    @include mQ.mQ(min, lg) {
+      padding-inline: calc((100% - #{$size}) / 2 + $px);
+    }
+  }
+}
+/*!* End of wrappers ----- ----- ----- ----- */

@@ -1,0 +1,167 @@
+@use 'sass:meta';
+@use 'sass:color';
+@use 'sass:math';
+@use 'sass:list';
+@use 'sass:map';
+@use '../settings/configs' as configs;
+@use '../variables' as vars;
+
+// Color Convertors ----- ----- ----- -----
+@function hexToRgba($color) {
+  @return rgba(
+    color.channel($color, 'red', $space: rgb),
+    color.channel($color, 'green', $space: rgb),
+    color.channel($color, 'blue', $space: rgb),
+    color.alpha($color)
+  );
+}
+// How to call
+// ex: color: hexToRgba('#ffffff');
+
+// Color variants ----- ----- ----- -----
+@function colorMode($map, $color, $variant: null) {
+  $colorMap: map.get($map, $color);
+
+  @if $variant == null or meta.type-of($colorMap) != map {
+    @return $colorMap;
+  } @else {
+    @return map.get($colorMap, $variant);
+  }
+}
+// How to call
+// ex: color: colorMode($map, 'color-1', 'light/dark')
+
+// Use Color ----- ----- ----- -----
+@function useColor($color, $map: 'theme', $variant: null, $opacity: null) {
+  @if not($map == 'theme' or $map == 'layout' or $map == 'custom') {
+    @error 'Invalid value for $map. Allowed values are "theme", "layout", or "custom"';
+  }
+
+  $sMap: null;
+  @if $map == 'theme' {
+    $sMap: vars.$themeColors;
+  } @else if $map == 'layout' {
+    $sMap: vars.$layoutColors;
+  } @else if $map == 'custom' {
+    $sMap: vars.$customColors;
+  }
+
+  $colorValue: colorMode($sMap, $color, $variant);
+
+  @if $opacity {
+    @return rgba(hexToRgba($colorValue), $opacity);
+  } @else {
+    @return $colorValue;
+  }
+}
+// How to call
+// ex: color: useColor('color-1', 'theme/layout/custom', 'light/dark', 0 - 1);
+
+// Color Opacity ----- ----- ----- -----
+@mixin ColorOpacity($color, $property, $map: (), $class: '') {
+  @each $opacity in configs.$opacities {
+    &#{\:}#{$opacity} {
+      @if ($map) {
+        @include ColorModes(
+          (
+            $property: (
+              $color,
+              math.div($opacity, 100),
+            ),
+          ),
+          $map,
+          $class
+        );
+      } @else {
+        $property: rgba(hexToRgba($color), $opacity);
+      }
+    }
+  }
+}
+// How to call
+// ex: ColorOpacity('color-1', 'background-color', $map);
+
+// Color Mode ----- ----- ----- -----
+@mixin ColorModes($properties, $map, $class: '') {
+  @each $property, $value in $properties {
+    $propertyClass: if($class == null, 'color', $class);
+    $lightModeClass: if($class != '', '#{$propertyClass}#{\:}light', null);
+    $darkModeClass: if($class != '', '#{$propertyClass}#{\:}dark', null);
+
+    $color: if(meta.type-of($value) == list, list.nth($value, 1), $value);
+    $opacity: if(meta.type-of($value) == list, list.nth($value, 2), 1);
+
+    $light: colorMode($map, $color, 'light');
+    $lightValue: if($opacity and $opacity != 1, rgba(hexToRgba($light), $opacity), $light);
+    $dark: colorMode($map, $color, 'dark');
+    $darkValue: if($opacity and $opacity != 1, rgba(hexToRgba($dark), $opacity), $dark);
+
+    @if $light {
+      .light & {
+        #{$property}: $lightValue;
+      }
+    }
+
+    @if $dark {
+      .dark & {
+        #{$property}: $darkValue;
+      }
+    }
+
+    @if $light {
+      @if $lightModeClass {
+        &.#{$lightModeClass} {
+          #{$property}: $lightValue;
+        }
+      }
+    }
+    @if $dark {
+      @if $darkModeClass {
+        &.#{$darkModeClass} {
+          #{$property}: $darkValue;
+        }
+      }
+    }
+  }
+}
+// How to call
+// ex: @include ColorModes((color: '2',background-color: ('2', 0.1)), $map);
+
+// Colors Map ----- ----- ----- -----
+@mixin ColorsMap($map, $withVariants: true) {
+  @each $color, $modes in $map {
+    @if $color {
+      @each $class, $property in configs.$colorsPropertiesMap {
+        $mainClass: if($class, '#{$class}#{\:}color-#{$color}', 'color-#{$color}');
+        $propertyMap: (
+          $property: $color,
+        );
+
+        .#{$mainClass} {
+          // Native
+          @include ColorModes($propertyMap, $map, $class);
+          @include ColorOpacity($color, $property, $map, $class);
+
+          // Placeholder
+          @if $class == null {
+            &#{\:placeholder}::placeholder {
+              @include ColorModes($propertyMap, $map, $class);
+              @include ColorOpacity($color, $property, $map, $class);
+            }
+          }
+
+          // Hover/Focus
+          &#{\:hover} {
+            &:hover,
+            &:focus {
+              @include ColorModes($propertyMap, $map, $class);
+              @include ColorOpacity($color, $property, $map, $class);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// How to call
+// ex: @include ColorsMap($map, true/false);

@@ -1,0 +1,177 @@
+// Colors ----- ----- ----- -----
+$colorsPropertiesMap: (
+  null: color,
+  bg: background-color,
+  border: border-color,
+  fill: fill,
+  stroke: stroke,
+  text-stroke: -webkit-text-stroke-color,
+) !default;
+
+// Fonts ----- ----- ----- -----
+$defaultFontFamilies:
+  system-ui,
+  -apple-system,
+  Roboto,
+  Arial,
+  sans-serif !default;
+
+$fontSizes: (
+  'h1': 96px,
+  'h2': 60px,
+  'h3': 40px,
+  'h4': 34px,
+  'h5': 24px,
+  'h6': 20px,
+  'subtitle1': 16px,
+  'subtitle2': 14px,
+  'body1': 16px,
+  'body2': 14px,
+  'button': 14px,
+  'caption': 12px,
+  'overline': 10px,
+) !default;
+
+$fontStyles: (
+  'transform': (
+    uppercase,
+    lowercase,
+    capitalize,
+  ),
+  'decoration': (
+    underline,
+    line-through,
+  ),
+  'styles': (
+    wavy,
+    double,
+    dotted,
+    dashed,
+  ),
+) !default;
+
+// Spaces ----- ----- ----- -----
+$mediaQueries: (null, sm, md, lg, xl, xxl) !default;
+
+$columnsBased: 12 !default;
+
+$breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+) !default;
+
+$wrappers: (
+  null: 100% 1.5rem,
+  sm: 540px 2rem,
+  md: 720px 3rem,
+  lg: 960px 3rem,
+  xl: 1140px 2rem,
+  xxl: 1320px 2rem,
+) !default;
+
+// Others Configs ----- -----
+$opacities: (10, 20, 30, 40, 50, 60, 70, 80, 90) !default;
+
+$blurValues: (5, 10, 15, 25) !default;
+
+$radiuses: (5, 10, 15, 25) !default;
+
+$cursors: (
+  alias,
+  auto,
+  cell,
+  context-menu,
+  copy,
+  crosshair,
+  default,
+  grab,
+  grabbing,
+  help,
+  move,
+  no-drop,
+  none,
+  not-allowed,
+  pointer,
+  progress,
+  col-resize,
+  row-resize,
+  text,
+  wait,
+  zoom-in,
+  zoom-out
+) !default;
+
+$shadows: (
+  'light': (
+    x: 0,
+    y: 2,
+    blur: 5,
+    spread: 0,
+    opacity: 0.15,
+  ),
+  'soft': (
+    x: 2,
+    y: 2,
+    blur: 12,
+    spread: 0,
+    opacity: 0.2,
+  ),
+  'medium': (
+    x: 0,
+    y: 10,
+    blur: 20,
+    spread: 0,
+    opacity: 0.2,
+  ),
+  'solid': (
+    x: 0,
+    y: 4,
+    blur: 10,
+    spread: 0,
+    opacity: 0.3,
+  ),
+  'ambient': (
+    x: 0,
+    y: 0,
+    blur: 40,
+    spread: 10,
+    opacity: 0.1,
+  ),
+  'flat': (
+    x: 0,
+    y: 6,
+    blur: 6,
+    spread: 4,
+    opacity: 0.2,
+  ),
+  'floating': (
+    x: 0,
+    y: 20,
+    blur: 40,
+    spread: 0,
+    opacity: 0.15,
+  ),
+) !default;
+
+$clearanceOptions: (
+  no-bg: (
+    background: unset,
+    background-color: unset,
+  ),
+  no-border: (
+    border: unset,
+  ),
+  no-radius: (
+    border-radius: unset,
+  ),
+  no-events: (
+    pointer-events: none,
+  ),
+  no-position: (
+    position: unset,
+  ),
+) !default;

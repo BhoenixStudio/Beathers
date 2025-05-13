@@ -1,0 +1,96 @@
+@use './configs' as configs;
+@use '../variables' as vars;
+@use '../functions/colors' as colors;
+
+/*! * Configs ----- ----- ----- ----- */
+html {
+  scroll-behavior: smooth;
+  interpolate-size: allow-keywords;
+}
+
+body {
+  position: relative;
+  font-family: 'regular', configs.$defaultFontFamilies;
+  overflow-x: hidden;
+}
+
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:focus,
+button:focus {
+  outline: unset !important;
+  box-shadow: unset !important;
+}
+
+ul {
+  margin: unset;
+  list-style: none;
+  padding: 0;
+
+  li {
+    margin-bottom: unset;
+  }
+}
+
+a {
+  text-decoration: unset;
+}
+
+::selection {
+  @include colors.ColorModes(
+    (
+      color: '2',
+      background-color: (
+        '2',
+        0.1,
+      ),
+    ),
+    vars.$themeColors
+  );
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+
+  &-track {
+    background-color: transparent;
+    border-radius: unset;
+  }
+  &-thumb {
+    border-radius: 100vw;
+    @include colors.ColorModes(
+      (
+        background: 'third',
+      ),
+      vars.$layoutColors
+    );
+  }
+}
+
+@each $option, $properties in configs.$clearanceOptions {
+  @each $property, $value in $properties {
+    .i\:#{$option} {
+      #{$property}: $value !important;
+    }
+    .#{$option} {
+      #{$property}: $value;
+    }
+  }
+}
+
+@each $cursor in configs.$cursors {
+  .cursor#{\:}#{$cursor} {
+    cursor: #{$cursor};
+  }
+}
+
+.scroll-smooth {
+  scroll-behavior: smooth;
+}
+/*! ----- ----- ----- ----- End of Configs */

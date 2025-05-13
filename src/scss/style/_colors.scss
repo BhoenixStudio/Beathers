@@ -1,0 +1,45 @@
+@use '../variables' as vars;
+@use '../settings/configs' as configs;
+@use '../functions/colors' as colors;
+
+/*! * Colors ----- ----- ----- ----- */
+
+@include colors.ColorsMap(vars.$themeColors);
+@include colors.ColorsMap(vars.$layoutColors);
+@include colors.ColorsMap(vars.$customColors, false);
+
+// CurrentColor
+@each $class, $value in configs.$colorsPropertiesMap {
+  $mainClass: if($class, '#{$class}#{\:}current-color', 'current-color');
+
+  .#{$mainClass} {
+    #{$value}: currentColor;
+
+    &#{\:hover} {
+      &:hover {
+        #{$value}: currentColor;
+      }
+    }
+  }
+}
+
+// Root colors
+:root {
+  @each $color-group, $colors in vars.$themeColors {
+    @each $variant, $color in $colors {
+      --color-#{$color-group}-#{$variant}: #{$color};
+    }
+  }
+
+  @each $color-name, $colors in vars.$layoutColors {
+    @each $variant, $color in $colors {
+      --color-#{$color-name}-#{$variant}: #{$color};
+    }
+  }
+
+  @each $custom-name, $color in vars.$customColors {
+    --color-#{$custom-name}: #{$color};
+  }
+}
+
+/*! ----- ----- ----- ----- End of Colors */
