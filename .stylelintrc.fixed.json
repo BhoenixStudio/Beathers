@@ -1,0 +1,47 @@
+{
+  "extends": "stylelint-config-standard-scss",
+  "rules": {
+    "selector-class-pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+    "selector-id-pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+    "color-function-notation": "legacy",
+    "alpha-value-notation": "number",
+    "color-hex-length": "short",
+    "value-keyword-case": "lower",
+    "font-family-name-quotes": "always-where-recommended",
+    "scss/at-import-partial-extension": null,
+    "scss/at-import-no-partial-leading-underscore": null,
+    "scss/comment-no-empty": null,
+    "scss/dollar-variable-pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+    "scss/dollar-variable-empty-line-before": [
+      "always",
+      {
+        "except": ["first-nested", "after-comment", "after-dollar-variable"],
+        "ignore": ["after-comment", "inside-single-line-block"]
+      }
+    ],
+    "scss/at-function-pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+    "scss/at-mixin-pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+    "function-name-case": "lower",
+    "scss/at-rule-conditional-no-parentheses": true,
+    "scss/at-if-no-null": true,
+    "declaration-block-no-redundant-longhand-properties": true,
+    "rule-empty-line-before": [
+      "always",
+      { "except": ["first-nested"], "ignore": ["after-comment"] }
+    ],
+    "at-rule-empty-line-before": [
+      "always",
+      { "except": ["first-nested", "blockless-after-blockless"], "ignore": ["after-comment"] }
+    ],
+    "comment-empty-line-before": [
+      "always",
+      { "except": ["first-nested"], "ignore": ["stylelint-commands"] }
+    ],
+    "scss/double-slash-comment-empty-line-before": [
+      "always",
+      { "except": ["first-nested"], "ignore": ["between-comments", "stylelint-commands"] }
+    ],
+    "no-descending-specificity": null,
+    "selector-not-notation": "simple"
+  }
+}
