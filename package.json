@@ -1,6 +1,6 @@
 {
   "name": "beathers",
-  "version": "3.2.13",
+  "version": "5.1.0",
   "description": "Beather is a lightweight SCSS library that serves as a comprehensive design system for your projects. It offers a structured and consistent approach to manage colors, fonts, and other design related variables, making it easier to maintain a cohesive visual identity across your application.",
   "main": "index.js",
   "scripts": {
@@ -34,14 +34,14 @@
   },
   "homepage": "https://github.com/BhoenixStudio/Beathers#readme",
   "devDependencies": {
-    "autoprefixer": "^10.4.14",
-    "nodemon": "^2.0.22",
+    "autoprefixer": "^10.4.21",
+    "nodemon": "^3.1.10",
     "npm-run-all": "^4.1.5",
-    "postcss": "^8.4.24",
-    "postcss-cli": "^10.1.0",
-    "prettier": "^3.3.2",
-    "rimraf": "^5.0.1",
-    "sass": "^1.63.6"
+    "postcss": "^8.5.3",
+    "postcss-cli": "^11.0.1",
+    "prettier": "^3.5.3",
+    "rimraf": "^6.0.1",
+    "sass": "^1.88.0"
   },
   "files": [
     "dist/{css}/*.{css,map}",
