@@ -1,16 +1,43 @@
-@use '../variables' as vars;
-@use '../settings/configs' as configs;
-@use '../functions/colors' as colors;
+/**
+ * Colors System Module
+ * --------------------------
+ * This file is responsible for generating color utility classes and CSS variables
+ * based on the color maps defined in the variables file.
+ *
+ * Key features:
+ * 1. Generates color utility classes from the main colors map
+ * 2. Creates currentColor utility classes
+ * 3. Sets up CSS variables for all defined colors
+ */
 
-/*! * Colors ----- ----- ----- ----- */
+@use "../variables" as vars;
+@use "../settings/configs" as configs;
+@use "../functions/colors" as colors;
 
-@include colors.ColorsMap(vars.$themeColors);
-@include colors.ColorsMap(vars.$layoutColors);
-@include colors.ColorsMap(vars.$customColors, false);
+/**
+ * Generate color utility classes from the main colors map
+ * Uses the ColorsMap mixin from colors functions to create a comprehensive
+ * set of color utilities for all the colors defined in vars.$colors
+ */
+@include colors.ColorsMap(vars.$colors);
 
-// CurrentColor
+/**
+ * CurrentColor Utility Classes
+ * ----------------------------
+ * Creates utility classes for applying currentColor to various CSS properties
+ * as defined in the configs.$colorsPropertiesMap.
+ *
+ * For each property in the map (color, background-color, border-color, etc.):
+ * - Creates a base class (.{property}-current-color)
+ * - Creates a hover variant (.{property}-current-color\:hover)
+ *
+ * Example:
+ * - .current-color applies "color: currentColor"
+ * - .bg-current-color applies "background-color: currentColor"
+ * - .current-color\:hover applies "color: currentColor" on hover
+ */
 @each $class, $value in configs.$colorsPropertiesMap {
-  $mainClass: if($class, '#{$class}#{\:}current-color', 'current-color');
+  $mainClass: if($class, "#{$class}#{\:}current-color", "current-color");
 
   .#{$mainClass} {
     #{$value}: currentColor;
@@ -23,23 +50,22 @@
   }
 }
 
-// Root colors
+/**
+ * CSS Color Variables
+ * ------------------
+ * Generates CSS custom properties (variables) for all colors in the vars.$colors map.
+ * These variables can be used throughout the application to ensure color consistency.
+ *
+ * Format: --color-{group}-{variant}: {color-value}
+ *
+ * Example:
+ * --color-main-light: #ffffff
+ * --color-main-dark: #1a1d21
+ */
 :root {
-  @each $color-group, $colors in vars.$themeColors {
+  @each $color-group, $colors in vars.$colors {
     @each $variant, $color in $colors {
       --color-#{$color-group}-#{$variant}: #{$color};
     }
   }
-
-  @each $color-name, $colors in vars.$layoutColors {
-    @each $variant, $color in $colors {
-      --color-#{$color-name}-#{$variant}: #{$color};
-    }
-  }
-
-  @each $custom-name, $color in vars.$customColors {
-    --color-#{$custom-name}: #{$color};
-  }
 }
-
-/*! ----- ----- ----- ----- End of Colors */
