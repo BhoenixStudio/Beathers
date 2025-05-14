@@ -1,24 +1,45 @@
-@use 'sass:meta';
-@use 'sass:color';
-@use 'sass:math';
-@use 'sass:list';
-@use 'sass:map';
-@use '../settings/configs' as configs;
-@use '../variables' as vars;
+@use "sass:meta";
+@use "sass:color";
+@use "sass:math";
+@use "sass:list";
+@use "sass:map";
+@use "../settings/configs" as configs;
+@use "../variables" as vars;
+@use "../functions/validations" as val;
 
 // Color Convertors ----- ----- ----- -----
-@function hexToRgba($color) {
+/**
+ * Converts a hex color value to RGBA format
+ * @param {Color} $color - The hex color to convert (e.g. '#ffffff' or '#fff')
+ * @return {Color} - The color in rgba() format
+ * @example
+ *   color: hexToRgba('#ffffff');
+ *   // Returns rgba(255, 255, 255, 1)
+ *   color: hexToRgba('#ffffff80');
+ *   // Returns rgba(255, 255, 255, 0.5)
+ */
+@function hexToRgba($color, $opacity: 1) {
   @return rgba(
-    color.channel($color, 'red', $space: rgb),
-    color.channel($color, 'green', $space: rgb),
-    color.channel($color, 'blue', $space: rgb),
-    color.alpha($color)
+    color.channel($color, "red", $space: rgb),
+    color.channel($color, "green", $space: rgb),
+    color.channel($color, "blue", $space: rgb),
+    val.Opacity($opacity)
   );
 }
-// How to call
-// ex: color: hexToRgba('#ffffff');
 
 // Color variants ----- ----- ----- -----
+/**
+ * Retrieves color values from a color map, optionally with a variant
+ * @param {Map} $map - The color map to search in
+ * @param {String} $color - The color key in the map
+ * @param {String} $variant - Optional variant (e.g., 'light' or 'dark')
+ * @return {Color} - The color value from the map
+ * @example
+ *   color: colorMode($themeColors, 'primary', 'light');
+ *   // Returns the light variant of primary color
+ *   color: colorMode($themeColors, 'primary');
+ *   // Returns the whole primary color map if it contains variants
+ */
 @function colorMode($map, $color, $variant: null) {
   $colorMap: map.get($map, $color);
 
@@ -28,37 +49,53 @@
     @return map.get($colorMap, $variant);
   }
 }
-// How to call
-// ex: color: colorMode($map, 'color-1', 'light/dark')
 
 // Use Color ----- ----- ----- -----
-@function useColor($color, $map: 'theme', $variant: null, $opacity: null) {
-  @if not($map == 'theme' or $map == 'layout' or $map == 'custom') {
-    @error 'Invalid value for $map. Allowed values are "theme", "layout", or "custom"';
-  }
+/**
+ * Retrieves a color from any color map with optional variant and opacity
+ * @param {String} $color - The color key to retrieve from the map
+ * @param {String} $mode - Optional mode, must be 'light' or 'dark'
+ * @param {Number} $opacity - Optional opacity value between 0 and 1
+ * @param {Map} $map - Optional color map to use (defaults to vars.$colors)
+ * @return {Color} - The color value, possibly with applied opacity
+ * @throws {Error} - If mode is provided but isn't 'light' or 'dark'
+ * @throws {Error} - If opacity is provided but isn't a number between 0 and 1
+ * @example
+ *   // Using default color map (vars.$colors)
+ *   color: useColor('primary', 'light', 0.5);
+ *   // Returns the light variant of primary color with 50% opacity
+ *
+ *   // Using a custom color map
+ *   color: useColor('secondary', 'dark', null, $customMap);
+ *   // Returns the dark variant of secondary color from custom map
+ */
+@function useColor($color, $mode: null, $opacity: null, $map: vars.$colors) {
+  $selectedColor: map.get($map, $color);
+  $colorValue: if(
+    meta.type-of($selectedColor) == map,
+    map.get($selectedColor, val.colorMode($mode)),
+    $selectedColor
+  );
 
-  $sMap: null;
-  @if $map == 'theme' {
-    $sMap: vars.$themeColors;
-  } @else if $map == 'layout' {
-    $sMap: vars.$layoutColors;
-  } @else if $map == 'custom' {
-    $sMap: vars.$customColors;
-  }
-
-  $colorValue: colorMode($sMap, $color, $variant);
-
-  @if $opacity {
-    @return rgba(hexToRgba($colorValue), $opacity);
+  @if val.Opacity($opacity) {
+    @return hexToRgba($colorValue, val.Opacity($opacity));
   } @else {
     @return $colorValue;
   }
 }
-// How to call
-// ex: color: useColor('color-1', 'theme/layout/custom', 'light/dark', 0 - 1);
 
 // Color Opacity ----- ----- ----- -----
-@mixin ColorOpacity($color, $property, $map: (), $class: '') {
+/**
+ * Creates color classes with different opacity levels
+ * @param {String} $color - The color key or value
+ * @param {String} $property - CSS property to apply the color to (e.g., 'background-color')
+ * @param {Map} $map - Optional color map for theme variants
+ * @param {String} $class - Optional class name prefix
+ * @example
+ *   @include ColorOpacity('primary', 'background-color', $themeColors);
+ *   // Creates classes like .bg\:10, .bg\:20, etc. with primary color at different opacities
+ */
+@mixin ColorOpacity($color, $property, $map: (), $class: "") {
   @each $opacity in configs.$opacities {
     &#{\:}#{$opacity} {
       @if ($map) {
@@ -73,27 +110,26 @@
           $class
         );
       } @else {
-        $property: rgba(hexToRgba($color), $opacity);
+        // Fix: Use interpolation for dynamic property names
+        #{$property}: rgba(hexToRgba($color), math.div($opacity, 100));
       }
     }
   }
 }
-// How to call
-// ex: ColorOpacity('color-1', 'background-color', $map);
 
 // Color Mode ----- ----- ----- -----
-@mixin ColorModes($properties, $map, $class: '') {
+@mixin ColorModes($properties, $map, $class: "") {
   @each $property, $value in $properties {
-    $propertyClass: if($class == null, 'color', $class);
-    $lightModeClass: if($class != '', '#{$propertyClass}#{\:}light', null);
-    $darkModeClass: if($class != '', '#{$propertyClass}#{\:}dark', null);
+    $propertyClass: if($class == null, "color", $class);
+    $lightModeClass: if($class != "", "#{$propertyClass}#{\:}light", null);
+    $darkModeClass: if($class != "", "#{$propertyClass}#{\:}dark", null);
 
     $color: if(meta.type-of($value) == list, list.nth($value, 1), $value);
     $opacity: if(meta.type-of($value) == list, list.nth($value, 2), 1);
 
-    $light: colorMode($map, $color, 'light');
+    $light: colorMode($map, $color, "light");
     $lightValue: if($opacity and $opacity != 1, rgba(hexToRgba($light), $opacity), $light);
-    $dark: colorMode($map, $color, 'dark');
+    $dark: colorMode($map, $color, "dark");
     $darkValue: if($opacity and $opacity != 1, rgba(hexToRgba($dark), $opacity), $dark);
 
     @if $light {
@@ -128,11 +164,11 @@
 // ex: @include ColorModes((color: '2',background-color: ('2', 0.1)), $map);
 
 // Colors Map ----- ----- ----- -----
-@mixin ColorsMap($map, $withVariants: true) {
+@mixin ColorsMap($map) {
   @each $color, $modes in $map {
     @if $color {
       @each $class, $property in configs.$colorsPropertiesMap {
-        $mainClass: if($class, '#{$class}#{\:}color-#{$color}', 'color-#{$color}');
+        $mainClass: if($class, "#{$class}#{\:}color-#{$color}", "color-#{$color}");
         $propertyMap: (
           $property: $color,
         );
@@ -150,18 +186,19 @@
             }
           }
 
-          // Hover/Focus
-          &#{\:hover} {
-            &:hover,
-            &:focus {
-              @include ColorModes($propertyMap, $map, $class);
-              @include ColorOpacity($color, $property, $map, $class);
-            }
+          // Hover
+          &#{\:hover}:hover {
+            @include ColorModes($propertyMap, $map, $class);
+            @include ColorOpacity($color, $property, $map, $class);
+          }
+
+          // Focus
+          &#{\:focus}:focus {
+            @include ColorModes($propertyMap, $map, $class);
+            @include ColorOpacity($color, $property, $map, $class);
           }
         }
       }
     }
   }
 }
-// How to call
-// ex: @include ColorsMap($map, true/false);
