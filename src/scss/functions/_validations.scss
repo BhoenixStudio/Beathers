@@ -1,0 +1,13 @@
+@function opacity($opacity) {
+  @if $opacity != null and (type-of($opacity) != "number" or $opacity < 0 or $opacity > 1) {
+    @error 'Invalid value for $opacity in validate.opacity(). Value must be a number between 0 and 1, got "#{$opacity}"';
+  }
+  @return $opacity;
+}
+
+@function colorMode($mode) {
+  @if $mode != null and not($mode == "light" or $mode == "dark") {
+    @error 'Invalid value for $mode in validate.ColorMode(). Allowed values are "light" or "dark", got "#{$mode}"';
+  }
+  @return $mode;
+}
