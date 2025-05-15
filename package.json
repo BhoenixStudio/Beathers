@@ -1,13 +1,13 @@
 {
   "name": "beathers",
-  "version": "5.1.0",
+  "version": "5.2.0",
   "description": "Beather is a lightweight SCSS library that serves as a comprehensive design system for your projects. It offers a structured and consistent approach to manage colors, fonts, and other design related variables, making it easier to maintain a cohesive visual identity across your application.",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf dist && sass --style compressed --source-map --embed-sources --no-error-css src/scss/:dist/css/",
-    "build-expanded": "rimraf dist && sass --style expanded --source-map --embed-sources --no-error-css src/scss/:dist/css/expanded/",
     "watch": "nodemon --watch src/scss/ --ext scss --exec \"npm-run-all build\"",
-    "clean-build": "rimraf dist",
+    "build": "rimraf dist && sass --style compressed --source-map --embed-sources --no-error-css src/scss/:dist/css/",
+    "build:expanded": "rimraf dist && sass --style expanded --source-map --embed-sources --no-error-css src/scss/:dist/css/expanded/",
+    "build:clean": "rimraf dist",
     "lint": "eslint . && stylelint \"**/*.scss\"",
     "lint:fix": "eslint . --fix && stylelint \"**/*.scss\" --fix",
     "lint:scss": "stylelint \"**/*.scss\"",
