@@ -1,99 +1,117 @@
+@use "sass:meta";
+@use "sass:list";
+@use "sass:map";
 @use "../settings/configs" as configs;
 
 // Basics validations functions
-@function number($number) {
-  @if $number != null and (type-of($number) != "number") {
-    @error '❌ Error at "validate.number()": Please enter a valid number.\AExpected a number, but got "#{$number}".';
+@function number($number, $in: null) {
+  @if $number != null and (meta.type-of($number) != "number") {
+    $in: if($in != null, " | in #{$in}", ".");
+    @error '❌ Error at "validate.number()": Please enter a valid number | Expected a number, but got "#{$number}"#{$in}';
   }
   @return $number;
 }
 
-@function string($string) {
-  @if $string != null and (type-of($string) != "string") {
-    @error '❌ Error at "validate.string()": Please enter a valid string.\AExpected a string, but got "#{$string}".';
+@function string($string, $in: null) {
+  @if $string != null and (meta.type-of($string) != "string") {
+    $in: if($in != null, " | in #{$in}", ".");
+    @error '❌ Error at "validate.string()": Please enter a valid string | Expected a string, but got "#{$string}"#{$in}';
   }
   @return $string;
 }
 
-@function boolean($boolean) {
-  @if $boolean != null and (type-of($boolean) != "bool") {
-    @error '❌ Error at "validate.boolean()": Please enter a valid boolean.\AExpected a (true or false), but got "#{$boolean}".';
+@function boolean($boolean, $in: null) {
+  @if $boolean != null and (meta.type-of($boolean) != "bool") {
+    $in: if($in != null, " | in #{$in}", ".");
+    @error '❌ Error at "validate.boolean()": Please enter a valid boolean | Expected a (true or false), but got "#{$boolean}"#{$in}';
   }
   @return $boolean;
 }
 
 // Colors validations functions
-@function opacity($opacity) {
-  @if $opacity != null and (type-of($opacity) != "number" or $opacity < 0 or $opacity > 1) {
-    @error '❌ Error at "validate.opacity()": Please enter a valid number.\AOpacity must be a number between 0 and 1. You entered: "#{$opacity}"';
+@function opacity($opacity, $in: null) {
+  @if $opacity != null and (meta.type-of($opacity) != "number" or $opacity < 0 or $opacity > 1) {
+    $in: if($in != null, " | in #{$in}", ".");
+    @error '❌ Error at "validate.opacity()": Please enter a valid number | Opacity must be a number between 0 and 1. You entered: "#{$opacity}"#{$in}';
   }
   @return $opacity;
 }
 
-@function colorMode($mode) {
+@function colorMode($mode, $in: null) {
   @if $mode != null and not($mode == "light" or $mode == "dark") {
-    @error '❌ Error at "validate.ColorMode()": Please enter a valid mode.\AAllowed values are "light" or "dark". You entered: "#{$mode}"';
+    $in: if($in != null, " | in #{$in}", ".");
+    @error '❌ Error at "validate.colorMode()": Please enter a valid mode | Allowed values are "light" or "dark"#{$in}';
   }
   @return $mode;
 }
 
-@function hexColor($key, $value) {
-  @if $value != null and (type-of($value) != "string" or str-index($value, "#") != 1) {
-    @error '❌ Error at "validate.hexColor()": Invalid "#{$key}" value.\A"#{$key}" value must be a hex string starting with "#", got "#{$value}".';
+@function hexColor($key, $value, $in: null) {
+  $in: if($in != null, " | in #{$in}", ".");
+
+  @if $value == null {
+    @error '❌ Error at "validate.hexColor()": Invalid "#{$key}" value | "#{$key}" value is null#{$in}';
+  } @else if meta.type-of($value) != "string" and meta.type-of($value) != "color" {
+    @error '❌ Error at "validate.hexColor()": Invalid "#{$key}" value | "#{$key}" value must be a string or color, got type #{meta.type-of($value)}#{$in}';
+  } @else if meta.type-of($value) == "string" and str-index($value, "#") != 1 {
+    @error '❌ Error at "validate.hexColor()": Invalid "#{$key}" value | "#{$key}" value must start with "#", got "#{$value}"#{$in}';
   }
+
   @return $value;
 }
 
 // Map validations functions
-@function map($map) {
+@function map($map, $in: null) {
   @if meta.type-of($map) != map {
-    @error '❌ Error at "validate.map()": Invalid type provided.\AExpected a map, but got "#{$map}" of type #{meta.type-of($map)}.';
+    $in: if($in != null, " | in #{$in}", ".");
+    @error '❌ Error at "validate.map()": Invalid type provided | Expected a map, but got "#{$map}" of type "#{meta.type-of($map)}"#{$in}';
   }
   @return $map;
 }
 
-@function mapItem($map, $key, $expectedKeys) {
+@function mapItem($map, $key, $expectedKeys, $in: null) {
   @if not map.has-key($map, $key) {
-    @error '❌ Error at "validate.mapItem()": Missing key.\AMissing key "#{$key}" in the map "#{$map}". Expected keys: "#{$expectedKeys}".';
+    $in: if($in != null, " | in #{$in}", ".");
+    @error '❌ Error at "validate.mapItem()": Missing key | Missing key "#{$key}" in the map "#{$map}" | Expected keys: "#{$expectedKeys}"#{$in}';
   }
   @return $map;
 }
 
 // Custom colors validations functions
-@function colorMap($map) {
+@function colorMap($map, $in: null) {
   $mapVal: map($map);
 
   @each $key, $value in $map {
-    $mapVal: map($value);
-    $lightKey: colorMode($value);
-    $darkKey: colorMode($value);
-    $light: hexColor("#{$key}.light", map.get($value, "light"));
-    $dark: hexColor("#{$key}.dark", map.get($value, "dark"));
+    $mapVal: map($value, $in);
+    $lightKey: colorMode($value, $in);
+    $darkKey: colorMode($value, $in);
+    $light: hexColor("#{$key}.light", map.get($value, "light"), $in);
+    $dark: hexColor("#{$key}.dark", map.get($value, "dark"), $in);
   }
 
   @return $map;
 }
 
-@function colorOpacity($opacity) {
-  @if $opacity != null and not(list.index(map.values(configs.$opacities), $opacity)) {
-    @error '❌ Error at "validate.colorOpacity()": Invalid color property value.\AExpected one of #{map.values(configs.$opacities)}, but got "#{$opacity}".';
+@function colorOpacity($opacity, $in: null) {
+  @if $opacity != null and not(list.index(configs.$opacities, $opacity)) {
+    $in: if($in != null, " | in #{$in}", ".");
+    @error '❌ Error at "validate.colorOpacity()": Invalid color property value | Expected one of (#{configs.$opacities}), but got "#{$opacity}"#{$in}';
   }
   @return $opacity;
 }
 
-@function colorProperty($value) {
+@function colorProperty($value, $in: null) {
   @if $value != null and not(list.index(map.values(configs.$colorsPropertiesMap), $value)) {
-    @error '❌ Error at "validate.colorProperty()": Invalid color property value.\AExpected one of #{map.values(configs.$colorsPropertiesMap)}, but got "#{$value}".';
+    @error '❌ Error at "validate.colorProperty()": Invalid color property value | Expected one of #{map.values(configs.$colorsPropertiesMap)}, but got "#{$value}"#{$in}';
   }
   @return $value;
 }
 
-@function colorClass($value) {
+@function colorClass($value, $in: null) {
   @if $value !=
     null and
     not($value == null or list.index(map.keys(configs.$colorsPropertiesMap), $value))
   {
-    @error '❌ Error at "validate.colorClass()": Invalid color class value.\AExpected one of #{map.keys(configs.$colorsPropertiesMap)}, but got "#{$value}".';
+    @error '❌ Error at "validate.colorClass()": Invalid color class value | Expected one of #{map.keys(configs.$colorsPropertiesMap)}, but got "#{$value}"#{$in}';
   }
   @return $value;
 }
