@@ -7,6 +7,11 @@ $colorsPropertiesMap: (
   stroke: stroke,
   text-stroke: -webkit-text-stroke-color,
 ) !default;
+$colorsPseudoMap: (
+  "placeholder": "::placeholder",
+  "hover": ":hover",
+  "focus": ":focus",
+) !default;
 
 // Fonts ----- ----- ----- -----
 $defaultFontFamilies:
@@ -17,32 +22,32 @@ $defaultFontFamilies:
   sans-serif !default;
 
 $fontSizes: (
-  'h1': 96px,
-  'h2': 60px,
-  'h3': 40px,
-  'h4': 34px,
-  'h5': 24px,
-  'h6': 20px,
-  'subtitle1': 16px,
-  'subtitle2': 14px,
-  'body1': 16px,
-  'body2': 14px,
-  'button': 14px,
-  'caption': 12px,
-  'overline': 10px,
+  "h1": 96px,
+  "h2": 60px,
+  "h3": 40px,
+  "h4": 34px,
+  "h5": 24px,
+  "h6": 20px,
+  "subtitle1": 16px,
+  "subtitle2": 14px,
+  "body1": 16px,
+  "body2": 14px,
+  "button": 14px,
+  "caption": 12px,
+  "overline": 10px,
 ) !default;
 
 $fontStyles: (
-  'transform': (
+  "transform": (
     uppercase,
     lowercase,
     capitalize,
   ),
-  'decoration': (
+  "decoration": (
     underline,
     line-through,
   ),
-  'styles': (
+  "styles": (
     wavy,
     double,
     dotted,
@@ -106,49 +111,49 @@ $cursors: (
 ) !default;
 
 $shadows: (
-  'light': (
+  "light": (
     x: 0,
     y: 2,
     blur: 5,
     spread: 0,
     opacity: 0.15,
   ),
-  'soft': (
+  "soft": (
     x: 2,
     y: 2,
     blur: 12,
     spread: 0,
     opacity: 0.2,
   ),
-  'medium': (
+  "medium": (
     x: 0,
     y: 10,
     blur: 20,
     spread: 0,
     opacity: 0.2,
   ),
-  'solid': (
+  "solid": (
     x: 0,
     y: 4,
     blur: 10,
     spread: 0,
     opacity: 0.3,
   ),
-  'ambient': (
+  "ambient": (
     x: 0,
     y: 0,
     blur: 40,
     spread: 10,
     opacity: 0.1,
   ),
-  'flat': (
+  "flat": (
     x: 0,
     y: 6,
     blur: 6,
     spread: 4,
     opacity: 0.2,
   ),
-  'floating': (
+  "floating": (
     x: 0,
     y: 20,
     blur: 40,
