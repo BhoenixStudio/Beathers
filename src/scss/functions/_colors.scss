@@ -8,194 +8,209 @@
 @use "../functions/validations" as val;
 
 // Color Convertors ----- ----- ----- -----
-/**
- * Converts a hex color value to RGBA format
- * @param {Color} $color - The hex color to convert (e.g. '#ffffff' or '#fff')
- * @return {Color} - The color in rgba() format
- * @example
- *   color: hexToRgba('#ffffff');
- *   // Returns rgba(255, 255, 255, 1)
- *   color: hexToRgba('#ffffff80');
- *   // Returns rgba(255, 255, 255, 0.5)
- */
-@function hexToRgba($color, $opacity: 1) {
+//
+// @function hexToRgba
+// --------------------------------------
+// Converts a hex color value to RGBA format
+//
+// @param {Color} $color - The hex color to convert (e.g. '#ffffff' or '#fff')
+// @param {Number} $opacity - Optional opacity value between 0 and 1 (default: 1)
+// @return {Color} - The color in rgba() format
+//
+// @example scss
+//   color: hexToRgba('#ffffff');
+//   // Returns rgba(255, 255, 255, 1)
+//   color: hexToRgba('#ffffff', 0.5);
+//   // Returns rgba(255, 255, 255, 0.5)
+//   color: hexToRgba('#ffffff80');
+//   // Returns rgba(255, 255, 255, 0.5)
+//
+@function hexToRgba($color, $opacity: 1, $debugIn: null) {
+  // Validate parameters
+  $checkedColor: val.hexColor("color", $color, "hexToRgba().#{$debugIn}");
+  $checkedOpacity: val.opacity($opacity, "hexToRgba().#{$debugIn}");
+
   @return rgba(
-    color.channel($color, "red", $space: rgb),
-    color.channel($color, "green", $space: rgb),
-    color.channel($color, "blue", $space: rgb),
-    val.Opacity($opacity)
+    color.channel($checkedColor, "red", $space: rgb),
+    color.channel($checkedColor, "green", $space: rgb),
+    color.channel($checkedColor, "blue", $space: rgb),
+    $checkedOpacity
   );
-}
-
-// Color variants ----- ----- ----- -----
-/**
- * Retrieves color values from a color map, optionally with a variant
- * @param {Map} $map - The color map to search in
- * @param {String} $color - The color key in the map
- * @param {String} $variant - Optional variant (e.g., 'light' or 'dark')
- * @return {Color} - The color value from the map
- * @example
- *   color: colorMode($themeColors, 'primary', 'light');
- *   // Returns the light variant of primary color
- *   color: colorMode($themeColors, 'primary');
- *   // Returns the whole primary color map if it contains variants
- */
-@function colorMode($map, $color, $variant: null) {
-  $colorMap: map.get($map, $color);
-
-  @if $variant == null or meta.type-of($colorMap) != map {
-    @return $colorMap;
-  } @else {
-    @return map.get($colorMap, $variant);
-  }
 }
 
 // Use Color ----- ----- ----- -----
-/**
- * Retrieves a color from any color map with optional variant and opacity
- * @param {String} $color - The color key to retrieve from the map
- * @param {String} $mode - Optional mode, must be 'light' or 'dark'
- * @param {Number} $opacity - Optional opacity value between 0 and 1
- * @param {Map} $map - Optional color map to use (defaults to vars.$colors)
- * @return {Color} - The color value, possibly with applied opacity
- * @throws {Error} - If mode is provided but isn't 'light' or 'dark'
- * @throws {Error} - If opacity is provided but isn't a number between 0 and 1
- * @example
- *   // Using default color map (vars.$colors)
- *   color: useColor('primary', 'light', 0.5);
- *   // Returns the light variant of primary color with 50% opacity
- *
- *   // Using a custom color map
- *   color: useColor('secondary', 'dark', null, $customMap);
- *   // Returns the dark variant of secondary color from custom map
- */
-@function useColor($color, $mode: null, $opacity: null, $map: vars.$colors) {
-  $selectedColor: map.get($map, $color);
-  $colorValue: if(
-    meta.type-of($selectedColor) == map,
-    map.get($selectedColor, val.colorMode($mode)),
-    $selectedColor
-  );
+//
+// @function useColor
+// --------------------------------------
+// Retrieves a color from any color map with optional variant and opacity
+//
+// @param {String} $color - The color key to retrieve from the map
+// @param {String} $mode - Optional mode, must be 'light' or 'dark' (default: 'light')
+// @param {Number} $opacity - Optional opacity value between 0 and 100 (default: 100)
+// @param {Map} $map - Optional color map to use (defaults to vars.$colors)
+// @return {Color} - The color value, possibly with applied opacity
+// @throws {Error} - If mode is provided but isn't 'light' or 'dark'
+// @throws {Error} - If opacity is provided but isn't a number between 0 and 100
+//
+// @example scss
+//   // Using default color map (vars.$colors)
+//   color: useColor('primary', 'light', 0.5);
+//   // Returns the light variant of primary color with 50% opacity
+//
+//   // Using a custom color map
+//   color: useColor('secondary', 'dark', null, $customMap);
+//   // Returns the dark variant of secondary color from custom map
+//
+@function useColor($color, $mode: "light", $opacity: 100) {
+  // Validate parameters
+  $checkedMode: val.colorMode($mode, "useColor()");
+  $checkedOpacity: val.colorOpacity($opacity, "useColor()");
 
-  @if val.Opacity($opacity) {
-    @return hexToRgba($colorValue, val.Opacity($opacity));
+  $value: map.get($color, $mode);
+
+  @if $checkedOpacity {
+    @return hexToRgba($value, math.div($opacity, 100), "useColor().#{$value}");
   } @else {
-    @return $colorValue;
+    @return $value;
   }
 }
 
-// Color Opacity ----- ----- ----- -----
-/**
- * Creates color classes with different opacity levels
- * @param {String} $color - The color key or value
- * @param {String} $property - CSS property to apply the color to (e.g., 'background-color')
- * @param {Map} $map - Optional color map for theme variants
- * @param {String} $class - Optional class name prefix
- * @example
- *   @include ColorOpacity('primary', 'background-color', $themeColors);
- *   // Creates classes like .bg\:10, .bg\:20, etc. with primary color at different opacities
- */
-@mixin ColorOpacity($color, $property, $map: (), $class: "") {
-  @each $opacity in configs.$opacities {
-    &#{\:}#{$opacity} {
-      @if ($map) {
-        @include ColorModes(
-          (
-            $property: (
-              $color,
-              math.div($opacity, 100),
-            ),
-          ),
-          $map,
-          $class
-        );
-      } @else {
-        // Fix: Use interpolation for dynamic property names
-        #{$property}: rgba(hexToRgba($color), math.div($opacity, 100));
-      }
+// @mixin useColorProperty
+// --------------------------------------
+// Applies color properties with theme variant support while handling light/dark themes
+// and creating appropriate CSS selectors for different use cases.
+//
+// @param {String} $colorClass - The CSS class name to apply the color to (e.g., 'color-1', 'bg\:color-1')
+// @param {String|Null} $class - The CSS class prefix (e.g., 'bg', 'border', null for 'color')
+// @param {String} $property - The CSS property to set (e.g., 'color', 'background-color')
+// @param {Map} $color - The color map with light/dark variants
+// @param {Map} $map - The parent color map containing all colors
+// @param {Number} $opacity - Optional opacity value between 0-100 (default: 100)
+// @throws {Error} - If provided parameters fail validation through val.* functions
+//
+// @example scss
+//   // Apply primary color as text color with 50% opacity
+//   @include useColorProperty("color-1", null, "color", $primaryColor, $colorsMap, 50);
+//
+//   // Apply primary color as background with full opacity
+//   @include useColorProperty("bg\:color-1", "bg", "background-color", $primaryColor, $colorsMap);
+//
+// Generated Selectors:
+// Each call to this mixin generates three CSS selectors to support different theming approaches:
+//
+// 1. Parent/child relationship: `.light .className`, `.dark .className`
+//    For theme inheritance from parent elements
+//    Example: <div class="light"><span class="color-1">Themed text</span></div>
+//
+// 2. Modifier class: `.className.light`, `.className.dark`
+//    For direct theme application to the element itself
+//    Example: <span class="color-1 light">Themed text</span>
+//
+// 3. Prefixed class: `.light\:className`, `.dark\:className`
+//    For utility-first CSS approaches
+//    Example: <span class="light\:color-1">Themed text</span>
+//
+// Note: When light and dark variants are identical, a single class without theme
+// modifiers is generated to reduce CSS output size.
+@mixin useColorProperty($colorClass, $class, $property, $color, $map, $opacity: 100) {
+  // Validate parameters
+  $checkedClass: val.colorClass($class, "useColorProperty().class");
+  $checkedProperty: val.colorProperty($property, "useColorProperty().property");
+  $checkedMap: val.map($map, "useColorProperty().map");
+  $checkedOpacity: val.colorOpacity($opacity, "useColorProperty().opacity");
+  $checkedLight: val.mapItem($color, "light", "light/dark", "useColorProperty().color");
+  $checkedDark: val.mapItem($color, "dark", "light/dark", "useColorProperty().color");
+
+  $light: map.get($color, "light");
+  $dark: map.get($color, "dark");
+
+  $checkedLightValue: val.hexColor("#{$colorClass}.light", $light, "root-colors()");
+  $checkedDarkValue: val.hexColor("#{$colorClass}.dark", $dark, "root-colors()");
+
+  @if $dark != $light {
+    .light .#{$colorClass},
+    .#{$colorClass}.light,
+    .light\:#{$colorClass} {
+      #{$property}: useColor($color, "light", $opacity);
+    }
+
+    .dark .#{$colorClass},
+    .#{$colorClass}.dark,
+    .dark\:#{$colorClass} {
+      #{$property}: useColor($color, "dark", $opacity);
+    }
+  } @else {
+    .#{$colorClass} {
+      #{$property}: useColor($color, "light", $opacity);
     }
   }
 }
 
-// Color Mode ----- ----- ----- -----
-@mixin ColorModes($properties, $map, $class: "") {
-  @each $property, $value in $properties {
-    $propertyClass: if($class == null, "color", $class);
-    $lightModeClass: if($class != "", "#{$propertyClass}#{\:}light", null);
-    $darkModeClass: if($class != "", "#{$propertyClass}#{\:}dark", null);
+// Use Colors Map ----- ----- ----- -----
+//
+// @mixin useColorsMap
+// --------------------------------------
+// Creates color utility classes using useColor() function for theme variant handling
+// @param {Map} $map - The color map to use (e.g., vars.$colors)
+// @param {Boolean} $withOpacity - Whether to generate opacity variants (default: true)
+// @throws {Error} - If $map is not a valid map
+//
+// @example scss
+//   @include useColorsMap($themeColors);
+//   // Creates all color classes with theme support
+//   // Generated classes include:
+//   // .color-[colorName], .bg-color-[colorName], .border-color-[colorName]
+//   // With theme variants like .light, .dark
+//   // With optional opacity variants like :50, :75
+//   // With pseudo-class variants like :hover, :focus
+//
+@mixin useColorsMap($map: vars.$colors, $withOpacity: true) {
+  // Validate parameters
+  $checkedMap: val.map($map, "useColorsMap()");
+  $checkedWithOpacity: val.boolean($withOpacity, "useColorsMap()");
 
-    $color: if(meta.type-of($value) == list, list.nth($value, 1), $value);
-    $opacity: if(meta.type-of($value) == list, list.nth($value, 2), 1);
-
-    $light: colorMode($map, $color, "light");
-    $lightValue: if($opacity and $opacity != 1, rgba(hexToRgba($light), $opacity), $light);
-    $dark: colorMode($map, $color, "dark");
-    $darkValue: if($opacity and $opacity != 1, rgba(hexToRgba($dark), $opacity), $dark);
-
-    @if $light {
-      .light & {
-        #{$property}: $lightValue;
-      }
-    }
-
-    @if $dark {
-      .dark & {
-        #{$property}: $darkValue;
-      }
-    }
-
-    @if $light {
-      @if $lightModeClass {
-        &.#{$lightModeClass} {
-          #{$property}: $lightValue;
-        }
-      }
-    }
-    @if $dark {
-      @if $darkModeClass {
-        &.#{$darkModeClass} {
-          #{$property}: $darkValue;
-        }
-      }
-    }
-  }
-}
-// How to call
-// ex: @include ColorModes((color: '2',background-color: ('2', 0.1)), $map);
-
-// Colors Map ----- ----- ----- -----
-@mixin ColorsMap($map) {
-  @each $color, $modes in $map {
+  @each $color, $modes in $checkedMap {
     @if $color {
       @each $class, $property in configs.$colorsPropertiesMap {
         $mainClass: if($class, "#{$class}#{\:}color-#{$color}", "color-#{$color}");
-        $propertyMap: (
-          $property: $color,
-        );
 
-        .#{$mainClass} {
-          // Native
-          @include ColorModes($propertyMap, $map, $class);
-          @include ColorOpacity($color, $property, $map, $class);
+        @include useColorProperty($mainClass, $class, $property, $modes, $map);
 
-          // Placeholder
-          @if $class == null {
-            &#{\:placeholder}::placeholder {
-              @include ColorModes($propertyMap, $map, $class);
-              @include ColorOpacity($color, $property, $map, $class);
+        @if $checkedWithOpacity {
+          @each $opacity in configs.$opacities {
+            @include useColorProperty(
+              "#{$mainClass}#{\:}#{$opacity}",
+              $class,
+              $property,
+              $modes,
+              $map,
+              $opacity
+            );
+          }
+        }
+
+        @each $pseudoClass, $pseudo in configs.$colorsPseudoMap {
+          @if $pseudoClass != "placeholder" or ($pseudoClass == "placeholder" and $class == null) {
+            @include useColorProperty(
+              "#{$mainClass}#{\:}#{$pseudoClass}#{$pseudo}",
+              $class,
+              $property,
+              $modes,
+              $map
+            );
+
+            @if $checkedWithOpacity {
+              @each $opacity in configs.$opacities {
+                @include useColorProperty(
+                  "#{$mainClass}#{\:}#{$opacity}#{\:}#{$pseudoClass}#{$pseudo}",
+                  $class,
+                  $property,
+                  $modes,
+                  $map,
+                  $opacity
+                );
+              }
             }
-          }
-
-          // Hover
-          &#{\:hover}:hover {
-            @include ColorModes($propertyMap, $map, $class);
-            @include ColorOpacity($color, $property, $map, $class);
-          }
-
-          // Focus
-          &#{\:focus}:focus {
-            @include ColorModes($propertyMap, $map, $class);
-            @include ColorOpacity($color, $property, $map, $class);
           }
         }
       }

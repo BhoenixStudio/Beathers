@@ -1,71 +1,133 @@
-/**
- * Colors System Module
- * --------------------------
- * This file is responsible for generating color utility classes and CSS variables
- * based on the color maps defined in the variables file.
- *
- * Key features:
- * 1. Generates color utility classes from the main colors map
- * 2. Creates currentColor utility classes
- * 3. Sets up CSS variables for all defined colors
- */
+@use "sass:map";
+
+// Colors System Module
+// --------------------------
+// This file is responsible for generating color utility classes and CSS variables
+// based on the color maps defined in the variables file.
+//
+// Key features:
+// 1. Generates color utility classes from the main colors map
+// 2. Creates currentColor utility classes
+// 3. Sets up CSS variables for all defined colors
+//
+// The color system supports:
+// - Light and dark mode theming
+// - Opacity variations
+// - Pseudo-class variants (:hover, :focus, etc.)
+//
+// @requires ../functions/colors.scss - For color utility functions and mixins
+// @requires ../settings/configs.scss - For configuration variables
+// @requires ../functions/validations.scss - For validation utilities
+// @requires ../variables.scss - For color definitions
 
 @use "../variables" as vars;
+@use "../functions//validations" as val;
 @use "../settings/configs" as configs;
 @use "../functions/colors" as colors;
 
-/**
- * Generate color utility classes from the main colors map
- * Uses the ColorsMap mixin from colors functions to create a comprehensive
- * set of color utilities for all the colors defined in vars.$colors
- */
-@include colors.ColorsMap(vars.$colors);
+// Color Utility Classes
+// --------------------
+// Generate color utility classes from the main colors map.
+// Uses the useColorsMap mixin from colors functions to create a comprehensive
+// set of color utilities for all the colors defined in vars.$colors.
+//
+// Generated classes include:
+// - .color-[colorName] - Sets text color
+// - .bg-color-[colorName] - Sets background color
+// - .border-color-[colorName] - Sets border color
+//
+// With light/dark theme variants:
+// - Automatically applies correct color based on .light/.dark context
+// - Supports direct class application with .color-[colorName].light
+//
+// With opacity variants (e.g., :50 for 50% opacity):
+// - .color-[colorName]:50
+// - .bg-color-[colorName]:75
+//
+// With pseudo-class variants:
+// - .color-[colorName]:hover
+// - .bg-color-[colorName]:focus
+@include colors.useColorsMap();
 
-/**
- * CurrentColor Utility Classes
- * ----------------------------
- * Creates utility classes for applying currentColor to various CSS properties
- * as defined in the configs.$colorsPropertiesMap.
- *
- * For each property in the map (color, background-color, border-color, etc.):
- * - Creates a base class (.{property}-current-color)
- * - Creates a hover variant (.{property}-current-color\:hover)
- *
- * Example:
- * - .current-color applies "color: currentColor"
- * - .bg-current-color applies "background-color: currentColor"
- * - .current-color\:hover applies "color: currentColor" on hover
- */
-@each $class, $value in configs.$colorsPropertiesMap {
+// CurrentColor Utility Classes
+// ----------------------------
+// Creates utility classes for applying the CSS `currentColor` value to various CSS properties
+// as defined in the configs.$colorsPropertiesMap.
+//
+// For each property in the map (color, background-color, border-color, etc.):
+// - Creates a base class (.{property}-current-color)
+// - Creates pseudo-class variants for interaction states
+//
+// Examples:
+// - .current-color { color: currentColor; }
+// - .bg-current-color { background-color: currentColor; }
+// - .border-current-color { border-color: currentColor; }
+// - .current-color\:hover:hover { color: currentColor; }
+// - .bg-current-color\:focus:focus { background-color: currentColor; }
+//
+// Usage:
+// <div class="current-color bg-current-color:hover">
+//   This text uses currentColor and background changes to currentColor on hover
+// </div>
+@each $class, $property in configs.$colorsPropertiesMap {
   $mainClass: if($class, "#{$class}#{\:}current-color", "current-color");
 
   .#{$mainClass} {
-    #{$value}: currentColor;
+    #{$property}: currentColor;
 
-    &#{\:hover} {
-      &:hover {
-        #{$value}: currentColor;
+    @each $pseudoClass, $pseudo in configs.$colorsPseudoMap {
+      @if $pseudoClass != "placeholder" or ($pseudoClass == "placeholder" and $class == null) {
+        &#{\:}#{$pseudoClass}#{$pseudo} {
+          #{$property}: currentColor;
+        }
       }
     }
   }
 }
 
-/**
- * CSS Color Variables
- * ------------------
- * Generates CSS custom properties (variables) for all colors in the vars.$colors map.
- * These variables can be used throughout the application to ensure color consistency.
- *
- * Format: --color-{group}-{variant}: {color-value}
- *
- * Example:
- * --color-main-light: #ffffff
- * --color-main-dark: #1a1d21
- */
+// CSS Color Variables
+// ------------------
+// Generates CSS custom properties (variables) for all colors in the vars.$colors map.
+// These variables can be used throughout the application to ensure color consistency.
+//
+// The implementation:
+// 1. Iterates through each color in the vars.$colors map
+// 2. Validates the color values through val.mapItem and val.hexColor functions
+// 3. Determines if light and dark variants are the same
+// 4. Creates appropriate CSS variables based on variant differences
+//
+// Format:
+// - For colors with light/dark variants: --color-{name}-{variant}: {color-value}
+// - For colors without variants: --color-{name}: {color-value}
+//
+// Examples:
+// --color-main-light: #ffffff
+// --color-main-dark: #1a1d21
+// --color-accent: #3498db (when light and dark variants are the same)
+//
+// Usage:
+// .my-element {
+//   background-color: var(--color-main-light);
+//   color: var(--color-accent);
+// }
 :root {
-  @each $color-group, $colors in vars.$colors {
-    @each $variant, $color in $colors {
-      --color-#{$color-group}-#{$variant}: #{$color};
+  @each $color, $modes in vars.$colors {
+    // Validate parameters
+    $checkedLight: val.mapItem($modes, "light", "light/dark", "root-colors()");
+    $checkedDark: val.mapItem($modes, "dark", "light/dark", "root-colors()");
+
+    $light: map.get($modes, "light");
+    $dark: map.get($modes, "dark");
+
+    // Validate colors
+    $checkedLightValue: val.hexColor("#{$color}.light", $light, "root-colors()");
+    $checkedDarkValue: val.hexColor("#{$color}.dark", $dark, "root-colors()");
+
+    @if ($light == $dark) {
+      --color-#{$color}: #{$checkedLightValue};
+    } @else {
+      --color-#{$color}-light: #{$checkedLightValue};
+      --color-#{$color}-dark: #{$checkedDarkValue};
     }
   }
 }
