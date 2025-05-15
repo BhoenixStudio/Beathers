@@ -1,13 +1,71 @@
+// Basics validations functions
+@function number($number) {
+  @if $number != null and (type-of($number) != "number") {
+    @error '❌ Error at "validate.number()": Please enter a valid number.\AExpected a number, but got "#{$number}".';
+  }
+  @return $number;
+}
+@function string($string) {
+  @if $string != null and (type-of($string) != "string") {
+    @error '❌ Error at "validate.string()": Please enter a valid string.\AExpected a string, but got "#{$string}".';
+  }
+  @return $string;
+}
+@function boolean($boolean) {
+  @if $boolean != null and (type-of($boolean) != "bool") {
+    @error '❌ Error at "validate.boolean()": Please enter a valid boolean.\AExpected a (true or false), but got "#{$boolean}".';
+  }
+  @return $boolean;
+}
+
+// Colors validations functions
 @function opacity($opacity) {
   @if $opacity != null and (type-of($opacity) != "number" or $opacity < 0 or $opacity > 1) {
-    @error 'Invalid value for $opacity in validate.opacity(). Value must be a number between 0 and 1, got "#{$opacity}"';
+    @error '❌ Error at "validate.opacity()": Please enter a valid number.\AOpacity must be a number between 0 and 1. You entered: "#{$opacity}"';
   }
   @return $opacity;
 }
 
 @function colorMode($mode) {
   @if $mode != null and not($mode == "light" or $mode == "dark") {
-    @error 'Invalid value for $mode in validate.ColorMode(). Allowed values are "light" or "dark", got "#{$mode}"';
+    @error '❌ Error at "validate.ColorMode()": Please enter a valid mode.\AAllowed values are "light" or "dark". You entered: "#{$mode}"';
   }
   @return $mode;
+}
+
+@function hexColor($key, $value) {
+  @if $value != null and (type-of($value) != "string" or str-index($value, "#") != 1) {
+    @error '❌ Error at "validate.hexColor()": Invalid "#{$key}" value.\A"#{$key}" value must be a hex string starting with "#", got "#{$value}".';
+  }
+  @return $value;
+}
+
+// Map validations functions
+@function map($map) {
+  @if meta.type-of($map) != map {
+    @error '❌ Error at "validate.map()": Invalid type provided.\AExpected a map, but got "#{$map}" of type #{meta.type-of($map)}.';
+  }
+  @return $map;
+}
+
+@function mapItem($map, $key, $expectedKeys) {
+  @if not map.has-key($map, $key) {
+    @error '❌ Error at "validate.mapItem()": Missing key.\AMissing key "#{$key}" in the map "#{$map}". Expected keys: "#{$expectedKeys}".';
+  }
+  @return $map;
+}
+
+// Custom validations functions
+@function colorMap($map) {
+  $mapVal: map($map);
+
+  @each $key, $value in $map {
+    $mapVal: map($value);
+    $lightKey: mapItem($value, "light", '("light": #hex, "dark": #hex)');
+    $darkKey: mapItem($value, "dark", '("light": #hex, "dark": #hex)');
+    $light: hexColor("#{$key}.light", map.get($value, "light"));
+    $dark: hexColor("#{$key}.dark", map.get($value, "dark"));
+  }
+
+  @return $map;
 }
