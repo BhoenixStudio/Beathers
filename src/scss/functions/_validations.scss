@@ -65,8 +65,8 @@
 
   @each $key, $value in $map {
     $mapVal: map($value);
-    $lightKey: mapItem($value, "light", '("light": #hex, "dark": #hex)');
-    $darkKey: mapItem($value, "dark", '("light": #hex, "dark": #hex)');
+    $lightKey: colorMode($value);
+    $darkKey: colorMode($value);
     $light: hexColor("#{$key}.light", map.get($value, "light"));
     $dark: hexColor("#{$key}.dark", map.get($value, "dark"));
   }
