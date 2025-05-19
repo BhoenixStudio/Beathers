@@ -112,3 +112,18 @@
 //     }
 //   }
 // }
+
+// @if settings.$useObjectFits {
+//   @include mQ.multiSizes() using ($size, $divider) {
+//     @each $fit in configs.$objectsFits {
+//       // Validate parameters
+//       $checkedFit: val.listItem(configs.$objectsFits, $fit, "Shaping.objectFit");
+
+//       $mainClass: if($size, "#{$size}#{$divider}object-fit", "object-fit");
+
+//       .#{$mainClass}#{\:}#{$fit} {
+//         object-fit: if($size, $fit !important, $fit);
+//       }
+//     }
+//   }
+// }
