@@ -3,6 +3,9 @@ $useMediaQueries: true !default;
 
 // Colors settings ----- ----- ----- -----
 $useColors: true !default;
+$useColorsOpacities: true !default;
+$useColorsLightMode: true !default;
+$useColorsDarkMode: true !default;
 $useCurrentColors: true !default;
 $useRootColors: true !default;
 
@@ -17,3 +20,4 @@ $useTextTruncate: true !default;
 $useShadows: true !default;
 $useDisplays: true !default;
 $useOverflows: true !default;
+$useOpacities: true !default;

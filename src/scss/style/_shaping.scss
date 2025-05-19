@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "sass:math";
 @use "../functions/mediaQueries" as mQ;
 @use "../settings/configs" as configs;
 @use "../functions/validations" as val;
@@ -74,3 +75,21 @@
 //     }
 //   }
 // }
+
+@if settings.$useOpacities {
+  @include mQ.multiSizes() using ($size, $divider) {
+    @each $value in configs.$opacities {
+      $checkedValue: val.opacity(math.div($value, 100), "Shaping.opacity");
+
+      $mainClass: if($size, "#{$size}#{$divider}op", "op");
+
+      .#{$mainClass}#{\:}#{$value} {
+        opacity: if($size, $checkedValue !important, $checkedValue);
+
+        &#{\:}hover:hover {
+          opacity: if($size, $checkedValue !important, $checkedValue);
+        }
+      }
+    }
+  }
+}

@@ -3,17 +3,6 @@
 
 /*! * Displays ----- ----- ----- ----- */
 
-// Opacities ----- -----
-@each $value in configs.$opacities {
-  .op#{\:}#{$value} {
-    opacity: calc($value / 100);
-
-    &#{\:}hover:hover {
-      opacity: calc($value / 100);
-    }
-  }
-}
-
 // Blur ----- -----
 @each $value in configs.$blurValues {
   .bg#{\:}blur#{\:}#{$value} {
