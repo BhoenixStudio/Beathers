@@ -6,8 +6,9 @@
 // Style ----- ----- ----- -----
 // @use './settings/resets';
 // @use './style/colors';
-@use './style/typographic';
-// @use './style/shadows';
+// @use "./style/typographic";
+@use './style/shaping';
+
 // @use './style/displays';
 // @use './style/wrappers';
 // @use './style/grid';
