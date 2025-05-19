@@ -3,17 +3,6 @@
 
 /*! * Displays ----- ----- ----- ----- */
 
-// Blur ----- -----
-@each $value in configs.$blurValues {
-  .bg#{\:}blur#{\:}#{$value} {
-    backdrop-filter: blur(#{$value}#{px});
-
-    &#{\:}hover:hover {
-      backdrop-filter: blur(#{$value}#{px});
-    }
-  }
-}
-
 // Fits ----- -----
 @each $fit in configs.$objectsFits {
   @each $size, $divider in mQ.multiSizes() {

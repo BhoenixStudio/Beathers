@@ -76,20 +76,39 @@
 //   }
 // }
 
-@if settings.$useOpacities {
-  @include mQ.multiSizes() using ($size, $divider) {
-    @each $value in configs.$opacities {
-      $checkedValue: val.opacity(math.div($value, 100), "Shaping.opacity");
+// @if settings.$useOpacities {
+//   @include mQ.multiSizes() using ($size, $divider) {
+//     @each $value in configs.$opacities {
+//       $checkedValue: val.opacity(math.div($value, 100), "Shaping.opacity");
 
-      $mainClass: if($size, "#{$size}#{$divider}op", "op");
+//       $mainClass: if($size, "#{$size}#{$divider}op", "op");
 
-      .#{$mainClass}#{\:}#{$value} {
-        opacity: if($size, $checkedValue !important, $checkedValue);
+//       .#{$mainClass}#{\:}#{$value} {
+//         opacity: if($size, $checkedValue !important, $checkedValue);
 
-        &#{\:}hover:hover {
-          opacity: if($size, $checkedValue !important, $checkedValue);
-        }
-      }
-    }
-  }
-}
+//         &#{\:}hover:hover {
+//           opacity: if($size, $checkedValue !important, $checkedValue);
+//         }
+//       }
+//     }
+//   }
+// }
+
+// @if settings.$useBlur {
+//   @include mQ.multiSizes() using ($size, $divider) {
+//     @each $value in configs.$blurValues {
+//       $checkedValue: val.listItem(configs.$blurValues, $value, "Shaping.blur");
+
+//       $mainClass: if($size, "#{$size}#{$divider}bg#{\:}blur", "bg#{\:}blur");
+//       $calcValue: blur(#{$checkedValue}#{px});
+
+//       .#{$mainClass}#{\:}#{$value} {
+//         backdrop-filter: if($size, $calcValue !important, $calcValue);
+
+//         &#{\:}hover:hover {
+//           backdrop-filter: if($size, $calcValue !important, $calcValue);
+//         }
+//       }
+//     }
+//   }
+// }
