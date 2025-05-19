@@ -1,8 +1,53 @@
-@use 'sass:map';
-@use 'sass:string';
-@use '../settings/configs' as configs;
+@use "sass:map";
+@use "sass:string";
+@use "../settings/configs" as configs;
 
-// Breakpoints ----- ----- ----- -----
+// Breakpoint Mixin
+// --------------------------------------
+// Generates a media query based on a breakpoint key and type (min/max).
+// If the key is not found or is null/empty (e.g., for default styles),
+// it applies the content directly without a media query.
+//
+// @param {String} $type - The type of media query (e.g., "min", "max").
+// @param {String | Null} $key - The breakpoint key from `configs.$breakpoints` (e.g., "sm", "md", "lg").
+//                                If null or an empty string, content is applied directly.
+//
+// @content - Styles to be applied within the media query or directly.
+//
+// @example scss
+//   .element {
+//     color: blue; // Default
+//
+//     @include mQ(min, "md") {
+//       color: red; // Applied when (min-width: md-breakpoint-value)
+//     }
+//
+//     @include mQ(max, "lg") {
+//       padding: 20px; // Applied when (max-width: lg-breakpoint-value)
+//     }
+//
+//     // Example for applying base styles (no media query)
+//     @include mQ(min, null) { // or @include mQ(min, "")
+//       font-size: 16px; // Applied directly
+//     }
+//   }
+//
+// @output css - Example output for .element
+//   .element {
+//     color: blue;
+//     font-size: 16px;
+//   }
+//   @media (min-width: 768px) { // Assuming 'md' is 768px
+//     .element {
+//       color: red;
+//     }
+//   }
+//   @media (max-width: 1024px) { // Assuming 'lg' is 1024px
+//     .element {
+//       padding: 20px;
+//     }
+//   }
+//
 @mixin mQ($type, $key) {
   // Retrieve the size value from the breakpoints map using the provided key
   $size: map.get(configs.$breakpoints, $key);
@@ -19,13 +64,33 @@
   }
 }
 // How to call
-// ex: color: mQ(min or max, xs/md/lg/xl/xxl)
+// ex: color: mQ(min or max, xs/md/lg/xl/xxl) // Note: This comment seems to refer to an old way or is a general usage hint.
 
-// Multi Queries Sizes ----- ----- ----- -----
+// Multi Queries Sizes Function
+// --------------------------------------
+// Generates a map of media query prefixes and their corresponding class dividers.
+// The keys are the breakpoint names (or an empty string for the default, non-prefixed styles),
+// and the values are the dividers (e.g., ":" for prefixed classes, "" for default).
+// It iterates over `configs.$mediaQueries` which should be a list of breakpoint keys
+// (e.g., "", "sm", "md", "lg").
+//
+// @return {Map} - A map where keys are size prefixes (e.g., "", "sm", "md")
+//                 and values are dividers (e.g., "", ":").
+//
+// @example scss
+//   // Assuming configs.$mediaQueries: ("", "sm", "md");
+//   $sizesMap: multiSizes();
+//   // $sizesMap would be:
+//   // (
+//   //   "": "",
+//   //   "sm": ":",
+//   //   "md": ":"
+//   // )
+//
 @function multiSizes() {
   $map: (); // Initialize an empty map
   @each $size in configs.$mediaQueries {
-    $divider: if($size, \:, ''); // Calculate the divider based on the size
+    $divider: if($size, \:, ""); // Calculate the divider based on the size
     // Merge the current map with the new key-value pair
     $map: map.merge(
       $map,
@@ -38,4 +103,55 @@
 }
 // How to call
 // ex: $multiSizes: multiSizes();
-//     @each $size, $divider in $multiSizes { @include mQ(min, $size) { &#{$divider} { &#{$size} {your code}}}
+//     @each $size, $divider in $multiSizes { @include mQ(min, $size) { &#{$divider} { &#{$size} {your code}}} // Note: Usage hint.
+
+// Multi Sizes Mixin
+// --------------------------------------
+// Iterates through media query sizes defined by the `multiSizes()` function
+// and applies content within the appropriate media query.
+// This mixin is designed to be used with `@content($size, $divider)`,
+// allowing the consuming code to generate responsive utility classes.
+//
+// @content {String} $size - The current breakpoint size key (e.g., "", "sm", "md").
+// @content {String} $divider - The class divider for the current size (e.g., "", ":").
+//
+// @example scss
+//   // In another file (e.g., _typographic.scss)
+//   @use "mediaQueries" as mQ;
+//   @use "configs";
+//
+//   @include mQ.multiSizes() using ($size, $divider) {
+//     $classPrefix: if($size, "#{$size}#{$divider}", "");
+//
+//     .#{$classPrefix}text-left {
+//       text-align: left if($size, !important, null);
+//     }
+//     .#{$classPrefix}text-center {
+//       text-align: center if($size, !important, null);
+//     }
+//   }
+//
+// @output css - Example output (assuming configs.$mediaQueries: ("", "md"))
+//   .text-left {
+//     text-align: left;
+//   }
+//   .text-center {
+//     text-align: center;
+//   }
+//
+//   @media (min-width: 768px) { // Assuming 'md' is 768px
+//     .md\\:text-left {
+//       text-align: left !important;
+//     }
+//     .md\\:text-center {
+//       text-align: center !important;
+//     }
+//   }
+//
+@mixin multiSizes() {
+  @each $size, $divider in multiSizes() {
+    @include mQ(min, $size) {
+      @content ($size, $divider);
+    }
+  }
+}
