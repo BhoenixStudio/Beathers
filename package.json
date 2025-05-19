@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "watch": "nodemon --watch src/scss/ --ext scss --exec \"npm-run-all build\"",
+    "watch:expanded": " nodemon --watch src/scss/ --ext scss --exec \"npm-run-all build:expanded\"",
     "build": "rimraf dist && sass --style compressed --source-map --embed-sources --no-error-css src/scss/:dist/css/",
     "build:expanded": "rimraf dist && sass --style expanded --source-map --embed-sources --no-error-css src/scss/:dist/css/expanded/",
     "build:clean": "rimraf dist",
