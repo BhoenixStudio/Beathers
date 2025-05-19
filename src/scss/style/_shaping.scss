@@ -37,6 +37,9 @@
 // @if settings.$useDisplays {
 //   @include mQ.multiSizes() using ($size, $divider) {
 //     @each $display in configs.$displays {
+//       // Validate parameters
+//       $checkedDisplay: val.listItem(configs.$displays, $display, "Shaping.displays");
+
 //       $mainClass: if($size, "#{$size}#{$divider}d-#{$display}", "d-#{$display}");
 
 //       .#{$mainClass} {
@@ -46,19 +49,28 @@
 //   }
 // }
 
-@if settings.$useOverflows {
-  @include mQ.multiSizes() using ($size, $divider) {
-    @each $dir in configs.$overflowsDirections {
-      $mainClass: if($dir, "#{$dir}#{\:}overflow", "overflow");
-      $property: if($dir, "overflow-#{$dir}", "overflow");
+// @if settings.$useOverflows {
+//   @include mQ.multiSizes() using ($size, $divider) {
+//     @each $dir in configs.$overflowsDirections {
+//       // Validate parameters
+//       @if $dir {
+//         $checkedDir: val.listItem(("x", "y"), $dir, "Shaping.overflow.direction");
+//       }
 
-      .#{$mainClass} {
-        @each $class, $value in configs.$overflows {
-          &-#{$class} {
-            #{$property}: if($size, $value !important, $value);
-          }
-        }
-      }
-    }
-  }
-}
+//       $dirClass: if($dir, "#{$dir}#{\:}overflow", "overflow");
+//       $mainClass: if($size, "#{$size}#{$divider}#{$dirClass}", $dirClass);
+//       $property: if($dir, "overflow-#{$dir}", "overflow");
+
+//       .#{$mainClass} {
+//         @each $value in configs.$overflows {
+//           // Validate parameters
+//           $checkedClass: val.listItem(configs.$overflows, $value, "Shaping.overflow.value");
+
+//           &-#{$value} {
+//             #{$property}: if($size, $value !important, $value);
+//           }
+//         }
+//       }
+//     }
+//   }
+// }

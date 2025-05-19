@@ -138,15 +138,20 @@ $wrappers: (
 // -------------------
 // Settings for various utility classes
 
-$displays: (inline, block, inline-block, flex, inline-flex, inline-grid, table, table-cell, none) !default;
-
-$overflowsDirections: (null, 'x', 'y') !default;
-$overflows: (
-  v: visible,
-  h: hidden,
-  a: auto,
-  s: scroll,
+$displays: (
+  inline,
+  block,
+  inline-block,
+  flex,
+  inline-flex,
+  inline-grid,
+  table,
+  table-cell,
+  none
 ) !default;
+
+$overflowsDirections: (null, "x", "y") !default;
+$overflows: (visible, hidden, auto, scroll) !default;
 $objectsFits: (cover, fill, contain, none) !default;
 
 // Available opacity values in percentage
