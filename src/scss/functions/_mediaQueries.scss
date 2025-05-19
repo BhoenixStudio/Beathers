@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "sass:string";
 @use "../settings/configs" as configs;
+@use "../settings/index" as settings;
 
 // Breakpoint Mixin
 // --------------------------------------
@@ -52,7 +53,7 @@
   // Retrieve the size value from the breakpoints map using the provided key
   $size: map.get(configs.$breakpoints, $key);
 
-  @if $size {
+  @if $size and settings.$useMediaQueries {
     // Check if a valid size value exists
     // Generate the media query using the provided type and size
     @media (string.unquote('#{$type}-width'): $size) {
@@ -149,9 +150,13 @@
 //   }
 //
 @mixin multiSizes() {
-  @each $size, $divider in multiSizes() {
-    @include mQ(min, $size) {
-      @content ($size, $divider);
+  @if settings.$useMediaQueries {
+    @each $size, $divider in multiSizes() {
+      @include mQ(min, $size) {
+        @content ($size, $divider);
+      }
     }
+  } @else {
+    @content;
   }
 }
