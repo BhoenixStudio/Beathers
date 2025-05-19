@@ -2,38 +2,14 @@
 @use '../settings/configs' as configs;
 
 /*! * Displays ----- ----- ----- ----- */
-$displays: (inline, block, inline-block, flex, inline-flex, inline-grid, table, table-cell, none) !default;
-$overflowsDirections: (null, 'x', 'y') !default;
-$overflows: (
-  v: visible,
-  h: hidden,
-  a: auto,
-  s: scroll,
-) !default;
-$fits: (cover, fill, contain, none) !default;
-
-// Displays ----- -----
-@each $display in $displays {
-  @each $size, $divider in mQ.multiSizes() {
-    $mainClass: if($size, '#{$size}#{$divider}d-', 'd-');
-
-    .#{$mainClass} {
-      @include mQ.mQ(min, $size) {
-        &#{$display} {
-          display: if($size, $display !important, $display);
-        }
-      }
-    }
-  }
-}
 
 // Overflows ----- -----
-@each $dir in $overflowsDirections {
+@each $dir in configs.$overflowsDirections {
   $mainClass: if($dir, '#{$dir}#{\:}overflow', 'overflow');
   $property: if($dir, 'overflow-#{$dir}', 'overflow');
 
   .#{$mainClass} {
-    @each $class, $value in $overflows {
+    @each $class, $value in configs.$overflows {
       &-#{$class} {
         #{$property}: $value;
       }
@@ -64,7 +40,7 @@ $fits: (cover, fill, contain, none) !default;
 }
 
 // Fits ----- -----
-@each $fit in $fits {
+@each $fit in configs.$objectsFits {
   @each $size, $divider in mQ.multiSizes() {
     $mainClass: if($size, '#{$size}#{$divider}object-fit', 'object-fit');
 
