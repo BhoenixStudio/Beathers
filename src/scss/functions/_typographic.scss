@@ -1,0 +1,140 @@
+@use "sass:string";
+@use "sass:map";
+@use "../variables" as vars;
+@use "../functions/validations" as val;
+@use "../settings/configs" as configs;
+
+// Font Face Mixin
+// --------------------------------------
+// Generates an @font-face rule.
+//
+// @param {String} $title - The base name of the font (e.g., "OpenSans").
+// @param {String} $weight - The font weight key (e.g., "regular", "bold").
+// @param {String} $format - The font file format (e.g., "woff2").
+// @param {String} $style - The font style (e.g., "normal", "italic").
+// @param {Number} $index [0] - An index appended to the font-family name if multiple fonts share the same weight name.
+// @param {String | Null} $unicode [null] - Optional unicode range for the font.
+// @param {Boolean} $isLocal [true] - Whether the font is hosted locally or externally.
+// @param {String} $externalUrl [""] - The URL for externally hosted fonts (if $isLocal is false).
+//
+// @example scss
+//   @include font("OpenSans", "regular", "woff2", "normal", 0, null, true);
+//   // Generates:
+//   // @font-face {
+//   //   font-family: "regular"; // Or "regular-0" if $index is 0 but other fonts exist with same weight
+//   //   font-weight: 400;
+//   //   font-style: normal;
+//   //   font-display: swap;
+//   //   src: local("OpenSans-regular"),
+//   //        url("../fonts/OpenSans-regular.woff2") format("woff2");
+//   // }
+//
+//   @include font("Roboto", "bold", "ttf", "normal", 1, "U+000-5FF", false, "https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfBBc4.ttf");
+//   // Generates:
+//   // @font-face {
+//   //   font-family: "bold-1";
+//   //   font-weight: 700;
+//   //   font-style: normal;
+//   //   font-display: swap;
+//   //   src: url("https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfBBc4.ttf");
+//   //   unicode-range: U+000-5FF;
+//   // }
+//
+@mixin font(
+  $title,
+  $weight,
+  $format,
+  $style,
+  $index: 0,
+  $unicode: null,
+  $isLocal: true,
+  $externalUrl: ""
+) {
+  // Validate parameters
+  $checkedIsLocal: val.boolean($isLocal, "#{$title}.font().local");
+  $checkedTitle: val.string($title, "#{$title}.font().title");
+  $checkedWeight: val.mapItem(
+    configs.$fontWeights,
+    $weight,
+    configs.$fontWeights,
+    "Typographic.fontFace.weights.#{$weight}"
+  );
+  $checkedStyle: val.listItem(configs.$fontStyles, $style, "#{$title}.font().weights.#{$style}");
+  $checkIndex: val.number($index, "#{$title}.font().index");
+  $checkedFormat: val.string($format, "#{$title}.font().format");
+
+  @if (not($isLocal)) {
+    $checkedExternalUrl: val.string($externalUrl, "Typographic.fontFace.externalUrl");
+  }
+
+  $name: if($index == 0, $title, "#{$title}-#{$index}");
+  $weightValue: map.get(configs.$fontWeights, $weight);
+
+  @font-face {
+    font-family: $name;
+    font-weight: $weightValue;
+    font-style: $style;
+    font-display: swap;
+
+    @if ($isLocal) {
+      src:
+        local("#{$title}-#{$weight}"),
+        url(string.unquote("#{vars.$fontMainPath}#{$title}-#{$weight}.#{$format}"))
+          format("#{$format}");
+    } @else {
+      src: url(string.unquote("#{$externalUrl}"));
+    }
+
+    @if $unicode {
+      // Validate parameters
+      $checkedUnicode: val.string($unicode, "#{$title}.font().unicode");
+
+      unicode-range: string.unquote($unicode);
+    }
+  }
+}
+
+// Font Shapes Mixin
+// --------------------------------------
+// Applies text transformation, decoration, or style properties to a class.
+//
+// @param {String} $class - The CSS class name to apply the style to.
+// @param {String} $type - The type of shape property ("transform", "decoration", "styles").
+// @param {String} $value - The value for the shape property (e.g., "uppercase", "underline", "italic").
+// @param {String | Null} $size [null] - Optional size prefix for responsive classes, determines if `!important` is added.
+//
+// @example scss
+//   @include fontShapes("uppercase", "transform", "uppercase");
+//   // Generates:
+//   // .uppercase {
+//   //   text-transform: uppercase;
+//   // }
+//
+//   @include fontShapes("md:underline", "decoration", "underline", "md");
+//   // Generates:
+//   // .md\\:underline {
+//   //   text-decoration: underline !important;
+//   // }
+//
+@mixin fontShapes($class, $type, $value) {
+  $shapeList: map.get(configs.$fontShapes, $type);
+
+  // Validate parameters
+  $checkedType: val.mapItem(
+    configs.$fontShapes,
+    $type,
+    configs.$fontShapes,
+    "fontShapes().#{$type}"
+  );
+  $checkedValue: val.listItem($shapeList, $value, "fontShapes().#{$value}");
+
+  .#{$class} {
+    @if $type == "transform" {
+      text-transform: $value;
+    } @else if $type == "decoration" {
+      text-decoration: $value;
+    } @else if $type == "styles" {
+      font-style: $value;
+    }
+  }
+}

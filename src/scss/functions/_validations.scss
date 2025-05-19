@@ -76,6 +76,38 @@
   @return $map;
 }
 
+// List validations functions
+@function list($list, $in: null) {
+  $list-type: meta.type-of($list);
+
+  @if $list != null and $list-type != "list" {
+    @if $list-type ==
+      "string" or
+      $list-type ==
+      "number" or
+      $list-type ==
+      "bool" or
+      $list-type ==
+      "color"
+    {
+      @return ($list);
+    } @else {
+      $in: if($in != null, " | in #{$in}", ".");
+      @error '❌ Error at "validate.list()": Please enter a valid list | Expected a list, but got "#{$list}" of type "#{$list-type}"#{$in}';
+    }
+  }
+
+  @return $list;
+}
+
+@function listItem($list, $item, $in: null) {
+  @if not list.index($list, $item) {
+    $in: if($in != null, " | in #{$in}", ".");
+    @error '❌ Error at "validate.listItem()": Invalid item | Missing item "#{$item}" not found in the list "#{$list}"#{$in}';
+  }
+  @return $item;
+}
+
 // Custom colors validations functions
 @function colorMap($map, $in: null) {
   $mapVal: map($map);

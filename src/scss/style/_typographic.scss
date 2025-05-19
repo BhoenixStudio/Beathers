@@ -1,121 +1,318 @@
-@use 'sass:string';
-@use 'sass:map';
-@use 'sass:list';
-@use '../variables' as vars;
-@use '../settings/configs' as configs;
-@use '../functions/mediaQueries' as mQ;
+@use "sass:meta";
+@use "sass:string";
+@use "sass:map";
+@use "sass:list";
+@use "../variables" as vars;
+@use "../functions/validations" as val;
+@use "../functions/typographic" as typo;
+@use "../settings/configs" as configs;
+@use "../functions/mediaQueries" as mQ;
+@use "../settings/" as settings;
 
-/*! * Fonts ----- ----- ----- ----- */
-$processedStyles: ();
+// Typographic Utilities
+// --------------------------------------
+// This file generates various typographic utility classes and @font-face rules
+// based on the settings and variables defined in the project.
+// Each section can be enabled or disabled via the `settings.$use...` variables.
 
-// Font families ----- -----
-@each $lang, $fontsData in vars.$fonts {
-  @each $key, $fontFace in $fontsData {
-    $title: map.get($fontFace, 'title');
-    $unicode: map.get($fontFace, 'unicode');
-    $styles: map.get($fontFace, 'styles');
-    $fontKey: if($key != 1, $key, '');
+// Font Families & @font-face ----- ----- ----- -----
+//
+// @description
+//   Generates @font-face rules based on the `vars.$fonts` map and
+//   corresponding utility classes for applying font families, weights, and styles.
+//   The generation of these rules and classes is controlled by the
+//   `settings.$useFontFamilies` boolean variable.
+//
+// @see settings.$useFontFamilies
+// @see vars.$fonts
+// @see vars.$fontWeights
+// @see vars.$fontStyles
+// @see configs.$fontWeights (for mapping weight names to numerical values)
+// @see configs.$defaultFontFamilies (for fallback fonts)
+// @see typo.font (mixin used for @font-face generation)
+// @see mQ.multiSizes (mixin used for responsive class generation)
+//
+// @generatedClasses
+//   - @font-face rules for each font variant.
+//   - Font family/weight classes:
+//     - e.g., `.regular`, `.bold`, `.italic`
+//     - e.g., `.fontName-0`, `.fontName-1` (if multiple fonts with same weight names, indexed by $fI)
+//   - Responsive font family/weight classes (if `mQ.multiSizes` is configured):
+//     - e.g., `md:regular`, `lg:bold`
+//   - Font style classes (applied as modifiers):
+//     - e.g., `.regular.italic`
+//
+// @example scss - Configuration in vars.$fonts (simplified)
+//   vars.$fonts: (
+//     sans: (
+//       weights: (regular, bold),
+//       styles: (normal, italic),
+//       variants: (
+//         latin: (title: "OpenSans") // `title` here is used for font-family in @font-face
+//       )
+//     )
+//   );
+//
+// @example css - Generated CSS (simplified, assuming $fI is 0 for the first font)
+//   @font-face { font-family: "OpenSans-0"; src: local("OpenSans Regular"); font-weight: 400; font-style: normal; }
+//   .regular { font-family: "OpenSans-0", "Fallback Font"; font-weight: 400; }
+//   .regular.italic { font-style: italic; }
+//   .bold { font-family: "OpenSans-0", "Fallback Font"; font-weight: 700; }
+//   // ... responsive versions if applicable ...
+//
 
-    @if $title and $styles {
-      @each $style, $weight in $styles {
-        $fontName: if($fontKey, #{$style}#{$fontKey}, $style);
+@if settings.$useFontFamilies {
+  // Font families ----- -----
+  $fI: 0;
+  @each $fontKey, $font in vars.$fonts {
+    // Validate parameters
+    $checkedFontKey: val.string($fontKey, "Typographic.fonts.title");
+    $checkedFont: val.map($font, "Typographic.fonts");
 
-        @font-face {
-          font-family: '#{$fontName}';
-          font-weight: $weight;
-          font-style: normal;
-          font-display: swap;
-          src:
-            local('#{$title}-#{$style}'),
-            url(string.unquote('#{vars.$fontMainPath}#{$title}-#{$style}.#{vars.$fontFormat}'))
-              format('#{vars.$fontFormat}');
+    $weights: map.get($font, "weights");
+    $weights: if($weights != null, map.get($font, "weights"), vars.$fontWeights);
+    $styles: map.get($font, "styles");
+    $styles: if($styles != null, map.get($font, "styles"), vars.$fontStyles);
+    $variants: map.get($font, "variants");
+
+    // Validate parameters
+
+    $checkedWeights: val.list($weights, "Typographic.fontFace.weights");
+    $checkedStyles: val.list($styles, "Typographic.fontFace.styles");
+    $checkedVariants: val.map($variants, "Typographic.fontFace.variants");
+
+    @each $weight in $weights {
+      @each $style in $styles {
+        @each $lang, $fontFace in $variants {
+          $title: map.get($fontFace, "title");
+          $unicode: if(map.has-key($fontFace, "unicode"), map.get($fontFace, "unicode"), null);
+          $format: if(
+            map.has-key($fontFace, "format"),
+            map.get($fontFace, "format"),
+            vars.$fontFormat
+          );
+          $isLocal: if(map.has-key($fontFace, "local"), map.get($fontFace, "isLocal"), true);
+          $externalUrl: if(map.has-key($fontFace, "url"), map.get($fontFace, "url"), null);
+
+          // Validate parameters
+          $checkedIsLocal: val.boolean($isLocal, "Typographic.fontFace.local");
+          $checkedTitle: val.string($title, "Typographic.fontFace.title");
+          $checkedFormat: val.string($format, "Typographic.fontFace.format");
           @if $unicode {
-            unicode-range: string.unquote($unicode);
+            $checkedUnicode: val.string($unicode, "Typographic.fontFace.unicode");
           }
+
+          @include typo.font(
+            $title,
+            $weight,
+            $format,
+            $style,
+            $fI,
+            $unicode,
+            $isLocal,
+            $externalUrl
+          );
         }
       }
     }
-  }
-}
 
-// Font sizes ----- -----
-@each $size, $divider in mQ.multiSizes() {
-  @include mQ.mQ(min, $size) {
-    @each $fontSize, $value in configs.$fontSizes {
-      $mainClass: if($size, #{$size}#{$divider}#{$fontSize}, $fontSize);
+    @include mQ.multiSizes() using ($size, $divider) {
+      @each $weight in $weights {
+        @each $style in $styles {
+          // Font weights
+          // Validate parameters
+          $styleClass: if($fI == 0, $weight, "#{$weight}-#{$fI}");
+          $weightValue: map.get(configs.$fontWeights, $weight);
 
-      .#{$mainClass} {
-        font-size: $value;
-      }
-    }
-  }
-}
-
-// Font styles ----- -----
-@each $type, $values in configs.$fontStyles {
-  @each $value in $values {
-    .#{$value} {
-      @if $type == 'transform' {
-        text-transform: $value;
-      } @else if $type == 'decoration' {
-        text-decoration: $value;
-      } @else if $type == 'styles' {
-        font-style: $value;
-      }
-    }
-  }
-}
-
-// Font Weights ----- -----
-@each $lang, $fontsData in vars.$fonts {
-  @each $key, $fontFace in $fontsData {
-    $styles: map.get($fontFace, 'styles');
-    $fontKey: if($key != 1, $key, '');
-
-    @each $style, $weight in $styles {
-      $styleClass: if($fontKey, #{$style}#{$fontKey}, $style);
-
-      @if $style and not list.index($processedStyles, $styleClass) {
-        $processedStyles: list.append($processedStyles, $styleClass);
-        @each $size, $divider in mQ.multiSizes() {
           $mainClass: if($size, #{$size}#{$divider}#{$styleClass}, $styleClass);
 
           .#{$mainClass} {
-            @include mQ.mQ(min, $size) {
-              font-family: if($size, $styleClass !important, $styleClass), configs.$defaultFontFamilies;
-              font-weight: if($size, $weight !important, $weight);
+            font-family:
+              "#{$styleClass}",
+              configs.$defaultFontFamilies if($size, !important, null);
+            font-weight: if($size, $weightValue !important, $weightValue);
+            @if meta.type-of($styles) == "list" and list.length($styles) > 0 {
+              &.#{$style} {
+                font-style: $style;
+              }
             }
           }
         }
       }
     }
+
+    $fI: $fI + 1;
   }
 }
 
-// Font Aligns ----- -----
-$aligns: (left, start, right, end, justify, center) !default;
-@each $dir in $aligns {
-  @each $size, $divider in mQ.multiSizes() {
-    $mainClass: if($size, '#{$size}#{$divider}text-#{$dir}', 'text-#{$dir}');
+// Font Sizes ----- ----- ----- -----
+//
+// @description
+//   Generates utility classes for applying predefined font sizes.
+//   The generation of these classes is controlled by the
+//   `settings.$useFontSizes` boolean variable.
+//   Font sizes are defined in `configs.$fontSizes`.
+//   Responsive variants are generated using the `mQ.multiSizes` mixin.
+//
+// @see settings.$useFontSizes
+// @see configs.$fontSizes
+// @see mQ.multiSizes
+//
+// @generatedClasses
+//   - Font size classes:
+//     - e.g., `.text-sm`, `.text-base`, `.text-lg` (based on keys in `configs.$fontSizes`)
+//   - Responsive font size classes:
+//     - e.g., `md:text-sm`, `lg:text-base`
+//
+// @example scss - Configuration in configs.$fontSizes
+//   configs.$fontSizes: (
+//     sm: 0.875rem,
+//     base: 1rem
+//   );
+//
+// @example css - Generated CSS (simplified)
+//   .text-sm { font-size: 0.875rem; }
+//   .text-base { font-size: 1rem; }
+//   // ... responsive versions if applicable ...
+//
+@if settings.$useFontSizes {
+  @include mQ.multiSizes() using ($size, $divider) {
+    @each $fontSize, $value in configs.$fontSizes {
+      $mainClass: if($size, #{$size}#{$divider}#{$fontSize}, $fontSize);
 
-    .#{$mainClass} {
-      @include mQ.mQ(min, $size) {
+      .#{$mainClass} {
+        font-size: $value if($size, !important, null);
+      }
+    }
+  }
+}
+
+// Font Shapes (Text Transformation) ----- ----- ----- -----
+//
+// @description
+//   Generates utility classes for text transformations (e.g., uppercase, lowercase)
+//   and other font-related shape properties like `font-variant`.
+//   The generation of these classes is controlled by the
+//   `settings.$useFontShapes` boolean variable.
+//   Shapes are defined in `configs.$fontShapes` and applied using the `typo.fontShapes` mixin.
+//   Responsive variants are generated using the `mQ.multiSizes` mixin.
+//
+// @see settings.$useFontShapes
+// @see configs.$fontShapes
+// @see typo.fontShapes
+// @see mQ.multiSizes
+//
+// @generatedClasses
+//   - Text transformation/shape classes:
+//     - e.g., `.uppercase`, `.lowercase`, `.small-caps` (based on `configs.$fontShapes`)
+//   - Responsive text transformation/shape classes:
+//     - e.g., `md:uppercase`, `lg:small-caps`
+//
+// @example scss - Configuration in configs.$fontShapes
+//   configs.$fontShapes: (
+//     text-transform: (uppercase, lowercase, capitalize),
+//     font-variant: (small-caps)
+//   );
+//
+// @example css - Generated CSS (simplified)
+//   .uppercase { text-transform: uppercase; }
+//   .small-caps { font-variant: small-caps; }
+//   // ... responsive versions if applicable ...
+//
+@if settings.$useFontShapes {
+  @include mQ.multiSizes() using ($size, $divider) {
+    @each $type, $values in configs.$fontShapes {
+      @each $value in $values {
+        @include typo.fontShapes(if($size, "#{$size}#{$divider}#{$value}", $value), $type, $value);
+      }
+    }
+  }
+}
+
+// Text Alignment ----- ----- ----- -----
+//
+// @description
+//   Generates utility classes for text alignment (e.g., left, center, right).
+//   The generation of these classes is controlled by the
+//   `settings.$useTextAligns` boolean variable.
+//   Alignments are defined in `configs.$aligns`.
+//   Responsive variants are generated using the `mQ.multiSizes` mixin.
+//
+// @see settings.$useTextAligns
+// @see configs.$aligns
+// @see mQ.multiSizes
+//
+// @generatedClasses
+//   - Text alignment classes:
+//     - e.g., `.text-left`, `.text-center`, `.text-right`
+//   - Responsive text alignment classes:
+//     - e.g., `md:text-left`, `lg:text-center`
+//
+// @example scss - Configuration in configs.$aligns
+//   configs.$aligns: (left, center, right, justify);
+//
+// @example css - Generated CSS (simplified)
+//   .text-left { text-align: left; }
+//   // ... responsive versions if applicable ...
+//
+@if settings.$useTextAligns {
+  @include mQ.multiSizes() using ($size, $divider) {
+    @each $dir in configs.$aligns {
+      // Validate parameters
+      $checkedDir: val.listItem(configs.$aligns, $dir, "Typographic.fonts.aligns");
+
+      $mainClass: if($size, "#{$size}#{$divider}text-#{$dir}", "text-#{$dir}");
+      .#{$mainClass} {
         text-align: if($size, $dir !important, $dir);
       }
     }
   }
 }
 
-// Text truncate ----- -----
-@for $i from 1 through 5 {
-  .text-lines#{\:}#{$i} {
-    display: -webkit-box;
-    -webkit-line-clamp: #{$i};
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+// Text Truncation ----- ----- ----- -----
+//
+// @description
+//   Generates utility classes for multi-line text truncation (ellipsis).
+//   The generation of these classes is controlled by the
+//   `settings.$useTextTruncate` boolean variable.
+//   The maximum number of lines is controlled by `vars.$textTruncate`.
+//   Responsive variants are generated using the `mQ.multiSizes` mixin.
+//
+// @see settings.$useTextTruncate
+// @see vars.$textTruncate
+// @see mQ.multiSizes
+//
+// @generatedClasses
+//   - Text truncation classes:
+//     - e.g., `.text-lines:1`, `.text-lines:2`, ... up to `vars.$textTruncate`
+//   - Responsive text truncation classes:
+//     - e.g., `md:text-lines:1`, `lg:text-lines:2`
+//
+// @example scss - Configuration in vars.$textTruncate
+//   vars.$textTruncate: 3;
+//
+// @example css - Generated CSS (simplified for .text-lines:2)
+//   .text-lines\:2 { /* Note: CSS escapes the colon */
+//     display: -webkit-box;
+//     -webkit-line-clamp: 2;
+//     line-clamp: 2;
+//     -webkit-box-orient: vertical;
+//     overflow: hidden;
+//   }
+//   // ... responsive versions if applicable ...
+//
+@if settings.$useTextTruncate {
+  @include mQ.multiSizes() using ($size, $divider) {
+    @for $i from 1 through vars.$textTruncate {
+      $mainClass: if($size, "#{$size}#{$divider}text-lines#{\:}#{$i}", "text-lines#{\:}#{$i}");
+
+      .#{$mainClass} {
+        display: -webkit-box;
+        -webkit-line-clamp: #{$i};
+        line-clamp: #{$i};
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+    }
   }
 }
-
-/*!
------ ----- ----- ----- End of Fonts
-*/
