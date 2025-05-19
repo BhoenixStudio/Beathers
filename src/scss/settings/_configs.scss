@@ -39,6 +39,24 @@ $defaultFontFamilies:
   Arial,
   sans-serif !default;
 
+// Font weights
+// Example: .regular { font-weight: 400; }
+$fontWeights: (
+  "thin": 100,
+  "extra-light": 200,
+  "light": 300,
+  "regular": 400,
+  "medium": 500,
+  "semibold": 600,
+  "bold": 700,
+  "extra-bold": 800,
+  "black": 900,
+) !default;
+
+// Font styles
+// Example: .italic { font-style: italic; }
+$fontStyles: ("normal", "italic", "oblique") !default;
+
 // Typography scale for consistent font sizing
 // Example: .h1 { font-size: 96px; }
 $fontSizes: (
@@ -58,11 +76,8 @@ $fontSizes: (
 ) !default;
 
 // Text transformation and decoration options
-// Example:
-// .uppercase { text-transform: uppercase; }
-// .underline { text-decoration: underline; }
-// .underline-wavy { text-decoration-style: wavy; }
-$fontStyles: (
+// Example: .uppercase { text-transform: uppercase; }
+$fontShapes: (
   "transform": (
     uppercase,
     lowercase,
@@ -79,6 +94,10 @@ $fontStyles: (
     dashed,
   ),
 ) !default;
+
+// Text alignment options
+// Example: .text-start { text-align: start; }
+$aligns: (left, start, right, end, justify, center) !default;
 
 // Responsive Layout Configuration
 // -----------------------------
