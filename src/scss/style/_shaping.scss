@@ -45,3 +45,20 @@
 //     }
 //   }
 // }
+
+@if settings.$useOverflows {
+  @include mQ.multiSizes() using ($size, $divider) {
+    @each $dir in configs.$overflowsDirections {
+      $mainClass: if($dir, "#{$dir}#{\:}overflow", "overflow");
+      $property: if($dir, "overflow-#{$dir}", "overflow");
+
+      .#{$mainClass} {
+        @each $class, $value in configs.$overflows {
+          &-#{$class} {
+            #{$property}: if($size, $value !important, $value);
+          }
+        }
+      }
+    }
+  }
+}
