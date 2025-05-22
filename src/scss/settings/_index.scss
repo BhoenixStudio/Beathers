@@ -1,6 +1,13 @@
 // Main settings ----- ----- ----- -----
 $useMediaQueries: true !default;
 
+// Typographic settings ----- ----- ----- -----
+$useFontFamilies: true !default;
+$useFontSizes: true !default;
+$useFontShapes: true !default;
+$useTextAligns: true !default;
+$useTextTruncate: true !default;
+
 // Colors settings ----- ----- ----- -----
 $useColors: true !default;
 $useColorsOpacities: true !default;
@@ -9,17 +16,20 @@ $useColorsDarkMode: true !default;
 $useCurrentColors: true !default;
 $useRootColors: true !default;
 
-// Typographic settings ----- ----- ----- -----
-$useFontFamilies: true !default;
-$useFontSizes: true !default;
-$useFontShapes: true !default;
-$useTextAligns: true !default;
-$useTextTruncate: true !default;
+// Grid settings ----- ----- ----- -----
 
 // Shapes settings ----- ----- ----- -----
+$useWrappers: true !default;
 $useShadows: true !default;
 $useDisplays: true !default;
 $useOverflows: true !default;
 $useOpacities: true !default;
 $useBlur: true !default;
 $useObjectFits: true !default;
+$usePositions: true !default;
+$useInsets: true !default;
+$useSizes: true !default;
+$useGutters: true !default;
+$useBorders: true !default;
+$useTextBorders: true !default;
+$useRadius: true !default;
