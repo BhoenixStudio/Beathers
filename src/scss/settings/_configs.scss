@@ -162,10 +162,6 @@ $opacities: (10, 20, 30, 40, 50, 60, 70, 80, 90, 100) !default;
 // Example: .blur:10 { backdrop-filter: blur(10px); }
 $blurValues: (5, 10, 15, 25) !default;
 
-// Available border-radius values in pixels
-// Example: .radius-15 { border-radius: 15px; }
-$radiuses: (5, 10, 15, 25) !default;
-
 // Available cursor types for cursor property
 // Example: .cursor-pointer { cursor: pointer; }
 $cursors: (
@@ -265,5 +261,98 @@ $clearanceOptions: (
   ),
   no-position: (
     position: unset,
+  ),
+) !default;
+
+$positions: static, relative, fixed, absolute, sticky !default;
+
+$insetPositions: null, inline, block !default;
+$insetValues: 0 !default;
+
+/*! * Spaces ----- ----- ----- ----- */
+$spacesStep: 5 !default;
+$spacesDirections: (
+  "w": width,
+  "min#{\:}w": min-width,
+  "max#{\:}w": max-width,
+  "h": height,
+  "min#{\:}h": min-height,
+  "max#{\:}h": max-height,
+) !default;
+
+$gutters: (
+  p: padding,
+  px: padding-inline,
+  py: padding-block,
+  ps: padding-inline-start,
+  pe: padding-inline-end,
+  pt: padding-block-start,
+  pb: padding-block-end,
+  m: margin,
+  mx: margin-inline,
+  my: margin-block,
+  ms: margin-inline-start,
+  me: margin-inline-end,
+  mt: margin-block-start,
+  mb: margin-block-end,
+  g: gap,
+  gx: column-gap,
+  gy: row-gap,
+) !default;
+
+$guttersValues: (
+  auto: auto,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 0.75rem,
+  4: 1rem,
+  5: 1.5rem,
+  6: 2rem,
+) !default;
+
+$bordersValue: 10 !default;
+$bordersDirections: (
+  null: border,
+  "top": border-block-start,
+  "bottom": border-block-end,
+  "start": border-inline-start,
+  "end": border-inline-end,
+) !default;
+
+// Available border-radius values in pixels
+// Example: .radius-15 { border-radius: 15px; }
+$radiuses: (5, 10, 15, 25) !default;
+
+$radiusDirection: (
+  null: (
+    border-radius,
+  ),
+  "top": (
+    border-start-start-radius,
+    border-start-end-radius,
+  ),
+  "bottom": (
+    border-end-start-radius,
+    border-end-end-radius,
+  ),
+  "start": (
+    border-start-start-radius,
+    border-end-start-radius,
+  ),
+  "end": (
+    border-start-end-radius,
+    border-end-end-radius,
+  ),
+  "top-start": (
+    border-start-start-radius,
+  ),
+  "top-end": (
+    border-start-end-radius,
+  ),
+  "bottom-start": (
+    border-end-start-radius,
+  ),
+  "bottom-end": (
+    border-end-end-radius,
   ),
 ) !default;
