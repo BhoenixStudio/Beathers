@@ -28,6 +28,14 @@
   @return $boolean;
 }
 
+@function notNull($value, $in: null) {
+  @if $value == null {
+    $in: if($in != null, " | in #{$in}", ".");
+    @error '❌ Error at "validate.notNull()": Please enter a valid value | Value must not be null#{$in}';
+  }
+  @return $value;
+}
+
 // Colors validations functions
 @function opacity($opacity, $in: null) {
   @if $opacity != null and (meta.type-of($opacity) != "number" or $opacity < 0 or $opacity > 1) {
