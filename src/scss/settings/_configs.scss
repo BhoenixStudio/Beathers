@@ -107,9 +107,14 @@ $aligns: (left, start, right, end, justify, center) !default;
 // Example: @include mq(md) { ... } generates @media (min-width: 768px) { ... }
 $mediaQueries: (null, sm, md, lg, xl, xxl) !default;
 
-// Number of columns in the grid system
+// Number of columns/rows in the grid system
 // Example: .col-6 { width: 50%; } (6/12)
-$columnsBased: 12 !default;
+$axisDivisions: 12 !default;
+
+$flexProperties: (
+  flex-wrap: wrap nowrap,
+  flex-direction: row row-reverse column column-reverse,
+) !default;
 
 // Responsive breakpoint values in pixels
 // Example: @media (min-width: 768px) { ... }

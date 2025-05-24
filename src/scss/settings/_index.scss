@@ -1,5 +1,5 @@
 // Main settings ----- ----- ----- -----
-$useMediaQueries: true !default;
+$useMediaQueries: false !default;
 
 // Typographic settings ----- ----- ----- -----
 $useFontFamilies: true !default;
@@ -17,6 +17,8 @@ $useCurrentColors: true !default;
 $useRootColors: true !default;
 
 // Grid settings ----- ----- ----- -----
+$useGrid: true !default;
+$useFlex: true !default;
 
 // Shapes settings ----- ----- ----- -----
 $useWrappers: true !default;

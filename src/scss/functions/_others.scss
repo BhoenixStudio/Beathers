@@ -1,4 +1,6 @@
-@use 'sass:map';
+@use "sass:map";
+@use "../settings/configs" as configs;
+@use "../functions/validations" as val;
 
 // Tooltip direction properties ----- ----- ----- -----
 @mixin tooltipDirection($dir, $collection) {
@@ -6,13 +8,13 @@
   $direction: map.get($collection, $dir);
   &:hover {
     &::before {
-      @each $property, $value in map.get($direction, 'before') {
+      @each $property, $value in map.get($direction, "before") {
         // Apply the CSS property and value for the '::before' pseudo-element.
         #{$property}: $value;
       }
     }
     &::after {
-      @each $property, $value in map.get($direction, 'after') {
+      @each $property, $value in map.get($direction, "after") {
         // Apply the CSS property and value for the '::before' pseudo-element.
         #{$property}: $value;
       }
@@ -24,26 +26,61 @@
 
 // Shadow Value ----- ----- ----- -----
 @function shadowValue($value) {
-  @return if($value != 0, #{$value}#{'px'}, $value);
+  @return if($value != 0, #{$value}#{"px"}, $value);
 }
 
 // Animations
 @function transition($duration: 350ms, $type: linear, $property: all, $delay: 0ms) {
   $timingFunction: ease-in-out;
 
-  @if $type == 'dim' {
+  @if $type == "dim" {
     $timingFunction: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  } @else if $type == 'menu' {
+  } @else if $type == "menu" {
     $timingFunction: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  } @else if $type == 'sideMenu' {
+  } @else if $type == "sideMenu" {
     $timingFunction: cubic-bezier(0.595, 0.03, 0, 0.88);
-  } @else if $type == 'modal' {
+  } @else if $type == "modal" {
     $timingFunction: cubic-bezier(0, 2.5, 1, 1);
-  } @else if $type == 'modalOut' {
+  } @else if $type == "modalOut" {
     $timingFunction: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  } @else if $type == 'social' {
+  } @else if $type == "social" {
     $timingFunction: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 
   @return $property $duration $timingFunction $delay;
+}
+
+@mixin flexDivision($axis, $type, $size, $divider) {
+  // Validate parameters
+  $checkedAxis: val.listItem((width, height), $axis, "flexDivision.axis");
+  $checkedType: val.listItem(("col", "cols", "rows", "row"), $type, "flexDivision.type");
+  $checkedBase: val.number(configs.$axisDivisions, "flexDivision.axisDivisions");
+
+  $mainClass: if($size, "#{$size}#{$divider}#{$type}", $type);
+
+  @if (not $size) and $type == "cols" or $type == "rows" {
+    > * {
+      flex: 0 0 auto;
+      max-#{$axis}: 100%;
+    }
+  }
+
+  @for $i from 0 through configs.$axisDivisions {
+    @if $type == "cols" or $type == "rows" {
+      $class: if($i == 0, auto, $i);
+      $axisSize: if($i == 0, auto, calc(100% / $i));
+
+      &.#{$mainClass}#{\:}#{$class} > * {
+        #{$axis}: if($size, $axisSize !important, $axisSize);
+      }
+    } @else if $type == "col" or $type == "row" {
+      $axisSize: if($i == 0, 100%, calc(($i / configs.$axisDivisions) * 100%));
+      $class: if($i == 0, "", $i);
+      $classSize: if($i == 0, #{$class}, #{\:}#{$class});
+
+      > .#{$mainClass}#{$classSize} {
+        #{$axis}: if($size, $axisSize !important, $axisSize);
+      }
+    }
+  }
 }
