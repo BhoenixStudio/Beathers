@@ -4,6 +4,13 @@
 @use "../settings/configs" as configs;
 
 // Basics validations functions
+
+// @function number
+// @description Validates if a value is a number.
+// @param {*} $number - The value to validate.
+// @param {String | Null} $in - Optional context for the error message.
+// @return {*} The original value if it's a number.
+// @error If the value is not a number.
 @function number($number, $in: null) {
   @if $number != null and (meta.type-of($number) != "number") {
     $in: if($in != null, " | in #{$in}", ".");
@@ -12,6 +19,12 @@
   @return $number;
 }
 
+// @function string
+// @description Validates if a value is a string.
+// @param {*} $string - The value to validate.
+// @param {String | Null} $in - Optional context for the error message.
+// @return {*} The original value if it's a string.
+// @error If the value is not a string.
 @function string($string, $in: null) {
   @if $string != null and (meta.type-of($string) != "string") {
     $in: if($in != null, " | in #{$in}", ".");
@@ -20,6 +33,12 @@
   @return $string;
 }
 
+// @function boolean
+// @description Validates if a value is a boolean.
+// @param {*} $boolean - The value to validate.
+// @param {String | Null} $in - Optional context for the error message.
+// @return {*} The original value if it's a boolean.
+// @error If the value is not a boolean.
 @function boolean($boolean, $in: null) {
   @if $boolean != null and (meta.type-of($boolean) != "bool") {
     $in: if($in != null, " | in #{$in}", ".");
@@ -28,6 +47,12 @@
   @return $boolean;
 }
 
+// @function notNull
+// @description Validates if a value is not null.
+// @param {*} $value - The value to validate.
+// @param {String | Null} $in - Optional context for the error message.
+// @return {*} The original value if it's not null.
+// @error If the value is null.
 @function notNull($value, $in: null) {
   @if $value == null {
     $in: if($in != null, " | in #{$in}", ".");
@@ -37,6 +62,13 @@
 }
 
 // Colors validations functions
+
+// @function opacity
+// @description Validates if a value is a valid opacity (number between 0 and 1).
+// @param {*} $opacity - The value to validate.
+// @param {String | Null} $in - Optional context for the error message.
+// @return {*} The original value if it's a valid opacity.
+// @error If the value is not a number or not between 0 and 1.
 @function opacity($opacity, $in: null) {
   @if $opacity != null and (meta.type-of($opacity) != "number" or $opacity < 0 or $opacity > 1) {
     $in: if($in != null, " | in #{$in}", ".");
@@ -45,6 +77,12 @@
   @return $opacity;
 }
 
+// @function colorMode
+// @description Validates if a value is a valid color mode ('light' or 'dark').
+// @param {*} $mode - The value to validate.
+// @param {String | Null} $in - Optional context for the error message.
+// @return {*} The original value if it's a valid color mode.
+// @error If the value is not 'light' or 'dark'.
 @function colorMode($mode, $in: null) {
   @if $mode != null and not($mode == "light" or $mode == "dark") {
     $in: if($in != null, " | in #{$in}", ".");
@@ -53,6 +91,13 @@
   @return $mode;
 }
 
+// @function hexColor
+// @description Validates if a value is a valid hex color.
+// @param {String} $key - The key name of the color (for error messages).
+// @param {*} $value - The value to validate.
+// @param {String | Null} $in - Optional context for the error message.
+// @return {*} The original value if it's a valid hex color.
+// @error If the value is null, not a string/color, or doesn't start with '#'.
 @function hexColor($key, $value, $in: null) {
   $in: if($in != null, " | in #{$in}", ".");
 
@@ -68,6 +113,13 @@
 }
 
 // Map validations functions
+
+// @function map
+// @description Validates if a value is a map.
+// @param {*} $map - The value to validate.
+// @param {String | Null} $in - Optional context for the error message.
+// @return {*} The original value if it's a map.
+// @error If the value is not a map.
 @function map($map, $in: null) {
   @if meta.type-of($map) != map {
     $in: if($in != null, " | in #{$in}", ".");
@@ -76,6 +128,14 @@
   @return $map;
 }
 
+// @function mapItem
+// @description Validates if a map contains a specific key.
+// @param {Map} $map - The map to validate.
+// @param {String} $key - The key to check for.
+// @param {List} $expectedKeys - A list of expected keys (for error messages).
+// @param {String | Null} $in - Optional context for the error message.
+// @return {Map} The original map if the key exists.
+// @error If the key is missing from the map.
 @function mapItem($map, $key, $expectedKeys, $in: null) {
   @if not map.has-key($map, $key) {
     $in: if($in != null, " | in #{$in}", ".");
@@ -85,6 +145,13 @@
 }
 
 // List validations functions
+
+// @function list
+// @description Validates if a value is a list. If it's a single string, number, boolean, or color, it's converted to a single-item list.
+// @param {*} $list - The value to validate.
+// @param {String | Null} $in - Optional context for the error message.
+// @return {List} The original value if it's a list, or a new list containing the value.
+// @error If the value is not a list and cannot be converted.
 @function list($list, $in: null) {
   $list-type: meta.type-of($list);
 
@@ -108,6 +175,13 @@
   @return $list;
 }
 
+// @function listItem
+// @description Validates if an item exists in a list.
+// @param {List} $list - The list to search in.
+// @param {*} $item - The item to search for.
+// @param {String | Null} $in - Optional context for the error message.
+// @return {*} The item if it's found in the list.
+// @error If the item is not found in the list.
 @function listItem($list, $item, $in: null) {
   @if not list.index($list, $item) {
     $in: if($in != null, " | in #{$in}", ".");
@@ -117,6 +191,13 @@
 }
 
 // Custom colors validations functions
+
+// @function colorMap
+// @description Validates a map of colors, ensuring each color has 'light' and 'dark' variants that are valid hex colors.
+// @param {Map} $map - The color map to validate.
+// @param {String | Null} $in - Optional context for the error message.
+// @return {Map} The original map if all colors and variants are valid.
+// @error If the map structure is incorrect or color values are invalid.
 @function colorMap($map, $in: null) {
   $mapVal: map($map);
 
@@ -131,6 +212,12 @@
   @return $map;
 }
 
+// @function colorOpacity
+// @description Validates if an opacity value is one of the predefined opacities in `configs.$opacities`.
+// @param {*} $opacity - The opacity value to validate.
+// @param {String | Null} $in - Optional context for the error message.
+// @return {*} The original opacity value if it's valid.
+// @error If the opacity value is not in `configs.$opacities`.
 @function colorOpacity($opacity, $in: null) {
   @if $opacity != null and not(list.index(configs.$opacities, $opacity)) {
     $in: if($in != null, " | in #{$in}", ".");
@@ -139,6 +226,12 @@
   @return $opacity;
 }
 
+// @function colorProperty
+// @description Validates if a color property value is one of the allowed values in `configs.$colorsPropertiesMap`.
+// @param {*} $value - The color property value to validate.
+// @param {String | Null} $in - Optional context for the error message.
+// @return {*} The original value if it's a valid color property.
+// @error If the value is not an allowed color property.
 @function colorProperty($value, $in: null) {
   @if $value != null and not(list.index(map.values(configs.$colorsPropertiesMap), $value)) {
     @error '❌ Error at "validate.colorProperty()": Invalid color property value | Expected one of #{map.values(configs.$colorsPropertiesMap)}, but got "#{$value}"#{$in}';
@@ -146,6 +239,12 @@
   @return $value;
 }
 
+// @function colorClass
+// @description Validates if a color class value is one of the allowed keys in `configs.$colorsPropertiesMap`.
+// @param {*} $value - The color class value to validate.
+// @param {String | Null} $in - Optional context for the error message.
+// @return {*} The original value if it's a valid color class.
+// @error If the value is not an allowed color class.
 @function colorClass($value, $in: null) {
   @if $value !=
     null and
