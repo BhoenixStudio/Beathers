@@ -2,10 +2,19 @@
 @use "../settings/configs" as configs;
 @use "../functions/validations" as val;
 
+// @function shadowValue
+// @description Converts a unitless number to a pixel value for shadows, unless the value is 0.
+// @param {Number} $value - The shadow value.
+// @return {String} The shadow value with "px" appended, or 0.
 @function shadowValue($value) {
   @return if($value != 0, #{$value}#{"px"}, $value);
 }
 
+// @mixin gridDivision
+// @description Generates CSS grid classes for creating grid layouts.
+// @param {String} $axis - The grid axis ('column' or 'row').
+// @param {String | Null} $size - A size prefix for the generated classes (e.g., 'sm', 'md').
+// @param {String} $divider - A divider string for the generated classes (e.g., '-').
 @mixin gridDivision($axis, $size, $divider) {
   // Validate parameters
   $checkedAxis: val.listItem((column, row), $axis, "gridDivision.axis");
@@ -32,6 +41,12 @@
   }
 }
 
+// @mixin flexDivision
+// @description Generates CSS flexbox classes for creating flexible layouts.
+// @param {String} $axis - The flex axis ('width' or 'height').
+// @param {String} $type - The type of flex items ('col', 'cols', 'row', 'rows').
+// @param {String | Null} $size - A size prefix for the generated classes (e.g., 'sm', 'md').
+// @param {String} $divider - A divider string for the generated classes (e.g., '-').
 @mixin flexDivision($axis, $type, $size, $divider) {
   // Validate parameters
   $checkedAxis: val.listItem((width, height), $axis, "flexDivision.axis");
