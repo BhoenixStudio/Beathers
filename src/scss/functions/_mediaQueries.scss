@@ -157,6 +157,9 @@
       }
     }
   } @else {
-    @content;
+    $size: null;
+    $divider: "";
+
+    @content ($size, $divider);
   }
 }
