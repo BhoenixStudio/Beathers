@@ -2,7 +2,7 @@
     <a href="https://beathers.bhoenixstudio.com">
         <img src="./public/images/identity/logo.png" alt="Beathers logo" width="700" height="312">
     </a>
-    <h1 align="center">Beathers <small>v3.2.13</small></h1>
+    <h1 align="center">Beathers <small>v5.2.0</small></h1>
     <p align="center">The Perfect Fusion of Strength and Featherlight Agility</p>
     <br>
     <br>
@@ -22,8 +22,7 @@
 
 ## Description
 
-Beather Library is a comprehensive collection of SCSS mixins, variables, and utility classes designed to streamline and enhance your SCSS development workflow.
-It provides reusable components, responsive grids, typography helpers, and more, allowing you to quickly build responsive and visually appealing web applications.
+Beathers is a lightweight, powerful SCSS library designed to accelerate your web development workflow. It offers a comprehensive suite of SCSS mixins, variables, and utility classes, enabling you to build responsive, visually appealing web applications with ease. Beathers focuses on providing reusable components, a flexible responsive grid system, and intuitive typography helpers, streamlining the process of creating modern user interfaces.
 
 ## Documentation
 
