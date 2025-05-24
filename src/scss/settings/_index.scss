@@ -1,38 +1,67 @@
 // Main settings ----- ----- ----- -----
+// Enables or disables media queries.
 $useMediaQueries: false !default;
 
 // Typographic settings ----- ----- ----- -----
+// Enables or disables font family utilities.
 $useFontFamilies: true !default;
+// Enables or disables font size utilities.
 $useFontSizes: true !default;
+// Enables or disables font shape utilities (transform, decoration, styles).
 $useFontShapes: true !default;
+// Enables or disables text alignment utilities.
 $useTextAligns: true !default;
+// Enables or disables text truncation utilities.
 $useTextTruncate: true !default;
 
 // Colors settings ----- ----- ----- -----
+// Enables or disables color utilities.
 $useColors: true !default;
+// Enables or disables color opacity utilities.
 $useColorsOpacities: true !default;
+// Enables or disables light mode color variants.
 $useColorsLightMode: true !default;
+// Enables or disables dark mode color variants.
 $useColorsDarkMode: true !default;
+// Enables or disables current color usage.
 $useCurrentColors: true !default;
+// Enables or disables root color definitions.
 $useRootColors: true !default;
 
 // Grid settings ----- ----- ----- -----
+// Enables or disables grid utilities.
 $useGrid: true !default;
+// Enables or disables flexbox utilities.
 $useFlex: true !default;
 
 // Shapes settings ----- ----- ----- -----
+// Enables or disables transition utilities.
 $useTransitions: true !default;
+// Enables or disables wrapper utilities.
 $useWrappers: true !default;
+// Enables or disables shadow utilities.
 $useShadows: true !default;
+// Enables or disables display utilities.
 $useDisplays: true !default;
+// Enables or disables overflow utilities.
 $useOverflows: true !default;
+// Enables or disables opacity utilities.
 $useOpacities: true !default;
+// Enables or disables blur utilities.
 $useBlur: true !default;
+// Enables or disables object-fit utilities.
 $useObjectFits: true !default;
+// Enables or disables position utilities.
 $usePositions: true !default;
+// Enables or disables inset utilities.
 $useInsets: true !default;
+// Enables or disables size utilities (width, height).
 $useSizes: true !default;
+// Enables or disables gutter utilities (padding, margin, gap).
 $useGutters: true !default;
+// Enables or disables border utilities.
 $useBorders: true !default;
+// Enables or disables text border utilities.
 $useTextBorders: true !default;
+// Enables or disables border-radius utilities.
 $useRadius: true !default;
