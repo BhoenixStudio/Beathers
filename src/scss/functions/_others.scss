@@ -50,6 +50,32 @@
   @return $property $duration $timingFunction $delay;
 }
 
+@mixin gridDivision($axis, $size, $divider) {
+  // Validate parameters
+  $checkedAxis: val.listItem((column, row), $axis, "gridDivision.axis");
+  $checkedBase: val.number(configs.$axisDivisions, "gridDivision.axisDivisions");
+
+  $type: if($axis == "column", "col", "row");
+  $mainClass: if($size, "#{$size}#{$divider}#{$type}s", "#{$type}s");
+  $subClass: if($size, "#{$size}#{$divider}#{$type}", $type);
+
+  @for $i from 0 through configs.$axisDivisions {
+    @if ($i > 0) {
+      &.#{$mainClass}#{\:}#{$i} {
+        grid-template-#{$axis}s: repeat($i, 1fr);
+      }
+    }
+
+    $axisProperty: if($i == 0, "grid-#{$axis}-end", "grid-#{$axis}");
+    $class: if($i == 0, auto, $i);
+    $value: if($i == 0, -1, "span #{$i}");
+
+    > .#{$subClass}#{\:}#{$class} {
+      #{$axisProperty}: #{$value};
+    }
+  }
+}
+
 @mixin flexDivision($axis, $type, $size, $divider) {
   // Validate parameters
   $checkedAxis: val.listItem((width, height), $axis, "flexDivision.axis");
