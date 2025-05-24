@@ -1,6 +1,7 @@
-@use './configs' as configs;
-@use '../variables' as vars;
-@use '../functions/colors' as colors;
+@use "./configs" as configs;
+@use "../variables" as vars;
+@use "../functions/colors" as colors;
+@use "../settings/index" as settings;
 
 /*! * Configs ----- ----- ----- ----- */
 html {
@@ -10,7 +11,7 @@ html {
 
 body {
   position: relative;
-  font-family: 'regular', configs.$defaultFontFamilies;
+  font-family: "regular";
   overflow-x: hidden;
 }
 
@@ -42,17 +43,19 @@ a {
   text-decoration: unset;
 }
 
-::selection {
-  @include colors.ColorModes(
-    (
-      color: '2',
-      background-color: (
-        '2',
-        0.1,
-      ),
-    ),
-    vars.$themeColors
-  );
+@if settings.$useColors {
+  @if settings.$useColorsLightMode {
+    .light::selection {
+      background-color: colors.useColorWithMap("2");
+      color: colors.useColorWithMap("white");
+    }
+  }
+  @if settings.$useColorsDarkMode {
+    .dark::selection {
+      background-color: colors.useColorWithMap("2", "dark");
+      color: colors.useColorWithMap("black");
+    }
+  }
 }
 
 ::-webkit-scrollbar {
@@ -64,12 +67,18 @@ a {
   }
   &-thumb {
     border-radius: 100vw;
-    @include colors.ColorModes(
-      (
-        background: 'third',
-      ),
-      vars.$layoutColors
-    );
+  }
+}
+@if settings.$useColors {
+  @if settings.$useColorsLightMode {
+    .light::-webkit-scrollbar-thumb {
+      background: colors.useColorWithMap("third");
+    }
+  }
+  @if settings.$useColorsDarkMode {
+    .dark::-webkit-scrollbar-thumb {
+      background: colors.useColorWithMap("third", "dark");
+    }
   }
 }
 

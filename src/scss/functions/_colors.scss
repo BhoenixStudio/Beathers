@@ -4,6 +4,7 @@
 @use "sass:list";
 @use "sass:map";
 @use "../settings/configs" as configs;
+@use "../settings/index" as settings;
 @use "../variables" as vars;
 @use "../functions/validations" as val;
 
@@ -75,6 +76,14 @@
   }
 }
 
+@function useColorWithMap($color, $mode: "light", $opacity: 100, $map: vars.$colors) {
+  // Validate parameters
+  $checkedMap: val.map($map, "useColorWithMap().map");
+
+  $colorValue: map.get($checkedMap, $color);
+  @return useColor($colorValue, $mode, $opacity);
+}
+
 // @mixin useColorProperty
 // --------------------------------------
 // Applies color properties with theme variant support while handling light/dark themes
@@ -128,16 +137,20 @@
   $checkedDarkValue: val.hexColor("#{$colorClass}.dark", $dark, "root-colors()");
 
   @if $dark != $light {
-    .light .#{$colorClass},
-    .#{$colorClass}.light,
-    .light\:#{$colorClass} {
-      #{$property}: useColor($color, "light", $opacity);
+    @if (settings.$useColorsLightMode) {
+      .light .#{$colorClass},
+      .#{$colorClass}.light,
+      .light\:#{$colorClass} {
+        #{$property}: useColor($color, "light", $opacity);
+      }
     }
 
-    .dark .#{$colorClass},
-    .#{$colorClass}.dark,
-    .dark\:#{$colorClass} {
-      #{$property}: useColor($color, "dark", $opacity);
+    @if (settings.$useColorsDarkMode) {
+      .dark .#{$colorClass},
+      .#{$colorClass}.dark,
+      .dark\:#{$colorClass} {
+        #{$property}: useColor($color, "dark", $opacity);
+      }
     }
   } @else {
     .#{$colorClass} {
@@ -176,7 +189,7 @@
 
         @include useColorProperty($mainClass, $class, $property, $modes, $map);
 
-        @if $checkedWithOpacity {
+        @if $checkedWithOpacity and settings.$useColorsOpacities {
           @each $opacity in configs.$opacities {
             @include useColorProperty(
               "#{$mainClass}#{\:}#{$opacity}",
@@ -199,7 +212,7 @@
               $map
             );
 
-            @if $checkedWithOpacity {
+            @if $checkedWithOpacity and settings.$useColorsOpacities {
               @each $opacity in configs.$opacities {
                 @include useColorProperty(
                   "#{$mainClass}#{\:}#{$opacity}#{\:}#{$pseudoClass}#{$pseudo}",

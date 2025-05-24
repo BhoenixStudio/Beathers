@@ -4,8 +4,8 @@
 */
 
 // Style ----- ----- ----- -----
-// @use './settings/resets';
-// @use './style/colors';
-// @use "./style/typographic";
-// @use './style/shaping';
+@use './settings/resets';
+@use './style/colors';
+@use "./style/typographic";
 @use "./style/grid";
+@use './style/shaping';
