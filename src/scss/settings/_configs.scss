@@ -337,3 +337,46 @@ $radiusDirection: (
     border-end-end-radius,
   ),
 ) !default;
+
+$justify: (
+  justify: (
+    content: (
+      start,
+      center,
+      end,
+      between,
+      around,
+      evenly,
+    ),
+    self: (
+      auto,
+      center,
+      stretch,
+    ),
+  ),
+  align: (
+    content: (
+      start,
+      center,
+      end,
+      around,
+      between,
+      stretch,
+    ),
+    items: (
+      start,
+      center,
+      end,
+      stretch,
+      baseline,
+    ),
+    self: (
+      auto,
+      start,
+      center,
+      end,
+      stretch,
+      baseline,
+    ),
+  ),
+) !default;

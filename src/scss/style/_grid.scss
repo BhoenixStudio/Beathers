@@ -55,3 +55,38 @@
     }
   }
 }
+
+@if settings.$useFlex or settings.$useGrid {
+  @include mQ.multiSizes() using ($size, $divider) {
+    @each $way, $selections in configs.$justify {
+      @each $selection, $properties in $selections {
+        @each $property in $properties {
+          $mainClass: if(
+            $size,
+            "#{$size}#{$divider}#{$way}-#{$selection}#{\:}",
+            "#{$way}-#{$selection}#{\:}"
+          );
+
+          .#{$mainClass} {
+            $prefix: if(
+              $property == "around" or $property == "between" or $property == "evenly",
+              "space-",
+              ""
+            );
+            $flexPrefix: if($property == "start" or $property == "end", "flex-", "");
+            $value: #{$prefix}#{$property};
+            $flexValue: #{$flexPrefix}#{$value};
+
+            &#{$property} {
+              &.flex {
+                #{$way}-#{$selection}: if($size, $flexValue !important, $flexValue);
+              }
+
+              #{$way}-#{$selection}: if($size, $value !important, $value);
+            }
+          }
+        }
+      }
+    }
+  }
+}
