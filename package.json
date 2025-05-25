@@ -1,6 +1,7 @@
 {
   "name": "beathers",
   "version": "5.2.0",
+  "type": "module",
   "description": "Beather is a lightweight SCSS library that serves as a comprehensive design system for your projects. It offers a structured and consistent approach to manage colors, fonts, and other design related variables, making it easier to maintain a cohesive visual identity across your application.",
   "main": "index.js",
   "scripts": {
@@ -41,6 +42,7 @@
   "homepage": "https://github.com/BhoenixStudio/Beathers#readme",
   "devDependencies": {
     "@eslint/js": "^9.26.0",
+    "@types/fs-extra": "^11.0.4",
     "@types/node": "^22.15.21",
     "@types/scss-parser": "^1.0.4",
     "autoprefixer": "^10.4.21",
