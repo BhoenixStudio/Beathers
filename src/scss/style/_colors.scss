@@ -1,5 +1,5 @@
 @use "sass:map";
-@use "../variables" as vars;
+@use "../settings/defaults" as vars;
 @use "../functions/validations" as val;
 @use "../settings/configs" as configs;
 @use "../functions/colors" as colors;
@@ -23,7 +23,7 @@
 // @requires ../functions/colors.scss - For color utility functions and mixins
 // @requires ../settings/configs.scss - For configuration variables
 // @requires ../functions/validations.scss - For validation utilities
-// @requires ../variables.scss - For color definitions
+// @requires ../settings/defaults.scss - For color definitions
 
 @if settings.$useColors {
   // Color Utility Classes

@@ -2,7 +2,7 @@
 @use "sass:string";
 @use "sass:map";
 @use "sass:list";
-@use "../variables" as vars;
+@use "../settings/defaults" as vars;
 @use "../functions/validations" as val;
 @use "../functions/typographic" as typo;
 @use "../settings/configs" as configs;

@@ -1,5 +1,5 @@
 @use "./configs" as configs;
-@use "../variables" as vars;
+@use "../settings/defaults" as vars;
 @use "../functions/colors" as colors;
 @use "../settings/index" as settings;
 
@@ -45,13 +45,13 @@ a {
 @if settings.$useColors {
   @if settings.$useColorsLightMode {
     .light::selection {
-      background-color: colors.useColorWithMap("2");
+      background-color: colors.useColorWithMap("custom-2");
       color: colors.useColorWithMap("white");
     }
   }
   @if settings.$useColorsDarkMode {
     .dark::selection {
-      background-color: colors.useColorWithMap("2", "dark");
+      background-color: colors.useColorWithMap("custom-2", "dark");
       color: colors.useColorWithMap("black");
     }
   }

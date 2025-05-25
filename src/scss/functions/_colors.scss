@@ -5,7 +5,7 @@
 @use "sass:map";
 @use "../settings/configs" as configs;
 @use "../settings/index" as settings;
-@use "../variables" as vars;
+@use "../settings/defaults" as vars;
 @use "../functions/validations" as val;
 
 // Color Convertors ----- ----- ----- -----
