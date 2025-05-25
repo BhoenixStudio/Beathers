@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "NodeNext", // Changed from ESNext to NodeNext
+    "moduleResolution": "NodeNext", // Changed from node to NodeNext
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "outDir": "./dist", // Optional: specify an output directory for compiled JS
+    "rootDir": "./src" // Optional: specify the root directory of your source files
+  },
+  "ts-node": {
+    "esm": true, // Added to enable ESM support for ts-node
+    "experimentalSpecifierResolution": "node" // May be needed for module path resolution
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}
