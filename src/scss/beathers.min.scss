@@ -3,9 +3,11 @@
 * Copyright 2020-2025 Bhoenix Studio
 */
 
+@use "./variables";
+
 // Style ----- ----- ----- -----
-@use './settings/resets';
-@use './style/colors';
+@use "./settings/resets";
+@use "./style/colors";
 @use "./style/typographic";
 @use "./style/grid";
-@use './style/shaping';
+@use "./style/shaping";
