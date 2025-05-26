@@ -36,10 +36,10 @@ $fontWeights: (
   "bold": 700,
   "extra-bold": 800,
   "black": 900,
-) !default;
+);
 
 // Defines available font styles.
-$fontStyles: ("normal", "italic", "oblique") !default;
+$fontStyles: ("normal", "italic", "oblique");
 
 // Defines the typography scale for font sizes.
 $fontSizes: (
@@ -75,13 +75,10 @@ $fontShapes: (
     dotted,
     dashed,
   ),
-) !default;
+);
 
 // Defines text alignment options.
-$aligns: (left, start, right, end, justify, center) !default;
-
-// Defines media query breakpoints.
-$mediaQueries: (null, sm, md, lg, xl, xxl) !default;
+$aligns: (left, start, right, end, justify, center);
 
 // Defines the number of columns/rows in the grid system.
 $axisDivisions: 12 !default;
@@ -90,11 +87,11 @@ $axisDivisions: 12 !default;
 $flexProperties: (
   flex-wrap: wrap nowrap,
   flex-direction: row row-reverse column column-reverse,
-) !default;
+);
 
 // Defines responsive breakpoint values.
 $breakpoints: (
-  xs: 0,
+  null: 0,
   sm: 576px,
   md: 768px,
   lg: 992px,
@@ -123,20 +120,20 @@ $displays: (
   table,
   table-cell,
   none
-) !default;
+);
 
 // Defines overflow directions.
-$overflowsDirections: (null, "x", "y") !default;
+$overflowsDirections: (null, "x", "y");
 // Defines overflow behaviors.
-$overflows: (visible, hidden, auto, scroll) !default;
+$overflows: (visible, hidden, auto, scroll);
 // Defines object-fit property values.
-$objectsFits: (cover, fill, contain, none) !default;
+$objectsFits: (cover, fill, contain, none);
 
 // Defines available opacity values.
 $opacities: (10, 20, 30, 40, 50, 60, 70, 80, 90, 100) !default;
 
 // Defines blur values for filter properties.
-$blurValues: (5, 10, 15, 25) !default;
+$blurValues: (5, 10, 15, 25);
 
 // Defines available cursor types.
 $cursors: (
@@ -162,7 +159,7 @@ $cursors: (
   wait,
   zoom-in,
   zoom-out
-) !default;
+);
 
 // Defines shadow presets.
 $shadows: (
@@ -215,7 +212,7 @@ $shadows: (
     spread: 0,
     opacity: 0.15,
   ),
-) !default;
+);
 
 // Defines utility classes for clearing properties.
 $clearanceOptions: (
@@ -235,18 +232,18 @@ $clearanceOptions: (
   no-position: (
     position: unset,
   ),
-) !default;
+);
 
 // Defines available position values.
-$positions: static, relative, fixed, absolute, sticky !default;
+$positions: static, relative, fixed, absolute, sticky;
 
 // Defines inset positioning options.
-$insetPositions: null, inline, block !default;
+$insetPositions: null, inline, block;
 // Defines default inset value.
 $insetValues: 0 !default;
 
 // Defines the step for spacing utilities.
-$spacesStep: 5 !default;
+$spacesStep: 5;
 // Defines properties for width and height utilities.
 $spacesDirections: (
   "w": width,
@@ -255,7 +252,7 @@ $spacesDirections: (
   "h": height,
   "min#{\:}h": min-height,
   "max#{\:}h": max-height,
-) !default;
+);
 
 // Defines properties for padding, margin and gap utilities.
 $gutters: (
@@ -276,7 +273,7 @@ $gutters: (
   g: gap,
   gx: column-gap,
   gy: row-gap,
-) !default;
+);
 
 // Defines values for gutter utilities.
 $guttersValues: (
@@ -298,7 +295,7 @@ $bordersDirections: (
   "bottom": border-block-end,
   "start": border-inline-start,
   "end": border-inline-end,
-) !default;
+);
 
 // Defines available border-radius values.
 $radiuses: (5, 10, 15, 25) !default;
@@ -336,7 +333,7 @@ $radiusDirection: (
   "bottom-end": (
     border-end-end-radius,
   ),
-) !default;
+);
 
 $justify: (
   justify: (
@@ -379,4 +376,4 @@ $justify: (
       baseline,
     ),
   ),
-) !default;
+);
