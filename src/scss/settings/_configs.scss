@@ -8,14 +8,14 @@ $colorsPropertiesMap: (
   fill: fill,
   stroke: stroke,
   text-stroke: -webkit-text-stroke-color,
-) !default;
+);
 
 // Defines pseudo-classes for color variants.
 $colorsPseudoMap: (
   "placeholder": "::placeholder",
   "hover": ":hover",
   "focus": ":focus",
-) !default;
+);
 
 // Defines the default font stack.
 $defaultFontFamilies:
