@@ -11,6 +11,7 @@
     "build:expanded": "rimraf dist && sass --style expanded --source-map --embed-sources --no-error-css src/scss/:dist/css/expanded/",
     "build:clean": "rimraf dist",
     "build:with-configs": "tsx src/scripts/build-theme.ts",
+    "watch:with-configs": "nodemon --watch src --ext ts --exec \"tsx src/scripts/build-theme.ts\"",
     "lint": "eslint . && stylelint \"**/*.scss\"",
     "lint:fix": "eslint . --fix && stylelint \"**/*.scss\" --fix",
     "lint:scss": "stylelint \"**/*.scss\"",
