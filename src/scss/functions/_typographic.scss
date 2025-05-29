@@ -1,8 +1,8 @@
-@use "sass:string";
-@use "sass:map";
-@use "../settings/defaults" as vars;
-@use "../functions/validations" as val;
-@use "../settings/configs" as configs;
+@use 'sass:string';
+@use 'sass:map';
+@use '../settings/defaults' as vars;
+@use '../functions/validations' as val;
+@use '../settings/configs' as configs;
 
 // Font Face Mixin
 // --------------------------------------
@@ -40,35 +40,26 @@
 //   //   unicode-range: U+000-5FF;
 //   // }
 //
-@mixin font(
-  $title,
-  $weight,
-  $format,
-  $style,
-  $index: 0,
-  $unicode: null,
-  $isLocal: true,
-  $externalUrl: ""
-) {
+@mixin font($title, $weight, $format, $style, $index: 0, $unicode: null, $isLocal: true, $externalUrl: '') {
   // Validate parameters
-  $checkedIsLocal: val.boolean($isLocal, "#{$title}.font().local");
-  $checkedTitle: val.string($title, "#{$title}.font().title");
+  $checkedIsLocal: val.boolean($isLocal, '#{$title}.font().local');
+  $checkedTitle: val.string($title, '#{$title}.font().title');
   $checkedWeight: val.mapItem(
-    configs.$fontWeights,
+    configs.$fontWeightsValues,
     $weight,
-    configs.$fontWeights,
-    "Typographic.fontFace.weights.#{$weight}"
+    configs.$fontWeightsValues,
+    'Typographic.fontFace.weights.#{$weight}'
   );
-  $checkedStyle: val.listItem(configs.$fontStyles, $style, "#{$title}.font().weights.#{$style}");
-  $checkIndex: val.number($index, "#{$title}.font().index");
-  $checkedFormat: val.string($format, "#{$title}.font().format");
+  $checkedStyle: val.listItem(('normal', 'italic', 'oblique'), $style, '#{$title}.font().weights.#{$style}');
+  $checkIndex: val.number($index, '#{$title}.font().index');
+  $checkedFormat: val.string($format, '#{$title}.font().format');
 
   @if (not($isLocal)) {
-    $checkedExternalUrl: val.string($externalUrl, "Typographic.fontFace.externalUrl");
+    $checkedExternalUrl: val.string($externalUrl, 'Typographic.fontFace.externalUrl');
   }
 
-  $name: if($index == 0, $title, "#{$title}-#{$index}");
-  $weightValue: map.get(configs.$fontWeights, $weight);
+  $name: if($index == 0, $title, '#{$title}-#{$index}');
+  $weightValue: map.get(configs.$fontWeightsValues, $weight);
 
   @font-face {
     font-family: $name;
@@ -78,16 +69,15 @@
 
     @if ($isLocal) {
       src:
-        local("#{$title}-#{$weight}"),
-        url(string.unquote("#{vars.$fontMainPath}#{$title}-#{$weight}.#{$format}"))
-          format("#{$format}");
+        local('#{$title}-#{$weight}'),
+        url(string.unquote('#{vars.$fontMainPath}#{$title}-#{$weight}.#{$format}')) format('#{$format}');
     } @else {
-      src: url(string.unquote("#{$externalUrl}"));
+      src: url(string.unquote('#{$externalUrl}'));
     }
 
     @if $unicode {
       // Validate parameters
-      $checkedUnicode: val.string($unicode, "#{$title}.font().unicode");
+      $checkedUnicode: val.string($unicode, '#{$title}.font().unicode');
 
       unicode-range: string.unquote($unicode);
     }
@@ -120,20 +110,15 @@
   $shapeList: map.get(configs.$fontShapes, $type);
 
   // Validate parameters
-  $checkedType: val.mapItem(
-    configs.$fontShapes,
-    $type,
-    configs.$fontShapes,
-    "fontShapes().#{$type}"
-  );
-  $checkedValue: val.listItem($shapeList, $value, "fontShapes().#{$value}");
+  $checkedType: val.mapItem(configs.$fontShapes, $type, configs.$fontShapes, 'fontShapes().#{$type}');
+  $checkedValue: val.listItem($shapeList, $value, 'fontShapes().#{$value}');
 
   .#{$class} {
-    @if $type == "transform" {
+    @if $type == 'transform' {
       text-transform: $value;
-    } @else if $type == "decoration" {
+    } @else if $type == 'decoration' {
       text-decoration: $value;
-    } @else if $type == "styles" {
+    } @else if $type == 'styles' {
       font-style: $value;
     }
   }

@@ -26,7 +26,7 @@ $defaultFontFamilies:
   sans-serif !default;
 
 // Defines available font weights.
-$fontWeights: (
+$fontWeightsValues: (
   "thin": 100,
   "extra-light": 200,
   "light": 300,
@@ -37,9 +37,6 @@ $fontWeights: (
   "extra-bold": 800,
   "black": 900,
 );
-
-// Defines available font styles.
-$fontStyles: ("normal", "italic", "oblique");
 
 // Defines the typography scale for font sizes.
 $fontSizes: (

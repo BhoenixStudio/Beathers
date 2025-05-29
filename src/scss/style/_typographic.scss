@@ -1,13 +1,13 @@
-@use "sass:meta";
-@use "sass:string";
-@use "sass:map";
-@use "sass:list";
-@use "../settings/defaults" as vars;
-@use "../functions/validations" as val;
-@use "../functions/typographic" as typo;
-@use "../settings/configs" as configs;
-@use "../functions/mediaQueries" as mQ;
-@use "../settings/" as settings;
+@use 'sass:meta';
+@use 'sass:string';
+@use 'sass:map';
+@use 'sass:list';
+@use '../settings/defaults' as vars;
+@use '../functions/validations' as val;
+@use '../functions/typographic' as typo;
+@use '../settings/configs' as configs;
+@use '../functions/mediaQueries' as mQ;
+@use '../settings/' as settings;
 
 // Typographic Utilities
 // --------------------------------------
@@ -27,7 +27,7 @@
 // @see vars.$fonts
 // @see vars.$fontWeights
 // @see vars.$fontStyles
-// @see configs.$fontWeights (for mapping weight names to numerical values)
+// @see configs.$fontWeightsValues (for mapping weight names to numerical values)
 // @see configs.$defaultFontFamilies (for fallback fonts)
 // @see typo.font (mixin used for @font-face generation)
 // @see mQ.multiSizes (mixin used for responsive class generation)
@@ -66,52 +66,39 @@
   $fI: 0;
   @each $fontKey, $font in vars.$fonts {
     // Validate parameters
-    $checkedFontKey: val.string($fontKey, "Typographic.fonts.title");
-    $checkedFont: val.map($font, "Typographic.fonts");
+    $checkedFontKey: val.string($fontKey, 'Typographic.fonts.title');
+    $checkedFont: val.map($font, 'Typographic.fonts');
 
-    $weights: map.get($font, "weights");
-    $weights: if($weights != null, map.get($font, "weights"), vars.$fontWeights);
-    $styles: map.get($font, "styles");
-    $styles: if($styles != null, map.get($font, "styles"), vars.$fontStyles);
-    $variants: map.get($font, "variants");
+    $weights: map.get($font, 'weights');
+    $weights: if($weights != null, map.get($font, 'weights'), vars.$fontWeights);
+    $styles: map.get($font, 'styles');
+    $styles: if($styles != null, map.get($font, 'styles'), vars.$fontStyles);
+    $variants: map.get($font, 'variants');
 
     // Validate parameters
 
-    $checkedWeights: val.list($weights, "Typographic.fontFace.weights");
-    $checkedStyles: val.list($styles, "Typographic.fontFace.styles");
-    $checkedVariants: val.map($variants, "Typographic.fontFace.variants");
+    $checkedWeights: val.list($weights, 'Typographic.fontFace.weights');
+    $checkedStyles: val.list($styles, 'Typographic.fontFace.styles');
+    $checkedVariants: val.map($variants, 'Typographic.fontFace.variants');
 
     @each $weight in $weights {
       @each $style in $styles {
         @each $lang, $fontFace in $variants {
-          $title: map.get($fontFace, "title");
-          $unicode: if(map.has-key($fontFace, "unicode"), map.get($fontFace, "unicode"), null);
-          $format: if(
-            map.has-key($fontFace, "format"),
-            map.get($fontFace, "format"),
-            vars.$fontFormat
-          );
-          $isLocal: if(map.has-key($fontFace, "local"), map.get($fontFace, "isLocal"), true);
-          $externalUrl: if(map.has-key($fontFace, "url"), map.get($fontFace, "url"), null);
+          $title: map.get($fontFace, 'title');
+          $unicode: if(map.has-key($fontFace, 'unicode'), map.get($fontFace, 'unicode'), null);
+          $format: if(map.has-key($fontFace, 'format'), map.get($fontFace, 'format'), vars.$fontFormat);
+          $isLocal: if(map.has-key($fontFace, 'local'), map.get($fontFace, 'isLocal'), true);
+          $externalUrl: if(map.has-key($fontFace, 'url'), map.get($fontFace, 'url'), null);
 
           // Validate parameters
-          $checkedIsLocal: val.boolean($isLocal, "Typographic.fontFace.local");
-          $checkedTitle: val.string($title, "Typographic.fontFace.title");
-          $checkedFormat: val.string($format, "Typographic.fontFace.format");
+          $checkedIsLocal: val.boolean($isLocal, 'Typographic.fontFace.local');
+          $checkedTitle: val.string($title, 'Typographic.fontFace.title');
+          $checkedFormat: val.string($format, 'Typographic.fontFace.format');
           @if $unicode {
-            $checkedUnicode: val.string($unicode, "Typographic.fontFace.unicode");
+            $checkedUnicode: val.string($unicode, 'Typographic.fontFace.unicode');
           }
 
-          @include typo.font(
-            $title,
-            $weight,
-            $format,
-            $style,
-            $fI,
-            $unicode,
-            $isLocal,
-            $externalUrl
-          );
+          @include typo.font($title, $weight, $format, $style, $fI, $unicode, $isLocal, $externalUrl);
         }
       }
     }
@@ -121,17 +108,17 @@
         @each $style in $styles {
           // Font weights
           // Validate parameters
-          $styleClass: if($fI == 0, $weight, "#{$weight}-#{$fI}");
-          $weightValue: map.get(configs.$fontWeights, $weight);
+          $styleClass: if($fI == 0, $weight, '#{$weight}-#{$fI}');
+          $weightValue: map.get(configs.$fontWeightsValues, $weight);
 
           $mainClass: if($size, #{$size}#{$divider}#{$styleClass}, $styleClass);
 
           .#{$mainClass} {
             font-family:
-              "#{$styleClass}",
+              '#{$styleClass}',
               configs.$defaultFontFamilies if($size, !important, null);
             font-weight: if($size, $weightValue !important, $weightValue);
-            @if meta.type-of($styles) == "list" and list.length($styles) > 0 {
+            @if meta.type-of($styles) == 'list' and list.length($styles) > 0 {
               &.#{$style} {
                 font-style: $style;
               }
@@ -223,7 +210,7 @@
   @include mQ.multiSizes() using ($size, $divider) {
     @each $type, $values in configs.$fontShapes {
       @each $value in $values {
-        @include typo.fontShapes(if($size, "#{$size}#{$divider}#{$value}", $value), $type, $value);
+        @include typo.fontShapes(if($size, '#{$size}#{$divider}#{$value}', $value), $type, $value);
       }
     }
   }
@@ -259,9 +246,9 @@
   @include mQ.multiSizes() using ($size, $divider) {
     @each $dir in configs.$aligns {
       // Validate parameters
-      $checkedDir: val.listItem(configs.$aligns, $dir, "Typographic.fonts.aligns");
+      $checkedDir: val.listItem(configs.$aligns, $dir, 'Typographic.fonts.aligns');
 
-      $mainClass: if($size, "#{$size}#{$divider}text-#{$dir}", "text-#{$dir}");
+      $mainClass: if($size, '#{$size}#{$divider}text-#{$dir}', 'text-#{$dir}');
       .#{$mainClass} {
         text-align: if($size, $dir !important, $dir);
       }
@@ -304,7 +291,7 @@
 @if settings.$useTextTruncate {
   @include mQ.multiSizes() using ($size, $divider) {
     @for $i from 1 through vars.$textTruncate {
-      $mainClass: if($size, "#{$size}#{$divider}text-lines#{\:}#{$i}", "text-lines#{\:}#{$i}");
+      $mainClass: if($size, '#{$size}#{$divider}text-lines#{\:}#{$i}', 'text-lines#{\:}#{$i}');
 
       .#{$mainClass} {
         display: -webkit-box;
