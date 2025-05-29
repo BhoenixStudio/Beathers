@@ -1,12 +1,5 @@
 // Color Types
-export type ColorType = {
-  light: `#${string}`
-  dark: `#${string}`
-}
-
-export interface ColorMap {
-  [colorName: string]: ColorType
-}
+export type ColorType = Record<string, { light: `#${string}`; dark: `#${string}` }>
 
 // Font Types
 export type FontWeight =
@@ -42,22 +35,19 @@ export interface Typography {
   fontStyles?: FontStyle[]
   fontSizes?: { [sizeName: string]: FontSize }
   textTruncate?: number
-  fonts?: { [fontName: string]: FontType }
+  fonts?: Record<string, FontType>
 }
 
 // Settings
-export type BreakPoints = {
-  [key in 'sm' | 'md' | 'lg' | 'xl' | 'xxl']: `${number}px` | `${number}rem` | `${number}em`
-}
-export type Wrappers = {
-  [key in 'sm' | 'md' | 'lg' | 'xl' | 'xxl']: {
+export type Breakpoints = Record<'sm' | 'md' | 'lg' | 'xl' | 'xxl', `${number}px` | `${number}rem` | `${number}em`>
+export type Wrappers = Record<
+  'sm' | 'md' | 'lg' | 'xl' | 'xxl',
+  {
     width: `${number}px` | `${number}rem` | `${number}em`
     padding?: `${number}px` | `${number}rem` | `${number}em`
   }
-}
-export type GutterValues = {
-  [key in 'auto' | number]: 'auto' | `${number}px` | `${number}rem` | `${number}em`
-}
+>
+export type GutterValues = Record<'auto' | number, `${number}px` | `${number}rem` | `${number}em`>
 export interface Settings {
   axisDivisions?: number
   opacities?: number[]
@@ -65,6 +55,9 @@ export interface Settings {
   insetValues?: number[]
   bordersValue?: number[]
   radiuses?: number[]
+  breakpoints?: Breakpoints
+  wrappers?: Wrappers
+  guttersValues?: GutterValues
 }
 type RoleKeys =
   | 'useMediaQueries'
@@ -101,11 +94,8 @@ type RoleKeys =
 export type Roles = Partial<Record<RoleKeys, boolean>>
 
 export interface Theme {
-  colors?: ColorMap
+  colors?: ColorType
   typography?: Typography
   settings?: Settings
-  breakPoints?: BreakPoints
-  wrappers?: Wrappers
-  gutters?: GutterValues
   roles?: Roles
 }
