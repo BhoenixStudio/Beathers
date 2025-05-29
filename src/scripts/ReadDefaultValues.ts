@@ -1,104 +1,118 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import fs from 'fs-extra'
-import { Theme } from './types.js'
+import { Breakpoints, ColorType, FontSize, FontType, GutterValues, Theme, Wrappers } from './types.js'
 
-function splitScssItems(str: string, delimiter: string): string[] {
-  const result: string[] = []
-  let currentItem = ''
-  let parenthesesDepth = 0
-  for (let i = 0; i < str.length; i++) {
-    const char = str[i]
-    if (char === '(') parenthesesDepth++
-    else if (char === ')') parenthesesDepth--
-    else if (char === delimiter && parenthesesDepth === 0) {
-      result.push(currentItem.trim())
-      currentItem = ''
-      continue
-    }
-    currentItem += char
+function sanitize(val: any): any {
+  if (typeof val === 'string') {
+    const trimmed = val.trim()
+    if (trimmed === 'true') return true
+    if (trimmed === 'false') return false
+    if (!isNaN(Number(trimmed))) return Number(trimmed)
+    return trimmed
   }
-  if (currentItem.trim() !== '') result.push(currentItem.trim())
-  return result
+
+  if (typeof val === 'object' && val !== null)
+    return Object.fromEntries(Object.entries(val).map(([k, v]) => [sanitize(k), sanitize(v)]))
+
+  return val
 }
 
-function splitScssKeyValuePair(item: string): { key: string; value: string } | null {
-  let parenthesesDepth = 0
-  for (let i = 0; i < item.length; i++) {
-    if (item[i] === '(') parenthesesDepth++
-    else if (item[i] === ')') parenthesesDepth--
-    else if (item[i] === ':' && parenthesesDepth === 0)
-      return { key: item.substring(0, i).trim(), value: item.substring(i + 1).trim() }
-  }
-  return null
-}
-
-function parseScssValue(value: string): any {
-  value = value.trim()
-
+function cleanString(value: string): string {
   let result: any = value
+  if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'")))
+    result = value.slice(1, -1)
 
-  if (value === 'true') result = true
-  if (value === 'false') result = false
+  return result.trim()
+}
+
+function cleanNumber(value: string): number | null {
+  let result = null
 
   const num = Number(value)
   if (!isNaN(num) && num.toString() === value) result = num
 
-  if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'")))
-    result = value.slice(1, -1)
-
-  if (value.startsWith('(') && value.endsWith(')')) {
-    const content = value.slice(1, -1).trim()
-    if (content === '') result = []
-
-    const items = splitScssItems(content, ',')
-    let isMap = false
-    if (items.length > 0) {
-      const firstItemPair = splitScssKeyValuePair(items[0])
-      if (firstItemPair) isMap = items.every((item) => splitScssKeyValuePair(item) !== null)
-    }
-
-    if (!isMap) result = items.map((item) => parseScssValue(item))
-    else {
-      const map: Record<string, any> = {}
-      for (const item of items) {
-        const pair = splitScssKeyValuePair(item)
-        if (pair) {
-          let key = pair.key
-          if ((key.startsWith('"') && key.endsWith('"')) || (key.startsWith("'") && key.endsWith("'")))
-            key = key.slice(1, -1)
-
-          map[key] = parseScssValue(pair.value)
-        }
-      }
-      result = map
-    }
-  }
-
-  if (value.includes(',') && !value.startsWith('(') && !value.endsWith(')')) {
-    result = value
-      .split(',')
-      .map((part) => part.trim())
-      .map((part) => parseScssValue(part))
-  }
-
   return result
 }
 
-export async function ReadDefaultValues(files: string[]): Promise<Partial<Theme>> {
+function buildArray(value: string): any[] {
+  if (!value.includes(',') && !value.startsWith('(') && !value.endsWith(')')) return []
+
+  let raw: string = value
+  if (value.startsWith('(') && value.endsWith(')')) raw = value.slice(1, -1)
+
+  return raw.split(',').map((part) => cleanNumber(part.trim()) ?? cleanString(part.trim()))
+}
+
+function buildJson<T>(value: string): T {
+  const raw = value
+    .replace(/\(/g, '{')
+    .replace(/\)/g, '}')
+    .replace(/([a-zA-Z0-9_]+):/g, '"$1":')
+    .replace(/:\s*"?([0-9]+)"?\.(\d+)(rem)?/g, ':"$1.$2$3"')
+    .replace(/:\s*([a-zA-Z0-9_]+)/g, ': "$1"')
+    .replace(/,\s*}/g, '}')
+
+  const parsed: T = JSON.parse(raw)
+  const sanitized = sanitize(parsed)
+
+  return sanitized
+}
+
+function buildColors(value: string): ColorType {
+  const raw = value
+    .replace(/\(/g, '{')
+    .replace(/\)/g, '}')
+    .replace(/#([0-9a-fA-F]{3,6})/g, '"#$1"')
+    .replace(/,\s*}/g, '}')
+
+  const parsed: ColorType = JSON.parse(raw)
+  return parsed
+}
+
+function buildWrappers(value: string): Wrappers {
+  const raw = value
+    .replace(/\(/g, '{')
+    .replace(/\)/g, '}')
+    .replace(/([a-zA-Z0-9_]+):\s*([0-9%px]+)\s+([0-9.]+rem)/g, '"$1": {"size": "$2", "padding": "$3"}')
+    .replace(/,\s*}/g, '}')
+
+  const parsed: Wrappers = JSON.parse(raw)
+  return parsed
+}
+
+export async function ReadDefaultValues(files: string[], VariableNames: string[]): Promise<Partial<Theme>> {
   const theme: Partial<Theme> = {}
   const variables: Record<string, any> = {}
-  const regex = /^\s*\$([a-zA-Z0-9_-]+)\s*:\s*((?:.|\n)*?)\s*!default\s*;/gm
 
   for (const file of files) {
     const content = await fs.readFile(file, 'utf8')
-    let match
-    while ((match = regex.exec(content)) !== null) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const [_, name, value] = match
-      variables[name] = parseScssValue(value)
+    for (const name of VariableNames) {
+      const variableRegex = new RegExp(`^\\s*\\$${name}\\s*:\\s*([\\s\\S]*?)\\s*!default\\s*;?`, 'm')
+      const match = variableRegex.exec(content)
+
+      if (match) {
+        const value = match[1].trim()
+
+        let result: any = value
+        if (name === 'colors') result = buildColors(value)
+        else if (name === 'fonts') result = buildJson<Record<string, FontType>>(value)
+        else if (name === 'fontSizes') result = buildJson<Record<string, FontSize>>(value)
+        else if (name === 'breakpoints') result = buildJson<Breakpoints>(value)
+        else if (name === 'wrappers') result = buildWrappers(value)
+        else if (name === 'guttersValues') result = buildJson<GutterValues>(value)
+        else if (['true', 'false'].includes(value)) result = value === 'true'
+        else if (
+          ['fontWeights', 'fontStyles', 'opacities', 'blurValues', 'radiuses', 'defaultFontFamilies'].includes(name)
+        )
+          result = buildArray(value)
+        else if (['textTruncate', 'axisDivisions', 'insetValues', 'bordersValue'].includes(name))
+          result = cleanNumber(value)
+        else result = cleanString(value)
+
+        variables[name] = result
+      }
     }
   }
-  // console.log(variables)
 
   theme.colors = variables?.colors
   theme.typography = {
@@ -107,9 +121,9 @@ export async function ReadDefaultValues(files: string[]): Promise<Partial<Theme>
     fontWeights: variables?.fontWeights,
     fontStyles: variables?.fontStyles,
     textTruncate: variables?.textTruncate,
-    // defaultFontFamilies: variables?.defaultFontFamilies,
-    // fonts: variables?.fonts,
-    // fontSizes: variables?.fontSizes,
+    defaultFontFamilies: variables?.defaultFontFamilies,
+    fonts: variables?.fonts,
+    fontSizes: variables?.fontSizes,
   }
   theme.settings = {
     axisDivisions: variables?.axisDivisions,
@@ -118,10 +132,10 @@ export async function ReadDefaultValues(files: string[]): Promise<Partial<Theme>
     insetValues: variables?.insetValues,
     bordersValue: variables?.bordersValue,
     radiuses: variables?.radiuses,
+    breakpoints: variables.breakpoints,
+    wrappers: variables.wrappers,
+    guttersValues: variables.guttersValues,
   }
-  // theme.breakPoints = {}
-  // theme.wrappers = {}
-  // theme.gutters = {}
   theme.roles = {
     useMediaQueries: variables?.useMediaQueries,
     useIcons: variables?.useIcons,
@@ -155,6 +169,5 @@ export async function ReadDefaultValues(files: string[]): Promise<Partial<Theme>
     useRadius: variables?.useRadius,
   }
 
-  // console.log(theme)
   return theme
 }
