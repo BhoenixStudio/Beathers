@@ -47,10 +47,11 @@ function buildJson<T>(value: string): T {
   const raw = value
     .replace(/\(/g, '{')
     .replace(/\)/g, '}')
+    .replace(/'/g, '"')
     .replace(/([a-zA-Z0-9_]+):/g, '"$1":')
     .replace(/:\s*"?([0-9]+)"?\.(\d+)(rem)?/g, ':"$1.$2$3"')
     .replace(/:\s*([a-zA-Z0-9_]+)/g, ': "$1"')
-    .replace(/,\s*}/g, '}')
+    .replace(/,\s*}/g, '\n}')
 
   const parsed: T = JSON.parse(raw)
   const sanitized = sanitize(parsed)
@@ -93,7 +94,7 @@ export async function ReadDefaultValues(files: string[], VariableNames: string[]
       if (match) {
         const value = match[1].trim()
 
-        let result: any = value
+        let result: any
         if (name === 'colors') result = buildColors(value)
         else if (name === 'fonts') result = buildJson<Record<string, FontType>>(value)
         else if (name === 'fontSizes') result = buildJson<Record<string, FontSize>>(value)
@@ -110,7 +111,6 @@ export async function ReadDefaultValues(files: string[], VariableNames: string[]
             'radiuses',
             'defaultFontFamilies',
             'insetValues',
-            
           ].includes(name)
         )
           result = buildArray(value)

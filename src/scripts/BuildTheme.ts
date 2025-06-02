@@ -61,7 +61,6 @@ async function defaultTheme() {
         'useOverflows',
         'useOpacities',
         'useBlur',
-        'useBlur',
         'useObjectFits',
         'usePositions',
         'useInsets',
@@ -89,7 +88,7 @@ async function buildCustomTheme() {
     const theme = DeepMerge(defaults, userConfigs)
     const variablesString = BuildScssVariables(theme)
 
-    await fs.writeFile(variablesPath, variablesString)
+    await fs.writeFile(variablesPath, variablesString, { flag: 'w' })
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Error during custom theme build:', error)

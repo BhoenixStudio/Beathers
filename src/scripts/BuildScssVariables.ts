@@ -11,7 +11,7 @@ export function BuildScssVariables(theme: Theme): string {
     for (const [name, modes] of Object.entries(colors)) {
       scss += `"${name}": (\n`
       for (const [mode, value] of Object.entries(modes)) {
-        scss += `"${mode}": "${value}",\n`
+        scss += `"${mode}": ${value},\n`
       }
       scss += `),\n`
     }
@@ -29,7 +29,7 @@ export function BuildScssVariables(theme: Theme): string {
       scss += `$fontWeights: (${typography.fontWeights.map((fW) => `"${fW}"`).join(', ')});\n`
     if (typography?.fontStyles?.length)
       scss += `$fontStyles: (${typography.fontStyles.map((fS) => `"${fS}"`).join(', ')});\n`
-    if (typography?.fontSizes?.length) {
+    if (typography?.fontSizes) {
       scss += '$fontSizes: (\n'
       for (const [name, value] of Object.entries(typography.fontSizes)) {
         scss += `"${name}": ${value},\n`

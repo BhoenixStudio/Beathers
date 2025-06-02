@@ -53,7 +53,7 @@ export interface Settings {
   opacities?: number[]
   blurValues?: number[]
   insetValues?: number[]
-  bordersValue?: number[]
+  bordersValue?: number
   radiuses?: number[]
   breakpoints?: Breakpoints
   wrappers?: Wrappers
