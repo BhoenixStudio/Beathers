@@ -36,7 +36,7 @@ Install the package using npm:
 ```shell
 npm install beathers
 # or
-yarn add beathers
+yarn/pnpm add beathers
 ```
 
 ## Quick Start
