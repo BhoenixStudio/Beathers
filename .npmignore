@@ -33,6 +33,3 @@ coverage/
 
 # Environment files
 .env*
-
-# Images (not needed for library)
-public/

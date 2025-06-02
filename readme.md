@@ -1,6 +1,6 @@
 <div align="center">
     <a href="https://beathers.bhoenixstudio.com">
-        <img src="./public/images/identity/logo.png" alt="Beathers logo" width="700" height="312">
+        <img src="./public/images/logo.png" alt="Beathers logo" width="700" height="312">
     </a>
     <h1 align="center">Beathers <small>v5.2.0</small></h1>
     <p align="center">The Perfect Fusion of Strength and Featherlight Agility</p>
