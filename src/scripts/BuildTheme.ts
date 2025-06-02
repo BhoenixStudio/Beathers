@@ -1,12 +1,15 @@
+import fs from 'fs-extra'
 import * as path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { ReadDefaultValues } from './ReadDefaultValues.js'
 import { LoadUserConfigs } from './LoadUserConfigs.js'
 import { DeepMerge } from './Merge.js'
+import { ReadDefaultValues } from './ReadDefaultValues.js'
+import { WriteScssVariables } from './WriteScssVariables.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const projectRoot = path.resolve(__dirname, '../..')
+const generatedVariablesPath = path.join(projectRoot, 'src', 'scss', '_variables.scss')
 
 async function defaultTheme() {
   let values = null
@@ -79,10 +82,19 @@ async function defaultTheme() {
 }
 
 async function buildCustomTheme() {
-  const defaults = await defaultTheme()
-  const userConfigs = await LoadUserConfigs()
+  try {
+    const defaults = await defaultTheme()
+    const userConfigs = await LoadUserConfigs()
 
-  const theme = DeepMerge(defaults, userConfigs)
+    const theme = DeepMerge(defaults, userConfigs)
+    const variablesString = WriteScssVariables(theme)
+
+    await fs.writeFile(generatedVariablesPath, variablesString)
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error during custom theme build:', error)
+    process.exit(1)
+  }
 }
 
 buildCustomTheme()
