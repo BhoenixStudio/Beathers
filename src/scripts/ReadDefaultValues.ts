@@ -102,11 +102,19 @@ export async function ReadDefaultValues(files: string[], VariableNames: string[]
         else if (name === 'guttersValues') result = buildJson<GutterValues>(value)
         else if (['true', 'false'].includes(value)) result = value === 'true'
         else if (
-          ['fontWeights', 'fontStyles', 'opacities', 'blurValues', 'radiuses', 'defaultFontFamilies'].includes(name)
+          [
+            'fontWeights',
+            'fontStyles',
+            'opacities',
+            'blurValues',
+            'radiuses',
+            'defaultFontFamilies',
+            'insetValues',
+            
+          ].includes(name)
         )
           result = buildArray(value)
-        else if (['textTruncate', 'axisDivisions', 'insetValues', 'bordersValue'].includes(name))
-          result = cleanNumber(value)
+        else if (['textTruncate', 'axisDivisions', 'bordersValue'].includes(name)) result = cleanNumber(value)
         else result = cleanString(value)
 
         variables[name] = result

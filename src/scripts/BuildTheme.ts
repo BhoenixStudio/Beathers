@@ -4,12 +4,12 @@ import { fileURLToPath } from 'node:url'
 import { LoadUserConfigs } from './LoadUserConfigs.js'
 import { DeepMerge } from './Merge.js'
 import { ReadDefaultValues } from './ReadDefaultValues.js'
-import { WriteScssVariables } from './WriteScssVariables.js'
+import { BuildScssVariables } from './BuildScssVariables.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const projectRoot = path.resolve(__dirname, '../..')
-const generatedVariablesPath = path.join(projectRoot, 'src', 'scss', '_variables.scss')
+const variablesPath = path.join(projectRoot, 'src', 'scss', '_variables.scss')
 
 async function defaultTheme() {
   let values = null
@@ -87,9 +87,9 @@ async function buildCustomTheme() {
     const userConfigs = await LoadUserConfigs()
 
     const theme = DeepMerge(defaults, userConfigs)
-    const variablesString = WriteScssVariables(theme)
+    const variablesString = BuildScssVariables(theme)
 
-    await fs.writeFile(generatedVariablesPath, variablesString)
+    await fs.writeFile(variablesPath, variablesString)
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Error during custom theme build:', error)
