@@ -1,15 +1,17 @@
 import * as path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { ReadDefaultValues } from './ReadDefaultValues.js'
+import { LoadUserConfigs } from './LoadUserConfigs.js'
+import { DeepMerge } from './Merge.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-
 const projectRoot = path.resolve(__dirname, '../..')
 
-async function buildCustomTheme() {
+async function defaultTheme() {
+  let values = null
   try {
-    await ReadDefaultValues(
+    values = await ReadDefaultValues(
       [
         path.join(projectRoot, 'src', 'scss', 'settings', '_defaults.scss'),
         path.join(projectRoot, 'src', 'scss', 'settings', '_configs.scss'),
@@ -68,9 +70,19 @@ async function buildCustomTheme() {
       ]
     )
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('❌ buildCustomTheme failed:', error instanceof Error ? error.message : error)
     process.exit(1)
   }
+
+  return values
+}
+
+async function buildCustomTheme() {
+  const defaults = await defaultTheme()
+  const userConfigs = await LoadUserConfigs()
+
+  const theme = DeepMerge(defaults, userConfigs)
 }
 
 buildCustomTheme()
