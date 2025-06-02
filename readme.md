@@ -35,8 +35,92 @@ Install the package using npm:
 
 ```shell
 npm install beathers
+# or
 yarn add beathers
 ```
+
+## Quick Start
+
+### 1. Create your theme configuration
+
+Create a `beathers.configs.json` file in your project root:
+
+```json
+{
+  "colors": {
+    "primary": {
+      "light": "#007bff",
+      "dark": "#0056b3"
+    },
+    "secondary": {
+      "light": "#6c757d",
+      "dark": "#495057"
+    }
+  },
+  "typography": {
+    "defaultFontFamilies": ["Inter", "sans-serif"],
+    "fontSizes": {
+      "sm": "14px",
+      "base": "16px",
+      "lg": "18px"
+    }
+  }
+}
+```
+
+Or use TypeScript/JavaScript with `beathers.configs.ts`:
+
+```typescript
+import { Theme } from 'beathers'
+
+export default {
+  colors: {
+    primary: {
+      light: '#007bff',
+      dark: '#0056b3',
+    },
+  },
+  // ... your theme configuration
+} satisfies Theme
+```
+
+### 2. Build your custom theme
+
+Run the build command to generate your custom CSS:
+
+```shell
+beathers build
+```
+
+This will generate CSS files in the `dist/css/` directory with your custom theme variables.
+
+### 3. Import the styles
+
+Import the generated CSS or SCSS files in your project:
+
+```css
+/* Import the compiled CSS */
+@import 'node_modules/beathers/dist/css/beathers.min.css';
+```
+
+Or use the SCSS files for more control:
+
+```scss
+// Import individual SCSS modules
+@import 'node_modules/beathers/src/scss/functions/colors';
+@import 'node_modules/beathers/src/scss/style/grid';
+```
+
+## Configuration Options
+
+The `Theme` interface supports:
+
+- **colors**: Custom color palette with light/dark variants
+- **typography**: Font families, sizes, weights and styles
+- **settings**: Breakpoints, containers, spacing and more
+- **roles**: Feature toggles for different parts of the library
+
+See the [full documentation](https://beathers.bhoenixstudio.com) for detailed configuration options.
 
 Feel free to refer to the [documentation](https://beathers.bhoenixstudio.com) for more usage examples and detailed explanations of all available features in the Beathers Library.
 

@@ -81,7 +81,7 @@ async function defaultTheme() {
   return values
 }
 
-async function buildCustomTheme() {
+export async function BuildTheme() {
   try {
     const defaults = await defaultTheme()
     const userConfigs = await LoadUserConfigs()
@@ -94,8 +94,14 @@ async function buildCustomTheme() {
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Error during custom theme build:', error)
-    process.exit(1)
+    throw error
   }
 }
 
-buildCustomTheme()
+// For backward compatibility when run directly
+if (import.meta.url === `file://${process.argv[1]}`) {
+  BuildTheme().catch((error) => {
+    console.error(error)
+    process.exit(1)
+  })
+}

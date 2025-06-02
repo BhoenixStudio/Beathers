@@ -3,15 +3,22 @@
   "version": "5.0.0",
   "type": "module",
   "description": "Beather is a lightweight SCSS library that serves as a comprehensive design system for your projects. It offers a structured and consistent approach to manage colors, fonts, and other design related variables, making it easier to maintain a cohesive visual identity across your application.",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "beathers": "dist/scripts/cli.js"
+  },
   "scripts": {
     "watch": "nodemon --watch src/scss/ --ext scss --exec \"npm-run-all build\"",
     "watch:expanded": " nodemon --watch src/scss/ --ext scss --exec \"npm-run-all build:expanded\"",
-    "build": "rimraf dist && sass --style compressed --source-map --embed-sources --no-error-css src/scss/:dist/css/",
-    "build:expanded": "rimraf dist && sass --style expanded --source-map --embed-sources --no-error-css src/scss/:dist/css/expanded/",
+    "build": "sass --style compressed --source-map --embed-sources --no-error-css src/scss/:dist/css/",
+    "build:expanded": "sass --style expanded --source-map --embed-sources --no-error-css src/scss/:dist/css/expanded/",
     "build:clean": "rimraf dist",
+    "build:lib": "tsc",
+    "build:all": "rimraf dist && npm run build:lib && npm run build",
     "build:with-configs": "tsx src/scripts/BuildTheme.ts",
     "watch:with-configs": "nodemon --watch src --ext ts --exec \"tsx src/scripts/BuildTheme.ts\"",
+    "prepublishOnly": "npm run build:all",
     "lint": "eslint . && stylelint \"**/*.scss\"",
     "lint:fix": "eslint . --fix && stylelint \"**/*.scss\" --fix",
     "lint:scss": "stylelint \"**/*.scss\"",
@@ -41,6 +48,9 @@
     "url": "https://github.com/BhoenixStudio/Beathers/issues"
   },
   "homepage": "https://github.com/BhoenixStudio/Beathers#readme",
+  "dependencies": {
+    "fs-extra": "^11.3.0"
+  },
   "devDependencies": {
     "@eslint/js": "^9.26.0",
     "@types/fs-extra": "^11.0.4",
@@ -50,7 +60,6 @@
     "eslint": "^9.26.0",
     "eslint-plugin-css": "^0.11.0",
     "eslint-plugin-import": "^2.31.0",
-    "fs-extra": "^11.3.0",
     "globals": "^16.1.0",
     "nodemon": "^3.1.10",
     "npm-run-all": "^4.1.5",
@@ -67,7 +76,9 @@
     "typescript-eslint": "^8.32.1"
   },
   "files": [
-    "dist/{css}/*.{css,map}",
-    "src/scss/**/*.scss"
+    "dist/css/**/*.{css,map}",
+    "dist/**/*.{js,d.ts}",
+    "src/scss/**/*.scss",
+    "readme.md"
   ]
 }

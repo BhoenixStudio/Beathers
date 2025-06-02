@@ -1,3 +1,38 @@
-pnpm-lock.yaml
-eslint.config.mjs
+# Source files (compiled versions will be in dist/)
+src/
 tsconfig.json
+build.ts
+
+# Development files
+eslint.config.mjs
+pnpm-lock.yaml
+nodemon.json
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Test files
+test/
+tests/
+*.test.*
+*.spec.*
+
+# Build artifacts
+coverage/
+.nyc_output/
+.cache/
+
+# Environment files
+.env*
+
+# Images (not needed for library)
+public/
