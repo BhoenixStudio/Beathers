@@ -2,7 +2,7 @@
     <a href="https://beathers.bhoenixstudio.com">
         <img src="./public/images/logo.png" alt="Beathers logo" width="700" height="312">
     </a>
-    <h1 align="center">Beathers <small>v5.2.0</small></h1>
+    <h1 align="center">Beathers <small>v5.0.0</small></h1>
     <p align="center">The Perfect Fusion of Strength and Featherlight Agility</p>
     <br>
     <br>
@@ -36,103 +36,236 @@ Install the package using npm:
 ```shell
 npm install beathers
 # or
-yarn/pnpm add beathers
+yarn add beathers
+# or
+pnpm add beathers
 ```
 
 ## Quick Start
 
-### 1. Create your theme configuration
+1. **Install** the package: `npm install beathers`
+2. **Create** a `beathers.configs.json` file with your theme settings
+3. **Build** your theme: `beathers build`
+4. **Import** the generated CSS/SCSS files in your project
 
-Create a `beathers.configs.json` file in your project root:
+### Basic Example
 
 ```json
+// beathers.configs.json
 {
   "colors": {
-    "primary": {
-      "light": "#007bff",
-      "dark": "#0056b3"
-    },
-    "secondary": {
-      "light": "#6c757d",
-      "dark": "#495057"
-    }
+    "primary": { "light": "#007bff", "dark": "#0056b3" }
   },
   "typography": {
-    "defaultFontFamilies": ["Inter", "sans-serif"],
-    "fontSizes": {
-      "sm": "14px",
-      "base": "16px",
-      "lg": "18px"
-    }
+    "defaultFontFamilies": ["Inter", "sans-serif"]
   }
 }
 ```
 
-Or use TypeScript/JavaScript with `beathers.configs.ts`:
+## Imports
 
-```typescript
-import { Theme } from 'beathers'
-
-export default {
-  colors: {
-    primary: {
-      light: '#007bff',
-      dark: '#0056b3',
-    },
-  },
-  // ... your theme configuration
-} satisfies Theme
-```
-
-### 2. Build your custom theme
-
-Run the build command to generate your custom CSS:
-
-```shell
-beathers build
-```
-
-This will generate CSS files in the `dist/css/` directory with your custom theme variables.
-
-### 3. Import the styles
-
-Import the generated CSS or SCSS files in your project:
+### CSS Import (Compiled)
 
 ```css
-/* Import the compiled CSS */
+/* Import the main compiled CSS */
 @import 'node_modules/beathers/dist/css/beathers.min.css';
+
+/* Import icons separately */
+@import 'node_modules/beathers/dist/css/beathers-icons.min.css';
 ```
 
-Or use the SCSS files for more control:
+### SCSS Import (Source)
 
 ```scss
-// Import individual SCSS modules
+// Import the entire library
+@import 'node_modules/beathers/src/scss/beathers.min.scss';
+
+// Or import individual modules
 @import 'node_modules/beathers/src/scss/functions/colors';
 @import 'node_modules/beathers/src/scss/style/grid';
+@import 'node_modules/beathers/src/scss/style/typographic';
+```
+
+### JavaScript/TypeScript Import
+
+```javascript
+// Next.js (pages/_app.js or app/layout.js)
+import 'beathers/dist/css/beathers.min.css'
+
+// React/Vue/Angular
+import 'beathers/dist/css/beathers.min.css'
+
+// Import types for TypeScript configs
+import { Theme } from 'beathers'
+```
+
+### Next.js Configuration
+
+```javascript
+// next.config.js
+module.config = {
+  // Enable SCSS support
+  sassOptions: {
+    includePaths: ['./node_modules'],
+  },
+}
 ```
 
 ## Configuration Options
 
-The `Theme` interface supports:
+Configure your theme using a `beathers.configs.json`, `beathers.configs.js`, or `beathers.configs.ts` file:
 
-- **colors**: Custom color palette with light/dark variants
-- **typography**: Font families, sizes, weights and styles
-- **settings**: Breakpoints, containers, spacing and more
-- **roles**: Feature toggles for different parts of the library
+### Complete Configuration Reference
 
-See the [full documentation](https://beathers.bhoenixstudio.com) for detailed configuration options.
+| Property       | Type         | Description                                   | Default Value           |
+| -------------- | ------------ | --------------------------------------------- | ----------------------- |
+| **colors**     | `ColorType`  | Custom color palette with light/dark variants | See default colors      |
+| **typography** | `Typography` | Font configuration and text settings          | See typography defaults |
+| **settings**   | `Settings`   | Layout, breakpoints and spacing settings      | See settings defaults   |
+| **roles**      | `Roles`      | Feature toggles for library modules           | All features enabled    |
 
-Feel free to refer to the [documentation](https://beathers.bhoenixstudio.com) for more usage examples and detailed explanations of all available features in the Beathers Library.
+### Colors Configuration
+
+| Property   | Type                            | Description                                     | Example                                                |
+| ---------- | ------------------------------- | ----------------------------------------------- | ------------------------------------------------------ |
+| `colors.*` | `{light: string, dark: string}` | Color definitions with light/dark mode variants | `{"primary": {"light": "#007bff", "dark": "#0056b3"}}` |
+
+**Default Colors**: `main`, `second`, `third`, `t1`, `t2`, `t3`, `d1`, `d2`, `d3`, `success`, `info`, `warning`, `danger`
+
+### Typography Configuration
+
+| Property              | Type                       | Description                   | Default                          |
+| --------------------- | -------------------------- | ----------------------------- | -------------------------------- |
+| `defaultFontFamilies` | `string[]`                 | Default font stack            | `["system-ui", "sans-serif"]`    |
+| `fontMainPath`        | `string`                   | Path to font files            | `""`                             |
+| `fontFormat`          | `"woff" \| "woff2"`        | Font file format              | `"woff2"`                        |
+| `fontWeights`         | `FontWeight[]`             | Available font weights        | `["regular", "medium", "bold"]`  |
+| `fontStyles`          | `FontStyle[]`              | Available font styles         | `["normal"]`                     |
+| `fontSizes`           | `Record<string, FontSize>` | Named font sizes              | `{"base": "16px", "lg": "18px"}` |
+| `textTruncate`        | `number`                   | Default text truncation width | `3`                              |
+| `fonts`               | `Record<string, FontType>` | Custom font definitions       | `{}`                             |
+
+**Font Weights**: `thin`, `extra-light`, `light`, `regular`, `medium`, `semibold`, `bold`, `extra-bold`, `black`
+
+**Font Styles**: `normal`, `italic`, `oblique`
+
+### Settings Configuration
+
+| Property        | Type           | Description              | Default                       |
+| --------------- | -------------- | ------------------------ | ----------------------------- |
+| `axisDivisions` | `number`       | Grid system divisions    | `12`                          |
+| `opacities`     | `number[]`     | Available opacity values | `[0.1, 0.25, 0.5, 0.75, 0.9]` |
+| `blurValues`    | `number[]`     | Blur effect values       | `[2, 4, 8, 16, 32]`           |
+| `insetValues`   | `number[]`     | Inset shadow values      | `[1, 2, 4, 8]`                |
+| `bordersValue`  | `number`       | Default border width     | `1`                           |
+| `radiuses`      | `number[]`     | Border radius values     | `[4, 8, 12, 16, 24]`          |
+| `breakpoints`   | `Breakpoints`  | Responsive breakpoints   | See breakpoints               |
+| `wrappers`      | `Wrappers`     | Container widths         | See wrappers                  |
+| `guttersValues` | `GutterValues` | Spacing values           | See gutters                   |
+
+### Breakpoints (px)
+
+| Key   | Default Value |
+| ----- | ------------- |
+| `sm`  | `576px`       |
+| `md`  | `768px`       |
+| `lg`  | `992px`       |
+| `xl`  | `1200px`      |
+| `xxl` | `1400px`      |
+
+### Roles Configuration (Feature Toggles)
+
+| Property             | Description                       | Default |
+| -------------------- | --------------------------------- | ------- |
+| `useMediaQueries`    | Enable responsive utilities       | `true`  |
+| `useIcons`           | Include icon styles               | `true`  |
+| `useFontFamilies`    | Include font family utilities     | `true`  |
+| `useFontSizes`       | Include font size utilities       | `true`  |
+| `useFontShapes`      | Include font style utilities      | `true`  |
+| `useTextAligns`      | Include text alignment utilities  | `true`  |
+| `useTextTruncate`    | Include text truncation utilities | `true`  |
+| `useColors`          | Include color utilities           | `true`  |
+| `useColorsOpacities` | Include color opacity utilities   | `true`  |
+| `useColorsLightMode` | Include light mode colors         | `true`  |
+| `useColorsDarkMode`  | Include dark mode colors          | `true`  |
+| `useCurrentColors`   | Include currentColor utilities    | `true`  |
+| `useRootColors`      | Include CSS custom properties     | `true`  |
+| `useGrid`            | Include grid system               | `true`  |
+| `useFlex`            | Include flexbox utilities         | `true`  |
+| `useTransitions`     | Include transition utilities      | `true`  |
+| `useWrappers`        | Include container utilities       | `true`  |
+| `useShadows`         | Include shadow utilities          | `true`  |
+| `useDisplays`        | Include display utilities         | `true`  |
+| `useOverflows`       | Include overflow utilities        | `true`  |
+| `useOpacities`       | Include opacity utilities         | `true`  |
+| `useBlur`            | Include blur utilities            | `true`  |
+| `useObjectFits`      | Include object-fit utilities      | `true`  |
+| `usePositions`       | Include positioning utilities     | `true`  |
+| `useInsets`          | Include inset utilities           | `true`  |
+| `useSizes`           | Include sizing utilities          | `true`  |
+| `useGutters`         | Include spacing utilities         | `true`  |
+| `useBorders`         | Include border utilities          | `true`  |
+| `useTextBorders`     | Include text border utilities     | `true`  |
+| `useRadius`          | Include border radius utilities   | `true`  |
+
+### Example Configuration
+
+```typescript
+// beathers.configs.ts
+import { Theme } from 'beathers'
+
+export default {
+  colors: {
+    primary: { light: '#007bff', dark: '#0056b3' },
+    secondary: { light: '#6c757d', dark: '#495057' },
+    success: { light: '#28a745', dark: '#20c997' },
+  },
+  typography: {
+    defaultFontFamilies: ['Inter', 'system-ui', 'sans-serif'],
+    fontSizes: {
+      xs: '12px',
+      sm: '14px',
+      base: '16px',
+      lg: '18px',
+      xl: '20px',
+    },
+  },
+  settings: {
+    axisDivisions: 12,
+    breakpoints: {
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      xxl: '1536px',
+    },
+  },
+  roles: {
+    useIcons: false,
+    useBlur: false,
+  },
+} satisfies Theme
+```
 
 ## Contributing
 
-We welcome contributions from the community to improve the Beathers Library.
-If you encounter any issues or have feature requests, please submit them through the issue tracker. Before submitting a new issue, make sure to search for existing ones that may already cover your concern.
+We welcome contributions from the community to improve the Beathers Library! Here's how you can help:
+
+### Reporting Issues
+
+- Search existing issues before creating a new one
+- Use the issue templates for bug reports and feature requests
+- Provide clear reproduction steps and environment details
 
 ## License
 
-The Beathers Library is licensed under the MIT License. Refer to the LICENSE file for more information.
+The Beathers Library is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
 
 ## Contact
 
-For any inquiries or feedback regarding the Beathers Library, please feel free to reach out to us at contact@bhoenixstudio.com.
+For any inquiries or feedback regarding the Beathers Library:
+
+- 📧 Email: contact@bhoenixstudio.com
+- 🌐 Website: [beathers.bhoenixstudio.com](https://beathers.bhoenixstudio.com)
+- 💬 GitHub Issues: [Report bugs or request features](https://github.com/BhoenixStudio/Beathers/issues)
+- 📚 Documentation: [Full documentation](https://beathers.bhoenixstudio.com)
