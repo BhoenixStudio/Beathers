@@ -12,9 +12,9 @@ $colorsPropertiesMap: (
 
 // Defines pseudo-classes for color variants.
 $colorsPseudoMap: (
-  "placeholder": "::placeholder",
-  "hover": ":hover",
-  "focus": ":focus",
+  'placeholder': '::placeholder',
+  'hover': ':hover',
+  'focus': ':focus',
 );
 
 // Defines the default font stack.
@@ -27,46 +27,46 @@ $defaultFontFamilies:
 
 // Defines available font weights.
 $fontWeightsValues: (
-  "thin": 100,
-  "extra-light": 200,
-  "light": 300,
-  "regular": 400,
-  "medium": 500,
-  "semibold": 600,
-  "bold": 700,
-  "extra-bold": 800,
-  "black": 900,
+  'thin': 100,
+  'extra-light': 200,
+  'light': 300,
+  'regular': 400,
+  'medium': 500,
+  'semibold': 600,
+  'bold': 700,
+  'extra-bold': 800,
+  'black': 900,
 );
 
 // Defines the typography scale for font sizes.
 $fontSizes: (
-  "h1": 96px,
-  "h2": 60px,
-  "h3": 40px,
-  "h4": 34px,
-  "h5": 24px,
-  "h6": 20px,
-  "subtitle1": 16px,
-  "subtitle2": 14px,
-  "body1": 16px,
-  "body2": 14px,
-  "button": 14px,
-  "caption": 12px,
-  "overline": 10px,
+  'h1': 96px,
+  'h2': 60px,
+  'h3': 40px,
+  'h4': 34px,
+  'h5': 24px,
+  'h6': 20px,
+  'subtitle1': 16px,
+  'subtitle2': 14px,
+  'body1': 16px,
+  'body2': 14px,
+  'button': 14px,
+  'caption': 12px,
+  'overline': 10px,
 ) !default;
 
 // Defines text transformation and decoration options.
 $fontShapes: (
-  "transform": (
+  'transform': (
     uppercase,
     lowercase,
     capitalize,
   ),
-  "decoration": (
+  'decoration': (
     underline,
     line-through,
   ),
-  "styles": (
+  'styles': (
     wavy,
     double,
     dotted,
@@ -107,20 +107,10 @@ $wrappers: (
 ) !default;
 
 // Defines display utility options.
-$displays: (
-  inline,
-  block,
-  inline-block,
-  flex,
-  inline-flex,
-  inline-grid,
-  table,
-  table-cell,
-  none
-);
+$displays: (inline, block, inline-block, flex, inline-flex, inline-grid, table, table-cell, none);
 
 // Defines overflow directions.
-$overflowsDirections: (null, "x", "y");
+$overflowsDirections: (null, 'x', 'y');
 // Defines overflow behaviors.
 $overflows: (visible, hidden, auto, scroll);
 // Defines object-fit property values.
@@ -160,49 +150,49 @@ $cursors: (
 
 // Defines shadow presets.
 $shadows: (
-  "light": (
+  'light': (
     x: 0,
     y: 2,
     blur: 5,
     spread: 0,
     opacity: 0.15,
   ),
-  "soft": (
+  'soft': (
     x: 2,
     y: 2,
     blur: 12,
     spread: 0,
     opacity: 0.2,
   ),
-  "medium": (
+  'medium': (
     x: 0,
     y: 10,
     blur: 20,
     spread: 0,
     opacity: 0.2,
   ),
-  "solid": (
+  'solid': (
     x: 0,
     y: 4,
     blur: 10,
     spread: 0,
     opacity: 0.3,
   ),
-  "ambient": (
+  'ambient': (
     x: 0,
     y: 0,
     blur: 40,
     spread: 10,
     opacity: 0.1,
   ),
-  "flat": (
+  'flat': (
     x: 0,
     y: 6,
     blur: 6,
     spread: 4,
     opacity: 0.2,
   ),
-  "floating": (
+  'floating': (
     x: 0,
     y: 20,
     blur: 40,
@@ -237,18 +227,18 @@ $positions: static, relative, fixed, absolute, sticky;
 // Defines inset positioning options.
 $insetPositions: null, inline, block;
 // Defines default inset value.
-$insetValues: 0 !default;
+$insetValues: (0, 5, 15, 25) !default;
 
 // Defines the step for spacing utilities.
 $spacesStep: 5;
 // Defines properties for width and height utilities.
 $spacesDirections: (
-  "w": width,
-  "min#{\:}w": min-width,
-  "max#{\:}w": max-width,
-  "h": height,
-  "min#{\:}h": min-height,
-  "max#{\:}h": max-height,
+  'w': width,
+  'min#{\:}w': min-width,
+  'max#{\:}w': max-width,
+  'h': height,
+  'min#{\:}h': min-height,
+  'max#{\:}h': max-height,
 );
 
 // Defines properties for padding, margin and gap utilities.
@@ -288,10 +278,10 @@ $bordersValue: 10 !default;
 // Defines border direction properties.
 $bordersDirections: (
   null: border,
-  "top": border-block-start,
-  "bottom": border-block-end,
-  "start": border-inline-start,
-  "end": border-inline-end,
+  'top': border-block-start,
+  'bottom': border-block-end,
+  'start': border-inline-start,
+  'end': border-inline-end,
 );
 
 // Defines available border-radius values.
@@ -302,32 +292,32 @@ $radiusDirection: (
   null: (
     border-radius,
   ),
-  "top": (
+  'top': (
     border-start-start-radius,
     border-start-end-radius,
   ),
-  "bottom": (
+  'bottom': (
     border-end-start-radius,
     border-end-end-radius,
   ),
-  "start": (
+  'start': (
     border-start-start-radius,
     border-end-start-radius,
   ),
-  "end": (
+  'end': (
     border-start-end-radius,
     border-end-end-radius,
   ),
-  "top-start": (
+  'top-start': (
     border-start-start-radius,
   ),
-  "top-end": (
+  'top-end': (
     border-start-end-radius,
   ),
-  "bottom-start": (
+  'bottom-start': (
     border-end-start-radius,
   ),
-  "bottom-end": (
+  'bottom-end': (
     border-end-end-radius,
   ),
 );
