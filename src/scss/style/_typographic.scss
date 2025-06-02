@@ -76,7 +76,6 @@
     $variants: map.get($font, 'variants');
 
     // Validate parameters
-
     $checkedWeights: val.list($weights, 'Typographic.fontFace.weights');
     $checkedStyles: val.list($styles, 'Typographic.fontFace.styles');
     $checkedVariants: val.map($variants, 'Typographic.fontFace.variants');
