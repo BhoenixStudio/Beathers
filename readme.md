@@ -84,6 +84,13 @@ pnpm add beathers
 @import 'node_modules/beathers/src/scss/functions/colors';
 @import 'node_modules/beathers/src/scss/style/grid';
 @import 'node_modules/beathers/src/scss/style/typographic';
+
+// Import using @use (with variables)
+@use 'node_modules/beathers/src/scss/beathers.min.scss' as beathers;
+@use 'node_modules/beathers/src/scss/functions/colors' as colors;
+
+// Or use @use with * to import without namespace
+@use 'node_modules/beathers/src/scss/functions/colors' as *;
 ```
 
 ### JavaScript/TypeScript Import
@@ -99,114 +106,81 @@ import 'beathers/dist/css/beathers.min.css'
 import { Theme } from 'beathers'
 ```
 
-### Next.js Configuration
-
-```javascript
-// next.config.js
-module.config = {
-  // Enable SCSS support
-  sassOptions: {
-    includePaths: ['./node_modules'],
-  },
-}
-```
-
 ## Configuration Options
 
 Configure your theme using a `beathers.configs.json`, `beathers.configs.js`, or `beathers.configs.ts` file:
 
 ### Complete Configuration Reference
 
-| Property       | Type         | Description                                   | Default Value           |
-| -------------- | ------------ | --------------------------------------------- | ----------------------- |
-| **colors**     | `ColorType`  | Custom color palette with light/dark variants | See default colors      |
-| **typography** | `Typography` | Font configuration and text settings          | See typography defaults |
-| **settings**   | `Settings`   | Layout, breakpoints and spacing settings      | See settings defaults   |
-| **roles**      | `Roles`      | Feature toggles for library modules           | All features enabled    |
-
-### Colors Configuration
-
-| Property   | Type                            | Description                                     | Example                                                |
-| ---------- | ------------------------------- | ----------------------------------------------- | ------------------------------------------------------ |
-| `colors.*` | `{light: string, dark: string}` | Color definitions with light/dark mode variants | `{"primary": {"light": "#007bff", "dark": "#0056b3"}}` |
-
-**Default Colors**: `main`, `second`, `third`, `t1`, `t2`, `t3`, `d1`, `d2`, `d3`, `success`, `info`, `warning`, `danger`
-
-### Typography Configuration
-
-| Property              | Type                       | Description                   | Default                          |
-| --------------------- | -------------------------- | ----------------------------- | -------------------------------- |
-| `defaultFontFamilies` | `string[]`                 | Default font stack            | `["system-ui", "sans-serif"]`    |
-| `fontMainPath`        | `string`                   | Path to font files            | `""`                             |
-| `fontFormat`          | `"woff" \| "woff2"`        | Font file format              | `"woff2"`                        |
-| `fontWeights`         | `FontWeight[]`             | Available font weights        | `["regular", "medium", "bold"]`  |
-| `fontStyles`          | `FontStyle[]`              | Available font styles         | `["normal"]`                     |
-| `fontSizes`           | `Record<string, FontSize>` | Named font sizes              | `{"base": "16px", "lg": "18px"}` |
-| `textTruncate`        | `number`                   | Default text truncation width | `3`                              |
-| `fonts`               | `Record<string, FontType>` | Custom font definitions       | `{}`                             |
-
-**Font Weights**: `thin`, `extra-light`, `light`, `regular`, `medium`, `semibold`, `bold`, `extra-bold`, `black`
-
-**Font Styles**: `normal`, `italic`, `oblique`
-
-### Settings Configuration
-
-| Property        | Type           | Description              | Default                       |
-| --------------- | -------------- | ------------------------ | ----------------------------- |
-| `axisDivisions` | `number`       | Grid system divisions    | `12`                          |
-| `opacities`     | `number[]`     | Available opacity values | `[0.1, 0.25, 0.5, 0.75, 0.9]` |
-| `blurValues`    | `number[]`     | Blur effect values       | `[2, 4, 8, 16, 32]`           |
-| `insetValues`   | `number[]`     | Inset shadow values      | `[1, 2, 4, 8]`                |
-| `bordersValue`  | `number`       | Default border width     | `1`                           |
-| `radiuses`      | `number[]`     | Border radius values     | `[4, 8, 12, 16, 24]`          |
-| `breakpoints`   | `Breakpoints`  | Responsive breakpoints   | See breakpoints               |
-| `wrappers`      | `Wrappers`     | Container widths         | See wrappers                  |
-| `guttersValues` | `GutterValues` | Spacing values           | See gutters                   |
-
-### Breakpoints (px)
-
-| Key   | Default Value |
-| ----- | ------------- |
-| `sm`  | `576px`       |
-| `md`  | `768px`       |
-| `lg`  | `992px`       |
-| `xl`  | `1200px`      |
-| `xxl` | `1400px`      |
-
-### Roles Configuration (Feature Toggles)
-
-| Property             | Description                       | Default |
-| -------------------- | --------------------------------- | ------- |
-| `useMediaQueries`    | Enable responsive utilities       | `true`  |
-| `useIcons`           | Include icon styles               | `true`  |
-| `useFontFamilies`    | Include font family utilities     | `true`  |
-| `useFontSizes`       | Include font size utilities       | `true`  |
-| `useFontShapes`      | Include font style utilities      | `true`  |
-| `useTextAligns`      | Include text alignment utilities  | `true`  |
-| `useTextTruncate`    | Include text truncation utilities | `true`  |
-| `useColors`          | Include color utilities           | `true`  |
-| `useColorsOpacities` | Include color opacity utilities   | `true`  |
-| `useColorsLightMode` | Include light mode colors         | `true`  |
-| `useColorsDarkMode`  | Include dark mode colors          | `true`  |
-| `useCurrentColors`   | Include currentColor utilities    | `true`  |
-| `useRootColors`      | Include CSS custom properties     | `true`  |
-| `useGrid`            | Include grid system               | `true`  |
-| `useFlex`            | Include flexbox utilities         | `true`  |
-| `useTransitions`     | Include transition utilities      | `true`  |
-| `useWrappers`        | Include container utilities       | `true`  |
-| `useShadows`         | Include shadow utilities          | `true`  |
-| `useDisplays`        | Include display utilities         | `true`  |
-| `useOverflows`       | Include overflow utilities        | `true`  |
-| `useOpacities`       | Include opacity utilities         | `true`  |
-| `useBlur`            | Include blur utilities            | `true`  |
-| `useObjectFits`      | Include object-fit utilities      | `true`  |
-| `usePositions`       | Include positioning utilities     | `true`  |
-| `useInsets`          | Include inset utilities           | `true`  |
-| `useSizes`           | Include sizing utilities          | `true`  |
-| `useGutters`         | Include spacing utilities         | `true`  |
-| `useBorders`         | Include border utilities          | `true`  |
-| `useTextBorders`     | Include text border utilities     | `true`  |
-| `useRadius`          | Include border radius utilities   | `true`  |
+| Property                         | Type                            | Description                                   | Default Value                             | Example                                                |
+| -------------------------------- | ------------------------------- | --------------------------------------------- | ----------------------------------------- | ------------------------------------------------------ |
+| **COLORS**                       |                                 |                                               |                                           |                                                        |
+| `colors`                         | `ColorType`                     | Custom color palette with light/dark variants | See default colors                        | `{"primary": {"light": "#007bff", "dark": "#0056b3"}}` |
+| `colors.main`                    | `{light: string, dark: string}` | Main background color                         | `{"light": "#ffffff", "dark": "#1a1d21"}` | `{"light": "#f8f9fa", "dark": "#212529"}`              |
+| `colors.second`                  | `{light: string, dark: string}` | Secondary background color                    | `{"light": "#f8f8ff", "dark": "#2e2e3f"}` | `{"light": "#e9ecef", "dark": "#495057"}`              |
+| `colors.primary`                 | `{light: string, dark: string}` | Primary brand color                           | `undefined`                               | `{"light": "#007bff", "dark": "#0056b3"}`              |
+| `colors.success`                 | `{light: string, dark: string}` | Success state color                           | `{"light": "#099750", "dark": "#5ff2a9"}` | `{"light": "#28a745", "dark": "#20c997"}`              |
+| `colors.info`                    | `{light: string, dark: string}` | Information state color                       | `undefined`                               | `{"light": "#17a2b8", "dark": "#138496"}`              |
+| `colors.warning`                 | `{light: string, dark: string}` | Warning state color                           | `undefined`                               | `{"light": "#ffc107", "dark": "#e0a800"}`              |
+| `colors.danger`                  | `{light: string, dark: string}` | Error/danger state color                      | `undefined`                               | `{"light": "#dc3545", "dark": "#c82333"}`              |
+| **TYPOGRAPHY**                   |                                 |                                               |                                           |                                                        |
+| `typography`                     | `Typography`                    | Font configuration and text settings          | See typography defaults                   | `{"defaultFontFamilies": ["Inter", "sans-serif"]}`     |
+| `typography.defaultFontFamilies` | `string[]`                      | Default font stack                            | `["system-ui", "sans-serif"]`             | `["Inter", "Roboto", "sans-serif"]`                    |
+| `typography.fontMainPath`        | `string`                        | Path to font files                            | `""`                                      | `"/fonts/"`                                            |
+| `typography.fontFormat`          | `"woff" \| "woff2"`             | Font file format                              | `"woff2"`                                 | `"woff"`                                               |
+| `typography.fontWeights`         | `FontWeight[]`                  | Available font weights                        | `["regular", "medium", "bold"]`           | `["light", "regular", "bold"]`                         |
+| `typography.fontStyles`          | `FontStyle[]`                   | Available font styles                         | `["normal"]`                              | `["normal", "italic"]`                                 |
+| `typography.fontSizes`           | `Record<string, FontSize>`      | Named font sizes                              | `{"base": "16px", "lg": "18px"}`          | `{"sm": "14px", "base": "16px", "xl": "24px"}`         |
+| `typography.textTruncate`        | `number`                        | Default text truncation width                 | `3`                                       | `5`                                                    |
+| `typography.fonts`               | `Record<string, FontType>`      | Custom font definitions                       | `{}`                                      | `{"heading": {"weights": ["bold"]}}`                   |
+| **SETTINGS**                     |                                 |                                               |                                           |                                                        |
+| `settings`                       | `Settings`                      | Layout, breakpoints and spacing settings      | See settings defaults                     | `{"axisDivisions": 12}`                                |
+| `settings.axisDivisions`         | `number`                        | Grid system divisions                         | `12`                                      | `16`                                                   |
+| `settings.opacities`             | `number[]`                      | Available opacity values                      | `[0.1, 0.25, 0.5, 0.75, 0.9]`             | `[0.2, 0.4, 0.6, 0.8]`                                 |
+| `settings.blurValues`            | `number[]`                      | Blur effect values                            | `[2, 4, 8, 16, 32]`                       | `[4, 8, 12]`                                           |
+| `settings.insetValues`           | `number[]`                      | Inset shadow values                           | `[1, 2, 4, 8]`                            | `[2, 4, 6]`                                            |
+| `settings.bordersValue`          | `number`                        | Default border width                          | `1`                                       | `2`                                                    |
+| `settings.radiuses`              | `number[]`                      | Border radius values                          | `[4, 8, 12, 16, 24]`                      | `[6, 12, 18]`                                          |
+| `settings.breakpoints`           | `Breakpoints`                   | Responsive breakpoints                        | See breakpoints                           | `{"sm": "640px", "md": "768px"}`                       |
+| `settings.breakpoints.sm`        | `string`                        | Small breakpoint                              | `"576px"`                                 | `"640px"`                                              |
+| `settings.breakpoints.md`        | `string`                        | Medium breakpoint                             | `"768px"`                                 | `"768px"`                                              |
+| `settings.breakpoints.lg`        | `string`                        | Large breakpoint                              | `"992px"`                                 | `"1024px"`                                             |
+| `settings.breakpoints.xl`        | `string`                        | Extra large breakpoint                        | `"1200px"`                                | `"1280px"`                                             |
+| `settings.breakpoints.xxl`       | `string`                        | 2X large breakpoint                           | `"1400px"`                                | `"1536px"`                                             |
+| `settings.wrappers`              | `Wrappers`                      | Container widths                              | See wrappers                              | `{"sm": {"width": "540px"}}`                           |
+| `settings.guttersValues`         | `GutterValues`                  | Spacing values                                | See gutters                               | `{"auto": "1rem", 1: "0.25rem"}`                       |
+| **ROLES**                        |                                 |                                               |                                           |                                                        |
+| `roles`                          | `Roles`                         | Feature toggles for library modules           | All features enabled                      | `{"useColors": true, "useIcons": false}`               |
+| `roles.useMediaQueries`          | `boolean`                       | Enable responsive utilities                   | `true`                                    | `false`                                                |
+| `roles.useIcons`                 | `boolean`                       | Include icon styles                           | `true`                                    | `false`                                                |
+| `roles.useFontFamilies`          | `boolean`                       | Include font family utilities                 | `true`                                    | `false`                                                |
+| `roles.useFontSizes`             | `boolean`                       | Include font size utilities                   | `true`                                    | `false`                                                |
+| `roles.useFontShapes`            | `boolean`                       | Include font style utilities                  | `true`                                    | `false`                                                |
+| `roles.useTextAligns`            | `boolean`                       | Include text alignment utilities              | `true`                                    | `false`                                                |
+| `roles.useTextTruncate`          | `boolean`                       | Include text truncation utilities             | `true`                                    | `false`                                                |
+| `roles.useColors`                | `boolean`                       | Include color utilities                       | `true`                                    | `false`                                                |
+| `roles.useColorsOpacities`       | `boolean`                       | Include color opacity utilities               | `true`                                    | `false`                                                |
+| `roles.useColorsLightMode`       | `boolean`                       | Include light mode colors                     | `true`                                    | `false`                                                |
+| `roles.useColorsDarkMode`        | `boolean`                       | Include dark mode colors                      | `true`                                    | `false`                                                |
+| `roles.useCurrentColors`         | `boolean`                       | Include currentColor utilities                | `true`                                    | `false`                                                |
+| `roles.useRootColors`            | `boolean`                       | Include CSS custom properties                 | `true`                                    | `false`                                                |
+| `roles.useGrid`                  | `boolean`                       | Include grid system                           | `true`                                    | `false`                                                |
+| `roles.useFlex`                  | `boolean`                       | Include flexbox utilities                     | `true`                                    | `false`                                                |
+| `roles.useTransitions`           | `boolean`                       | Include transition utilities                  | `true`                                    | `false`                                                |
+| `roles.useWrappers`              | `boolean`                       | Include container utilities                   | `true`                                    | `false`                                                |
+| `roles.useShadows`               | `boolean`                       | Include shadow utilities                      | `true`                                    | `false`                                                |
+| `roles.useDisplays`              | `boolean`                       | Include display utilities                     | `true`                                    | `false`                                                |
+| `roles.useOverflows`             | `boolean`                       | Include overflow utilities                    | `true`                                    | `false`                                                |
+| `roles.useOpacities`             | `boolean`                       | Include opacity utilities                     | `true`                                    | `false`                                                |
+| `roles.useBlur`                  | `boolean`                       | Include blur utilities                        | `true`                                    | `false`                                                |
+| `roles.useObjectFits`            | `boolean`                       | Include object-fit utilities                  | `true`                                    | `false`                                                |
+| `roles.usePositions`             | `boolean`                       | Include positioning utilities                 | `true`                                    | `false`                                                |
+| `roles.useInsets`                | `boolean`                       | Include inset utilities                       | `true`                                    | `false`                                                |
+| `roles.useSizes`                 | `boolean`                       | Include sizing utilities                      | `true`                                    | `false`                                                |
+| `roles.useGutters`               | `boolean`                       | Include spacing utilities                     | `true`                                    | `false`                                                |
+| `roles.useBorders`               | `boolean`                       | Include border utilities                      | `true`                                    | `false`                                                |
+| `roles.useTextBorders`           | `boolean`                       | Include text border utilities                 | `true`                                    | `false`                                                |
+| `roles.useRadius`                | `boolean`                       | Include border radius utilities               | `true`                                    | `false`                                                |
 
 ### Example Configuration
 
@@ -246,16 +220,6 @@ export default {
   },
 } satisfies Theme
 ```
-
-## Contributing
-
-We welcome contributions from the community to improve the Beathers Library! Here's how you can help:
-
-### Reporting Issues
-
-- Search existing issues before creating a new one
-- Use the issue templates for bug reports and feature requests
-- Provide clear reproduction steps and environment details
 
 ## License
 
