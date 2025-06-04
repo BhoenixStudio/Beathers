@@ -24,7 +24,7 @@ export interface FontVariant {
 export type FontType = {
   weights?: FontWeight[]
   styles?: FontStyle[]
-  variants?: FontVariant[]
+  variants?: Record<string, FontVariant>
 }
 
 export interface Typography {
@@ -33,7 +33,7 @@ export interface Typography {
   fontFormat?: 'woff' | 'woff2'
   fontWeights?: FontWeight[]
   fontStyles?: FontStyle[]
-  fontSizes?: { [sizeName: string]: FontSize }
+  fontSizes?: Record<string, FontSize>
   textTruncate?: number
   fonts?: Record<string, FontType>
 }
