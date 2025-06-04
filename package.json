@@ -74,6 +74,7 @@
     "dist/css/**/*.{css,map}",
     "dist/**/*.{js,d.ts}",
     "src/scss/**/*.scss",
+    "public/images/logo.png",
     "readme.md"
   ]
 }
