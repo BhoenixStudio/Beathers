@@ -13,7 +13,7 @@
     "build:compressed": "sass --style compressed --source-map --embed-sources --no-error-css src/scss/:dist/css/",
     "build:expanded": "sass --style expanded --source-map --embed-sources --no-error-css src/scss/:dist/css/",
     "build:user-configs": "tsx src/scripts/BuildTheme.ts",
-    "prepublish": "npm run rimraf dist && npm run tsc && npm run build:compressed",
+    "prepublish": "rimraf dist && tsc && pnpm build:compressed",
     "lint": "eslint . && stylelint \"**/*.scss\"",
     "format:check": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore . && pnpm lint"
