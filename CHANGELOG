@@ -1,0 +1,46 @@
+# Changelog
+
+## [5.1.0] - 2025-06-05
+
+### Added
+
+- Enhanced CSS utility documentation in README
+- Comprehensive configuration examples for TypeScript users
+- Improved color utility system with better dark/light mode support
+- Font weight and size utility examples
+
+### Changed
+
+- Updated README with detailed configuration tables
+- Improved TypeScript configuration examples
+- Enhanced documentation structure and readability
+
+### Fixed
+
+- Configuration file format consistency
+- TypeScript type definitions alignment
+
+## [5.0.0] - Initial Release
+
+### Added
+
+- Core SCSS framework with utility-first approach
+- Interactive CLI tool for theme configuration
+- Comprehensive color system with light/dark variants
+- Typography utilities with customizable font families and sizes
+- Responsive grid system with 12-column layout
+- Flexbox utilities for modern layouts
+- Spacing utilities with customizable gutters
+- Border and border-radius utilities
+- Shadow and blur effects
+- Position and sizing utilities
+- Opacity and overflow utilities
+- Transition utilities for smooth animations
+- Display utilities for various layout needs
+- Container/wrapper utilities for responsive layouts
+- Icon integration support
+- Complete customization through configuration files
+- Support for JSON, JS, and TypeScript config formats
+- CSS custom properties (CSS variables) generation
+- Media query utilities for responsive design
+- Text alignment and truncation utilities

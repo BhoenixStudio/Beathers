@@ -1,7 +1,5 @@
 <div align="center">
-    <a href="https://beathers.bhoenixstudio.com">
         <img src="https://raw.githubusercontent.com/BhoenixStudio/Beathers/main/public/images/logo.png" alt="Beathers logo" width="700" height="312">
-    </a>
     <p align="center">The Perfect Fusion of Strength and Featherlight Agility</p>
 </div>
 
@@ -212,8 +210,8 @@ export default {
 
 ## Contact & Support
 
-[![Website](https://img.shields.io/badge/Website-beathers.bhoenixstudio.com-blue?style=for-the-badge&logo=globe)](https://beathers.bhoenixstudio.com)
+[![Website](https://img.shields.io/badge/Website-bhoenixstudio.com/beathers-blue?style=for-the-badge&logo=globe)](https://bhoenixstudio.com/beathers)
 
-[![Documentation](https://img.shields.io/badge/Documentation-Full%20Docs-green?style=for-the-badge&logo=book)](https://beathers.bhoenixstudio.com)
+[![Documentation](https://img.shields.io/badge/Documentation-Full%20Docs-green?style=for-the-badge&logo=book)](https://bhoenixstudio.com/beathers)
 
 [![Email](https://img.shields.io/badge/Email-contact@bhoenixstudio.com-red?style=for-the-badge&logo=gmail)](mailto:contact@bhoenixstudio.com)
