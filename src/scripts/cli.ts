@@ -3,6 +3,7 @@
 
 import fs from 'fs-extra'
 import path from 'path'
+import { fileURLToPath } from 'node:url'
 import { BuildTheme } from './BuildTheme.js'
 import { ReadDefaultValues } from './ReadDefaultValues.js'
 import { Theme } from './types.js'
@@ -55,7 +56,9 @@ function showVersion() {
 }
 
 async function getDefaultValues(): Promise<Theme> {
-  const projectRoot = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..', '..')
+  const __filename = fileURLToPath(import.meta.url)
+  const __dirname = path.dirname(__filename)
+  const projectRoot = path.resolve(__dirname, '..', '..')
 
   return (await ReadDefaultValues(
     [
