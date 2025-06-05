@@ -1,21 +1,21 @@
-@use "sass:map";
-@use "sass:list";
-@use "sass:math";
-@use "../functions/mediaQueries" as mQ;
-@use "../settings/configs" as configs;
-@use "../functions/validations" as val;
-@use "../settings/index" as settings;
-@use "../functions/others" as func;
+@use 'sass:map';
+@use 'sass:list';
+@use 'sass:math';
+@use '../functions/mediaQueries' as mQ;
+@use '../settings/configs' as configs;
+@use '../functions/validations' as val;
+@use '../settings/index' as settings;
+@use '../functions/others' as func;
 
 @if settings.$useWrappers {
   @each $wSize, $properties in configs.$wrappers {
-    $mainWSize: if($wSize, "#{$wSize}#{\:}wrapper", "wrapper");
+    $mainWSize: if($wSize, '#{$wSize}#{\:}wrapper', 'wrapper');
 
     $size: list.nth($properties, 1);
     $padding: if(list.nth($properties, 2), list.nth($properties, 2), 0);
 
     // Validate parameters
-    $checkedSize: val.notNull($size, "Wrappers.size");
+    $checkedSize: val.notNull($size, 'Wrappers.size');
 
     .#{$mainWSize} {
       width: 100%;
@@ -41,13 +41,13 @@
       $opacity: map.get($values, opacity);
 
       // Validate parameters
-      $checkedX: val.number($x, "Shadows.x");
-      $checkedY: val.number($y, "Shadows.y");
-      $checkedBlur: val.number($blur, "Shadows.blur");
-      $checkedSpread: val.number($spread, "Shadows.spread");
-      $checkedOpacity: val.opacity($opacity, "Shadows.opacity");
+      $checkedX: val.number($x, 'Shadows.x');
+      $checkedY: val.number($y, 'Shadows.y');
+      $checkedBlur: val.number($blur, 'Shadows.blur');
+      $checkedSpread: val.number($spread, 'Shadows.spread');
+      $checkedOpacity: val.opacity($opacity, 'Shadows.opacity');
 
-      $mainClass: if($size, "#{$size}#{$divider}divider-#{$class}", "divider-#{$class}");
+      $mainClass: if($size, '#{$size}#{$divider}divider-#{$class}', 'divider-#{$class}');
 
       .#{$mainClass} {
         box-shadow: func.shadowValue($x)
@@ -64,9 +64,9 @@
   @include mQ.multiSizes() using ($size, $divider) {
     @each $display in configs.$displays {
       // Validate parameters
-      $checkedDisplay: val.listItem(configs.$displays, $display, "Shaping.displays");
+      $checkedDisplay: val.listItem(configs.$displays, $display, 'Shaping.displays');
 
-      $mainClass: if($size, "#{$size}#{$divider}d-#{$display}", "d-#{$display}");
+      $mainClass: if($size, '#{$size}#{$divider}d-#{$display}', 'd-#{$display}');
 
       .#{$mainClass} {
         display: if($size, $display !important, $display);
@@ -80,17 +80,17 @@
     @each $dir in configs.$overflowsDirections {
       // Validate parameters
       @if $dir {
-        $checkedDir: val.listItem(("x", "y"), $dir, "Shaping.overflow.direction");
+        $checkedDir: val.listItem(('x', 'y'), $dir, 'Shaping.overflow.direction');
       }
 
-      $dirClass: if($dir, "#{$dir}#{\:}overflow", "overflow");
-      $mainClass: if($size, "#{$size}#{$divider}#{$dirClass}", $dirClass);
-      $property: if($dir, "overflow-#{$dir}", "overflow");
+      $dirClass: if($dir, '#{$dir}#{\:}overflow', 'overflow');
+      $mainClass: if($size, '#{$size}#{$divider}#{$dirClass}', $dirClass);
+      $property: if($dir, 'overflow-#{$dir}', 'overflow');
 
       .#{$mainClass} {
         @each $value in configs.$overflows {
           // Validate parameters
-          $checkedClass: val.listItem(configs.$overflows, $value, "Shaping.overflow.value");
+          $checkedClass: val.listItem(configs.$overflows, $value, 'Shaping.overflow.value');
 
           &-#{$value} {
             #{$property}: if($size, $value !important, $value);
@@ -104,9 +104,9 @@
 @if settings.$useOpacities {
   @include mQ.multiSizes() using ($size, $divider) {
     @each $value in configs.$opacities {
-      $checkedValue: val.opacity(math.div($value, 100), "Shaping.opacity");
+      $checkedValue: val.opacity(math.div($value, 100), 'Shaping.opacity');
 
-      $mainClass: if($size, "#{$size}#{$divider}op", "op");
+      $mainClass: if($size, '#{$size}#{$divider}op', 'op');
 
       .#{$mainClass}#{\:}#{$value} {
         opacity: if($size, $checkedValue !important, $checkedValue);
@@ -122,9 +122,9 @@
 @if settings.$useBlur {
   @include mQ.multiSizes() using ($size, $divider) {
     @each $value in configs.$blurValues {
-      $checkedValue: val.listItem(configs.$blurValues, $value, "Shaping.blur");
+      $checkedValue: val.listItem(configs.$blurValues, $value, 'Shaping.blur');
 
-      $mainClass: if($size, "#{$size}#{$divider}bg#{\:}blur", "bg#{\:}blur");
+      $mainClass: if($size, '#{$size}#{$divider}bg#{\:}blur', 'bg#{\:}blur');
       $calcValue: blur(#{$checkedValue}#{px});
 
       .#{$mainClass}#{\:}#{$value} {
@@ -142,9 +142,9 @@
   @include mQ.multiSizes() using ($size, $divider) {
     @each $fit in configs.$objectsFits {
       // Validate parameters
-      $checkedFit: val.listItem(configs.$objectsFits, $fit, "Shaping.objectFit");
+      $checkedFit: val.listItem(configs.$objectsFits, $fit, 'Shaping.objectFit');
 
-      $mainClass: if($size, "#{$size}#{$divider}object-fit", "object-fit");
+      $mainClass: if($size, '#{$size}#{$divider}object-fit', 'object-fit');
 
       .#{$mainClass}#{\:}#{$fit} {
         object-fit: if($size, $fit !important, $fit);
@@ -157,9 +157,9 @@
   @include mQ.multiSizes() using ($size, $divider) {
     @each $position in configs.$positions {
       // Validate parameters
-      $checkedPosition: val.listItem(configs.$positions, $position, "Shaping.position");
+      $checkedPosition: val.listItem(configs.$positions, $position, 'Shaping.position');
 
-      $mainClass: if($size, "#{$size}#{$divider}p-", "p-");
+      $mainClass: if($size, '#{$size}#{$divider}p-', 'p-');
 
       .#{$mainClass}#{$position} {
         position: if($size, $position !important, $position);
@@ -173,12 +173,12 @@
     @each $value in configs.$insetValues {
       @each $position in configs.$insetPositions {
         // Validate parameters
-        $checkedPosition: val.listItem(configs.$insetPositions, $position, "Shaping.inset");
+        $checkedPosition: val.listItem(configs.$insetPositions, $position, 'Shaping.inset');
 
-        $mainClass: if($size, "#{$size}#{$divider}inset", "inset");
-        $posClass: if($position, "#{$mainClass}-#{$position}", "#{$mainClass}");
-        $property: if($position, "inset-#{$position}", "inset");
-        $val: if($value == 0, "full", $value);
+        $mainClass: if($size, '#{$size}#{$divider}inset', 'inset');
+        $posClass: if($position, '#{$mainClass}-#{$position}', '#{$mainClass}');
+        $property: if($position, 'inset-#{$position}', 'inset');
+        $val: if($value == 0, 'full', $value);
 
         .#{$posClass}#{\:}#{$val} {
           #{$property}: $value;
@@ -193,16 +193,16 @@
     @each $dir, $direction in configs.$spacesDirections {
       // Validate parameters
       $checkedDir: val.listItem(
-        ("w", "min#{\:}w", "max#{\:}w", "h", "min#{\:}h", "max#{\:}h"),
+        ('w', 'min#{\:}w', 'max#{\:}w', 'h', 'min#{\:}h', 'max#{\:}h'),
         $dir,
-        "Shaping.space.direction"
+        'Shaping.space.direction'
       );
       $checkedDirection: val.listItem(
-        ("width", "min-width", "max-width", "height", "min-height", "max-height"),
+        ('width', 'min-width', 'max-width', 'height', 'min-height', 'max-height'),
         $direction,
-        "Shaping.space.direction"
+        'Shaping.space.direction'
       );
-      $checkedStep: val.number(configs.$spacesStep, "Shaping.space.step");
+      $checkedStep: val.number(configs.$spacesStep, 'Shaping.space.step');
 
       $mainClass: if($size, #{$size}#{$divider}#{$dir}, $dir);
 
@@ -212,7 +212,7 @@
 
           @if ($value != 0) and ($value % $checkedStep == 0) and ($value <= 100) {
             &#{\:}#{$value} {
-              #{$direction}: if($size, #{$value}#{"%"} !important, #{$value}#{"%"});
+              #{$direction}: if($size, #{$value}#{'%'} !important, #{$value}#{'%'});
             }
           }
         }
@@ -228,7 +228,7 @@
       $checkedClass: val.listItem(
         (p, px, py, ps, pe, pt, pb, m, mx, my, ms, me, mt, mb, g, gx, gy),
         $class,
-        "Shaping.gutter.class"
+        'Shaping.gutter.class'
       );
       $checkedProperty: val.listItem(
         (
@@ -251,7 +251,7 @@
           row-gap
         ),
         $property,
-        "Shaping.gutter.property"
+        'Shaping.gutter.property'
       );
 
       $mainClass: if($size, #{$size}#{$divider}#{$class}, $class);
@@ -264,7 +264,9 @@
             } @else {
               #{$property}: $value;
 
+              /* stylelint-disable max-nesting-depth */
               &\:i {
+                /* stylelint-disable declaration-no-important */
                 #{$property}: $value !important;
               }
             }
@@ -280,15 +282,15 @@
     @for $i from 1 through configs.$bordersValue {
       @each $dir, $property in configs.$bordersDirections {
         // Validate parameters
-        $checkedDir: val.listItem((null, "top", "bottom", "start", "end"), $dir, "Shaping.borders");
+        $checkedDir: val.listItem((null, 'top', 'bottom', 'start', 'end'), $dir, 'Shaping.borders');
         $checkedProperty: val.listItem(
           (border, border-block-start, border-block-end, border-inline-start, border-inline-end),
           $property,
-          "Shaping.borders"
+          'Shaping.borders'
         );
 
-        $mainClass: if($size, "#{$size}#{$divider}border", "border");
-        $dirClass: if($dir, "#{$dir}#{\:}", $dir);
+        $mainClass: if($size, '#{$size}#{$divider}border', 'border');
+        $dirClass: if($dir, '#{$dir}#{\:}', $dir);
 
         .#{$mainClass}#{\:}#{$dirClass}#{$i} {
           #{$property}-width: if($size, #{$i}#{px} !important, #{$i}#{px});
@@ -305,11 +307,11 @@
 @if settings.$useTextBorders {
   @include mQ.multiSizes() using ($size, $divider) {
     @for $i from 1 through configs.$bordersValue {
-      $mainClass: if($size, "#{$size}#{$divider}stroke", "stroke");
+      $mainClass: if($size, '#{$size}#{$divider}stroke', 'stroke');
       $value: math.div($i, 10);
 
       // Validate parameters
-      $checkedValue: val.number($value, "Shaping.textBorder");
+      $checkedValue: val.number($value, 'Shaping.textBorder');
 
       .#{$mainClass}#{\:}#{$i} {
         -webkit-text-stroke-width: if($size, #{$value}#{px} !important, #{$value}#{px});
@@ -323,23 +325,13 @@
     @each $dir, $properties in configs.$radiusDirection {
       // Validate parameters
       $checkedDir: val.listItem(
-        (
-          null,
-          "top",
-          "bottom",
-          "start",
-          "end",
-          "top-start",
-          "top-end",
-          "bottom-start",
-          "bottom-end"
-        ),
+        (null, 'top', 'bottom', 'start', 'end', 'top-start', 'top-end', 'bottom-start', 'bottom-end'),
         $dir,
-        "Shaping.radius.direction"
+        'Shaping.radius.direction'
       );
 
-      $mainClass: if($size, "#{$size}#{$divider}radius", "radius");
-      $dirClass: if($dir, "#{$dir}#{\:}", $dir);
+      $mainClass: if($size, '#{$size}#{$divider}radius', 'radius');
+      $dirClass: if($dir, '#{$dir}#{\:}', $dir);
 
       @each $property in $properties {
         .#{$mainClass}#{\:}#{$dirClass} {
@@ -358,11 +350,11 @@
                 border-end-end-radius
               ),
               $property,
-              "Shaping.radius.property"
+              'Shaping.radius.property'
             );
 
             &#{$value} {
-              #{$property}: if($size, #{$value}#{px} !important, #{$value}#{"px"});
+              #{$property}: if($size, #{$value}#{px} !important, #{$value}#{'px'});
             }
           }
         }

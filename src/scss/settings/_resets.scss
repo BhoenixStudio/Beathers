@@ -10,6 +10,7 @@ html {
 
 body {
   position: relative;
+  /* stylelint-disable font-family-no-missing-generic-family-keyword */
   font-family: "regular";
   overflow-x: hidden;
 }
@@ -84,6 +85,7 @@ a {
 @each $option, $properties in configs.$clearanceOptions {
   @each $property, $value in $properties {
     .i\:#{$option} {
+      /* stylelint-disable declaration-no-important */
       #{$property}: $value !important;
     }
     .#{$option} {

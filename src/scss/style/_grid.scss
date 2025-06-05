@@ -1,8 +1,8 @@
-@use "../functions/mediaQueries" as mQ;
-@use "../settings/configs" as configs;
-@use "../functions/validations" as val;
-@use "../settings/index" as settings;
-@use "../functions/others" as func;
+@use '../functions/mediaQueries' as mQ;
+@use '../settings/configs' as configs;
+@use '../functions/validations' as val;
+@use '../settings/index' as settings;
+@use '../functions/others' as func;
 
 @if settings.$useGrid {
   .grid {
@@ -24,14 +24,14 @@
     @include mQ.multiSizes() using ($size, $divider) {
       @each $property, $values in configs.$flexProperties {
         // Validate parameters
-        $checkedProperty: val.listItem((flex-wrap, flex-direction), $property, "flex.properties");
+        $checkedProperty: val.listItem((flex-wrap, flex-direction), $property, 'flex.properties');
 
         @each $value in $values {
           // Validate parameters
           $checkedProperty: val.listItem(
             (wrap, nowrap, row, row-reverse, column, column-reverse),
             $value,
-            "flex.properties.values"
+            'flex.properties.values'
           );
 
           $mainClass: if($size, #{$size}#{$divider}#{$value}, $value);
@@ -44,13 +44,13 @@
 
       &.row,
       &.row-reverse {
-        @include func.flexDivision(width, "cols", $size, $divider);
-        @include func.flexDivision(width, "col", $size, $divider);
+        @include func.flexDivision(width, 'cols', $size, $divider);
+        @include func.flexDivision(width, 'col', $size, $divider);
       }
       &.column,
       &.column-reverse {
-        @include func.flexDivision(height, "rows", $size, $divider);
-        @include func.flexDivision(height, "row", $size, $divider);
+        @include func.flexDivision(height, 'rows', $size, $divider);
+        @include func.flexDivision(height, 'row', $size, $divider);
       }
     }
   }
@@ -61,23 +61,16 @@
     @each $way, $selections in configs.$justify {
       @each $selection, $properties in $selections {
         @each $property in $properties {
-          $mainClass: if(
-            $size,
-            "#{$size}#{$divider}#{$way}-#{$selection}#{\:}",
-            "#{$way}-#{$selection}#{\:}"
-          );
+          $mainClass: if($size, '#{$size}#{$divider}#{$way}-#{$selection}#{\:}', '#{$way}-#{$selection}#{\:}');
 
           .#{$mainClass} {
-            $prefix: if(
-              $property == "around" or $property == "between" or $property == "evenly",
-              "space-",
-              ""
-            );
-            $flexPrefix: if($property == "start" or $property == "end", "flex-", "");
+            $prefix: if($property == 'around' or $property == 'between' or $property == 'evenly', 'space-', '');
+            $flexPrefix: if($property == 'start' or $property == 'end', 'flex-', '');
             $value: #{$prefix}#{$property};
             $flexValue: #{$flexPrefix}#{$value};
 
             &#{$property} {
+              /* stylelint-disable max-nesting-depth */
               &.flex {
                 #{$way}-#{$selection}: if($size, $flexValue !important, $flexValue);
               }

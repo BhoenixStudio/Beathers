@@ -1,12 +1,12 @@
-@use "sass:meta";
-@use "sass:color";
-@use "sass:math";
-@use "sass:list";
-@use "sass:map";
-@use "../settings/configs" as configs;
-@use "../settings/index" as settings;
-@use "../settings/defaults" as vars;
-@use "../functions/validations" as val;
+@use 'sass:meta';
+@use 'sass:color';
+@use 'sass:math';
+@use 'sass:list';
+@use 'sass:map';
+@use '../settings/configs' as configs;
+@use '../settings/index' as settings;
+@use '../settings/defaults' as vars;
+@use '../functions/validations' as val;
 
 // Color Convertors ----- ----- ----- -----
 //
@@ -28,13 +28,13 @@
 //
 @function hexToRgba($color, $opacity: 1, $debugIn: null) {
   // Validate parameters
-  $checkedColor: val.hexColor("color", $color, "hexToRgba().#{$debugIn}");
-  $checkedOpacity: val.opacity($opacity, "hexToRgba().#{$debugIn}");
+  $checkedColor: val.hexColor('color', $color, 'hexToRgba().#{$debugIn}');
+  $checkedOpacity: val.opacity($opacity, 'hexToRgba().#{$debugIn}');
 
   @return rgba(
-    color.channel($checkedColor, "red", $space: rgb),
-    color.channel($checkedColor, "green", $space: rgb),
-    color.channel($checkedColor, "blue", $space: rgb),
+    color.channel($checkedColor, 'red', $space: rgb),
+    color.channel($checkedColor, 'green', $space: rgb),
+    color.channel($checkedColor, 'blue', $space: rgb),
     $checkedOpacity
   );
 }
@@ -62,23 +62,23 @@
 //   color: useColor('secondary', 'dark', null, $customMap);
 //   // Returns the dark variant of secondary color from custom map
 //
-@function useColor($color, $mode: "light", $opacity: 100) {
+@function useColor($color, $mode: 'light', $opacity: 100) {
   // Validate parameters
-  $checkedMode: val.colorMode($mode, "useColor()");
-  $checkedOpacity: val.colorOpacity($opacity, "useColor()");
+  $checkedMode: val.colorMode($mode, 'useColor()');
+  $checkedOpacity: val.colorOpacity($opacity, 'useColor()');
 
   $value: map.get($color, $mode);
 
   @if $checkedOpacity {
-    @return hexToRgba($value, math.div($opacity, 100), "useColor().#{$value}");
+    @return hexToRgba($value, math.div($opacity, 100), 'useColor().#{$value}');
   } @else {
     @return $value;
   }
 }
 
-@function useColorWithMap($color, $mode: "light", $opacity: 100, $map: vars.$colors) {
+@function useColorWithMap($color, $mode: 'light', $opacity: 100, $map: vars.$colors) {
   // Validate parameters
-  $checkedMap: val.map($map, "useColorWithMap().map");
+  $checkedMap: val.map($map, 'useColorWithMap().map');
 
   $colorValue: map.get($checkedMap, $color);
   @return useColor($colorValue, $mode, $opacity);
@@ -123,25 +123,25 @@
 // modifiers is generated to reduce CSS output size.
 @mixin useColorProperty($colorClass, $class, $property, $color, $map, $opacity: 100) {
   // Validate parameters
-  $checkedClass: val.colorClass($class, "useColorProperty().class");
-  $checkedProperty: val.colorProperty($property, "useColorProperty().property");
-  $checkedMap: val.map($map, "useColorProperty().map");
-  $checkedOpacity: val.colorOpacity($opacity, "useColorProperty().opacity");
-  $checkedLight: val.mapItem($color, "light", "light/dark", "useColorProperty().color");
-  $checkedDark: val.mapItem($color, "dark", "light/dark", "useColorProperty().color");
+  $checkedClass: val.colorClass($class, 'useColorProperty().class');
+  $checkedProperty: val.colorProperty($property, 'useColorProperty().property');
+  $checkedMap: val.map($map, 'useColorProperty().map');
+  $checkedOpacity: val.colorOpacity($opacity, 'useColorProperty().opacity');
+  $checkedLight: val.mapItem($color, 'light', 'light/dark', 'useColorProperty().color');
+  $checkedDark: val.mapItem($color, 'dark', 'light/dark', 'useColorProperty().color');
 
-  $light: map.get($color, "light");
-  $dark: map.get($color, "dark");
+  $light: map.get($color, 'light');
+  $dark: map.get($color, 'dark');
 
-  $checkedLightValue: val.hexColor("#{$colorClass}.light", $light, "root-colors()");
-  $checkedDarkValue: val.hexColor("#{$colorClass}.dark", $dark, "root-colors()");
+  $checkedLightValue: val.hexColor('#{$colorClass}.light', $light, 'root-colors()');
+  $checkedDarkValue: val.hexColor('#{$colorClass}.dark', $dark, 'root-colors()');
 
   @if $dark != $light {
     @if (settings.$useColorsLightMode) {
       .light .#{$colorClass},
       .#{$colorClass}.light,
       .light\:#{$colorClass} {
-        #{$property}: useColor($color, "light", $opacity);
+        #{$property}: useColor($color, 'light', $opacity);
       }
     }
 
@@ -149,12 +149,12 @@
       .dark .#{$colorClass},
       .#{$colorClass}.dark,
       .dark\:#{$colorClass} {
-        #{$property}: useColor($color, "dark", $opacity);
+        #{$property}: useColor($color, 'dark', $opacity);
       }
     }
   } @else {
     .#{$colorClass} {
-      #{$property}: useColor($color, "light", $opacity);
+      #{$property}: useColor($color, 'light', $opacity);
     }
   }
 }
@@ -179,43 +179,31 @@
 //
 @mixin useColorsMap($map: vars.$colors, $withOpacity: true) {
   // Validate parameters
-  $checkedMap: val.map($map, "useColorsMap()");
-  $checkedWithOpacity: val.boolean($withOpacity, "useColorsMap()");
+  $checkedMap: val.map($map, 'useColorsMap()');
+  $checkedWithOpacity: val.boolean($withOpacity, 'useColorsMap()');
 
   @each $color, $modes in $checkedMap {
     @if $color {
       @each $class, $property in configs.$colorsPropertiesMap {
-        $mainClass: if($class, "#{$class}#{\:}color-#{$color}", "color-#{$color}");
+        $mainClass: if($class, '#{$class}#{\:}color-#{$color}', 'color-#{$color}');
 
         @include useColorProperty($mainClass, $class, $property, $modes, $map);
 
         @if $checkedWithOpacity and settings.$useColorsOpacities {
           @each $opacity in configs.$opacities {
-            @include useColorProperty(
-              "#{$mainClass}#{\:}#{$opacity}",
-              $class,
-              $property,
-              $modes,
-              $map,
-              $opacity
-            );
+            @include useColorProperty('#{$mainClass}#{\:}#{$opacity}', $class, $property, $modes, $map, $opacity);
           }
         }
 
         @each $pseudoClass, $pseudo in configs.$colorsPseudoMap {
-          @if $pseudoClass != "placeholder" or ($pseudoClass == "placeholder" and $class == null) {
-            @include useColorProperty(
-              "#{$mainClass}#{\:}#{$pseudoClass}#{$pseudo}",
-              $class,
-              $property,
-              $modes,
-              $map
-            );
+          @if $pseudoClass != 'placeholder' or ($pseudoClass == 'placeholder' and $class == null) {
+            @include useColorProperty('#{$mainClass}#{\:}#{$pseudoClass}#{$pseudo}', $class, $property, $modes, $map);
 
             @if $checkedWithOpacity and settings.$useColorsOpacities {
+              /* stylelint-disable max-nesting-depth */
               @each $opacity in configs.$opacities {
                 @include useColorProperty(
-                  "#{$mainClass}#{\:}#{$opacity}#{\:}#{$pseudoClass}#{$pseudo}",
+                  '#{$mainClass}#{\:}#{$opacity}#{\:}#{$pseudoClass}#{$pseudo}',
                   $class,
                   $property,
                   $modes,
