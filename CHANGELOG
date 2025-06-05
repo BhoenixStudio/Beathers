@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.2.1] - 2025-06-05
+
+### Fixed
+
+- **ES module compatibility**: Fixed config loading to use `pathToFileURL` for better compatibility with ES modules
+- **Import resolution**: Enhanced module import handling in `LoadUserConfigs.ts` for cross-platform compatibility
+
 ## [5.2.0] - 2025-06-05
 
 ### Added
