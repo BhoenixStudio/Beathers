@@ -1,5 +1,5 @@
 <div align="center">
-        <img src="https://raw.githubusercontent.com/BhoenixStudio/Beathers/main/public/images/logo.png" alt="Beathers logo" width="700" height="312">
+    <img src="https://unpkg.com/beathers@latest/public/images/logo.png" alt="Beathers logo" width="700" height="312">
     <p align="center">The Perfect Fusion of Strength and Featherlight Agility</p>
 </div>
 
