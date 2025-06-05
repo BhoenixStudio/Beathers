@@ -52,7 +52,6 @@ async function defaultTheme() {
       ]
     )
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error('❌ buildCustomTheme failed:', error instanceof Error ? error.message : error)
     process.exit(1)
   }

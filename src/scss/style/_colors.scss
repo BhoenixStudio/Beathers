@@ -48,7 +48,7 @@
   // With pseudo-class variants:
   // - .color-[colorName]:hover
   // - .bg-color-[colorName]:focus
-  @include colors.useColorsMap();
+  @include colors.useColorsMap;
 }
 
 @if settings.$useCurrentColors {
