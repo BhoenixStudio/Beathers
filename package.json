@@ -13,8 +13,9 @@
     "build:compressed": "sass --style compressed --source-map --embed-sources --no-error-css src/scss/:dist/css/",
     "build:expanded": "sass --style expanded --source-map --embed-sources --no-error-css src/scss/:dist/css/",
     "build:user-configs": "tsx src/scripts/BuildTheme.ts",
-    "prepublish": "rimraf dist && tsc && pnpm build:compressed",
+    "publish": "rimraf dist && tsc && pnpm build:compressed",
     "lint": "eslint . && stylelint \"**/*.scss\"",
+    "lint:fix": "eslint . --fix && stylelint \"**/*.scss\" --fix",
     "format:check": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore . && pnpm lint"
   },

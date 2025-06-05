@@ -1,21 +1,15 @@
-import js from '@eslint/js';
-import importPlugin from 'eslint-plugin-import';
-import { defineConfig } from 'eslint/config';
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
-import cssPlugin from 'eslint-plugin-css';
+import importPlugin from 'eslint-plugin-import'
+import { defineConfig } from 'eslint/config'
+import globals from 'globals'
+import tseslint from 'typescript-eslint'
 
 export default defineConfig([
-  // JavaScript and TypeScript configuration
+  { ignores: ['.next/**/*', 'node_modules/**/*', 'dist/**/*', 'build/**/*', '*.config.js', '*.config.mjs'] },
+
   {
-    files: ['**/*.{js,mjs,cjs,ts}'],
-    plugins: { js, import: importPlugin },
-    extends: ['js/recommended'],
-    languageOptions: {
-      globals: { ...globals.browser, ...globals.node },
-      ecmaVersion: 2021,
-      sourceType: 'module',
-    },
+    files: ['**/*.{js,mjs,cjs,ts,tsx}'],
+    plugins: { import: importPlugin },
+    languageOptions: { globals: { ...globals.browser, ...globals.node } },
     rules: {
       'import/first': 'error',
       'import/newline-after-import': 'error',
@@ -23,23 +17,18 @@ export default defineConfig([
       'no-undef': 'error',
       'no-console': 'warn',
       'no-unused-vars': 'off',
+    },
+  },
+
+  ...tseslint.configs.recommended,
+
+  {
+    files: ['**/*.{ts,tsx}'],
+    rules: {
       '@typescript-eslint/no-unused-vars': 'error',
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/ban-ts-comment': 'warn',
     },
   },
-
-  {
-    files: ['**/*.{css,scss}'],
-    plugins: { css: cssPlugin },
-    rules: {
-      'css/no-unused-selector': 'error',
-      'css/property-no-unknown': 'error',
-      'css/no-dupe-properties': 'error',
-      'css/media-query-no-invalid': 'error',
-    },
-  },
-
-  tseslint.configs.recommended,
-]);
+])
