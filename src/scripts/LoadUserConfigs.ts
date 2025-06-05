@@ -1,4 +1,5 @@
 import fs from 'fs-extra'
+import { pathToFileURL } from 'node:url'
 import path from 'path'
 import { Theme } from './types.js'
 
@@ -15,7 +16,8 @@ function findConfigFile(basePath: string): string | null {
 async function loadJsOrTsConfig(filePath: string): Promise<Theme> {
   try {
     const absolutePath = path.resolve(filePath)
-    const module = await import(absolutePath)
+    const fileUrl = pathToFileURL(absolutePath).href
+    const module = await import(fileUrl)
     return module.default ?? module
   } catch (error) {
     throw new Error(`Failed to load config from ${filePath}: ${error}`)
