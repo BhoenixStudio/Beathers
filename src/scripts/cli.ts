@@ -136,7 +136,7 @@ async function promptFormat(): Promise<'json' | 'js' | 'ts'> {
   const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
 
   return new Promise((resolve) => {
-    rl.question('📁 Choose file format (json/js/ts) [json]: ', (answer) => {
+    rl.question('📁 Choose file format (json/js/ts): json', (answer) => {
       rl.close()
       const format = answer.toLowerCase().trim()
       if (format === 'js' || format === 'ts') resolve(format)
@@ -153,7 +153,7 @@ async function initCommand() {
   const filePath = path.join(process.cwd(), fileName)
 
   if (await fs.pathExists(filePath)) {
-    const shouldOverride = await promptUser(`⚠️  ${fileName} already exists. Do you want to override it? (y/n): `)
+    const shouldOverride = await promptUser(`⚠️  ${fileName} already exists. Do you want to override it? (Y/N): `)
 
     if (!shouldOverride) {
       console.log('❌ Operation aborted.')
@@ -161,7 +161,7 @@ async function initCommand() {
     }
   }
 
-  const includeStarterValues = await promptUser('📝 Would you like to include starter configuration values? (y/n): ')
+  const includeStarterValues = await promptUser('📝 Would you like to include starter configuration values? (Y/N): ')
 
   const emptyTemplate = {
     colors: {},
