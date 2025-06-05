@@ -25,7 +25,7 @@ pnpm add beathers
 Use the interactive CLI to create your theme configuration:
 
 ```bash
-beathers init
+npx beathers init
 ```
 
 This will prompt you to:
@@ -39,7 +39,7 @@ This will prompt you to:
 Generate your custom CSS from the configuration:
 
 ```bash
-beathers build
+npx beathers build
 ```
 
 ### Import in Your Project
