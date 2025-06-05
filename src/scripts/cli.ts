@@ -153,7 +153,7 @@ async function initCommand() {
   const filePath = path.join(process.cwd(), fileName)
 
   if (await fs.pathExists(filePath)) {
-    const shouldOverride = await promptUser(`⚠️ ${fileName} already exists. Do you want to override it? (y/n): `)
+    const shouldOverride = await promptUser(`⚠️  ${fileName} already exists. Do you want to override it? (y/n): `)
 
     if (!shouldOverride) {
       console.log('❌ Operation aborted.')

@@ -1,63 +1,47 @@
+// General Types
+type SizeUnit = `${number}px` | `${number}rem` | `${number}em` | `${number}vw` | `${number}vh` | `${number}%`
+
 // Color Types
-export type ColorType = Record<string, { light: `#${string}`; dark: `#${string}` }>
+type ColorType = Record<string, { light: `#${string}`; dark: `#${string}` }>
 
 // Font Types
-export type FontWeight =
-  | 'thin'
-  | 'extra-light'
-  | 'light'
-  | 'regular'
-  | 'medium'
-  | 'semibold'
-  | 'bold'
-  | 'extra-bold'
-  | 'black'
-export type FontStyle = 'normal' | 'italic' | 'oblique'
-export type FontSize = `${number}px` | `${number}rem` | `${number}em`
-export interface FontVariant {
+type FontWeight = 'thin' | 'extra-light' | 'light' | 'regular' | 'medium' | 'semibold' | 'bold' | 'extra-bold' | 'black'
+type FontStyle = 'normal' | 'italic' | 'oblique'
+interface FontVariant {
   title: string
   unicode?: string
   format?: 'woff' | 'woff2'
   isLocal?: boolean
   url?: `https://${string}` | `http://${string}`
 }
-export type FontType = {
+type FontType = {
   weights?: FontWeight[]
   styles?: FontStyle[]
   variants?: Record<string, FontVariant>
 }
 
-export interface Typography {
+interface Typography {
   defaultFontFamilies?: string[]
   fontMainPath?: string
   fontFormat?: 'woff' | 'woff2'
   fontWeights?: FontWeight[]
   fontStyles?: FontStyle[]
-  fontSizes?: Record<string, FontSize>
+  fontSizes?: Record<string, SizeUnit>
   textTruncate?: number
   fonts?: Record<string, FontType>
 }
 
 // Settings
-export type Breakpoints = Record<'sm' | 'md' | 'lg' | 'xl' | 'xxl', `${number}px` | `${number}rem` | `${number}em`>
-export type Wrappers = Record<
-  'sm' | 'md' | 'lg' | 'xl' | 'xxl',
-  {
-    width: `${number}px` | `${number}rem` | `${number}em`
-    padding?: `${number}px` | `${number}rem` | `${number}em`
-  }
->
-export type GutterValues = Record<'auto' | number, `${number}px` | `${number}rem` | `${number}em`>
-export interface Settings {
+interface Settings {
   axisDivisions?: number
   opacities?: number[]
   blurValues?: number[]
   insetValues?: number[]
   bordersValue?: number
   radiuses?: number[]
-  breakpoints?: Breakpoints
-  wrappers?: Wrappers
-  guttersValues?: GutterValues
+  breakpoints?: Record<'null' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl', 0 | SizeUnit>
+  wrappers?: Record<'null' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl', { width: SizeUnit; padding?: SizeUnit }>
+  guttersValues?: Record<'auto' | number, 'auto' | SizeUnit>
 }
 type RoleKeys =
   | 'useMediaQueries'
@@ -91,11 +75,25 @@ type RoleKeys =
   | 'useTextBorders'
   | 'useRadius'
 
-export type Roles = Partial<Record<RoleKeys, boolean>>
+type Roles = Partial<Record<RoleKeys, boolean>>
 
-export interface Theme {
+interface Theme {
   colors?: ColorType
   typography?: Typography
   settings?: Settings
   roles?: Roles
+}
+
+export type {
+  SizeUnit,
+  ColorType,
+  FontWeight,
+  FontStyle,
+  FontVariant,
+  FontType,
+  Typography,
+  Settings,
+  RoleKeys,
+  Roles,
+  Theme,
 }

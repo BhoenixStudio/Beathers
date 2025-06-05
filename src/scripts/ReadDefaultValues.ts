@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import fs from 'fs-extra'
-import { Breakpoints, ColorType, FontSize, FontType, GutterValues, Theme, Wrappers } from './types.js'
+import { ColorType, FontType, Settings, SizeUnit, Theme } from './types.js'
 
 function sanitize(val: any): any {
   if (typeof val === 'string') {
@@ -70,14 +70,14 @@ function buildColors(value: string): ColorType {
   return parsed
 }
 
-function buildWrappers(value: string): Wrappers {
+function buildWrappers(value: string): Settings['wrappers'] {
   const raw = value
     .replace(/\(/g, '{')
     .replace(/\)/g, '}')
-    .replace(/([a-zA-Z0-9_]+):\s*([0-9%px]+)\s+([0-9.]+rem)/g, '"$1": {"size": "$2", "padding": "$3"}')
+    .replace(/([a-zA-Z0-9_]+):\s*([0-9%px]+)\s+([0-9.]+rem)/g, '"$1": {"width": "$2", "padding": "$3"}')
     .replace(/,\s*}/g, '}')
 
-  const parsed: Wrappers = JSON.parse(raw)
+  const parsed: Settings['wrappers'] = JSON.parse(raw)
   return parsed
 }
 
@@ -97,10 +97,10 @@ export async function ReadDefaultValues(files: string[], VariableNames: string[]
         let result: any
         if (name === 'colors') result = buildColors(value)
         else if (name === 'fonts') result = buildJson<Record<string, FontType>>(value)
-        else if (name === 'fontSizes') result = buildJson<Record<string, FontSize>>(value)
-        else if (name === 'breakpoints') result = buildJson<Breakpoints>(value)
+        else if (name === 'fontSizes') result = buildJson<Record<string, SizeUnit>>(value)
+        else if (name === 'breakpoints') result = buildJson<Settings['breakpoints']>(value)
         else if (name === 'wrappers') result = buildWrappers(value)
-        else if (name === 'guttersValues') result = buildJson<GutterValues>(value)
+        else if (name === 'guttersValues') result = buildJson<Settings['guttersValues']>(value)
         else if (['true', 'false'].includes(value)) result = value === 'true'
         else if (
           [

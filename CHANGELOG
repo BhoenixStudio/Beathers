@@ -1,5 +1,29 @@
 # Changelog
 
+## [5.2.0] - 2025-06-05
+
+### Added
+
+- **Enhanced theme building system**: Complete refactor of `ReadDefaultValues.ts` with improved SCSS variable parsing
+- **Better default theme loading**: Added proper merging of default values with user configurations in `BuildTheme.ts`
+- **Improved type definitions**: Consolidated and organized type exports in `types.ts` for better developer experience
+- **Enhanced configuration handling**: Better support for nullish coalescing in `LoadUserConfigs.ts`
+- **More robust SCSS parsing**: Enhanced parsing logic for colors, fonts, breakpoints, and wrappers
+- **Better wrapper configuration**: Fixed wrapper property structure (size → width) for consistency
+
+### Changed
+
+- **Type system overhaul**: Moved from separate type exports to consolidated type definitions
+- **Better configuration merging**: Enhanced default theme loading and user config integration
+- **Improved code organization**: More consistent code structure across TypeScript files
+- **Enhanced error handling**: Better validation and error messages in configuration loading
+
+### Fixed
+
+- **Configuration parsing bugs**: Fixed various issues with SCSS variable parsing
+- **Type consistency**: Resolved type mismatches between different modules
+- **Wrapper configuration**: Fixed property naming inconsistency in wrapper settings
+
 ## [5.1.1] - 2025-06-05
 
 ### Fixed

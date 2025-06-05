@@ -16,7 +16,7 @@ async function loadJsOrTsConfig(filePath: string): Promise<Theme> {
   try {
     const absolutePath = path.resolve(filePath)
     const module = await import(absolutePath)
-    return module.default || module
+    return module.default ?? module
   } catch (error) {
     throw new Error(`Failed to load config from ${filePath}: ${error}`)
   }
@@ -32,7 +32,7 @@ function loadJsonConfig(filePath: string): Theme {
 }
 
 export async function LoadUserConfigs(projectPath?: string): Promise<Theme | null> {
-  const basePath = projectPath || process.cwd()
+  const basePath = projectPath ?? process.cwd()
 
   const configFilePath = findConfigFile(basePath)
   if (!configFilePath) return null
