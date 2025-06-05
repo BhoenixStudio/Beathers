@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.2.2] - 2025-06-05
+
+### Fixed
+
+- **README logo display**: Updated logo image source to use unpkg CDN for better compatibility and reliability on npm package page
+
 ## [5.2.1] - 2025-06-05
 
 ### Fixed
