@@ -1,7 +1,12 @@
-@use "sass:map";
-@use "sass:string";
-@use "../settings/configs" as configs;
-@use "../settings/index" as settings;
+@use 'sass:map';
+@use 'sass:string';
+@use '../variables' as vars;
+@use '../settings/defaults' as defs;
+@use '../settings/index' as settings;
+
+// Definitions
+$breakpoints: if(vars.$breakpoints, vars.$breakpoints, defs.$breakpoints);
+$useMediaQueries: if(vars.$useMediaQueries, vars.$useMediaQueries, settings.$useMediaQueries);
 
 // Breakpoint Mixin
 // --------------------------------------
@@ -10,7 +15,7 @@
 // it applies the content directly without a media query.
 //
 // @param {String} $type - The type of media query (e.g., "min", "max").
-// @param {String | Null} $key - The breakpoint key from `configs.$breakpoints` (e.g., "sm", "md", "lg").
+// @param {String | Null} $key - The breakpoint key from `$breakpoints` (e.g., "sm", "md", "lg").
 //                                If null or an empty string, content is applied directly.
 //
 // @content - Styles to be applied within the media query or directly.
@@ -51,9 +56,9 @@
 //
 @mixin mQ($type, $key) {
   // Retrieve the size value from the breakpoints map using the provided key
-  $size: map.get(configs.$breakpoints, $key);
+  $size: map.get($breakpoints, $key);
 
-  @if $size and $size > 0 and settings.$useMediaQueries {
+  @if $size and $size > 0 and $useMediaQueries {
     // Check if a valid size value exists
     // Generate the media query using the provided type and size
     @media (string.unquote("#{$type}-width"): $size) {
@@ -80,7 +85,7 @@
 // @example scss
 //   // In another file (e.g., _typographic.scss)
 //   @use "mediaQueries" as mQ;
-//   @use "configs";
+//   @use "defs";
 //
 //   @include mQ.multiSizes() using ($size, $divider) {
 //     $classPrefix: if($size, "#{$size}#{$divider}", "");
@@ -111,9 +116,9 @@
 //   }
 //
 @mixin multiSizes() {
-  @if settings.$useMediaQueries {
-    @each $size, $value in configs.$breakpoints {
-      $divider: if($size, #{\:}, "");
+  @if $useMediaQueries {
+    @each $size, $value in $breakpoints {
+      $divider: if($size, #{\:}, '');
 
       @include mQ(min, $size) {
         @content ($size, $divider);
@@ -121,7 +126,7 @@
     }
   } @else {
     $size: null;
-    $divider: "";
+    $divider: '';
 
     @content ($size, $divider);
   }

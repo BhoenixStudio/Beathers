@@ -6,9 +6,33 @@
 @use '../functions/validations' as val;
 @use '../settings/index' as settings;
 @use '../functions/others' as func;
+@use '../variables' as vars;
 
-@if settings.$useWrappers {
-  @each $wSize, $properties in configs.$wrappers {
+// Definitions
+$useWrappers: if(vars.$useWrappers, vars.$useWrappers, settings.$useWrappers);
+$wrappers: if(vars.$wrappers, vars.$wrappers, configs.$wrappers);
+$useShadows: if(vars.$useShadows, vars.$useShadows, settings.$useShadows);
+$useDisplays: if(vars.$useDisplays, vars.$useDisplays, settings.$useDisplays);
+$useOverflows: if(vars.$useOverflows, vars.$useOverflows, settings.$useOverflows);
+$useOpacities: if(vars.$useOpacities, vars.$useOpacities, settings.$useOpacities);
+$opacities: if(vars.$opacities, vars.$opacities, configs.$opacities);
+$useBlur: if(vars.$useBlur, vars.$useBlur, settings.$useBlur);
+$blurValues: if(vars.$blurValues, vars.$blurValues, configs.$blurValues);
+$useObjectFits: if(vars.$useObjectFits, vars.$useObjectFits, settings.$useObjectFits);
+$usePositions: if(vars.$usePositions, vars.$usePositions, settings.$usePositions);
+$useInsets: if(vars.$useInsets, vars.$useInsets, settings.$useInsets);
+$insetValues: if(vars.$insetValues, vars.$insetValues, configs.$insetValues);
+$useSizes: if(vars.$useSizes, vars.$useSizes, settings.$useSizes);
+$useGutters: if(vars.$useGutters, vars.$useGutters, settings.$useGutters);
+$guttersValues: if(vars.$guttersValues, vars.$guttersValues, configs.$guttersValues);
+$useBorders: if(vars.$useBorders, vars.$useBorders, settings.$useBorders);
+$bordersValue: if(vars.$bordersValue, vars.$bordersValue, configs.$bordersValue);
+$useTextBorders: if(vars.$useTextBorders, vars.$useTextBorders, settings.$useTextBorders);
+$useRadius: if(vars.$useRadius, vars.$useRadius, settings.$useRadius);
+$radiuses: if(vars.$radiuses, vars.$radiuses, configs.$radiuses);
+
+@if $useWrappers {
+  @each $wSize, $properties in $wrappers {
     $mainWSize: if($wSize, '#{$wSize}#{\:}wrapper', 'wrapper');
 
     $size: list.nth($properties, 1);
@@ -31,7 +55,7 @@
   }
 }
 
-@if settings.$useShadows {
+@if $useShadows {
   @include mQ.multiSizes() using ($size, $divider) {
     @each $class, $values in configs.$shadows {
       $x: map.get($values, x);
@@ -60,7 +84,7 @@
   }
 }
 
-@if settings.$useDisplays {
+@if $useDisplays {
   @include mQ.multiSizes() using ($size, $divider) {
     @each $display in configs.$displays {
       // Validate parameters
@@ -75,7 +99,7 @@
   }
 }
 
-@if settings.$useOverflows {
+@if $useOverflows {
   @include mQ.multiSizes() using ($size, $divider) {
     @each $dir in configs.$overflowsDirections {
       // Validate parameters
@@ -101,9 +125,9 @@
   }
 }
 
-@if settings.$useOpacities {
+@if $useOpacities {
   @include mQ.multiSizes() using ($size, $divider) {
-    @each $value in configs.$opacities {
+    @each $value in $opacities {
       $checkedValue: val.opacity(math.div($value, 100), 'Shaping.opacity');
 
       $mainClass: if($size, '#{$size}#{$divider}op', 'op');
@@ -119,10 +143,10 @@
   }
 }
 
-@if settings.$useBlur {
+@if $useBlur {
   @include mQ.multiSizes() using ($size, $divider) {
-    @each $value in configs.$blurValues {
-      $checkedValue: val.listItem(configs.$blurValues, $value, 'Shaping.blur');
+    @each $value in $blurValues {
+      $checkedValue: val.listItem($blurValues, $value, 'Shaping.blur');
 
       $mainClass: if($size, '#{$size}#{$divider}bg#{\:}blur', 'bg#{\:}blur');
       $calcValue: blur(#{$checkedValue}#{px});
@@ -138,7 +162,7 @@
   }
 }
 
-@if settings.$useObjectFits {
+@if $useObjectFits {
   @include mQ.multiSizes() using ($size, $divider) {
     @each $fit in configs.$objectsFits {
       // Validate parameters
@@ -153,7 +177,7 @@
   }
 }
 
-@if settings.$usePositions {
+@if $usePositions {
   @include mQ.multiSizes() using ($size, $divider) {
     @each $position in configs.$positions {
       // Validate parameters
@@ -168,9 +192,9 @@
   }
 }
 
-@if settings.$useInsets {
+@if $useInsets {
   @include mQ.multiSizes() using ($size, $divider) {
-    @each $value in configs.$insetValues {
+    @each $value in $insetValues {
       @each $position in configs.$insetPositions {
         // Validate parameters
         $checkedPosition: val.listItem(configs.$insetPositions, $position, 'Shaping.inset');
@@ -188,7 +212,7 @@
   }
 }
 
-@if settings.$useSizes {
+@if $useSizes {
   @include mQ.multiSizes() using ($size, $divider) {
     @each $dir, $direction in configs.$spacesDirections {
       // Validate parameters
@@ -221,7 +245,7 @@
   }
 }
 
-@if settings.$useGutters {
+@if $useGutters {
   @include mQ.multiSizes() using ($size, $divider) {
     @each $class, $property in configs.$gutters {
       // Validate parameters
@@ -257,7 +281,7 @@
       $mainClass: if($size, #{$size}#{$divider}#{$class}, $class);
 
       .#{$mainClass} {
-        @each $vClass, $value in configs.$guttersValues {
+        @each $vClass, $value in $guttersValues {
           &-#{$vClass} {
             @if $size {
               #{$property}: if($size, $value !important, $value);
@@ -277,9 +301,9 @@
   }
 }
 
-@if settings.$useBorders {
+@if $useBorders {
   @include mQ.multiSizes() using ($size, $divider) {
-    @for $i from 1 through configs.$bordersValue {
+    @each $i in $bordersValue {
       @each $dir, $property in configs.$bordersDirections {
         // Validate parameters
         $checkedDir: val.listItem((null, 'top', 'bottom', 'start', 'end'), $dir, 'Shaping.borders');
@@ -304,9 +328,9 @@
   }
 }
 
-@if settings.$useTextBorders {
+@if $useTextBorders {
   @include mQ.multiSizes() using ($size, $divider) {
-    @for $i from 1 through configs.$bordersValue {
+    @each $i in $bordersValue {
       $mainClass: if($size, '#{$size}#{$divider}stroke', 'stroke');
       $value: math.div($i, 10);
 
@@ -320,7 +344,7 @@
   }
 }
 
-@if settings.$useRadius {
+@if $useRadius {
   @include mQ.multiSizes() using ($size, $divider) {
     @each $dir, $properties in configs.$radiusDirection {
       // Validate parameters
@@ -339,7 +363,7 @@
             #{$property}: if($size, 100vw !important, 100vw);
           }
 
-          @each $value in configs.$radiuses {
+          @each $value in $radiuses {
             // Validate parameters
             $checkedProperty: val.listItem(
               (

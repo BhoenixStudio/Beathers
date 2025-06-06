@@ -1,9 +1,16 @@
-@use "sass:map";
-@use "../settings/defaults" as vars;
-@use "../functions/validations" as val;
-@use "../settings/configs" as configs;
-@use "../functions/colors" as colors;
-@use "../settings/index" as settings;
+@use 'sass:map';
+@use '../variables' as vars;
+@use '../settings/defaults' as defs;
+@use '../functions/validations' as val;
+@use '../settings/configs' as configs;
+@use '../functions/colors' as colors;
+@use '../settings/index' as settings;
+
+// Definitions
+$useColors: if(vars.$useColors, vars.$useColors, defs.$useColors);
+$useCurrentColors: if(vars.$useCurrentColors, vars.$useCurrentColors, defs.$useCurrentColors);
+$useRootColors: if(vars.$useRootColors, vars.$useRootColors, defs.$useRootColors);
+$colors: if(vars.$colors, vars.$colors, defs.$colors);
 
 // Colors System Module
 // --------------------------
@@ -23,14 +30,14 @@
 // @requires ../functions/colors.scss - For color utility functions and mixins
 // @requires ../settings/configs.scss - For configuration variables
 // @requires ../functions/validations.scss - For validation utilities
-// @requires ../settings/defaults.scss - For color definitions
+// @requires ../variables.scss - For color definitions
 
-@if settings.$useColors {
+@if $useColors {
   // Color Utility Classes
   // --------------------
   // Generate color utility classes from the main colors map.
   // Uses the useColorsMap mixin from colors functions to create a comprehensive
-  // set of color utilities for all the colors defined in vars.$colors.
+  // set of color utilities for all the colors defined in $colors.
   //
   // Generated classes include:
   // - .color-[colorName] - Sets text color
@@ -51,7 +58,7 @@
   @include colors.useColorsMap;
 }
 
-@if settings.$useCurrentColors {
+@if $useCurrentColors {
   // CurrentColor Utility Classes
   // ----------------------------
   // Creates utility classes for applying the CSS `currentColor` value to various CSS properties
@@ -73,13 +80,13 @@
   //   This text uses currentColor and background changes to currentColor on hover
   // </div>
   @each $class, $property in configs.$colorsPropertiesMap {
-    $mainClass: if($class, "#{$class}#{\:}current-color", "current-color");
+    $mainClass: if($class, '#{$class}#{\:}current-color', 'current-color');
 
     .#{$mainClass} {
       #{$property}: currentColor;
 
       @each $pseudoClass, $pseudo in configs.$colorsPseudoMap {
-        @if $pseudoClass != "placeholder" or ($pseudoClass == "placeholder" and $class == null) {
+        @if $pseudoClass != 'placeholder' or ($pseudoClass == 'placeholder' and $class == null) {
           &#{\:}#{$pseudoClass}#{$pseudo} {
             #{$property}: currentColor;
           }
@@ -89,14 +96,14 @@
   }
 }
 
-@if settings.$useRootColors {
+@if $useRootColors {
   // CSS Color Variables
   // ------------------
-  // Generates CSS custom properties (variables) for all colors in the vars.$colors map.
+  // Generates CSS custom properties (variables) for all colors in the $colors map.
   // These variables can be used throughout the application to ensure color consistency.
   //
   // The implementation:
-  // 1. Iterates through each color in the vars.$colors map
+  // 1. Iterates through each color in the $colors map
   // 2. Validates the color values through val.mapItem and val.hexColor functions
   // 3. Determines if light and dark variants are the same
   // 4. Creates appropriate CSS variables based on variant differences
@@ -116,17 +123,17 @@
   //   color: var(--color-accent);
   // }
   :root {
-    @each $color, $modes in vars.$colors {
+    @each $color, $modes in $colors {
       // Validate parameters
-      $checkedLight: val.mapItem($modes, "light", "light/dark", "root-colors()");
-      $checkedDark: val.mapItem($modes, "dark", "light/dark", "root-colors()");
+      $checkedLight: val.mapItem($modes, 'light', 'light/dark', 'root-colors()');
+      $checkedDark: val.mapItem($modes, 'dark', 'light/dark', 'root-colors()');
 
-      $light: map.get($modes, "light");
-      $dark: map.get($modes, "dark");
+      $light: map.get($modes, 'light');
+      $dark: map.get($modes, 'dark');
 
       // Validate colors
-      $checkedLightValue: val.hexColor("#{$color}.light", $light, "root-colors()");
-      $checkedDarkValue: val.hexColor("#{$color}.dark", $dark, "root-colors()");
+      $checkedLightValue: val.hexColor('#{$color}.light', $light, 'root-colors()');
+      $checkedDarkValue: val.hexColor('#{$color}.dark', $dark, 'root-colors()');
 
       @if ($light == $dark) {
         --color-#{$color}: #{$checkedLightValue};

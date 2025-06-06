@@ -1,8 +1,12 @@
 @use 'sass:string';
 @use 'sass:map';
-@use '../settings/defaults' as vars;
+@use '../variables' as vars;
+@use '../settings/defaults' as defs;
 @use '../functions/validations' as val;
 @use '../settings/configs' as configs;
+
+// Definitions
+$fontMainPath: if(vars.$fontMainPath, vars.$fontMainPath, defs.$fontMainPath);
 
 // Font Face Mixin
 // --------------------------------------
@@ -70,7 +74,7 @@
     @if ($isLocal) {
       src:
         local('#{$title}-#{$weight}'),
-        url(string.unquote('#{vars.$fontMainPath}#{$title}-#{$weight}.#{$format}')) format('#{$format}');
+        url(string.unquote('#{$fontMainPath}#{$title}-#{$weight}.#{$format}')) format('#{$format}');
     } @else {
       src: url(string.unquote('#{$externalUrl}'));
     }

@@ -1,7 +1,12 @@
-@use "./configs" as configs;
-@use "../settings/defaults" as vars;
-@use "../functions/colors" as colors;
-@use "../settings/index" as settings;
+@use './configs' as configs;
+@use '../variables' as vars;
+@use '../functions/colors' as colors;
+@use '../settings/index' as settings;
+
+// Definitions
+$useColors: if(vars.$useColors, vars.$useColors, settings.$useColors);
+$useColorsLightMode: if(vars.$useColorsLightMode, vars.$useColorsLightMode, settings.$useColorsLightMode);
+$useColorsDarkMode: if(vars.$useColorsDarkMode, vars.$useColorsDarkMode, settings.$useColorsDarkMode);
 
 html {
   scroll-behavior: smooth;
@@ -11,7 +16,7 @@ html {
 body {
   position: relative;
   /* stylelint-disable font-family-no-missing-generic-family-keyword */
-  font-family: "regular";
+  font-family: 'regular';
   overflow-x: hidden;
 }
 
@@ -43,17 +48,17 @@ a {
   text-decoration: unset;
 }
 
-@if settings.$useColors {
-  @if settings.$useColorsLightMode {
+@if $useColors {
+  @if $useColorsLightMode {
     .light::selection {
-      background-color: colors.useColorWithMap("custom-2");
-      color: colors.useColorWithMap("white");
+      background-color: colors.useColorWithMap('custom-2');
+      color: colors.useColorWithMap('white');
     }
   }
-  @if settings.$useColorsDarkMode {
+  @if $useColorsDarkMode {
     .dark::selection {
-      background-color: colors.useColorWithMap("custom-2", "dark");
-      color: colors.useColorWithMap("black");
+      background-color: colors.useColorWithMap('custom-2', 'dark');
+      color: colors.useColorWithMap('black');
     }
   }
 }
@@ -69,15 +74,15 @@ a {
     border-radius: 100vw;
   }
 }
-@if settings.$useColors {
-  @if settings.$useColorsLightMode {
+@if $useColors {
+  @if $useColorsLightMode {
     .light::-webkit-scrollbar-thumb {
-      background: colors.useColorWithMap("third");
+      background: colors.useColorWithMap('third');
     }
   }
-  @if settings.$useColorsDarkMode {
+  @if $useColorsDarkMode {
     .dark::-webkit-scrollbar-thumb {
-      background: colors.useColorWithMap("third", "dark");
+      background: colors.useColorWithMap('third', 'dark');
     }
   }
 }

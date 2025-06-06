@@ -3,7 +3,6 @@ import fs from 'fs-extra'
 import * as path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { BuildScssVariables } from './BuildScssVariables.js'
-import { CallNewVariables } from './CallNewVariables.js'
 import { LoadUserConfigs } from './LoadUserConfigs.js'
 import { DeepMerge } from './Merge.js'
 import { ReadDefaultValues } from './ReadDefaultValues.js'
@@ -68,7 +67,6 @@ export async function BuildTheme() {
     const variablesString = BuildScssVariables(theme)
 
     await fs.writeFile(variablesPath, variablesString, { flag: 'w' })
-    await CallNewVariables(projectRoot)
   } catch (error) {
     console.error('Error during custom theme build:', error)
     throw error

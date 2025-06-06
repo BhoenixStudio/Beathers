@@ -17,14 +17,6 @@ $colorsPseudoMap: (
   'focus': ':focus',
 );
 
-// Defines the default font stack.
-$defaultFontFamilies:
-  system-ui,
-  -apple-system,
-  Roboto,
-  Arial,
-  sans-serif !default;
-
 // Defines available font weights.
 $fontWeightsValues: (
   'thin': 100,
@@ -37,23 +29,6 @@ $fontWeightsValues: (
   'extra-bold': 800,
   'black': 900,
 );
-
-// Defines the typography scale for font sizes.
-$fontSizes: (
-  'h1': 96px,
-  'h2': 60px,
-  'h3': 40px,
-  'h4': 34px,
-  'h5': 24px,
-  'h6': 20px,
-  'subtitle1': 16px,
-  'subtitle2': 14px,
-  'body1': 16px,
-  'body2': 14px,
-  'button': 14px,
-  'caption': 12px,
-  'overline': 10px,
-) !default;
 
 // Defines text transformation and decoration options.
 $fontShapes: (
@@ -77,34 +52,11 @@ $fontShapes: (
 // Defines text alignment options.
 $aligns: (left, start, right, end, justify, center);
 
-// Defines the number of columns/rows in the grid system.
-$axisDivisions: 12 !default;
-
 // Defines flexbox properties.
 $flexProperties: (
   flex-wrap: wrap nowrap,
   flex-direction: row row-reverse column column-reverse,
 );
-
-// Defines responsive breakpoint values.
-$breakpoints: (
-  null: 0,
-  sm: 576px,
-  md: 768px,
-  lg: 992px,
-  xl: 1200px,
-  xxl: 1400px,
-) !default;
-
-// Defines container max-widths and padding at different breakpoints.
-$wrappers: (
-  null: 100% 1.5rem,
-  sm: 540px 2rem,
-  md: 720px 3rem,
-  lg: 960px 3rem,
-  xl: 1140px 2rem,
-  xxl: 1320px 2rem,
-) !default;
 
 // Defines display utility options.
 $displays: (inline, block, inline-block, flex, inline-flex, inline-grid, table, table-cell, none);
@@ -115,12 +67,6 @@ $overflowsDirections: (null, 'x', 'y');
 $overflows: (visible, hidden, auto, scroll);
 // Defines object-fit property values.
 $objectsFits: (cover, fill, contain, none);
-
-// Defines available opacity values.
-$opacities: (10, 20, 30, 40, 50, 60, 70, 80, 90, 100) !default;
-
-// Defines blur values for filter properties.
-$blurValues: (5, 10, 15, 25) !default;
 
 // Defines available cursor types.
 $cursors: (
@@ -226,11 +172,10 @@ $positions: static, relative, fixed, absolute, sticky;
 
 // Defines inset positioning options.
 $insetPositions: null, inline, block;
-// Defines default inset value.
-$insetValues: (0, 5, 15, 25) !default;
 
 // Defines the step for spacing utilities.
 $spacesStep: 5;
+
 // Defines properties for width and height utilities.
 $spacesDirections: (
   'w': width,
@@ -262,19 +207,6 @@ $gutters: (
   gy: row-gap,
 );
 
-// Defines values for gutter utilities.
-$guttersValues: (
-  auto: auto,
-  1: 0.25rem,
-  2: 0.5rem,
-  3: 0.75rem,
-  4: 1rem,
-  5: 1.5rem,
-  6: 2rem,
-) !default;
-
-// Defines the default border width.
-$bordersValue: 10 !default;
 // Defines border direction properties.
 $bordersDirections: (
   null: border,
@@ -283,9 +215,6 @@ $bordersDirections: (
   'start': border-inline-start,
   'end': border-inline-end,
 );
-
-// Defines available border-radius values.
-$radiuses: (5, 10, 15, 25) !default;
 
 // Defines border-radius direction properties.
 $radiusDirection: (

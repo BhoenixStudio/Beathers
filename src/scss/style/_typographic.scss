@@ -2,18 +2,32 @@
 @use 'sass:string';
 @use 'sass:map';
 @use 'sass:list';
-@use '../settings/defaults' as vars;
+@use '../variables' as vars;
 @use '../functions/validations' as val;
 @use '../functions/typographic' as typo;
 @use '../settings/configs' as configs;
 @use '../functions/mediaQueries' as mQ;
-@use '../settings/' as settings;
+@use '../settings/index' as settings;
+@use '../settings/defaults' as defs;
+
+// Definitions
+$useFontFamilies: if(vars.$useFontFamilies, vars.$useFontFamilies, settings.$useFontFamilies);
+$fonts: if(vars.$fonts, vars.$fonts, defs.$fonts);
+$fontWeights: if(vars.$fontWeights, vars.$fontWeights, defs.$fontWeights);
+$fontStyles: if(vars.$fontStyles, vars.$fontStyles, defs.$fontStyles);
+$defaultFontFamilies: if(vars.$defaultFontFamilies, vars.$defaultFontFamilies, defs.$defaultFontFamilies);
+$useFontSizes: if(vars.$useFontSizes, vars.$useFontSizes, settings.$useFontSizes);
+$fontSizes: if(vars.$fontSizes, vars.$fontSizes, defs.$fontSizes);
+$useFontShapes: if(vars.$useFontShapes, vars.$useFontShapes, settings.$useFontShapes);
+$useTextAligns: if(vars.$useTextAligns, vars.$useTextAligns, settings.$useTextAligns);
+$useTextTruncate: if(vars.$useTextTruncate, vars.$useTextTruncate, settings.$useTextTruncate);
+$textTruncate: if(vars.$textTruncate, vars.$textTruncate, defs.$textTruncate);
 
 // Typographic Utilities
 // --------------------------------------
 // This file generates various typographic utility classes and @font-face rules
 // based on the settings and variables defined in the project.
-// Each section can be enabled or disabled via the `settings.$use...` variables.
+// Each section can be enabled or disabled via the `$use...` variables.
 
 // Font Families & @font-face ----- ----- ----- -----
 //
@@ -21,14 +35,14 @@
 //   Generates @font-face rules based on the `vars.$fonts` map and
 //   corresponding utility classes for applying font families, weights, and styles.
 //   The generation of these rules and classes is controlled by the
-//   `settings.$useFontFamilies` boolean variable.
+//   `$useFontFamilies` boolean variable.
 //
-// @see settings.$useFontFamilies
+// @see $useFontFamilies
 // @see vars.$fonts
 // @see vars.$fontWeights
 // @see vars.$fontStyles
 // @see configs.$fontWeightsValues (for mapping weight names to numerical values)
-// @see configs.$defaultFontFamilies (for fallback fonts)
+// @see $defaultFontFamilies (for fallback fonts)
 // @see typo.font (mixin used for @font-face generation)
 // @see mQ.multiSizes (mixin used for responsive class generation)
 //
@@ -61,18 +75,18 @@
 //   // ... responsive versions if applicable ...
 //
 
-@if settings.$useFontFamilies {
+@if $useFontFamilies {
   // Font families ----- -----
   $fI: 0;
-  @each $fontKey, $font in vars.$fonts {
+  @each $fontKey, $font in $fonts {
     // Validate parameters
     $checkedFontKey: val.string($fontKey, 'Typographic.fonts.title');
     $checkedFont: val.map($font, 'Typographic.fonts');
 
     $weights: map.get($font, 'weights');
-    $weights: if($weights != null, map.get($font, 'weights'), vars.$fontWeights);
+    $weights: if($weights != null, map.get($font, 'weights'), $fontWeights);
     $styles: map.get($font, 'styles');
-    $styles: if($styles != null, map.get($font, 'styles'), vars.$fontStyles);
+    $styles: if($styles != null, map.get($font, 'styles'), $fontStyles);
     $variants: map.get($font, 'variants');
 
     // Validate parameters
@@ -115,7 +129,7 @@
           .#{$mainClass} {
             font-family:
               '#{$styleClass}',
-              configs.$defaultFontFamilies if($size, !important, null);
+              $defaultFontFamilies if($size, !important, null);
             font-weight: if($size, $weightValue !important, $weightValue);
             @if meta.type-of($styles) == 'list' and list.length($styles) > 0 {
               &.#{$style} {
@@ -136,22 +150,22 @@
 // @description
 //   Generates utility classes for applying predefined font sizes.
 //   The generation of these classes is controlled by the
-//   `settings.$useFontSizes` boolean variable.
-//   Font sizes are defined in `configs.$fontSizes`.
+//   `$useFontSizes` boolean variable.
+//   Font sizes are defined in `$fontSizes`.
 //   Responsive variants are generated using the `mQ.multiSizes` mixin.
 //
-// @see settings.$useFontSizes
-// @see configs.$fontSizes
+// @see $useFontSizes
+// @see $fontSizes
 // @see mQ.multiSizes
 //
 // @generatedClasses
 //   - Font size classes:
-//     - e.g., `.text-sm`, `.text-base`, `.text-lg` (based on keys in `configs.$fontSizes`)
+//     - e.g., `.text-sm`, `.text-base`, `.text-lg` (based on keys in `$fontSizes`)
 //   - Responsive font size classes:
 //     - e.g., `md:text-sm`, `lg:text-base`
 //
-// @example scss - Configuration in configs.$fontSizes
-//   configs.$fontSizes: (
+// @example scss - Configuration in $fontSizes
+//   $fontSizes: (
 //     sm: 0.875rem,
 //     base: 1rem
 //   );
@@ -161,9 +175,9 @@
 //   .text-base { font-size: 1rem; }
 //   // ... responsive versions if applicable ...
 //
-@if settings.$useFontSizes {
+@if $useFontSizes {
   @include mQ.multiSizes() using ($size, $divider) {
-    @each $fontSize, $value in configs.$fontSizes {
+    @each $fontSize, $value in $fontSizes {
       $mainClass: if($size, #{$size}#{$divider}#{$fontSize}, $fontSize);
 
       .#{$mainClass} {
@@ -179,11 +193,11 @@
 //   Generates utility classes for text transformations (e.g., uppercase, lowercase)
 //   and other font-related shape properties like `font-variant`.
 //   The generation of these classes is controlled by the
-//   `settings.$useFontShapes` boolean variable.
+//   `$useFontShapes` boolean variable.
 //   Shapes are defined in `configs.$fontShapes` and applied using the `typo.fontShapes` mixin.
 //   Responsive variants are generated using the `mQ.multiSizes` mixin.
 //
-// @see settings.$useFontShapes
+// @see $useFontShapes
 // @see configs.$fontShapes
 // @see typo.fontShapes
 // @see mQ.multiSizes
@@ -205,7 +219,7 @@
 //   .small-caps { font-variant: small-caps; }
 //   // ... responsive versions if applicable ...
 //
-@if settings.$useFontShapes {
+@if $useFontShapes {
   @include mQ.multiSizes() using ($size, $divider) {
     @each $type, $values in configs.$fontShapes {
       @each $value in $values {
@@ -220,11 +234,11 @@
 // @description
 //   Generates utility classes for text alignment (e.g., left, center, right).
 //   The generation of these classes is controlled by the
-//   `settings.$useTextAligns` boolean variable.
+//   `$useTextAligns` boolean variable.
 //   Alignments are defined in `configs.$aligns`.
 //   Responsive variants are generated using the `mQ.multiSizes` mixin.
 //
-// @see settings.$useTextAligns
+// @see $useTextAligns
 // @see configs.$aligns
 // @see mQ.multiSizes
 //
@@ -241,7 +255,7 @@
 //   .text-left { text-align: left; }
 //   // ... responsive versions if applicable ...
 //
-@if settings.$useTextAligns {
+@if $useTextAligns {
   @include mQ.multiSizes() using ($size, $divider) {
     @each $dir in configs.$aligns {
       // Validate parameters
@@ -260,22 +274,22 @@
 // @description
 //   Generates utility classes for multi-line text truncation (ellipsis).
 //   The generation of these classes is controlled by the
-//   `settings.$useTextTruncate` boolean variable.
-//   The maximum number of lines is controlled by `vars.$textTruncate`.
+//   `$useTextTruncate` boolean variable.
+//   The maximum number of lines is controlled by `$textTruncate`.
 //   Responsive variants are generated using the `mQ.multiSizes` mixin.
 //
-// @see settings.$useTextTruncate
-// @see vars.$textTruncate
+// @see $useTextTruncate
+// @see $textTruncate
 // @see mQ.multiSizes
 //
 // @generatedClasses
 //   - Text truncation classes:
-//     - e.g., `.text-lines:1`, `.text-lines:2`, ... up to `vars.$textTruncate`
+//     - e.g., `.text-lines:1`, `.text-lines:2`, ... up to `$textTruncate`
 //   - Responsive text truncation classes:
 //     - e.g., `md:text-lines:1`, `lg:text-lines:2`
 //
-// @example scss - Configuration in vars.$textTruncate
-//   vars.$textTruncate: 3;
+// @example scss - Configuration in $textTruncate
+//   $textTruncate: 3;
 //
 // @example css - Generated CSS (simplified for .text-lines:2)
 //   .text-lines\:2 { /* Note: CSS escapes the colon */
@@ -287,9 +301,9 @@
 //   }
 //   // ... responsive versions if applicable ...
 //
-@if settings.$useTextTruncate {
+@if $useTextTruncate {
   @include mQ.multiSizes() using ($size, $divider) {
-    @for $i from 1 through vars.$textTruncate {
+    @each $i in $textTruncate {
       $mainClass: if($size, '#{$size}#{$divider}text-lines#{\:}#{$i}', 'text-lines#{\:}#{$i}');
 
       .#{$mainClass} {

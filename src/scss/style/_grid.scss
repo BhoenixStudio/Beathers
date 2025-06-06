@@ -3,8 +3,13 @@
 @use '../functions/validations' as val;
 @use '../settings/index' as settings;
 @use '../functions/others' as func;
+@use '../variables' as vars;
 
-@if settings.$useGrid {
+// Definitions
+$useGrid: if(vars.$useGrid, vars.$useGrid, settings.$useGrid);
+$useFlex: if(vars.$useFlex, vars.$useFlex, settings.$useFlex);
+
+@if $useGrid {
   .grid {
     display: grid;
 
@@ -15,7 +20,7 @@
   }
 }
 
-@if settings.$useFlex {
+@if $useFlex {
   .flex {
     display: flex;
     flex-direction: row;
@@ -56,7 +61,7 @@
   }
 }
 
-@if settings.$useFlex or settings.$useGrid {
+@if $useFlex or $useGrid {
   @include mQ.multiSizes() using ($size, $divider) {
     @each $way, $selections in configs.$justify {
       @each $selection, $properties in $selections {

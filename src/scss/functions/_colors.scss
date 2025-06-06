@@ -5,8 +5,16 @@
 @use 'sass:map';
 @use '../settings/configs' as configs;
 @use '../settings/index' as settings;
-@use '../settings/defaults' as vars;
+@use '../variables' as vars;
+@use '../settings/defaults' as defs;
 @use '../functions/validations' as val;
+
+// Definitions
+$colors: if(vars.$colors, vars.$colors, defs.$colors);
+$opacities: if(vars.$opacities, vars.$opacities, defs.$opacities);
+$useColorsLightMode: if(vars.$useColorsLightMode, vars.$useColorsLightMode, settings.$useColorsLightMode);
+$useColorsDarkMode: if(vars.$useColorsDarkMode, vars.$useColorsDarkMode, settings.$useColorsDarkMode);
+$useColorsOpacities: if(vars.$useColorsOpacities, vars.$useColorsOpacities, settings.$useColorsOpacities);
 
 // Color Convertors ----- ----- ----- -----
 //
@@ -48,13 +56,13 @@
 // @param {String} $color - The color key to retrieve from the map
 // @param {String} $mode - Optional mode, must be 'light' or 'dark' (default: 'light')
 // @param {Number} $opacity - Optional opacity value between 0 and 100 (default: 100)
-// @param {Map} $map - Optional color map to use (defaults to vars.$colors)
+// @param {Map} $map - Optional color map to use (defaults to $colors)
 // @return {Color} - The color value, possibly with applied opacity
 // @throws {Error} - If mode is provided but isn't 'light' or 'dark'
 // @throws {Error} - If opacity is provided but isn't a number between 0 and 100
 //
 // @example scss
-//   // Using default color map (vars.$colors)
+//   // Using default color map ($colors)
 //   color: useColor('primary', 'light', 0.5);
 //   // Returns the light variant of primary color with 50% opacity
 //
@@ -76,7 +84,7 @@
   }
 }
 
-@function useColorWithMap($color, $mode: 'light', $opacity: 100, $map: vars.$colors) {
+@function useColorWithMap($color, $mode: 'light', $opacity: 100, $map: $colors) {
   // Validate parameters
   $checkedMap: val.map($map, 'useColorWithMap().map');
 
@@ -137,7 +145,7 @@
   $checkedDarkValue: val.hexColor('#{$colorClass}.dark', $dark, 'root-colors()');
 
   @if $dark != $light {
-    @if (settings.$useColorsLightMode) {
+    @if ($useColorsLightMode) {
       .light .#{$colorClass},
       .#{$colorClass}.light,
       .light\:#{$colorClass} {
@@ -145,7 +153,7 @@
       }
     }
 
-    @if (settings.$useColorsDarkMode) {
+    @if ($useColorsDarkMode) {
       .dark .#{$colorClass},
       .#{$colorClass}.dark,
       .dark\:#{$colorClass} {
@@ -164,7 +172,7 @@
 // @mixin useColorsMap
 // --------------------------------------
 // Creates color utility classes using useColor() function for theme variant handling
-// @param {Map} $map - The color map to use (e.g., vars.$colors)
+// @param {Map} $map - The color map to use (e.g., $colors)
 // @param {Boolean} $withOpacity - Whether to generate opacity variants (default: true)
 // @throws {Error} - If $map is not a valid map
 //
@@ -177,7 +185,7 @@
 //   // With optional opacity variants like :50, :75
 //   // With pseudo-class variants like :hover, :focus
 //
-@mixin useColorsMap($map: vars.$colors, $withOpacity: true) {
+@mixin useColorsMap($map: $colors, $withOpacity: true) {
   // Validate parameters
   $checkedMap: val.map($map, 'useColorsMap()');
   $checkedWithOpacity: val.boolean($withOpacity, 'useColorsMap()');
@@ -189,8 +197,8 @@
 
         @include useColorProperty($mainClass, $class, $property, $modes, $map);
 
-        @if $checkedWithOpacity and settings.$useColorsOpacities {
-          @each $opacity in configs.$opacities {
+        @if $checkedWithOpacity and $useColorsOpacities {
+          @each $opacity in $opacities {
             @include useColorProperty('#{$mainClass}#{\:}#{$opacity}', $class, $property, $modes, $map, $opacity);
           }
         }
@@ -199,9 +207,9 @@
           @if $pseudoClass != 'placeholder' or ($pseudoClass == 'placeholder' and $class == null) {
             @include useColorProperty('#{$mainClass}#{\:}#{$pseudoClass}#{$pseudo}', $class, $property, $modes, $map);
 
-            @if $checkedWithOpacity and settings.$useColorsOpacities {
+            @if $checkedWithOpacity and $useColorsOpacities {
               /* stylelint-disable max-nesting-depth */
-              @each $opacity in configs.$opacities {
+              @each $opacity in $opacities {
                 @include useColorProperty(
                   '#{$mainClass}#{\:}#{$opacity}#{\:}#{$pseudoClass}#{$pseudo}',
                   $class,
