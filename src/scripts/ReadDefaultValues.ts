@@ -106,15 +106,17 @@ export async function ReadDefaultValues(files: string[], VariableNames: string[]
           [
             'fontWeights',
             'fontStyles',
+            'textTruncate',
             'opacities',
             'blurValues',
             'radiuses',
             'defaultFontFamilies',
             'insetValues',
+            'bordersValue',
           ].includes(name)
         )
           result = buildArray(value)
-        else if (['textTruncate', 'axisDivisions', 'bordersValue'].includes(name)) result = cleanNumber(value)
+        else if (['axisDivisions'].includes(name)) result = cleanNumber(value)
         else result = cleanString(value)
 
         variables[name] = result

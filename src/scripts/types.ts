@@ -2,7 +2,7 @@
 type SizeUnit = `${number}px` | `${number}rem` | `${number}em` | `${number}vw` | `${number}vh` | `${number}%`
 
 // Color Types
-type ColorType = Record<string, { light: `#${string}`; dark: `#${string}` }>
+type ColorType = Record<string, { light?: `#${string}`; dark?: `#${string}` }>
 
 // Font Types
 type FontWeight = 'thin' | 'extra-light' | 'light' | 'regular' | 'medium' | 'semibold' | 'bold' | 'extra-bold' | 'black'
@@ -27,7 +27,7 @@ interface Typography {
   fontWeights?: FontWeight[]
   fontStyles?: FontStyle[]
   fontSizes?: Record<string, SizeUnit>
-  textTruncate?: number
+  textTruncate?: number[]
   fonts?: Record<string, FontType>
 }
 
@@ -37,7 +37,7 @@ interface Settings {
   opacities?: number[]
   blurValues?: number[]
   insetValues?: number[]
-  bordersValue?: number
+  bordersValue?: number[]
   radiuses?: number[]
   breakpoints?: Record<'null' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl', 0 | SizeUnit>
   wrappers?: Record<'null' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl', { width: SizeUnit; padding?: SizeUnit }>

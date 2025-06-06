@@ -36,7 +36,7 @@ export function BuildScssVariables(theme: Theme): string {
       }
       scss += ');\n'
     }
-    if (typography?.textTruncate) scss += `$textTruncate: ${typography.textTruncate};\n`
+    if (typography?.textTruncate?.length) scss += `$textTruncate: ${typography.textTruncate.join(', ')};\n`
     if (typography?.fonts) {
       scss += '$fonts: (\n'
       for (const [name, font] of Object.entries(typography.fonts)) {
@@ -68,7 +68,7 @@ export function BuildScssVariables(theme: Theme): string {
     if (settings?.opacities) scss += `$opacities: (${settings.opacities.join(', ')});\n`
     if (settings?.blurValues) scss += `$blurValues: (${settings.blurValues.join(', ')});\n`
     if (settings?.insetValues) scss += `$insetValues: (${settings.insetValues.join(', ')});\n`
-    if (settings?.bordersValue) scss += `$bordersValue: ${settings.bordersValue};\n`
+    if (settings?.bordersValue) scss += `$bordersValue: (${settings.bordersValue.join(', ')});\n`
     if (settings?.radiuses) scss += `$radiuses: (${settings.radiuses.join(', ')});\n`
     if (settings?.breakpoints) {
       scss += `$breakpoints: (\n`
