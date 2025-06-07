@@ -87,12 +87,16 @@ $useColorsOpacities: if(
   $checkedMode: val.colorMode($mode, 'useColor()');
   $checkedOpacity: val.colorOpacity($opacity, 'useColor()');
 
-  $value: map.get($color, $mode);
+  @if $color {
+    $value: map.get($color, $mode);
 
-  @if $checkedOpacity {
-    @return hexToRgba($value, math.div($opacity, 100), 'useColor().#{$value}');
+    @if $checkedOpacity {
+      @return hexToRgba($value, math.div($opacity, 100), 'useColor().#{$value}');
+    } @else {
+      @return $value;
+    }
   } @else {
-    @return $value;
+    @return null;
   }
 }
 

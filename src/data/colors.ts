@@ -1,5 +1,20 @@
 import { Theme } from '../scripts/types.js'
 
+export const basicColors: Theme['colors'] = {
+  black: { light: '#000000', dark: '#000000' },
+  white: { light: '#ffffff', dark: '#ffffff' },
+  gray: { light: '#808080', dark: '#808080' },
+  red: { light: '#ff0000', dark: '#ff0000' },
+  green: { light: '#00ff00', dark: '#00ff00' },
+  blue: { light: '#0000ff', dark: '#0000ff' },
+  yellow: { light: '#ffff00', dark: '#ffff00' },
+  orange: { light: '#ffa500', dark: '#ffa500' },
+  purple: { light: '#800080', dark: '#800080' },
+  teal: { light: '#008080', dark: '#008080' },
+  silver: { light: '#c0c0c0', dark: '#c0c0c0' },
+  gold: { light: '#ffd700', dark: '#ffd700' },
+}
+
 export const socialColors: Theme['colors'] = {
   facebook: { light: '#3b5998', dark: '#3b5998' },
   messenger: { light: '#006aff', dark: '#006aff' },

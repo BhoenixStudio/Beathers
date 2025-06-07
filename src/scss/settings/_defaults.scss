@@ -68,15 +68,7 @@ $colors: (
   'info': (
     'light': #0c8181,
     'dark': #49d1d1,
-  ),
-  'black': (
-    'light': #000000,
-    'dark': #000000,
-  ),
-  'white': (
-    'light': #ffffff,
-    'dark': #ffffff,
-  ),
+  )
 ) !default;
 
 // Typography
@@ -87,7 +79,7 @@ $fontMainPath: '/fonts/' !default;
 $fontFormat: 'woff2' !default;
 $fontWeights: ('light', 'regular', 'medium', 'bold') !default;
 $fontStyles: ('normal') !default;
-$textTruncate: (1, 2, 3, 4, 5) !default;
+$textTruncate: (1, 2, 3) !default;
 
 // Defines the default font stack.
 $defaultFontFamilies:
@@ -171,16 +163,16 @@ $guttersValues: (
 ) !default;
 
 // Defines available opacity values.
-$opacities: (10, 20, 30, 40, 50, 60, 70, 80, 90, 100) !default;
+$opacities: (15, 25, 50, 70) !default;
 
 // Defines blur values for filter properties.
-$blurValues: (5, 10, 15, 25) !default;
+$blurValues: (3, 8, 15) !default;
 
 // Defines default inset value.
-$insetValues: (0, 5, 15, 25) !default;
+$insetValues: (0, 5) !default;
 
 // Defines the default border width.
-$bordersValue: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10) !default;
+$bordersValue: (1, 2, 3) !default;
 
 // Defines available border-radius values.
-$radiuses: (5, 10, 15, 25) !default;
+$radiuses: (5, 10) !default;
