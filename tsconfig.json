@@ -9,7 +9,9 @@
     "resolveJsonModule": true,
     "declaration": true,
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "emitDeclarationOnly": true,
+    "allowImportingTsExtensions": true
   },
   "ts-node": {
     "esm": true,
