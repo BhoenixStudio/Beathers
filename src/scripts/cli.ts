@@ -199,7 +199,7 @@ async function initCommand() {
       content = `export default ${JSON.stringify(defaultValues, null, 2)}`
     } else content = `export default ${JSON.stringify(emptyTemplate, null, 2)}`
   } else if (format === 'ts') {
-    const importLine = "import { Theme } from 'beathers'\n\n"
+    const importLine = "import type { Theme } from 'beathers'\n\n"
 
     if (includeStarterValues) {
       const defaultValues = await getDefaultValues()
