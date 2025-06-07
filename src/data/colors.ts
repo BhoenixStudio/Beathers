@@ -51,3 +51,9 @@ export const customColors: Theme['colors'] = {
   'custom-9': { light: '#eb30a0', dark: '#e779bb' },
   'custom-10': { light: '#1e24a5', dark: '#5d64ea' },
 }
+
+export const colorsList = {
+  'Basic colors': basicColors,
+  'Social colors': socialColors,
+  'Custom colors': customColors,
+}
