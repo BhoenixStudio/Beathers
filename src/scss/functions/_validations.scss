@@ -7,7 +7,7 @@
 @use '../settings/configs' as configs;
 
 // Definitions
-$opacities: if(vars.$opacities, vars.$opacities, defs.$opacities);
+$opacities: if(meta.variable-exists('vars.$opacities') and vars.$opacities, vars.$opacities, defs.$opacities);
 
 // Basics validations functions
 
@@ -217,6 +217,8 @@ $opacities: if(vars.$opacities, vars.$opacities, defs.$opacities);
 // @return {*} The original opacity value if it's valid.
 // @error If the opacity value is not in `$opacities`.
 @function colorOpacity($opacity, $in: null) {
+  // @debug $opacities;
+
   @if $opacity != null and not(list.index($opacities, $opacity)) {
     $in: if($in != null, ' | in #{$in}', '.');
     @error '❌ Error at "validate.colorOpacity()": Invalid color property value | Expected one of (#{$opacities}), but got "#{$opacity}"#{$in}';

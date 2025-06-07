@@ -1,3 +1,4 @@
+@use 'sass:meta';
 @use '../functions/mediaQueries' as mQ;
 @use '../settings/configs' as configs;
 @use '../functions/validations' as val;
@@ -6,8 +7,8 @@
 @use '../variables' as vars;
 
 // Definitions
-$useGrid: if(vars.$useGrid, vars.$useGrid, settings.$useGrid);
-$useFlex: if(vars.$useFlex, vars.$useFlex, settings.$useFlex);
+$useGrid: if(meta.variable-exists('vars.$useGrid') and vars.$useGrid, vars.$useGrid, settings.$useGrid);
+$useFlex: if(meta.variable-exists('vars.$useFlex') and vars.$useFlex, vars.$useFlex, settings.$useFlex);
 
 @if $useGrid {
   .grid {

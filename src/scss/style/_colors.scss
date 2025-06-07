@@ -1,3 +1,4 @@
+@use 'sass:meta';
 @use 'sass:map';
 @use '../variables' as vars;
 @use '../settings/defaults' as defs;
@@ -7,10 +8,18 @@
 @use '../settings/index' as settings;
 
 // Definitions
-$useColors: if(vars.$useColors, vars.$useColors, defs.$useColors);
-$useCurrentColors: if(vars.$useCurrentColors, vars.$useCurrentColors, defs.$useCurrentColors);
-$useRootColors: if(vars.$useRootColors, vars.$useRootColors, defs.$useRootColors);
-$colors: if(vars.$colors, vars.$colors, defs.$colors);
+$useColors: if(meta.variable-exists('vars.$useColors') and vars.$useColors, vars.$useColors, settings.$useColors);
+$useCurrentColors: if(
+  meta.variable-exists('vars.$useCurrentColors') and vars.$useCurrentColors,
+  vars.$useCurrentColors,
+  settings.$useCurrentColors
+);
+$useRootColors: if(
+  meta.variable-exists('vars.$useRootColors') and vars.$useRootColors,
+  vars.$useRootColors,
+  settings.$useRootColors
+);
+$colors: if(meta.variable-exists('vars.$colors') and vars.$colors, vars.$colors, defs.$colors);
 
 // Colors System Module
 // --------------------------

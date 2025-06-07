@@ -1,10 +1,15 @@
+@use 'sass:meta';
 @use 'sass:map';
 @use '../variables' as vars;
 @use '../settings/defaults' as defs;
 @use '../functions/validations' as val;
 
 // Definitions
-$axisDivisions: if(vars.$axisDivisions, vars.$axisDivisions, defs.$axisDivisions);
+$axisDivisions: if(
+  meta.variable-exists('vars.$axisDivisions') and vars.$axisDivisions,
+  vars.$axisDivisions,
+  defs.$axisDivisions
+);
 
 // @function shadowValue
 // @description Converts a unitless number to a pixel value for shadows, unless the value is 0.
