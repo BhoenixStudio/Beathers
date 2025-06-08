@@ -1,4 +1,4 @@
-import { Theme } from '../types.js'
+import { Theme } from '@types'
 
 export function BuildScssVariables(theme: Theme): string {
   const { colors, roles, settings, typography } = theme

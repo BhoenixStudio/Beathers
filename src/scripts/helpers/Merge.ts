@@ -1,4 +1,4 @@
-import { Theme } from '../types.js'
+import { Theme } from '@types'
 
 export function DeepMerge(defaults: Partial<Theme>, configs: Partial<Theme> | null): Theme {
   if (!configs) return defaults as Theme

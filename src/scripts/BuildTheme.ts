@@ -1,11 +1,8 @@
 /* eslint-disable no-console */
+import { BuildScssVariables, DeepMerge, LoadUserConfigs, ReadDefaultValues } from '@helpers'
 import fs from 'fs-extra'
 import * as path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { BuildScssVariables } from './helpers/BuildScssVariables.js'
-import { LoadUserConfigs } from './helpers/LoadUserConfigs.js'
-import { DeepMerge } from './helpers/Merge.js'
-import { ReadDefaultValues } from './helpers/ReadDefaultValues.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)

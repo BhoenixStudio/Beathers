@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 /* eslint-disable no-console */
 
+import { BuildTheme } from '@/BuildTheme.js'
+import { colorsList, importedFont, localFont } from '@data'
+import { ReadDefaultValues } from '@helpers'
+import { FontType, Theme } from '@types'
 import fs from 'fs-extra'
-import path from 'path'
 import { fileURLToPath } from 'node:url'
-import { BuildTheme } from './BuildTheme.js'
-import { ReadDefaultValues } from './helpers/ReadDefaultValues.js'
-import { Theme, FontType } from './types.js'
-import { colorsList } from '../data/colors.js'
-import { localFont, importedFont } from '../data/font.js'
+import path from 'path'
 
 const commands = {
   build: { description: 'Build theme from configuration files', examples: ['beathers build'] },

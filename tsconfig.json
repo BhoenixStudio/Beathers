@@ -9,7 +9,14 @@
     "resolveJsonModule": true,
     "declaration": true,
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "paths": {
+      "@/*": ["./src/scripts/*"],
+      "@data": ["./src/data/index.js"],
+      "@helpers": ["./src/scripts/helpers/index.js"],
+      "@commands": ["./src/scripts/commands/index.js"],
+      "@types": ["./src/scripts/types.ts"]
+    }
   },
   "ts-node": {
     "esm": true,
