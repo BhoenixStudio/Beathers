@@ -100,9 +100,9 @@ export async function saveConfig(filePath: string, config: Theme): Promise<void>
 }
 
 // Commands
+export * from './build.js'
+export * from './colors.js'
+export * from './fonts.js'
 export * from './help.js'
 export * from './init.js'
 export * from './version.js'
-export * from './build.js'
-export * from './fonts.js'
-export * from './colors.js'

@@ -1,30 +1,23 @@
 /* eslint-disable no-console */
 
-const commands = {
-  build: { description: 'Build theme from configuration files', examples: ['beathers build'] },
-  init: { description: 'Initialize beathers configuration file', examples: ['beathers init'] },
-  'import-font-sample': {
-    description: 'Import sample font to user config file',
-    examples: ['beathers import-font-sample'],
-  },
-  'add-font': { description: 'Add a new font to the config file', examples: ['beathers add-font'] },
-  'remove-font': { description: 'Remove a font from the config file', examples: ['beathers remove-font <fontName>'] },
-  'import-color-pack': {
-    description: 'Import a color pack to user config file',
-    examples: ['beathers import-color-pack'],
-  },
-  'import-color': {
-    description: 'Import a specific color to user config file',
-    examples: ['beathers import-color <colorName>'],
-  },
-  'add-color': { description: 'Add a new color to the config file', examples: ['beathers add-color'] },
-  'remove-color': {
-    description: 'Remove a color from user config file',
-    examples: ['beathers remove-color <colorName>'],
-  },
-  version: { description: 'Show version information', examples: ['beathers -v', 'beathers --version'] },
-  help: { description: 'Show help information', examples: ['beathers --help'] },
-}
+import { CommandKey } from '@commandsList'
+
+const commands: { cmd?: Exclude<CommandKey, '--version'>; description?: string; divider?: boolean }[] = [
+  { cmd: '--help', description: 'Show available commands' },
+  { cmd: '-v', description: 'Show beathers version' },
+  { divider: true },
+  { cmd: 'init', description: 'Initialize beathers configuration file' },
+  { cmd: 'build', description: 'Build theme from configuration file' },
+  { divider: true },
+  { cmd: 'add-font', description: 'Add a new font to the configuration file' },
+  { cmd: 'remove-font', description: 'Remove a font from the configuration file' },
+  { cmd: 'import-font-sample', description: 'Import sample font to configuration file' },
+  { divider: true },
+  { cmd: 'add-color', description: 'Add a new color to the configuration file' },
+  { cmd: 'remove-color', description: 'Remove a color from configuration file' },
+  { cmd: 'import-color-pack', description: 'Import a color pack to configuration file' },
+  { cmd: 'import-color', description: 'Import a specific color to configuration file' },
+]
 
 export function Help() {
   console.log('\n🎨 Beathers CLI - Design System Builder\n')
@@ -34,13 +27,11 @@ export function Help() {
     ['-------', '-----------', '--------'],
   ]
 
-  Object.entries(commands).forEach(([cmd, info]) => {
-    table.push([cmd, info.description, info.examples[0]])
-    if (info.examples.length > 1) {
-      info.examples.slice(1).forEach((example) => {
-        table.push(['', '', example])
-      })
-    }
+  commands.forEach(({ cmd, description, divider }) => {
+    const example = `npx beathers ${cmd}`
+    if (cmd && description) table.push([cmd, description, example])
+    if (cmd === '-v') table.push(['', '', 'npx beathers --version'])
+    if (divider) table.push(['', '', ''])
   })
 
   const maxLengths = table[0].map((_, colIndex) => Math.max(...table.map((row) => row[colIndex].length)))

@@ -15,6 +15,7 @@
       "@data": ["./src/data/index.js"],
       "@helpers": ["./src/scripts/helpers/index.js"],
       "@commands": ["./src/scripts/commands/index.js"],
+      "@commandsList": ["./src/scripts/commands/list.js"],
       "@types": ["./src/scripts/types.ts"]
     }
   },
