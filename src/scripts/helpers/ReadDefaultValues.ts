@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import fs from 'fs-extra'
-import { ColorType, FontType, Settings, SizeUnit, Theme } from './types.js'
+import { ColorType, FontType, Settings, SizeUnit, Theme } from '../types.js'
 
 function sanitize(val: any): any {
   if (typeof val === 'string') {
