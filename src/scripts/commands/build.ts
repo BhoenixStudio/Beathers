@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
+
 import { BuildScssVariables, DeepMerge, LoadUserConfigs, ReadDefaultValues } from '@helpers'
 import fs from 'fs-extra'
-import * as path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import path from 'path'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -55,7 +56,7 @@ async function defaultTheme() {
   return values
 }
 
-export async function BuildTheme() {
+async function BuildTheme() {
   try {
     const defaults = await defaultTheme()
     const userConfigs = await LoadUserConfigs()
@@ -67,6 +68,17 @@ export async function BuildTheme() {
   } catch (error) {
     console.error('Error during custom theme build:', error)
     throw error
+  }
+}
+
+export async function Build() {
+  try {
+    console.log('🎨 Building Beathers theme...')
+    await BuildTheme()
+    console.log('✅ Theme built successfully!')
+  } catch (error) {
+    console.error('❌ Error building theme:', error)
+    process.exit(1)
   }
 }
 
