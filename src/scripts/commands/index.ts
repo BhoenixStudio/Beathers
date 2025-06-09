@@ -34,17 +34,15 @@ export async function promptSelection<T extends string>(question: string, option
   const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
 
   console.log(question)
-  options.forEach((option, index) => {
-    console.log(`  ${index + 1}. ${option}`)
-  })
+  options.forEach((option, index) => console.log(`  ${index + 1}. ${option}`))
+  
 
   return new Promise((resolve) => {
-    rl.question('Enter your choice (number): ', (answer) => {
+    rl.question('Enter your choice (number):', (answer) => {
       rl.close()
       const choice = parseInt(answer.trim()) - 1
-      if (choice >= 0 && choice < options.length) {
-        resolve(options[choice])
-      } else {
+      if (choice >= 0 && choice < options.length) resolve(options[choice])
+      else {
         console.log('❌ Invalid choice. Using first option as default.')
         resolve(options[0])
       }

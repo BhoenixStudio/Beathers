@@ -14,9 +14,9 @@ async function getDefaultValues(): Promise<Theme> {
 
   return (await ReadDefaultValues(
     [
-      path.join(projectRoot, 'src', 'scss', 'settings', '_defaults.scss'),
-      path.join(projectRoot, 'src', 'scss', 'settings', '_configs.scss'),
-      path.join(projectRoot, 'src', 'scss', 'settings', '_index.scss'),
+      path.join(projectRoot, 'scss', 'settings', '_defaults.scss'),
+      path.join(projectRoot, 'scss', 'settings', '_configs.scss'),
+      path.join(projectRoot, 'scss', 'settings', '_index.scss'),
     ],
     [
       'colors',

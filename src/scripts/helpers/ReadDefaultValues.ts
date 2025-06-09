@@ -64,8 +64,10 @@ function buildColors(value: string): ColorType {
   const raw = value
     .replace(/\(/g, '{')
     .replace(/\)/g, '}')
+    .replace(/'/g, '"')
     .replace(/#([0-9a-fA-F]{3,6})/g, '"#$1"')
     .replace(/,\s*}/g, '}')
+    .replace(/\n\s*/g, '')
 
   const parsed: ColorType = JSON.parse(raw)
   return parsed
