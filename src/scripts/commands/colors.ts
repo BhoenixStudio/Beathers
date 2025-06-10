@@ -3,7 +3,7 @@
 import { findConfigFile, loadConfig, promptInput, promptSelection, saveConfig } from '@commands'
 import { colorsList } from '@data'
 
-export async function AddColor(): Promise<void> {
+export async function AddColors(): Promise<void> {
   const configFile = await findConfigFile()
   if (!configFile) {
     console.error('❌ No config file found. Run "beathers init" first.')
@@ -11,65 +11,68 @@ export async function AddColor(): Promise<void> {
   }
 
   try {
-    const colorName = await promptInput('🎨 Enter color name: ')
+    const config = await loadConfig(configFile)
+    config.colors ??= {}
+
+    while (true) {
+      const colorName = await promptInput('🎨 Enter color name (or type "finish" to end): ')
+      if (!colorName || colorName.toLowerCase() === 'finish') break
+
+      const lightColor = await promptInput('☀️ Enter light mode color (hex, e.g., #ffffff): ')
+      const darkColor = await promptInput('🌙 Enter dark mode color (hex, e.g., #000000): ')
+
+      if (!lightColor && !darkColor) {
+        console.error('❌ At least one color (light or dark) is required.')
+        continue
+      }
+
+      const hexPattern = /^#[0-9A-Fa-f]{6}$/
+      if (lightColor && !hexPattern.test(lightColor)) {
+        console.error('❌ Invalid light color format. Use hex format like #ffffff')
+        continue
+      }
+      if (darkColor && !hexPattern.test(darkColor)) {
+        console.error('❌ Invalid dark color format. Use hex format like #000000')
+        continue
+      }
+
+      config.colors[colorName] = {
+        ...(lightColor && { light: lightColor as `#${string}` }),
+        ...(darkColor && { dark: darkColor as `#${string}` }),
+      }
+
+      console.log(`✅ Color "${colorName}" added.`)
+    }
+
+    await saveConfig(configFile, config)
+    console.log('✅ All colors added successfully!')
+  } catch (error) {
+    console.error('❌ Error adding colors:', error)
+  }
+}
+
+export async function RemoveColor(): Promise<void> {
+  const configFile = await findConfigFile()
+  if (!configFile) {
+    console.error('❌ No config file found. Run "beathers init" first.')
+    return
+  }
+
+  try {
+    const config = await loadConfig(configFile)
+
+    if (!config.colors || Object.keys(config.colors).length === 0) {
+      console.error('❌ No colors found in config.')
+      return
+    }
+
+    const colorName = await promptInput('Enter color name to remove: ')
     if (!colorName) {
       console.error('❌ Color name is required.')
       return
     }
 
-    const lightColor = await promptInput('☀️ Enter light mode color (hex, e.g., #ffffff): ')
-    const darkColor = await promptInput('🌙 Enter dark mode color (hex, e.g., #000000): ')
-
-    if (!lightColor && !darkColor) {
-      console.error('❌ At least one color (light or dark) is required.')
-      return
-    }
-
-    // Validate hex colors
-    const hexPattern = /^#[0-9A-Fa-f]{6}$/
-    if (lightColor && !hexPattern.test(lightColor)) {
-      console.error('❌ Invalid light color format. Use hex format like #ffffff')
-      return
-    }
-    if (darkColor && !hexPattern.test(darkColor)) {
-      console.error('❌ Invalid dark color format. Use hex format like #000000')
-      return
-    }
-    const config = await loadConfig(configFile)
-
-    config.colors ??= {}
-
-    config.colors[colorName] = {
-      ...(lightColor && { light: lightColor as `#${string}` }),
-      ...(darkColor && { dark: darkColor as `#${string}` }),
-    }
-
-    await saveConfig(configFile, config)
-    console.log(`✅ Color "${colorName}" added successfully!`)
-  } catch (error) {
-    console.error('❌ Error adding color:', error)
-  }
-}
-
-export async function RemoveColor(): Promise<void> {
-  const args = process.argv.slice(2)
-  const colorName = args[1]
-
-  if (!colorName) {
-    console.error('❌ Color name is required. Usage: beathers remove-color <colorName>')
-    return
-  }
-
-  const configFile = await findConfigFile()
-  if (!configFile) {
-    console.error('❌ No config file found. Run "beathers init" first.')
-    return
-  }
-
-  try {
-    const config = await loadConfig(configFile)
-
-    if (!config.colors?.[colorName]) {
+    if (!config.colors[colorName]) {
       console.error(`❌ Color "${colorName}" not found in config.`)
       return
     }
@@ -91,7 +94,7 @@ export async function ImportColorPack(): Promise<void> {
   }
 
   try {
-    const packName = await promptSelection('🎨 Choose a color pack:', Object.keys(colorsList))
+    const packName = await promptSelection('Choose a color pack:', Object.keys(colorsList))
     const selectedPack = colorsList[packName as keyof typeof colorsList]
 
     const config = await loadConfig(configFile)
@@ -108,14 +111,6 @@ export async function ImportColorPack(): Promise<void> {
 }
 
 export async function ImportColor(): Promise<void> {
-  const args = process.argv.slice(2)
-  const colorName = args[1]
-
-  if (!colorName) {
-    console.error('❌ Color name is required. Usage: beathers import-color <colorName>')
-    return
-  }
-
   const configFile = await findConfigFile()
   if (!configFile) {
     console.error('❌ No config file found. Run "beathers init" first.')
@@ -123,10 +118,26 @@ export async function ImportColor(): Promise<void> {
   }
 
   try {
+    const packName = await promptSelection('Choose a color pack:', Object.keys(colorsList))
+
+    if (!packName) {
+      console.error('❌ Color pack is required.')
+      return
+    }
+
+    const colorName = await promptSelection(
+      'Choose a color to import:',
+      Object.keys(colorsList[packName as keyof typeof colorsList])
+    )
+
+    if (!colorName) {
+      console.error('❌ Color name is required.')
+      return
+    }
+
     let foundColor = null
     let foundInPack = ''
 
-    // Search for color in all packs
     for (const [packName, pack] of Object.entries(colorsList)) {
       if (pack[colorName]) {
         foundColor = pack[colorName]
@@ -143,10 +154,9 @@ export async function ImportColor(): Promise<void> {
       })
       return
     }
+
     const config = await loadConfig(configFile)
-
     config.colors ??= {}
-
     config.colors[colorName] = foundColor
 
     await saveConfig(configFile, config)

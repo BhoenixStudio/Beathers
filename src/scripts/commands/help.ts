@@ -13,7 +13,7 @@ const commands: { cmd?: Exclude<CommandKey, '--version'>; description?: string; 
   { cmd: 'remove-font', description: 'Remove a font from the configuration file' },
   { cmd: 'import-font-sample', description: 'Import sample font to configuration file' },
   { divider: true },
-  { cmd: 'add-color', description: 'Add a new color to the configuration file' },
+  { cmd: 'add-colors', description: 'Add a new colors to the configuration file' },
   { cmd: 'remove-color', description: 'Remove a color from configuration file' },
   { cmd: 'import-color-pack', description: 'Import a color pack to configuration file' },
   { cmd: 'import-color', description: 'Import a specific color to configuration file' },

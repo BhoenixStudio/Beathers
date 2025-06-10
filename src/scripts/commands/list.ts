@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import {
-  AddColor,
+  AddColors,
   AddFont,
   Build,
   Help,
@@ -23,7 +23,7 @@ const commands: Record<string, () => void | Promise<void>> = {
   'add-font': async () => await AddFont(),
   'remove-font': async () => await RemoveFont(),
   'import-font-sample': async () => await ImportFont(),
-  'add-color': async () => await AddColor(),
+  'add-colors': async () => await AddColors(),
   'remove-color': async () => await RemoveColor(),
   'import-color-pack': async () => await ImportColorPack(),
   'import-color': async () => await ImportColor(),
@@ -52,7 +52,7 @@ export type CommandKey =
   | 'add-font'
   | 'remove-font'
   | 'import-font-sample'
-  | 'add-color'
+  | 'add-colors'
   | 'remove-color'
   | 'import-color-pack'
   | 'import-color'
