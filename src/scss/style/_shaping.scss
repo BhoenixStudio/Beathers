@@ -326,7 +326,6 @@ $radiuses: if(meta.variable-exists('vars.$radiuses') and vars.$radiuses, vars.$r
             } @else {
               #{$property}: $value;
 
-              /* stylelint-disable max-nesting-depth */
               &\:i {
                 /* stylelint-disable declaration-no-important */
                 #{$property}: $value !important;

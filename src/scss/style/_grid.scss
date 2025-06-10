@@ -76,7 +76,6 @@ $useFlex: if(meta.variable-exists('vars.$useFlex') and vars.$useFlex, vars.$useF
             $flexValue: #{$flexPrefix}#{$value};
 
             &#{$property} {
-              /* stylelint-disable max-nesting-depth */
               &.flex {
                 #{$way}-#{$selection}: if($size, $flexValue !important, $flexValue);
               }

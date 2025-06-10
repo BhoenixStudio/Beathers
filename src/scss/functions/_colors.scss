@@ -224,7 +224,6 @@ $useColorsOpacities: if(
             @include useColorProperty('#{$mainClass}#{\:}#{$pseudoClass}#{$pseudo}', $class, $property, $modes, $map);
 
             @if $checkedWithOpacity and $useColorsOpacities {
-              /* stylelint-disable max-nesting-depth */
               @each $opacity in $opacities {
                 @include useColorProperty(
                   '#{$mainClass}#{\:}#{$opacity}#{\:}#{$pseudoClass}#{$pseudo}',
