@@ -1,20 +1,23 @@
 /* eslint-disable no-console */
 
 import { BuildScssVariables, DeepMerge, LoadUserConfigs, ReadDefaultValues } from '@helpers'
+import { exec } from 'child_process'
 import fs from 'fs-extra'
 import { fileURLToPath } from 'node:url'
 import path from 'path'
+import { promisify } from 'util'
 
+const execAsync = promisify(exec)
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const projectRoot = path.resolve(__dirname, '../..')
-const variablesPath = path.join(projectRoot, 'src', 'scss', '_variables.scss')
+const variablesPath = path.join(projectRoot, 'scss', '_variables.scss')
 
 async function defaultTheme() {
   let values = null
   try {
     values = await ReadDefaultValues(
-      [path.join(projectRoot, 'src', 'scss', 'settings', '_index.scss')],
+      [path.join(projectRoot, 'scss', 'settings', '_index.scss')],
       [
         'useMediaQueries',
         'useIcons',
@@ -65,6 +68,9 @@ async function BuildTheme() {
     const variablesString = BuildScssVariables(theme)
 
     await fs.writeFile(variablesPath, variablesString, { flag: 'w' })
+    console.log(`✅ Theme built successfully at: ${variablesPath}`)
+
+    await execAsync('npm run build:compressed')
   } catch (error) {
     console.error('Error during custom theme build:', error)
     throw error
@@ -75,7 +81,6 @@ export async function Build() {
   try {
     console.log('🎨 Building Beathers theme...')
     await BuildTheme()
-    console.log('✅ Theme built successfully!')
   } catch (error) {
     console.error('❌ Error building theme:', error)
     process.exit(1)

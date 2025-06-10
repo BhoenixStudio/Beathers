@@ -13,11 +13,11 @@
     "build:compressed": "sass --style compressed --source-map --embed-sources --no-error-css src/scss/:dist/css/",
     "build:expanded": "sass --style expanded --source-map --embed-sources --no-error-css src/scss/:dist/css/",
     "build:test": "tsx src/scripts/cli.ts",
-    "build:publish": "rimraf dist && tsc && pnpm build:compressed",
+    "build:publish": "rimraf dist && tsc && npm run build:compressed",
     "lint": "eslint . && stylelint \"**/*.scss\"",
     "lint:fix": "eslint . --fix && stylelint \"**/*.scss\" --fix",
     "format:check": "prettier --check --ignore-path .gitignore .",
-    "format:fix": "prettier --write --ignore-path .gitignore . && pnpm lint"
+    "format:fix": "prettier --write --ignore-path .gitignore . && npm run lint"
   },
   "keywords": [
     "design-system",
