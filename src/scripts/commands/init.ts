@@ -72,22 +72,26 @@ async function getDefaultValues(): Promise<Theme> {
 }
 
 export async function Init() {
-  const format = await promptSelection('📁 Choose config format:', ['json', 'js', 'ts'] as const)
+  const format = await promptSelection('\x1b[36m📁 Choose config format:\x1b[0m', ['json', 'js', 'ts'] as const)
   const formatMap = { json: 'beathers.configs.json', js: 'beathers.configs.js', ts: 'beathers.configs.ts' } as const
 
   const fileName = formatMap[format]
   const filePath = path.join(process.cwd(), fileName)
 
   if (await fs.pathExists(filePath)) {
-    const shouldOverride = await promptUser(`⚠️  ${fileName} already exists. Do you want to override it? (Y/N): `)
+    const shouldOverride = await promptUser(
+      `\x1b[33m⚠️  ${fileName} already exists. Do you want to override it?\x1b[0m\n\x1b[32m[Y]\x1b[0m Yes \x1b[31m[N]\x1b[0m No: `
+    )
 
     if (!shouldOverride) {
-      console.log('❌ Operation aborted.')
+      console.log('❌ Operation canceled.')
       return
     }
   }
 
-  const includeStarterValues = await promptUser('📝 Would you like to include starter configuration values? (Y/N): ')
+  const includeStarterValues = await promptUser(
+    '\x1b[36m📝 Would you like to include starter configuration values?\x1b[0m\n\x1b[32m[Y]\x1b[0m Yes \x1b[31m[N]\x1b[0m No: '
+  )
 
   const emptyTemplate = {
     colors: {},
@@ -134,6 +138,6 @@ export async function Init() {
   }
 
   await fs.writeFile(filePath, content)
-  const starterText = includeStarterValues ? ' with starter configuration values' : ''
-  console.log(`✅ Created ${fileName}${starterText}`)
+  const starterText = includeStarterValues ? ' with starter values' : ''
+  console.log(`✅ Successfully created \x1b[32m${fileName}\x1b[0m${starterText}`)
 }

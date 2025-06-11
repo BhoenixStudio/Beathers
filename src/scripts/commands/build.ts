@@ -53,7 +53,7 @@ async function defaultTheme() {
       ]
     )
   } catch (error) {
-    console.error('❌ buildCustomTheme failed:', error instanceof Error ? error.message : error)
+    console.error('❌ Failed to read default theme configuration:', error instanceof Error ? error.message : error)
     process.exit(1)
   }
 
@@ -62,17 +62,19 @@ async function defaultTheme() {
 
 async function BuildTheme(customOutputPath?: string) {
   try {
+    console.log('📦 Loading theme configuration...')
     const defaults = await defaultTheme()
     const userConfigs = await LoadUserConfigs()
 
+    console.log('🔄 Building theme variables...')
     const theme = DeepMerge(defaults, userConfigs)
     const variablesString = BuildScssVariables(theme)
 
     await fs.writeFile(variablesPath, variablesString, { flag: 'w' })
-    console.log(`✅ Theme built successfully at: ${variablesPath}`)
+    console.log(`✅ Theme variables generated: ${variablesPath}`)
 
     console.log('')
-    console.log('✅ Compile custom theme...')
+    console.log('🔨 Compiling SCSS to CSS...')
 
     let buildCommand = 'npm run build'
 
@@ -83,22 +85,22 @@ async function BuildTheme(customOutputPath?: string) {
       await fs.ensureDir(outputPath)
 
       buildCommand = `sass --style compressed --source-map --embed-sources --no-error-css src/scss/:${outputPath}/`
-      console.log(`📁 Custom output path: ${outputPath}`)
+      console.log(`📁 Output directory: ${outputPath}`)
     }
 
     const { stdout } = await execAsync(buildCommand)
 
-    console.log('✅ build completed successfully')
-    if (stdout) console.log('📝 Build output:', stdout.trim())
+    console.log('✅ Theme compilation completed successfully!')
+    if (stdout) console.log('📋 Build details:', stdout.trim())
   } catch (error) {
-    console.error('Error during custom theme build:', error)
+    console.error('❌ Failed to build theme:', error)
     throw error
   }
 }
 
 export async function Build() {
   try {
-    console.log('🎨 Building Beathers theme...')
+    console.log('🎨 Building \x1b[36mBeathers\x1b[0m theme...')
 
     // Check if --local flag is provided
     const args = process.argv.slice(2)
@@ -108,17 +110,17 @@ export async function Build() {
 
     if (hasLocalFlag) {
       console.log('🏠 Local build mode enabled')
-      customOutputPath = await promptInput('📁 Enter the output path (e.g., public/css): ')
+      customOutputPath = await promptInput('📁 Output path (e.g., public/css): ')
 
       if (!customOutputPath) {
-        console.error('❌ Output path is required when using --local flag.')
+        console.error('❌ Please provide an output path when using \x1b[33m--local\x1b[0m flag.')
         process.exit(1)
       }
     }
 
     await BuildTheme(customOutputPath)
   } catch (error) {
-    console.error('❌ Error building theme:', error)
+    console.error('❌ Failed to build theme:', error)
     process.exit(1)
   }
 }
@@ -129,20 +131,20 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   if (args.includes('--local')) {
     console.log('🏠 Local build mode enabled')
     const { promptInput } = await import('@commands')
-    const customOutputPath = await promptInput('📁 Enter the output path (e.g., public/css): ')
+    const customOutputPath = await promptInput('📁 Output path (e.g., public/css): ')
 
     if (!customOutputPath) {
-      console.error('❌ Output path is required when using --local flag.')
+      console.error('❌ Please provide an output path when using \x1b[33m--local\x1b[0m flag.')
       process.exit(1)
     }
 
     BuildTheme(customOutputPath).catch((error) => {
-      console.error(error)
+      console.error('❌ Build failed:', error)
       process.exit(1)
     })
   } else
     BuildTheme().catch((error) => {
-      console.error(error)
+      console.error('❌ Build failed:', error)
       process.exit(1)
     })
 }

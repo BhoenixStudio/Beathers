@@ -35,8 +35,8 @@ export function Commands(args: any) {
   const list: Record<string, () => void | Promise<void>> = {
     ...commands,
     default: () => {
-      console.error(`❌ Unknown command: ${args[0]}`)
-      console.log('\nUse "beathers --help" to see available commands.')
+      console.error(`❌ Command not found: "${args[0]}"`)
+      console.log('💡 Run "\x1b[34mbeathers --help\x1b[0m" to see all available commands.')
       process.exit(1)
     },
   }

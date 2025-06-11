@@ -13,7 +13,7 @@ Improve all `console.log` outputs to be more `user-friendly`, `professional`, an
 ### Formatting:
 
 1. ✅ Keep emojis, but keep them minimal and meaningful.
-2. 🎨 Use color for interactive elements like questions (e.g., cyan, green, or yellow). depend on the meaning of the question.
+2. 🎨 Use color for interactive elements like questions and commands usage (e.g., cyan, green, or yellow). depend on the meaning of the message/question.
 3. Format yes/no questions like:
 
    ```md

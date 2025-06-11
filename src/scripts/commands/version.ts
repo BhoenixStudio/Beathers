@@ -5,10 +5,11 @@ import path from 'path'
 
 export function Version() {
   const packagePath = path.join(process.cwd(), 'package.json')
+
   try {
     const packageInfo = fs.readJsonSync(packagePath)
-    console.log(`Beathers v${packageInfo.version}`)
+    console.log(`📦 \x1b[34mbeathers\x1b[0m v${packageInfo.version}`)
   } catch {
-    console.log('Beathers CLI')
+    console.log('📦 \x1b[34mbeathers\x1b[0m CLI')
   }
 }

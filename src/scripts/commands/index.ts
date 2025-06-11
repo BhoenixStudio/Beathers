@@ -1,8 +1,8 @@
+/* eslint-disable no-console */
+
 import { Theme } from '@types'
 import fs from 'fs-extra'
 import path from 'path'
-
-/* eslint-disable no-console */
 
 // Functions
 export async function promptUser(question: string): Promise<boolean> {
