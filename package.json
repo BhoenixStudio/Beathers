@@ -77,6 +77,7 @@
     "dist/**/*.{js,d.ts}",
     "src/scss/**/*.scss",
     "public/images/logo.png",
+    "CHANGELOG",
     "readme.md"
   ]
 }
