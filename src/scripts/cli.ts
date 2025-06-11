@@ -4,7 +4,10 @@ import { Commands } from '@commandsList'
 
 async function main() {
   const args = process.argv.slice(2)
-  const command = args[0] ?? 'build'
+
+  let command = args[0] ?? 'build'
+  if (command.startsWith('--local')) command = 'build'
+
   const commands = Commands(args)
 
   const action = commands[command] ?? commands.default

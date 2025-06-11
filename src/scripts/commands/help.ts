@@ -41,8 +41,8 @@ export function Help() {
     console.log(formattedRow)
   })
 
-  // console.log('\nFlags:')
-  // console.log('  --help                Show this help message')
-  // console.log('  -v, --version         Show version information')
+  console.log('\nFlags:')
+  console.log("  --local               Build with user's custom output path (use with build command)")
+  console.log('                        Example: npx beathers build --local')
   console.log()
 }

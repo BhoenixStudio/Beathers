@@ -20,6 +20,7 @@ const commands: Record<string, () => void | Promise<void>> = {
   '--version': () => Version(),
   init: async () => await Init(),
   build: async () => await Build(),
+  '--local': async () => await Build(),
   'add-font': async () => await AddFont(),
   'remove-font': async () => await RemoveFont(),
   'import-font-sample': async () => await ImportFont(),
