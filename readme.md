@@ -42,6 +42,34 @@ Generate your custom CSS from the configuration:
 npx beathers build
 ```
 
+### CLI Commands
+
+Beathers provides a comprehensive set of CLI commands to manage your design system:
+
+#### Configuration
+
+- `npx beathers init` - Initialize a new configuration file
+- `npx beathers build` - Build theme from configuration
+- `npx beathers build --local` - Build with custom output path
+
+#### Font Management
+
+- `npx beathers add-font` - Add a new font to your configuration
+- `npx beathers remove-font` - Remove a font from your configuration
+- `npx beathers import-font-sample` - Import a sample font configuration
+
+#### Color Management
+
+- `npx beathers add-colors` - Add new colors to your configuration
+- `npx beathers remove-color` - Remove a color from your configuration
+- `npx beathers import-color-pack` - Import a complete color pack from available packs
+- `npx beathers import-color` - Import a specific color from available packs
+
+#### Help & Information
+
+- `npx beathers --help` - Show all available commands
+- `npx beathers --version` - Show current version
+
 ### Import in Your Project
 
 **CSS Import (Recommended):**

@@ -1,5 +1,29 @@
 # Changelog
 
+## [5.3.0] - 2025-06-12
+
+### Added
+
+- **Custom output path**: Added support for custom output path in build command for more flexible project structures
+- **Import commands**: New CLI import commands for colors and fonts to streamline workflow
+- **Enhanced console messaging**: Improved console.log messages across all commands for better user experience and clarity
+- **Type definitions enhancement**: Extended type definitions for typography and settings with new properties for font configurations, grid settings, and utility features
+
+### Changed
+
+- **Code organization**: Moved functions to helper folder for better code structure and maintainability
+- **CLI cleanup**: Cleaned up CLI file structure for improved readability and maintenance
+- **Build script refactoring**: Refactored build scripts and removed stylelint configuration
+- **Path mapping**: Improved module importing with better path mapping
+
+### Fixed
+
+- **Colors commands**: Fixed `add`, `remove` and `import` commands for colors
+- **Fonts commands**: Fixed `add`, `remove` and `import` commands for fonts
+- **Colors duplication**: Resolved issues with color duplication
+- **Default colors reading**: Fixed reading of default color values
+- **Help functions**: Updated and improved help command functions
+
 ## [5.2.2] - 2025-06-05
 
 ### Fixed
