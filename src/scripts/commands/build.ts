@@ -70,7 +70,12 @@ async function BuildTheme() {
     await fs.writeFile(variablesPath, variablesString, { flag: 'w' })
     console.log(`✅ Theme built successfully at: ${variablesPath}`)
 
-    await execAsync('npm run build:compressed')
+    console.log('')
+    console.log('✅ Compile custom theme...')
+    const { stdout } = await execAsync('npm run build')
+
+    console.log('🔃 build completed successfully')
+    if (stdout) console.log('📝 Build output:', stdout.trim())
   } catch (error) {
     console.error('Error during custom theme build:', error)
     throw error
