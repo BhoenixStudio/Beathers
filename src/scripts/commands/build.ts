@@ -76,17 +76,23 @@ async function BuildTheme(customOutputPath?: string) {
     console.log('')
     console.log('🔨 Compiling SCSS to CSS...')
 
-    let buildCommand = 'npm run build:pack'
+    const userProjectRoot = process.cwd()
+    const scssSourcePath = path.join(projectRoot, 'scss')
+
+    let outputPath: string
 
     if (customOutputPath) {
-      const userProjectRoot = process.cwd()
-      const outputPath = path.join(userProjectRoot, customOutputPath)
-
-      await fs.ensureDir(outputPath)
-
-      buildCommand = `sass --style compressed --source-map --embed-sources --no-error-css dist/scss/:${outputPath}/`
-      console.log(`📁 Output directory: ${outputPath}`)
+      outputPath = path.join(userProjectRoot, customOutputPath)
+      console.log(`📁 Custom output directory: ${outputPath}`)
+    } else {
+      outputPath = path.join(userProjectRoot, 'beathers/dist/css')
+      console.log(`📁 Default output directory: ${outputPath}`)
     }
+
+    await fs.ensureDir(outputPath)
+
+    // Use sass directly with the correct paths
+    const buildCommand = `sass --style compressed --source-map --embed-sources --no-error-css "${scssSourcePath}":"${outputPath}"`
 
     const { stdout } = await execAsync(buildCommand)
 
