@@ -1,5 +1,18 @@
 # Changelog
 
+## [5.4.0] - 2025-06-12
+
+### Changed
+
+- **BREAKING CHANGE**: Removed `dist` folder from package structure for cleaner imports
+- **Import paths**: Updated import paths from `beathers/dist/css/beathers.min.css` to `beathers/css/beathers.min.css`
+- **Package structure**: Moved CSS files from `dist/css/` to `css/` and SCSS files from `dist/scss/` to `scss/`
+- **Build scripts**: Updated all build and CLI scripts to work with new folder structure
+
+### Fixed
+
+- **Package exports**: Updated package.json exports to reflect new structure without `dist` folder
+
 ## [5.3.6] - 2025-06-12
 
 ### Fixed
@@ -26,14 +39,14 @@
 ### Fixed
 
 - **Module exports**: Added CSS and SCSS files to package exports to fix "Module not found" error when importing CSS files
-- **Import paths**: Fixed package.json exports field to properly expose dist/css/_ and dist/scss/_ files
+- **Import paths**: Fixed package.json exports field to properly expose css/_ and scss/_ files
 
 ## [5.3.2] - 2025-06-12
 
 ### Fixed
 
 - **CLI version display**: Fixed version command to show correct package version (5.3.2) instead of incorrect version
-- **NPM package structure**: Fixed SCSS file paths in distributed package by copying source SCSS files to dist/scss/ directory
+- **NPM package structure**: Fixed SCSS file paths in distributed package by copying source SCSS files to scss/ directory
 
 ## [5.3.1] - 2025-06-12
 

@@ -3,9 +3,14 @@
 Thumbs.db
 
 # Ignore build artifacts
-/build
-/dist
 /node_modules
+/css
+/scss
+/scripts
+/data
+index.js
+index.d.ts
+index.d.ts.map
 
 # Ignore package managers
 /npm-debug.log

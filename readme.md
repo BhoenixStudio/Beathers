@@ -77,21 +77,21 @@ Beathers provides a comprehensive set of CLI commands to manage your design syst
 
 ```css
 /* Import the compiled CSS */
-@import 'node_modules/beathers/dist/css/beathers.min.css';
+@import 'node_modules/beathers/css/beathers.min.css';
 ```
 
 **SCSS Import:**
 
 ```scss
 // Import the entire library
-@import 'node_modules/beathers/dist/scss/beathers.min.scss';
+@import 'node_modules/beathers/scss/beathers.min.scss';
 
 // Or import specific modules
-@import 'node_modules/beathers/dist/scss/functions/colors';
-@import 'node_modules/beathers/dist/scss/style/grid';
+@import 'node_modules/beathers/scss/functions/colors';
+@import 'node_modules/beathers/scss/style/grid';
 
 // Or import using @use with changing variables
-@use 'node_modules/beathers/dist/scss/beathers.min.scss' with (
+@use 'node_modules/beathers/scss/beathers.min.scss' with (
   $colors: (
     1: (
       'light': '#000000',
@@ -105,7 +105,7 @@ Beathers provides a comprehensive set of CLI commands to manage your design syst
 
 ```javascript
 // Next.js, React, Vue, Angular
-import 'beathers/dist/css/beathers.min.css'
+import 'beathers/css/beathers.min.css'
 ```
 
 ### Example Configuration

@@ -21,7 +21,7 @@ let variablesPath: string
 if (isInstalledPackage) {
   const userProjectRoot = process.cwd()
   packageRoot = path.join(userProjectRoot, 'node_modules', 'beathers')
-  variablesPath = path.join(packageRoot, 'dist', 'scss', '_variables.scss')
+  variablesPath = path.join(packageRoot, 'scss', '_variables.scss')
 } else {
   packageRoot = path.resolve(projectRoot, '..')
   // Write variables to src location for development builds
@@ -91,9 +91,7 @@ async function BuildTheme(customOutputPath?: string) {
     console.log('🔨 Compiling SCSS to CSS...')
 
     const userProjectRoot = process.cwd()
-    const scssSourcePath = isInstalledPackage
-      ? path.join(packageRoot, 'dist', 'scss')
-      : path.join(projectRoot, '../dist/scss')
+    const scssSourcePath = isInstalledPackage ? path.join(packageRoot, 'scss') : path.join(projectRoot, '../scss')
 
     let outputPath: string
 
@@ -101,7 +99,7 @@ async function BuildTheme(customOutputPath?: string) {
       outputPath = path.join(userProjectRoot, customOutputPath)
       console.log(`📁 Custom output directory: ${outputPath}`)
     } else {
-      outputPath = isInstalledPackage ? path.join(packageRoot, 'dist', 'css') : path.join(projectRoot, '../dist/css')
+      outputPath = isInstalledPackage ? path.join(packageRoot, 'css') : path.join(projectRoot, '../css')
       console.log(`📁 Default output directory: ${outputPath}`)
     }
 

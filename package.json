@@ -3,28 +3,29 @@
   "version": "5.3.6",
   "type": "module",
   "description": "Beather is a lightweight SCSS library that serves as a comprehensive design system for your projects. It offers a structured and consistent approach to manage colors, fonts, and other design related variables, making it easier to maintain a cohesive visual identity across your application.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./index.js",
+      "require": "./index.js",
+      "types": "./index.d.ts"
     },
-    "./dist/css/beathers.min.css": "./dist/css/beathers.min.css",
-    "./dist/css/beathers-icons.min.css": "./dist/css/beathers-icons.min.css",
-    "./dist/css/*": "./dist/css/*",
-    "./dist/scss/*": "./dist/scss/*",
+    "./css/beathers.min.css": "./css/beathers.min.css",
+    "./css/beathers-icons.min.css": "./css/beathers-icons.min.css",
+    "./css/*": "./css/*",
+    "./scss/*": "./scss/*",
     "./package.json": "./package.json"
   },
   "bin": {
-    "beathers": "dist/scripts/cli.js"
+    "beathers": "scripts/cli.js"
   },
   "scripts": {
     "watch": "nodemon --watch src/scss/ --ext scss --exec \"npm-run-all build:pack\"",
-    "build:pack": "sass --style compressed --source-map --embed-sources --no-error-css src/scss/:dist/css/",
+    "build:pack": "sass --style compressed --source-map --embed-sources --no-error-css src/scss/:css/",
     "build:test": "tsx src/scripts/cli.ts",
-    "build:publish": "rimraf dist && tsc && copyfiles -u 1 \"src/scss/**/*\" dist/ && npm run build:pack",
+    "build:clean": "rimraf css scss && rimraf index.js index.d.ts index.d.ts.map && rimraf data scripts",
+    "build:publish": "npm run clean && tsc && copyfiles -u 2 \"src/scss/**/*\" scss/ && npm run build:pack",
     "lint": "eslint . && stylelint \"**/*.scss\"",
     "lint:fix": "eslint . --fix && stylelint \"**/*.scss\" --fix",
     "format:check": "prettier --check --ignore-path .gitignore .",
@@ -86,9 +87,9 @@
     "typescript-eslint": "^8.32.1"
   },
   "files": [
-    "dist/css/**/*.{css,map}",
-    "dist/**/*.{js,d.ts,d.ts.map}",
-    "dist/scss/**/*.scss",
+    "css/**/*.{css,map}",
+    "**/*.{js,d.ts,d.ts.map}",
+    "scss/**/*.scss",
     "public/images/logo.png",
     "CHANGELOG",
     "readme.md"

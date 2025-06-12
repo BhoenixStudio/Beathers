@@ -4,7 +4,7 @@ import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
 export default defineConfig([
-  { ignores: ['.next/**/*', 'node_modules/**/*', 'dist/**/*', 'build/**/*', '*.config.js', '*.config.mjs'] },
+  { ignores: ['.next/**/*', 'node_modules/**/*', 'build/**/*', '*.config.js', '*.config.mjs'] },
 
   {
     files: ['**/*.{js,mjs,cjs,ts,tsx}'],
