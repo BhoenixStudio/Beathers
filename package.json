@@ -5,6 +5,13 @@
   "description": "Beather is a lightweight SCSS library that serves as a comprehensive design system for your projects. It offers a structured and consistent approach to manage colors, fonts, and other design related variables, making it easier to maintain a cohesive visual identity across your application.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "bin": {
     "beathers": "dist/scripts/cli.js"
   },

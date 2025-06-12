@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 
-import { findConfigFile, loadConfig, promptInput, promptSelection, promptUser, saveConfig } from '@commands'
-import { importedFont, localFont } from '@data'
-import { FontType, FontVariant } from '@types'
+import { importedFont, localFont } from '../../data/index.js'
+import { findConfigFile, loadConfig, promptInput, promptSelection, promptUser, saveConfig } from '../commands/index.js'
+import { FontType, FontVariant } from '../types.js'
 
 export async function AddFont(): Promise<void> {
   const configFile = await findConfigFile()

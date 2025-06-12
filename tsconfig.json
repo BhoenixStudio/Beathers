@@ -4,20 +4,16 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "strict": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "declaration": true,
+    "declarationMap": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "paths": {
-      "@/*": ["./src/scripts/*"],
-      "@data": ["./src/data/index.js"],
-      "@helpers": ["./src/scripts/helpers/index.js"],
-      "@commands": ["./src/scripts/commands/index.js"],
-      "@commandsList": ["./src/scripts/commands/list.js"],
-      "@types": ["./src/scripts/types.ts"]
-    }
+    "baseUrl": "./",
+    "paths": { "@/*": ["./src/scripts/*"] }
   },
   "ts-node": {
     "esm": true,

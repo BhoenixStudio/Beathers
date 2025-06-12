@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 
-import { ReadDefaultValues } from '@helpers'
-import { Theme } from '@types'
 import fs from 'fs-extra'
 import { fileURLToPath } from 'node:url'
 import path from 'path'
-import { promptSelection, promptUser } from '@commands'
+import { promptSelection, promptUser } from '../commands/index.js'
+import { ReadDefaultValues } from '../helpers/index.js'
+import { Theme } from '../types.js'
 
 async function getDefaultValues(): Promise<Theme> {
   const __filename = fileURLToPath(import.meta.url)

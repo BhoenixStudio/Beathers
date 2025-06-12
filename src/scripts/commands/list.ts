@@ -12,7 +12,7 @@ import {
   RemoveColor,
   RemoveFont,
   Version,
-} from '@commands'
+} from '../commands/index.js'
 
 const commands: Record<string, () => void | Promise<void>> = {
   '--help': () => Help(),

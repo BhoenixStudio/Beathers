@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { Commands } from '@commandsList'
+import { Commands } from '../scripts/commands/list.js'
 
 async function main() {
   const args = process.argv.slice(2)

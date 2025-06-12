@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import { CommandKey } from '@commandsList'
+import { CommandKey } from '../commands/list.js'
 
 const commands: { cmd?: Exclude<CommandKey, '--version'>; description?: string; divider?: boolean }[] = [
   { cmd: '--help', description: 'Show available commands' },

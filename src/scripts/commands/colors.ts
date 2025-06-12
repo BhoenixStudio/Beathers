@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
-import { findConfigFile, loadConfig, promptInput, promptSelection, saveConfig } from '@commands'
-import { colorsList } from '@data'
+import { colorsList } from '../../data/index.js'
+import { findConfigFile, loadConfig, promptInput, promptSelection, saveConfig } from '../commands/index.js'
 
 export async function AddColors(): Promise<void> {
   const configFile = await findConfigFile()

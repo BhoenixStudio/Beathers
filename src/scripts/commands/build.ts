@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 
-import { BuildScssVariables, DeepMerge, LoadUserConfigs, ReadDefaultValues } from '@helpers'
 import { exec } from 'child_process'
 import fs from 'fs-extra'
 import { fileURLToPath } from 'node:url'
 import path from 'path'
 import { promisify } from 'util'
-import { promptInput } from '@commands'
+import { promptInput } from '../commands/index.js'
+import { BuildScssVariables, DeepMerge, LoadUserConfigs, ReadDefaultValues } from '../helpers/index.js'
 
 const execAsync = promisify(exec)
 const __filename = fileURLToPath(import.meta.url)
@@ -130,7 +130,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 
   if (args.includes('--local')) {
     console.log('🏠 Local build mode enabled')
-    const { promptInput } = await import('@commands')
+    const { promptInput } = await import('../commands/index.js')
     const customOutputPath = await promptInput('📁 Output path (e.g., public/css): ')
 
     if (!customOutputPath) {
