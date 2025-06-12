@@ -6,13 +6,7 @@ import { fileURLToPath } from 'node:url'
 import path from 'path'
 import { promisify } from 'util'
 import { promptInput } from '../commands/index.js'
-import {
-  BuildScssVariables,
-  CallNewVariables,
-  DeepMerge,
-  LoadUserConfigs,
-  ReadDefaultValues,
-} from '../helpers/index.js'
+import { BuildScssVariables, DeepMerge, LoadUserConfigs, ReadDefaultValues } from '../helpers/index.js'
 
 const execAsync = promisify(exec)
 const __filename = fileURLToPath(import.meta.url)
@@ -30,7 +24,8 @@ if (isInstalledPackage) {
   variablesPath = path.join(packageRoot, 'dist', 'scss', '_variables.scss')
 } else {
   packageRoot = path.resolve(projectRoot, '..')
-  variablesPath = path.join(packageRoot, 'dist', 'scss', '_variables.scss')
+  // Write variables to src location for development builds
+  variablesPath = path.join(projectRoot, 'scss', '_variables.scss')
 }
 
 async function defaultTheme() {
@@ -92,7 +87,13 @@ async function BuildTheme(customOutputPath?: string) {
     await fs.writeFile(variablesPath, variablesString, { flag: 'w' })
     console.log(`✅ Theme variables generated: ${variablesPath}`)
 
-    await CallNewVariables(packageRoot, isInstalledPackage)
+    // For development builds, also copy variables to dist location for consistency
+    if (!isInstalledPackage) {
+      const distVariablesPath = path.join(packageRoot, 'dist', 'scss', '_variables.scss')
+      await fs.ensureDir(path.dirname(distVariablesPath))
+      await fs.writeFile(distVariablesPath, variablesString, { flag: 'w' })
+      console.log(`✅ Variables also copied to: ${distVariablesPath}`)
+    }
 
     console.log('')
     console.log('🔨 Compiling SCSS to CSS...')
