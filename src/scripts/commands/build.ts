@@ -12,7 +12,7 @@ const execAsync = promisify(exec)
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const projectRoot = path.resolve(__dirname, '../..')
-const variablesPath = path.join(projectRoot, 'scss', '_variables.scss')
+const variablesPath = path.join(projectRoot, '../dist/scss', '_variables.scss')
 
 async function defaultTheme() {
   let values = null
@@ -77,7 +77,7 @@ async function BuildTheme(customOutputPath?: string) {
     console.log('🔨 Compiling SCSS to CSS...')
 
     const userProjectRoot = process.cwd()
-    const scssSourcePath = path.join(projectRoot, 'scss')
+    const scssSourcePath = path.join(projectRoot, '../dist/scss')
 
     let outputPath: string
 
@@ -85,7 +85,7 @@ async function BuildTheme(customOutputPath?: string) {
       outputPath = path.join(userProjectRoot, customOutputPath)
       console.log(`📁 Custom output directory: ${outputPath}`)
     } else {
-      outputPath = path.join(userProjectRoot, 'beathers/dist/css')
+      outputPath = path.join(projectRoot, '../dist/css')
       console.log(`📁 Default output directory: ${outputPath}`)
     }
 
