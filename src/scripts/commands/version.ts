@@ -1,10 +1,13 @@
 /* eslint-disable no-console */
 
 import fs from 'fs-extra'
+import { fileURLToPath } from 'node:url'
 import path from 'path'
 
 export function Version() {
-  const packagePath = path.join(process.cwd(), 'package.json')
+  const __filename = fileURLToPath(import.meta.url)
+  const __dirname = path.dirname(__filename)
+  const packagePath = path.join(__dirname, '../../..', 'package.json')
 
   try {
     const packageInfo = fs.readJsonSync(packagePath)
