@@ -12,7 +12,20 @@ const execAsync = promisify(exec)
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const projectRoot = path.resolve(__dirname, '../..')
-const variablesPath = path.join(projectRoot, '../dist/scss', '_variables.scss')
+
+// Detect if running as installed package vs development
+const isInstalledPackage = projectRoot.includes('node_modules')
+let packageRoot: string
+let variablesPath: string
+
+if (isInstalledPackage) {
+  const userProjectRoot = process.cwd()
+  packageRoot = path.join(userProjectRoot, 'node_modules', 'beathers')
+  variablesPath = path.join(packageRoot, 'dist', 'scss', '_variables.scss')
+} else {
+  packageRoot = path.resolve(projectRoot, '..')
+  variablesPath = path.join(packageRoot, 'dist', 'scss', '_variables.scss')
+}
 
 async function defaultTheme() {
   let values = null
@@ -77,7 +90,9 @@ async function BuildTheme(customOutputPath?: string) {
     console.log('🔨 Compiling SCSS to CSS...')
 
     const userProjectRoot = process.cwd()
-    const scssSourcePath = path.join(projectRoot, '../dist/scss')
+    const scssSourcePath = isInstalledPackage
+      ? path.join(packageRoot, 'dist', 'scss')
+      : path.join(projectRoot, '../dist/scss')
 
     let outputPath: string
 
@@ -85,7 +100,7 @@ async function BuildTheme(customOutputPath?: string) {
       outputPath = path.join(userProjectRoot, customOutputPath)
       console.log(`📁 Custom output directory: ${outputPath}`)
     } else {
-      outputPath = path.join(projectRoot, '../dist/css')
+      outputPath = isInstalledPackage ? path.join(packageRoot, 'dist', 'css') : path.join(projectRoot, '../dist/css')
       console.log(`📁 Default output directory: ${outputPath}`)
     }
 

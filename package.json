@@ -87,7 +87,7 @@
   },
   "files": [
     "dist/css/**/*.{css,map}",
-    "dist/**/*.{js,d.ts}",
+    "dist/**/*.{js,d.ts,d.ts.map}",
     "dist/scss/**/*.scss",
     "public/images/logo.png",
     "CHANGELOG",
