@@ -4,10 +4,17 @@
 </div>
 
 [![Version](https://img.shields.io/npm/v/beathers.svg?color=orange)](https://www.npmjs.com/package/beathers)
-[![License](https://img.shields.io/badge/license-MIT-black.svg)](https://opensource.org/licenses/MIT)
+[![Downloads](https://img.shields.io/npm/dt/beathers?color=blue)](https://www.npmjs.com/package/beathers)
 [![Changelog](https://img.shields.io/badge/Changelog-View-blue?style=flat)](https://www.npmjs.com/package/beathers?activeTab=code)
+![NPM Type](https://img.shields.io/badge/bundle-NPM%20Library-informational?style=flat)
+![TypeScript](https://img.shields.io/badge/TypeScript-Supported-3178C6?logo=typescript&logoColor=white&style=flat)
+[![License](https://img.shields.io/badge/license-MIT-black.svg)](https://opensource.org/licenses/MIT)
 
-Beathers is a lightweight, powerful SCSS library designed to accelerate your web development workflow.**Everything is fully customizable** through a simple configuration file, allowing you to tailor every aspect to match your brand and requirements. It offers a comprehensive suite of SCSS mixins, variables, and utility classes, enabling you to build responsive, visually appealing web applications with complete design control.
+**Beathers** is a flexible utility library built for developers who want **full control** over their **design system**.
+It compiles only what you need, based on a **configuration file** (`.js`, `.ts`, or `.json`) where you define your own colors (with `light`/`dark` variants), `fonts`, `breakpoints`, and more.
+You can _enable_ or _disable_ entire sections like typography or layout helpers to keep your CSS output minimal and tailored.
+Beathers also includes `CLI tools` that simplify config creation and support `importing fonts and color` packs with ease.
+The library works with both `SCSS` and plain `CSS`, making it compatible with any modern **frontend** project, no matter your stack.
 
 ## Get Started
 
