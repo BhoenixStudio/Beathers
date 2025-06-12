@@ -11,6 +11,8 @@
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
+    "./dist/css/beathers.min.css": "./dist/css/beathers.min.css",
+    "./dist/css/beathers-icons.min.css": "./dist/css/beathers-icons.min.css",
     "./dist/css/*": "./dist/css/*",
     "./dist/scss/*": "./dist/scss/*",
     "./package.json": "./package.json"
@@ -20,9 +22,9 @@
   },
   "scripts": {
     "watch": "nodemon --watch src/scss/ --ext scss --exec \"npm-run-all build\"",
-    "build": "sass --style compressed --source-map --embed-sources --no-error-css dist/scss/:dist/css/",
+    "build": "sass --style compressed --source-map --embed-sources --no-error-css src/scss/:dist/css/",
     "build:test": "tsx src/scripts/cli.ts",
-    "build:publish": "rimraf dist && tsc && npm run build && copyfiles -u 1 \"src/scss/**/*\" dist/",
+    "build:publish": "rimraf dist && tsc && copyfiles -u 1 \"src/scss/**/*\" dist/ && npm run build",
     "lint": "eslint . && stylelint \"**/*.scss\"",
     "lint:fix": "eslint . --fix && stylelint \"**/*.scss\" --fix",
     "format:check": "prettier --check --ignore-path .gitignore .",
