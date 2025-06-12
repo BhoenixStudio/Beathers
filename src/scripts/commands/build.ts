@@ -92,7 +92,6 @@ async function BuildTheme(customOutputPath?: string) {
     await fs.writeFile(variablesPath, variablesString, { flag: 'w' })
     console.log(`✅ Theme variables generated: ${variablesPath}`)
 
-    // Add variables import to beathers.min.scss
     await CallNewVariables(packageRoot, isInstalledPackage)
 
     console.log('')
@@ -115,7 +114,6 @@ async function BuildTheme(customOutputPath?: string) {
 
     await fs.ensureDir(outputPath)
 
-    // Use sass directly with the correct paths
     const buildCommand = `sass --style compressed --source-map --embed-sources --no-error-css "${scssSourcePath}":"${outputPath}"`
 
     const { stdout } = await execAsync(buildCommand)
