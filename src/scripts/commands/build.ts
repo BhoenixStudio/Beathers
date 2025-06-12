@@ -87,14 +87,6 @@ async function BuildTheme(customOutputPath?: string) {
     await fs.writeFile(variablesPath, variablesString, { flag: 'w' })
     console.log(`✅ Theme variables generated: ${variablesPath}`)
 
-    // For development builds, also copy variables to dist location for consistency
-    if (!isInstalledPackage) {
-      const distVariablesPath = path.join(packageRoot, 'dist', 'scss', '_variables.scss')
-      await fs.ensureDir(path.dirname(distVariablesPath))
-      await fs.writeFile(distVariablesPath, variablesString, { flag: 'w' })
-      console.log(`✅ Variables also copied to: ${distVariablesPath}`)
-    }
-
     console.log('')
     console.log('🔨 Compiling SCSS to CSS...')
 

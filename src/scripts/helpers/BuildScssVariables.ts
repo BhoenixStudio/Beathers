@@ -3,7 +3,7 @@ import { Theme } from '../types.js'
 function BuildColors(colors: Theme['colors']): string {
   let scss: string = '\n\n// --- Colors ---\n'
 
-  if (colors?.length) {
+  if (colors) {
     scss += '$colors: (\n'
     for (const [name, modes] of Object.entries(colors)) {
       scss += `"${name}": (\n`
@@ -24,8 +24,8 @@ function BuildTypography(typography: Theme['typography']): string {
   scss += typography?.defaultFontFamilies?.length ? typography.defaultFontFamilies.join(', ').replace(/"/g, '') : 'null'
   scss += ';\n'
 
-  scss += `$fontMainPath: ${typography?.fontMainPath ?? 'null'};\n`
-  scss += `$fontFormat: ${typography?.fontFormat ?? 'null'};\n`
+  scss += `$fontMainPath: ${typography?.fontMainPath ? `"${typography.fontMainPath}"` : 'null'};\n`
+  scss += `$fontFormat: ${typography?.fontFormat ? `"${typography.fontFormat}"` : 'null'};\n`
 
   scss += '$fontWeights: ('
   scss += typography?.fontWeights?.length ? typography.fontWeights.map((fW) => `"${fW}"`).join(', ') : ''
