@@ -5,8 +5,9 @@
 
 [![Version](https://img.shields.io/npm/v/beathers.svg)](https://www.npmjs.com/package/beathers)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Changelog](https://img.shields.io/badge/Changelog-See%20Changes-orange?style=flat&logo=github)](CHANGELOG)
 
-Beathers is a lightweight, powerful SCSS library designed to accelerate your web development workflow. **Everything is fully customizable** through a simple configuration file, allowing you to tailor every aspect to match your brand and requirements. It offers a comprehensive suite of SCSS mixins, variables, and utility classes, enabling you to build responsive, visually appealing web applications with complete design control.
+Beathers is a lightweight, powerful SCSS library designed to accelerate your web development workflow.**Everything is fully customizable** through a simple configuration file, allowing you to tailor every aspect to match your brand and requirements. It offers a comprehensive suite of SCSS mixins, variables, and utility classes, enabling you to build responsive, visually appealing web applications with complete design control.
 
 ## Get Started
 
