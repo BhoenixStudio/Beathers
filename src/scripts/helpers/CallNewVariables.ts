@@ -1,10 +1,12 @@
 import fs from 'fs-extra'
 import * as path from 'node:path'
 
-export async function CallNewVariables(projectRoot: string) {
-  const scssFilePath = path.join(projectRoot, 'src', 'scss', 'beathers.min.scss')
+export async function CallNewVariables(projectRoot: string, isInstalledPackage: boolean = false) {
+  const scssFilePath = isInstalledPackage
+    ? path.join(projectRoot, 'dist', 'scss', 'beathers.min.scss')
+    : path.join(projectRoot, 'src', 'scss', 'beathers.min.scss')
 
-  if (!await fs.pathExists(scssFilePath)) return
+  if (!(await fs.pathExists(scssFilePath))) return
   let scssContent = await fs.readFile(scssFilePath, 'utf8')
 
   if (scssContent.includes('@use "./variables"')) return

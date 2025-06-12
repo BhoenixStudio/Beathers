@@ -6,7 +6,13 @@ import { fileURLToPath } from 'node:url'
 import path from 'path'
 import { promisify } from 'util'
 import { promptInput } from '../commands/index.js'
-import { BuildScssVariables, DeepMerge, LoadUserConfigs, ReadDefaultValues } from '../helpers/index.js'
+import {
+  BuildScssVariables,
+  CallNewVariables,
+  DeepMerge,
+  LoadUserConfigs,
+  ReadDefaultValues,
+} from '../helpers/index.js'
 
 const execAsync = promisify(exec)
 const __filename = fileURLToPath(import.meta.url)
@@ -85,6 +91,9 @@ async function BuildTheme(customOutputPath?: string) {
 
     await fs.writeFile(variablesPath, variablesString, { flag: 'w' })
     console.log(`✅ Theme variables generated: ${variablesPath}`)
+
+    // Add variables import to beathers.min.scss
+    await CallNewVariables(packageRoot, isInstalledPackage)
 
     console.log('')
     console.log('🔨 Compiling SCSS to CSS...')
