@@ -19,7 +19,7 @@ const commands: Record<string, () => void | Promise<void>> = {
   '-v': () => Version(),
   '--version': () => Version(),
   init: async () => await Init(),
-  build: async () => await Build(),
+  'build:pack': async () => await Build(),
   '--local': async () => await Build(),
   'add-font': async () => await AddFont(),
   'remove-font': async () => await RemoveFont(),
@@ -49,7 +49,7 @@ export type CommandKey =
   | '-v'
   | '--version'
   | 'init'
-  | 'build'
+  | 'build:pack'
   | 'add-font'
   | 'remove-font'
   | 'import-font-sample'

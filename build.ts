@@ -1,3 +1,3 @@
-import { execSync } from 'child_process';
+import { execSync } from 'child_process'
 
-execSync('pnpm run build', { stdio: 'inherit' });
+execSync('npm run build:pack', { stdio: 'inherit' })

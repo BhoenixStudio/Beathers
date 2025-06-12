@@ -76,7 +76,7 @@ async function BuildTheme(customOutputPath?: string) {
     console.log('')
     console.log('🔨 Compiling SCSS to CSS...')
 
-    let buildCommand = 'npm run build'
+    let buildCommand = 'npm run build:pack'
 
     if (customOutputPath) {
       const userProjectRoot = process.cwd()
@@ -84,7 +84,7 @@ async function BuildTheme(customOutputPath?: string) {
 
       await fs.ensureDir(outputPath)
 
-      buildCommand = `sass --style compressed --source-map --embed-sources --no-error-css src/scss/:${outputPath}/`
+      buildCommand = `sass --style compressed --source-map --embed-sources --no-error-css dist/scss/:${outputPath}/`
       console.log(`📁 Output directory: ${outputPath}`)
     }
 

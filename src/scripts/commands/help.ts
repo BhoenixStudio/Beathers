@@ -7,7 +7,7 @@ const commands: { cmd?: Exclude<CommandKey, '--version'>; description?: string; 
   { cmd: '-v', description: 'Show beathers version' },
   { divider: true },
   { cmd: 'init', description: 'Initialize beathers configuration file' },
-  { cmd: 'build', description: 'Build theme from configuration file' },
+  { cmd: 'build:pack', description: 'Build theme from configuration file' },
   { divider: true },
   { cmd: 'add-font', description: 'Add a new font to the configuration file' },
   { cmd: 'remove-font', description: 'Remove a font from the configuration file' },
@@ -43,6 +43,6 @@ export function Help() {
 
   console.log('\nFlags:')
   console.log("  --local               Build with user's custom output path (use with build command)")
-  console.log('                        Example: npx beathers build --local')
+  console.log('                        Example: npx beathers build:pack --local')
   console.log()
 }

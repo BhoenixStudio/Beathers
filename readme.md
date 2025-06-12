@@ -41,7 +41,7 @@ This will prompt you to:
 Generate your custom CSS from the configuration:
 
 ```bash
-npx beathers build
+npx beathers
 ```
 
 ### CLI Commands
@@ -51,8 +51,8 @@ Beathers provides a comprehensive set of CLI commands to manage your design syst
 #### Configuration
 
 - `npx beathers init` - Initialize a new configuration file
-- `npx beathers build` - Build theme from configuration
-- `npx beathers build --local` - Build with custom output path
+- `npx beathers` - Build theme from configuration
+- `npx beathers --local` - Build with custom output path
 
 #### Font Management
 

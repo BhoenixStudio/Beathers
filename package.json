@@ -21,10 +21,10 @@
     "beathers": "dist/scripts/cli.js"
   },
   "scripts": {
-    "watch": "nodemon --watch src/scss/ --ext scss --exec \"npm-run-all build\"",
-    "build": "sass --style compressed --source-map --embed-sources --no-error-css src/scss/:dist/css/",
+    "watch": "nodemon --watch src/scss/ --ext scss --exec \"npm-run-all build:pack\"",
+    "build:pack": "sass --style compressed --source-map --embed-sources --no-error-css src/scss/:dist/css/",
     "build:test": "tsx src/scripts/cli.ts",
-    "build:publish": "rimraf dist && tsc && copyfiles -u 1 \"src/scss/**/*\" dist/ && npm run build",
+    "build:publish": "rimraf dist && tsc && copyfiles -u 1 \"src/scss/**/*\" dist/ && npm run build:pack",
     "lint": "eslint . && stylelint \"**/*.scss\"",
     "lint:fix": "eslint . --fix && stylelint \"**/*.scss\" --fix",
     "format:check": "prettier --check --ignore-path .gitignore .",
