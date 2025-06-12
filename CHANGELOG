@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.3.1] - 2025-06-12
+
+### Fixed
+
+- **Module exports**: Fixed TypeScript path aliases in npm package exports to use relative paths for proper module resolution
+
 ## [5.3.0] - 2025-06-12
 
 ### Added
