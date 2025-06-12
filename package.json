@@ -1,6 +1,6 @@
 {
   "name": "beathers",
-  "version": "5.3.2",
+  "version": "5.3.3",
   "type": "module",
   "description": "Beather is a lightweight SCSS library that serves as a comprehensive design system for your projects. It offers a structured and consistent approach to manage colors, fonts, and other design related variables, making it easier to maintain a cohesive visual identity across your application.",
   "main": "dist/index.js",
@@ -10,14 +10,17 @@
       "import": "./dist/index.js",
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
-    }
+    },
+    "./dist/css/*": "./dist/css/*",
+    "./dist/scss/*": "./dist/scss/*",
+    "./package.json": "./package.json"
   },
   "bin": {
     "beathers": "dist/scripts/cli.js"
   },
   "scripts": {
     "watch": "nodemon --watch src/scss/ --ext scss --exec \"npm-run-all build\"",
-    "build": "sass --style compressed --source-map --embed-sources --no-error-css src/scss/:dist/css/",
+    "build": "sass --style compressed --source-map --embed-sources --no-error-css dist/scss/:dist/css/",
     "build:test": "tsx src/scripts/cli.ts",
     "build:publish": "rimraf dist && tsc && npm run build && copyfiles -u 1 \"src/scss/**/*\" dist/",
     "lint": "eslint . && stylelint \"**/*.scss\"",

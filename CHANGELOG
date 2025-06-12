@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.3.3] - 2025-06-12
+
+### Fixed
+
+- **Module exports**: Added CSS and SCSS files to package exports to fix "Module not found" error when importing CSS files
+- **Import paths**: Fixed package.json exports field to properly expose dist/css/* and dist/scss/* files
+
 ## [5.3.2] - 2025-06-12
 
 ### Fixed
