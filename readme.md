@@ -7,7 +7,6 @@
 [![License](https://img.shields.io/badge/license-MIT-black.svg)](https://opensource.org/licenses/MIT)
 [![Changelog](https://img.shields.io/badge/Changelog-View-blue?style=flat)](https://www.npmjs.com/package/beathers?activeTab=code)
 
-
 Beathers is a lightweight, powerful SCSS library designed to accelerate your web development workflow.**Everything is fully customizable** through a simple configuration file, allowing you to tailor every aspect to match your brand and requirements. It offers a comprehensive suite of SCSS mixins, variables, and utility classes, enabling you to build responsive, visually appealing web applications with complete design control.
 
 ## Get Started
@@ -85,11 +84,21 @@ Beathers provides a comprehensive set of CLI commands to manage your design syst
 
 ```scss
 // Import the entire library
-@import 'node_modules/beathers/src/scss/beathers.min.scss';
+@import 'node_modules/beathers/dist/scss/beathers.min.scss';
 
 // Or import specific modules
-@import 'node_modules/beathers/src/scss/functions/colors';
-@import 'node_modules/beathers/src/scss/style/grid';
+@import 'node_modules/beathers/dist/scss/functions/colors';
+@import 'node_modules/beathers/dist/scss/style/grid';
+
+// Or import using @use with changing variables
+@use 'node_modules/beathers/dist/scss/beathers.min.scss' with (
+  $colors: (
+    1: (
+      'light': '#000000',
+      'dark': '$ffffff',
+    ),
+  )
+);
 ```
 
 **JavaScript/Framework Import:**
