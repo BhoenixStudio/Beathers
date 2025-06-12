@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.3.6] - 2025-06-12
+
+### Fixed
+
+- **CLI build paths**: Updated build paths to correctly reference package installation location
+- **Output directory logic**: Improved default output path handling for different execution contexts
+
 ## [5.3.5] - 2025-06-12
 
 ### Fixed
