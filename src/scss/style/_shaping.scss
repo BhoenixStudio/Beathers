@@ -1,4 +1,3 @@
-@use 'sass:meta';
 @use 'sass:map';
 @use 'sass:list';
 @use 'sass:math';
@@ -11,63 +10,27 @@
 @use '../variables' as vars;
 
 // Definitions
-$useWrappers: if(
-  meta.variable-exists('vars.$useWrappers') and vars.$useWrappers,
-  vars.$useWrappers,
-  settings.$useWrappers
-);
-$wrappers: if(meta.variable-exists('vars.$wrappers') and vars.$wrappers, vars.$wrappers, defs.$wrappers);
-$useShadows: if(meta.variable-exists('vars.$useShadows') and vars.$useShadows, vars.$useShadows, settings.$useShadows);
-$useDisplays: if(
-  meta.variable-exists('vars.$useDisplays') and vars.$useDisplays,
-  vars.$useDisplays,
-  settings.$useDisplays
-);
-$useOverflows: if(
-  meta.variable-exists('vars.$useOverflows') and vars.$useOverflows,
-  vars.$useOverflows,
-  settings.$useOverflows
-);
-$useOpacities: if(
-  meta.variable-exists('vars.$useOpacities') and vars.$useOpacities,
-  vars.$useOpacities,
-  settings.$useOpacities
-);
-$opacities: if(meta.variable-exists('vars.$opacities') and vars.$opacities, vars.$opacities, defs.$opacities);
-$useBlur: if(meta.variable-exists('vars.$useBlur') and vars.$useBlur, vars.$useBlur, settings.$useBlur);
-$blurValues: if(meta.variable-exists('vars.$blurValues') and vars.$blurValues, vars.$blurValues, defs.$blurValues);
-$useObjectFits: if(
-  meta.variable-exists('vars.$useObjectFits') and vars.$useObjectFits,
-  vars.$useObjectFits,
-  settings.$useObjectFits
-);
-$usePositions: if(
-  meta.variable-exists('vars.$usePositions') and vars.$usePositions,
-  vars.$usePositions,
-  settings.$usePositions
-);
-$useInsets: if(meta.variable-exists('vars.$useInsets') and vars.$useInsets, vars.$useInsets, settings.$useInsets);
-$insetValues: if(meta.variable-exists('vars.$insetValues') and vars.$insetValues, vars.$insetValues, defs.$insetValues);
-$useSizes: if(meta.variable-exists('vars.$useSizes') and vars.$useSizes, vars.$useSizes, settings.$useSizes);
-$useGutters: if(meta.variable-exists('vars.$useGutters') and vars.$useGutters, vars.$useGutters, settings.$useGutters);
-$guttersValues: if(
-  meta.variable-exists('vars.$guttersValues') and vars.$guttersValues,
-  vars.$guttersValues,
-  defs.$guttersValues
-);
-$useBorders: if(meta.variable-exists('vars.$useBorders') and vars.$useBorders, vars.$useBorders, settings.$useBorders);
-$bordersValue: if(
-  meta.variable-exists('vars.$bordersValue') and vars.$bordersValue,
-  vars.$bordersValue,
-  defs.$bordersValue
-);
-$useTextBorders: if(
-  meta.variable-exists('vars.$useTextBorders') and vars.$useTextBorders,
-  vars.$useTextBorders,
-  settings.$useTextBorders
-);
-$useRadius: if(meta.variable-exists('vars.$useRadius') and vars.$useRadius, vars.$useRadius, settings.$useRadius);
-$radiuses: if(meta.variable-exists('vars.$radiuses') and vars.$radiuses, vars.$radiuses, defs.$radiuses);
+$useWrappers: if(vars.$useWrappers != null, vars.$useWrappers, settings.$useWrappers);
+$wrappers: if(vars.$wrappers != null, vars.$wrappers, defs.$wrappers);
+$useShadows: if(vars.$useShadows != null, vars.$useShadows, settings.$useShadows);
+$useDisplays: if(vars.$useDisplays != null, vars.$useDisplays, settings.$useDisplays);
+$useOverflows: if(vars.$useOverflows != null, vars.$useOverflows, settings.$useOverflows);
+$useOpacities: if(vars.$useOpacities != null, vars.$useOpacities, settings.$useOpacities);
+$opacities: if(vars.$opacities != null, vars.$opacities, defs.$opacities);
+$useBlur: if(vars.$useBlur != null, vars.$useBlur, settings.$useBlur);
+$blurValues: if(vars.$blurValues != null, vars.$blurValues, defs.$blurValues);
+$useObjectFits: if(vars.$useObjectFits != null, vars.$useObjectFits, settings.$useObjectFits);
+$usePositions: if(vars.$usePositions != null, vars.$usePositions, settings.$usePositions);
+$useInsets: if(vars.$useInsets != null, vars.$useInsets, settings.$useInsets);
+$insetValues: if(vars.$insetValues != null, vars.$insetValues, defs.$insetValues);
+$useSizes: if(vars.$useSizes != null, vars.$useSizes, settings.$useSizes);
+$useGutters: if(vars.$useGutters != null, vars.$useGutters, settings.$useGutters);
+$guttersValues: if(vars.$guttersValues != null, vars.$guttersValues, defs.$guttersValues);
+$useBorders: if(vars.$useBorders != null, vars.$useBorders, settings.$useBorders);
+$bordersValue: if(vars.$bordersValue != null, vars.$bordersValue, defs.$bordersValue);
+$useTextBorders: if(vars.$useTextBorders != null, vars.$useTextBorders, settings.$useTextBorders);
+$useRadius: if(vars.$useRadius != null, vars.$useRadius, settings.$useRadius);
+$radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
 
 @if $useWrappers {
   @each $wSize, $properties in $wrappers {

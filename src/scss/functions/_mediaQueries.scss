@@ -1,4 +1,3 @@
-@use 'sass:meta';
 @use 'sass:map';
 @use 'sass:string';
 @use '../variables' as vars;
@@ -6,12 +5,8 @@
 @use '../settings/index' as settings;
 
 // Definitions
-$breakpoints: if(meta.variable-exists('vars.$breakpoints') and vars.$breakpoints, vars.$breakpoints, defs.$breakpoints);
-$useMediaQueries: if(
-  meta.variable-exists('vars.$useMediaQueries') and vars.$useMediaQueries,
-  vars.$useMediaQueries,
-  settings.$useMediaQueries
-);
+$breakpoints: if(vars.$breakpoints != (), vars.$breakpoints, defs.$breakpoints);
+$useMediaQueries: if(vars.$useMediaQueries != null, vars.$useMediaQueries, settings.$useMediaQueries);
 
 // Breakpoint Mixin
 // --------------------------------------

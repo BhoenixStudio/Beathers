@@ -1,21 +1,12 @@
-@use 'sass:meta';
 @use '../settings/configs' as configs;
 @use '../variables' as vars;
 @use '../functions/colors' as colors;
 @use '../settings/index' as settings;
 
 // Definitions
-$useColors: if(meta.variable-exists('vars.$useColors') and vars.$useColors, vars.$useColors, settings.$useColors);
-$useColorsLightMode: if(
-  meta.variable-exists('vars.$useColorsLightMode') and vars.$useColorsLightMode,
-  vars.$useColorsLightMode,
-  settings.$useColorsLightMode
-);
-$useColorsDarkMode: if(
-  meta.variable-exists('vars.$useColorsDarkMode') and vars.$useColorsDarkMode,
-  vars.$useColorsDarkMode,
-  settings.$useColorsDarkMode
-);
+$useColors: if(vars.$useColors != null, vars.$useColors, settings.$useColors);
+$useColorsLightMode: if(vars.$useColorsLightMode != null, vars.$useColorsLightMode, settings.$useColorsLightMode);
+$useColorsDarkMode: if(vars.$useColorsDarkMode != null, vars.$useColorsDarkMode, settings.$useColorsDarkMode);
 
 html {
   scroll-behavior: smooth;

@@ -13,9 +13,9 @@
     "scss/at-import-partial-extension": null,
     "scss/at-import-no-partial-leading-underscore": null,
     "scss/comment-no-empty": null,
-
     "scss/dollar-variable-pattern": null,
     "scss/dollar-variable-empty-line-before": null,
+    "scss/dollar-variable-colon-space-after": null,
     "scss/at-function-pattern": null,
     "scss/at-mixin-pattern": null,
     "function-name-case": null,
@@ -34,9 +34,12 @@
 
     "max-nesting-depth": 7,
     "property-no-unknown": true,
-    "declaration-no-important": [true, {
-      "severity": "warning"
-    }],
+    "declaration-no-important": [
+      true,
+      {
+        "severity": "warning"
+      }
+    ],
     "declaration-block-no-duplicate-properties": true,
     "shorthand-property-no-redundant-values": true,
     "no-duplicate-selectors": true

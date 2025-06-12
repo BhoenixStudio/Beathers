@@ -11,46 +11,18 @@
 @use '../settings/defaults' as defs;
 
 // Definitions
-$useFontFamilies: if(
-  meta.variable-exists('vars.$useFontFamilies') and vars.$useFontFamilies,
-  vars.$useFontFamilies,
-  settings.$useFontFamilies
-);
-$fonts: if(meta.variable-exists('vars.$fonts') and vars.$fonts, vars.$fonts, defs.$fonts);
-$fontWeights: if(meta.variable-exists('vars.$fontWeights') and vars.$fontWeights, vars.$fontWeights, defs.$fontWeights);
-$fontStyles: if(meta.variable-exists('vars.$fontStyles') and vars.$fontStyles, vars.$fontStyles, defs.$fontStyles);
-$fontFormat: if(meta.variable-exists('vars.$fontFormat') and vars.$fontFormat, vars.$fontFormat, defs.$fontFormat);
-$defaultFontFamilies: if(
-  meta.variable-exists('vars.$defaultFontFamilies') and vars.$defaultFontFamilies,
-  vars.$defaultFontFamilies,
-  defs.$defaultFontFamilies
-);
-$useFontSizes: if(
-  meta.variable-exists('vars.$useFontSizes') and vars.$useFontSizes,
-  vars.$useFontSizes,
-  settings.$useFontSizes
-);
-$fontSizes: if(meta.variable-exists('vars.$fontSizes') and vars.$fontSizes, vars.$fontSizes, defs.$fontSizes);
-$useFontShapes: if(
-  meta.variable-exists('vars.$useFontShapes') and vars.$useFontShapes,
-  vars.$useFontShapes,
-  settings.$useFontShapes
-);
-$useTextAligns: if(
-  meta.variable-exists('vars.$useTextAligns') and vars.$useTextAligns,
-  vars.$useTextAligns,
-  settings.$useTextAligns
-);
-$useTextTruncate: if(
-  meta.variable-exists('vars.$useTextTruncate') and vars.$useTextTruncate,
-  vars.$useTextTruncate,
-  settings.$useTextTruncate
-);
-$textTruncate: if(
-  meta.variable-exists('vars.$textTruncate') and vars.$textTruncate,
-  vars.$textTruncate,
-  defs.$textTruncate
-);
+$useFontFamilies: if(vars.$useFontFamilies != null, vars.$useFontFamilies, settings.$useFontFamilies);
+$fonts: if(vars.$fonts != (), vars.$fonts, defs.$fonts);
+$fontWeights: if(vars.$fontWeights != (), vars.$fontWeights, defs.$fontWeights);
+$fontStyles: if(vars.$fontStyles != (), vars.$fontStyles, defs.$fontStyles);
+$fontFormat: if(vars.$fontFormat != (), vars.$fontFormat, defs.$fontFormat);
+$defaultFontFamilies: if(vars.$defaultFontFamilies != null, vars.$defaultFontFamilies, defs.$defaultFontFamilies);
+$useFontSizes: if(vars.$useFontSizes != null, vars.$useFontSizes, settings.$useFontSizes);
+$fontSizes: if(vars.$fontSizes != (), vars.$fontSizes, defs.$fontSizes);
+$useFontShapes: if(vars.$useFontShapes != null, vars.$useFontShapes, settings.$useFontShapes);
+$useTextAligns: if(vars.$useTextAligns != null, vars.$useTextAligns, settings.$useTextAligns);
+$useTextTruncate: if(vars.$useTextTruncate != null, vars.$useTextTruncate, settings.$useTextTruncate);
+$textTruncate: if(vars.$textTruncate != (), vars.$textTruncate, defs.$textTruncate);
 
 // Typographic Utilities
 // --------------------------------------
