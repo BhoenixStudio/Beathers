@@ -3,9 +3,10 @@
     <p align="center">The Perfect Fusion of Strength and Featherlight Agility</p>
 </div>
 
-[![Version](https://img.shields.io/npm/v/beathers.svg)](https://www.npmjs.com/package/beathers)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Changelog](https://img.shields.io/badge/Changelog-See%20Changes-orange?style=flat&logo=github)](CHANGELOG)
+[![Version](https://img.shields.io/npm/v/beathers.svg?color=orange)](https://www.npmjs.com/package/beathers)
+[![License](https://img.shields.io/badge/license-MIT-black.svg)](https://opensource.org/licenses/MIT)
+[![Changelog](https://img.shields.io/badge/Changelog-View-blue?style=flat)](https://www.npmjs.com/package/beathers?activeTab=code)
+
 
 Beathers is a lightweight, powerful SCSS library designed to accelerate your web development workflow.**Everything is fully customizable** through a simple configuration file, allowing you to tailor every aspect to match your brand and requirements. It offers a comprehensive suite of SCSS mixins, variables, and utility classes, enabling you to build responsive, visually appealing web applications with complete design control.
 
