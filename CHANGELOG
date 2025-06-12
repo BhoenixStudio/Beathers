@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.3.2] - 2025-06-12
+
+### Fixed
+
+- **CLI version display**: Fixed version command to show correct package version (5.3.2) instead of incorrect version
+- **NPM package structure**: Fixed SCSS file paths in distributed package by copying source SCSS files to dist/scss/ directory
+
 ## [5.3.1] - 2025-06-12
 
 ### Fixed
