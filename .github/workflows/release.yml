@@ -69,11 +69,6 @@ jobs:
           gh release create "${{ steps.package-info.outputs.version }}" \
             --title "Release ${{ steps.package-info.outputs.version }}" \
             --notes "Check the [CHANGELOG](./CHANGELOG) for detailed information.
-
-          - Version: ${{ steps.package-info.outputs.version }}
-          - Branch: release/production
-          - Commit: ${{ github.sha }}" \
-            --latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
