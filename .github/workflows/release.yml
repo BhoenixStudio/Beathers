@@ -39,7 +39,7 @@ jobs:
 
       - name: 🔧 Preparing project dependencies
         run: |
-          pnpm install --frozen-lockfile
+          pnpm install --no-frozen-lockfile
 
       - name: 📦 Get package info
         id: package-info
