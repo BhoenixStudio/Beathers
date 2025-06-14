@@ -25,10 +25,17 @@ jobs:
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
-          cache: 'pnpm'
 
       - name: 📦 Install pnpm
         run: npm install -g pnpm
+
+      - name: 💾 Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: $(pnpm store path --silent)
+          key: ${{ runner.os }}-pnpm-store-v1-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-v1-
 
       - name: 🔧 Preparing project dependencies
         run: |
@@ -60,10 +67,10 @@ jobs:
         if: steps.check-tag.outputs.exists == 'false'
         run: |
           gh release create "${{ steps.package-info.outputs.version }}" \
-            --title "Release ${{ steps.package-info.outputs.raw-version }}" \
+            --title "Release ${{ steps.package-info.outputs.version }}" \
             --notes "Check the [CHANGELOG](./CHANGELOG) for detailed information.
 
-          - Version: ${{ steps.package-info.outputs.raw-version }}
+          - Version: ${{ steps.package-info.outputs.version }}
           - Branch: release/production
           - Commit: ${{ github.sha }}" \
             --latest
