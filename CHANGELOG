@@ -1,5 +1,14 @@
 # Changelog
 
+## [5.4.1] - 2025-06-15
+
+### Fixed
+
+- Minor bug fixes and improvements
+- Enhanced build process stability
+- Improved CLI command reliability
+- Fixed edge cases in configuration handling
+
 ## [5.4.0] - 2025-06-12
 
 ### Changed
