@@ -60,7 +60,7 @@ jobs:
           if git rev-parse "${{ steps.package-info.outputs.version }}" >/dev/null 2>&1; then
             echo "exists=true" >> $GITHUB_OUTPUT
           else
-            echo "exists=false" >> $GITHUB_OUTPUT
+          echo "exists=false" >> $GITHUB_OUTPUT
           fi
 
       - name: 🏗️ Build project
@@ -68,12 +68,33 @@ jobs:
         run: |
           pnpm build:publish
 
+      - name: 📄 Extract latest changelog
+        id: changelog
+        run: |
+          START_LINE=$(grep -n "^## \[v[0-9]*\.[0-9]*\.[0-9]*\]" CHANGELOG | head -1 | cut -d: -f1)
+
+          if [ -z "$START_LINE" ]; then
+            echo "No version sections found in CHANGELOG"
+            echo "" > changelog_section.md
+          else
+            NEXT_LINE=$(grep -n "^## \[v[0-9]*\.[0-9]*\.[0-9]*\]" CHANGELOG | sed -n '2p' | cut -d: -f1)
+
+            if [ -z "$NEXT_LINE" ]; then
+              sed -n "${START_LINE},\$p" CHANGELOG > changelog_section.md
+            else
+              END_LINE=$((NEXT_LINE - 1))
+              sed -n "${START_LINE},${END_LINE}p" CHANGELOG > changelog_section.md
+            fi
+          fi
+
+          echo "changelog_file=changelog_section.md" >> $GITHUB_OUTPUT
+
       - name: 🆕 Create Release
         if: steps.check-tag.outputs.exists == 'false'
         run: |
           gh release create "${{ steps.package-info.outputs.version }}" \
             --title "Release ${{ steps.package-info.outputs.version }}" \
-            --notes "Check the [CHANGELOG](./CHANGELOG) for detailed information.
+            --notes-file changelog_section.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
