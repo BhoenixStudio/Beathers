@@ -135,17 +135,9 @@ jobs:
           clickup_project_name: ${{ secrets.CLICKUP_PROJECT_NAME }}
           title: 'Release ${{ steps.package-info.outputs.version }} Submitted'
           description: |
-            **🔄 Workflow Status:** ${{ job.status == 'success' && '✅ Success' || job.status == 'failure' && '❌ Failed' || '⚠️ Cancelled' }}
-            **📋 Actions Performed:**
-            ${{ steps.check-tag.outputs.exists == 'true' && '• ⏭️ Release already exists - skipped creation' || '• ✅ Release created successfully' }}
-            ${{ steps.check-tag.outputs.exists == 'false' && steps.check-npm.outputs.exists == 'true' && '• ⏭️ NPM package already exists - skipped publish' || steps.check-tag.outputs.exists == 'false' && '• ✅ NPM package published successfully' || '' }}
-            ${{ steps.check-tag.outputs.exists == 'false' && '• ✅ Project built successfully' || '' }}
-
             **📊 Details:**
-            • **Package:** ${{ steps.package-info.outputs.name }}
-            • **Branch:** release/production
-            • **Commit:** ${{ github.sha }}
-            • **Author:** ${{ github.actor }}
-            • **Triggered by:** Push to release/production
-            ${{ job.status == 'failure' && '**❗ Error:** Check workflow logs for details' || '' }}
+            • **Package:** "${{ steps.package-info.outputs.name }}@${{ steps.package-info.outputs.version }}"
+            • **Workflow status:** ${{ job.status == 'success' && '✅ Success' || job.status == 'failure' && '❌ Failed' || '⚠️ Cancelled' }}
+            • **Release status:** ${{ steps.check-tag.outputs.exists == 'true' && '❌ Skipped' || '✅ Created' }}
+            • **NPM Publish status:** ${{ steps.check-npm.outputs.exists == 'true' && '❌ Skipped' || '✅ Publish' }}
           show_changelog_commits: 'false'
