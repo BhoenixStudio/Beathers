@@ -139,5 +139,5 @@ jobs:
             • **Package:** "${{ steps.package-info.outputs.name }}@${{ steps.package-info.outputs.version }}"
             • **Workflow status:** ${{ job.status == 'success' && '✅ Success' || job.status == 'failure' && '❌ Failed' || '⚠️ Cancelled' }}
             • **Release status:** ${{ steps.check-tag.outputs.exists == 'true' && '❌ Skipped' || '✅ Created' }}
-            • **NPM Publish status:** ${{ steps.check-npm.outputs.exists == 'true' && '❌ Skipped' || '✅ Publish' }}
+            • **NPM Publish status:** ${{ steps.check-tag.outputs.exists == 'true' && steps.check-npm.outputs.exists == 'true' && '❌ Skipped' || '✅ Published' }}
           show_changelog_commits: 'false'
