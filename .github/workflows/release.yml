@@ -77,29 +77,54 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 📦 Check NPM version and Publish
+      - name: 🔃 Check NPM version
         if: steps.check-tag.outputs.exists == 'false'
+        id: check-npm
         run: |
           if npm view ${{ steps.package-info.outputs.name }}@${{ steps.package-info.outputs.version }} version 2>/dev/null; then
-            echo "::warning::Version ${{ steps.package-info.outputs.version }} already exists on npm. Skipping publish."
+            echo "exists=true" >> $GITHUB_OUTPUT
           else
-            echo "Publishing ${{ steps.package-info.outputs.name }}@${{ steps.package-info.outputs.version }} to NPM..."
-            pnpm publish --access public --no-git-checks
+            echo "exists=false" >> $GITHUB_OUTPUT
           fi
+
+      - name: 📦 Publish to NPM
+        if: steps.check-tag.outputs.exists == 'false' && steps.check-npm.outputs.exists == 'false'
+        run: |
+          echo "Publishing ${{ steps.package-info.outputs.name }}@${{ steps.package-info.outputs.version }} to NPM..."
+          pnpm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: ⏭️ Skip NPM Publish
+        if: steps.check-tag.outputs.exists == 'false' && steps.check-npm.outputs.exists == 'true'
+        run: |
+          echo "::warning::Version ${{ steps.package-info.outputs.version }} already exists on npm. Skipping publish."
       - name: ❌ Skip Actions (Already Exists)
         if: steps.check-tag.outputs.exists == 'true'
         run: |
           echo "::warning::Release ${{ steps.package-info.outputs.version }} already exists. Skipping release creation."
 
       - name: 📢 Send ClickUp Notification
-        if: success()
-        uses: architweb/ClickUpNotification@v1.5.0
+        if: always()
+        uses: architweb/ClickUpNotification@v2.0.0
         with:
           clickup_api_token: ${{ secrets.CLICKUP_API_TOKEN }}
           clickup_workspace_id: ${{ secrets.CLICKUP_WORKSPACE_ID }}
           clickup_channel_id: ${{ secrets.CLICKUP_CHANNEL_ID }}
           clickup_project_name: ${{ secrets.CLICKUP_PROJECT_NAME }}
-          full_commit_message: 'true'
+          title: 'Release ${{ steps.package-info.outputs.version }} Submitted'
+          description: |
+            **🔄 Workflow Status:** ${{ job.status == 'success' && '✅ Success' || job.status == 'failure' && '❌ Failed' || '⚠️ Cancelled' }}
+            **📋 Actions Performed:**
+            ${{ steps.check-tag.outputs.exists == 'true' && '• ⏭️ Release already exists - skipped creation' || '• ✅ Release created successfully' }}
+            ${{ steps.check-tag.outputs.exists == 'false' && steps.check-npm.outputs.exists == 'true' && '• ⏭️ NPM package already exists - skipped publish' || steps.check-tag.outputs.exists == 'false' && '• ✅ NPM package published successfully' || '' }}
+            ${{ steps.check-tag.outputs.exists == 'false' && '• ✅ Project built successfully' || '' }}
+
+            **📊 Details:**
+            • **Package:** ${{ steps.package-info.outputs.name }}
+            • **Branch:** release/production
+            • **Commit:** ${{ github.sha }}
+            • **Author:** ${{ github.actor }}
+            • **Triggered by:** Push to release/production
+            ${{ job.status == 'failure' && '**❗ Error:** Check workflow logs for details' || '' }}
+          show_changelog_commits: 'false'
