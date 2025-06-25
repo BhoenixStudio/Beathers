@@ -1,0 +1,84 @@
+@use '../functions/colors' as colors;
+@use '../settings/index' as settings;
+@use '../settings/defaults' as defs;
+@use '../variables' as vars;
+
+// Definitions
+$useGlass: if(vars.$useGlass != null, vars.$useGlass, settings.$useGlass);
+$useColorsLightMode: if(vars.$useColorsLightMode != null, vars.$useColorsLightMode, settings.$useColorsLightMode);
+$useColorsDarkMode: if(vars.$useColorsDarkMode != null, vars.$useColorsDarkMode, settings.$useColorsDarkMode);
+$glassBlur: if(vars.$glassBlur != null, vars.$glassBlur, defs.$glassBlur);
+$glassColor: if(vars.$glassColor != null, vars.$glassColor, defs.$glassColor);
+$glassBorderThickness: if(vars.$glassBorderThickness != null, vars.$glassBorderThickness, defs.$glassBorderThickness);
+$border1Color: if(vars.$border1Color != null, vars.$border1Color, defs.$border1Color);
+$border2Color: if(vars.$border2Color != null, vars.$border2Color, defs.$border2Color);
+$glassLightAngle: if(vars.$glassLightAngle != null, vars.$glassLightAngle, defs.$glassLightAngle);
+
+@if $useGlass {
+  :root {
+    --glass-blur: #{$glassBlur};
+    --glass-color-light: colors.hexToRgba(map-get($glassColor, 'light'), 0.15, 'Glass.light');
+    --glass-color-dark: colors.hexToRgba(map-get($glassColor, 'dark'), 0.15, 'Glass.dark');
+    --glass-border-thickness: #{$glassBorderThickness};
+    --glass-border-1-color-light: colors.hexToRgba(map-get($border1Color, 'light'), 0.4, 'Glass.light');
+    --glass-border-1-color-dark: colors.hexToRgba(map-get($border1Color, 'dark'), 0.4, 'Glass.dark');
+    --glass-border-2-color-light: colors.hexToRgba(map-get($border2Color, 'light'), 0.1, 'Glass.light');
+    --glass-border-2-color-dark: colors.hexToRgba(map-get($border2Color, 'dark'), 0.1, 'Glass.dark');
+    --glass-light-angle: #{$glassLightAngle};
+  }
+
+  .bg\:glass {
+    position: relative;
+    isolation: isolate;
+    backdrop-filter: var(--glass-blur);
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      border: var(--glass-border-thickness) solid transparent;
+      mask:
+        linear-gradient(black, black) border-box,
+        linear-gradient(black, black) padding-box;
+      mask-composite: subtract;
+      z-index: -1;
+    }
+
+    @if ($useColorsLightMode) {
+      .light &,
+      .light\:#{&},
+      &.light {
+        background: var(--glass-color-light);
+
+        &::before {
+          background: linear-gradient(
+              var(--glass-light-angle),
+              var(--glass-border-2-color-light),
+              var(--glass-border-1-color-light),
+              var(--glass-border-2-color-light)
+            )
+            border-box;
+        }
+      }
+    }
+
+    @if ($useColorsDarkMode) {
+      .dark &,
+      .dark\:#{&},
+      &.dark {
+        background: var(--glass-color-dark);
+
+        &::before {
+          background: linear-gradient(
+              var(--glass-light-angle),
+              var(--glass-border-2-color-dark),
+              var(--glass-border-1-color-dark),
+              var(--glass-border-2-color-dark)
+            )
+            border-box;
+        }
+      }
+    }
+  }
+}

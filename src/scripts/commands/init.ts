@@ -37,6 +37,12 @@ async function getDefaultValues(): Promise<Theme> {
       'guttersValues',
       'bordersValue',
       'radiuses',
+      'glassBlur',
+      'glassColor',
+      'glassBorderThickness',
+      'glassBorder1Color',
+      'glassBorder2Color',
+      'glassLightAngle',
       'useMediaQueries',
       'useIcons',
       'useFontFamilies',
@@ -67,6 +73,7 @@ async function getDefaultValues(): Promise<Theme> {
       'useBorders',
       'useTextBorders',
       'useRadius',
+      'useGlass',
     ]
   )) as Theme
 }

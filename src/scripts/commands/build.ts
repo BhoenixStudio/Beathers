@@ -64,6 +64,7 @@ async function defaultTheme() {
         'useBorders',
         'useTextBorders',
         'useRadius',
+        'useGlass',
       ]
     )
   } catch (error) {

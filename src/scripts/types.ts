@@ -100,6 +100,15 @@ interface Settings {
   guttersValues?: Record<'auto' | number, 'auto' | SizeUnit>
 }
 
+interface Glass {
+  blur?: 0 | `${number}px`
+  glassColor?: { light?: `#${string}`; dark?: `#${string}` }
+  borderThickness?: SizeUnit
+  border1Color?: { light?: `#${string}`; dark?: `#${string}` }
+  border2Color?: { light?: `#${string}`; dark?: `#${string}` }
+  lightAngle?: `${number}deg`
+}
+
 /** Available feature keys for enabling/disabling CSS utilities */
 type RoleKeys =
   | 'useMediaQueries'
@@ -132,6 +141,7 @@ type RoleKeys =
   | 'useBorders'
   | 'useTextBorders'
   | 'useRadius'
+  | 'useGlass'
 
 /** Feature toggles for enabling/disabling CSS utility generation. @default all true */
 type Roles = Partial<Record<RoleKeys, boolean>>
@@ -149,6 +159,9 @@ interface Theme {
 
   /** Feature flags for controlling which CSS utilities are generated */
   roles?: Roles
+
+  /** Optional glassmorphism settings for frosted glass effects */
+  glass?: Glass
 }
 
 export type {
@@ -161,6 +174,7 @@ export type {
   Typography,
   Settings,
   RoleKeys,
+  Glass,
   Roles,
   Theme,
 }

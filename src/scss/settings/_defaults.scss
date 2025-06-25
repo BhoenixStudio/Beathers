@@ -68,7 +68,7 @@ $colors: (
   'info': (
     'light': #0c8181,
     'dark': #49d1d1,
-  )
+  ),
 ) !default;
 
 // Typography
@@ -176,3 +176,25 @@ $bordersValue: (1, 2, 3) !default;
 
 // Defines available border-radius values.
 $radiuses: (5, 10) !default;
+
+// Glassmorphism settings
+$glassBlur: 8px !default;
+// Glassmorphism color settings for light and dark modes
+$glassColor: (
+  'light': #ffffff,
+  'dark': #000000,
+) !default;
+// Glassmorphism border thickness
+$glassBorderThickness: 1px !default;
+// Glassmorphism border 1 settings for light and dark modes
+$glassBorder1Color: (
+  'light': #e6e6e6,
+  'dark': #303030,
+) !default;
+// Glassmorphism border 2 settings for light and dark modes
+$glassBorder2Color: (
+  'light': #e6e6e6,
+  'dark': #303030,
+) !default;
+// Glassmorphism light angle
+$glassLightAngle: 45deg !default;
