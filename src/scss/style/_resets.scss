@@ -1,9 +1,11 @@
 @use '../settings/configs' as configs;
+@use '../settings/defaults' as defs;
 @use '../variables' as vars;
 @use '../functions/colors' as colors;
 @use '../settings/index' as settings;
 
 // Definitions
+$defaultFontFamilies: if(vars.$defaultFontFamilies != null, vars.$defaultFontFamilies, defs.$defaultFontFamilies);
 $useColors: if(vars.$useColors != null, vars.$useColors, settings.$useColors);
 $useColorsLightMode: if(vars.$useColorsLightMode != null, vars.$useColorsLightMode, settings.$useColorsLightMode);
 $useColorsDarkMode: if(vars.$useColorsDarkMode != null, vars.$useColorsDarkMode, settings.$useColorsDarkMode);
@@ -15,14 +17,14 @@ html {
 
 body {
   position: relative;
-  /* stylelint-disable font-family-no-missing-generic-family-keyword */
-  font-family: 'regular';
+  font-family: 'regular', $defaultFontFamilies;
   overflow-x: hidden;
 }
 
 *,
 ::before,
 ::after {
+  font-family: inherit;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -51,13 +53,13 @@ a {
 @if $useColors {
   @if $useColorsLightMode {
     .light::selection {
-      background-color: colors.useColorWithMap('custom-2');
+      background-color: colors.useColorWithMap('third');
       color: colors.useColorWithMap('white');
     }
   }
   @if $useColorsDarkMode {
     .dark::selection {
-      background-color: colors.useColorWithMap('custom-2', 'dark');
+      background-color: colors.useColorWithMap('third', 'dark');
       color: colors.useColorWithMap('black');
     }
   }
