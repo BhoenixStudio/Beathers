@@ -82,7 +82,7 @@ async function BuildTheme(customOutputPath?: string) {
 
     console.log('🔄 Building theme variables...')
     const theme = DeepMerge(defaults, userConfigs)
-    const variablesString = BuildScssVariables(theme)
+    const variablesString = BuildScssVariables(theme, !!customOutputPath)
 
     await fs.writeFile(variablesPath, variablesString, { flag: 'w' })
     console.log(`✅ Theme variables generated: ${variablesPath}`)
