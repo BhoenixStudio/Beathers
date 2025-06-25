@@ -91,6 +91,7 @@
     "**/*.{js,d.ts,d.ts.map}",
     "scss/**/*.scss",
     "public/images/logo.png",
+    "public/fonts/*.{woff,woff2}",
     "CHANGELOG",
     "readme.md"
   ]
