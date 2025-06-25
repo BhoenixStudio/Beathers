@@ -1,5 +1,11 @@
 import { Theme } from '../scripts/types.js'
 
+export const bhoenixColors: Theme['colors'] = {
+  b1: { light: '#30302f', dark: '#c5c5c2' },
+  b2: { light: '#e15a26', dark: '#ed703f' },
+  b3: { light: '#1e3767', dark: '#8398c0' },
+}
+
 export const basicColors: Theme['colors'] = {
   black: { light: '#000000' },
   white: { light: '#ffffff' },
@@ -53,6 +59,7 @@ export const customColors: Theme['colors'] = {
 }
 
 export const colorsList = {
+  'Bhoenix colors': bhoenixColors,
   'Basic colors': basicColors,
   'Social colors': socialColors,
   'Custom colors': customColors,
