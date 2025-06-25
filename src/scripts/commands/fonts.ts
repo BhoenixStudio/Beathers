@@ -147,7 +147,6 @@ export async function ImportFont(): Promise<void> {
 
     config.typography ??= {}
     config.typography.fonts ??= {}
-
     config.typography.fonts[fontName] = isLocal ? localFont : importedFont
 
     await saveConfig(configFile, config)
