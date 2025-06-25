@@ -1,7 +1,7 @@
 // General Types
 
 /** CSS size unit values supporting px, rem, em, viewport units, and percentages */
-type SizeUnit = `${number}px` | `${number}rem` | `${number}em` | `${number}vw` | `${number}vh` | `${number}%`
+type SizeUnit = 0 | `${number}px` | `${number}rem` | `${number}em` | `${number}vw` | `${number}vh` | `${number}%`
 
 // Color Types
 
