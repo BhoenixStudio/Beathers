@@ -112,7 +112,7 @@ $textTruncate: if(vars.$textTruncate != (), vars.$textTruncate, defs.$textTrunca
             $checkedUnicode: val.string($unicode, 'Typographic.fontFace.unicode');
           }
 
-          @include typo.font($title, $weight, $format, $style, $fI, $unicode, $isLocal, $externalUrl);
+          @include typo.font($fontKey, $title, $weight, $format, $style, $fI, $unicode, $isLocal, $externalUrl);
         }
       }
     }
@@ -122,7 +122,7 @@ $textTruncate: if(vars.$textTruncate != (), vars.$textTruncate, defs.$textTrunca
         @each $style in $styles {
           // Font weights
           // Validate parameters
-          $styleClass: if($fI == 0, $weight, '#{$weight}-#{$fI}');
+          $styleClass: if($fI == 0, $weight, '#{$fontKey}\:#{$weight}');
           $weightValue: map.get(configs.$fontWeightsValues, $weight);
 
           $mainClass: if($size, #{$size}#{$divider}#{$styleClass}, $styleClass);
@@ -132,6 +132,7 @@ $textTruncate: if(vars.$textTruncate != (), vars.$textTruncate, defs.$textTrunca
               '#{$styleClass}',
               $defaultFontFamilies if($size, !important, null);
             font-weight: if($size, $weightValue !important, $weightValue);
+
             @if meta.type-of($styles) == 'list' and list.length($styles) > 0 {
               &.#{$style} {
                 font-style: $style;

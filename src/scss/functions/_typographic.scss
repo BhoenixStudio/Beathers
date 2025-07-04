@@ -44,7 +44,7 @@ $fontMainPath: if(vars.$fontMainPath != null, vars.$fontMainPath, defs.$fontMain
 //   //   unicode-range: U+000-5FF;
 //   // }
 //
-@mixin font($title, $weight, $format, $style, $index: 0, $unicode: null, $isLocal: true, $externalUrl: '') {
+@mixin font($key, $title, $weight, $format, $style, $index: 0, $unicode: null, $isLocal: true, $externalUrl: '') {
   // Validate parameters
   $checkedIsLocal: val.boolean($isLocal, '#{$title}.font().local');
   $checkedTitle: val.string($title, '#{$title}.font().title');
@@ -62,7 +62,7 @@ $fontMainPath: if(vars.$fontMainPath != null, vars.$fontMainPath, defs.$fontMain
     $checkedExternalUrl: val.string($externalUrl, 'Typographic.fontFace.externalUrl');
   }
 
-  $name: if($index == 0, $title, '#{$title}-#{$index}');
+  $name: if($index == 0, $title, '#{$key}\:#{$title}');
   $weightValue: map.get(configs.$fontWeightsValues, $weight);
 
   @font-face {
