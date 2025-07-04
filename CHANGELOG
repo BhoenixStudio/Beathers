@@ -1,5 +1,20 @@
 # Changelog
 
+## [5.5.0] - 2025-07-04
+
+### Added
+
+- **Glass effects**: New glassmorphism settings and utilities for modern UI effects
+- **Bhoenix branding colors**: Added official Bhoenix Studio brand colors to the color palette
+
+### Fixed
+
+- **Typography**: Updated font mixin parameters to include font key for better font handling
+- **Build system**: Enhanced build process with proper isLocalBuild flag handling and improved font path resolution
+- **Icon fonts**: Fixed icon font path references for reliable icon loading
+- **Font families**: Updated font family definitions and color selections in reset styles
+- **CSS validation**: Improved SizeUnit type to properly handle zero values as valid CSS units
+
 ## [5.4.1] - 2025-06-15
 
 ### Fixed
