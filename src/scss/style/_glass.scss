@@ -30,7 +30,7 @@ $glassLightAngle: if(vars.$glassLightAngle != null, vars.$glassLightAngle, defs.
   .bg\:glass {
     position: relative;
     isolation: isolate;
-    backdrop-filter: var(--glass-blur);
+    backdrop-filter: blur(var(--glass-blur));
 
     &::before {
       content: '';
