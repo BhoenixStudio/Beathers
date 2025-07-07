@@ -86,7 +86,7 @@ async function BuildTheme(customOutputPath?: string) {
     const variablesString = BuildScssVariables(theme, !!customOutputPath)
 
     await fs.writeFile(variablesPath, variablesString, { flag: 'w' })
-    console.log(`✅ Theme variables generated: ${variablesPath}`)
+    console.log(`✅ Theme variables generated`)
 
     console.log('')
     console.log('🔨 Compiling SCSS to CSS...')
