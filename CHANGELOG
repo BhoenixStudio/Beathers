@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.5.3] - 2025-07-07
+
+### Fixed
+
+- **DeepMerge function**: Added missing glass property merging in theme configuration merge operation
+
 ## [5.5.2] - 2025-07-07
 
 ### Improved
