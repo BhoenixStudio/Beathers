@@ -47,15 +47,18 @@ $useFlex: if(vars.$useFlex != null, vars.$useFlex, settings.$useFlex);
         }
       }
 
-      &.row,
-      &.row-reverse {
-        @include func.flexDivision(width, 'cols', $size, $divider);
-        @include func.flexDivision(width, 'col', $size, $divider);
-      }
-      &.column,
-      &.column-reverse {
-        @include func.flexDivision(height, 'rows', $size, $divider);
-        @include func.flexDivision(height, 'row', $size, $divider);
+      &.wrapper {
+        &.row,
+        &.row-reverse {
+          @include func.flexDivision(width, 'cols', $size, $divider);
+          @include func.flexDivision(width, 'col', $size, $divider);
+        }
+
+        &.column,
+        &.column-reverse {
+          @include func.flexDivision(height, 'rows', $size, $divider);
+          @include func.flexDivision(height, 'row', $size, $divider);
+        }
       }
     }
   }
