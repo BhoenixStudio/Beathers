@@ -6,30 +6,13 @@ $colors: ();
 
 // --- Typography ---
 $defaultFontFamilies: null;
-$fontMainPath: null;
+$fontMainPath: '/undefined';
 $fontFormat: null;
 $fontWeights: ();
 $fontStyles: ();
 $fontSizes: ();
 $textTruncate: ();
 $fonts: ();
-
-// --- Glass settings ---
-$glassBlur: null;
-$glassColor: (
-  'light': #ffffff,
-  'dark': #000000,
-);
-$glassBorderThickness: null;
-$glassBorder1Color: (
-  'light': #e6e6e6,
-  'dark': #303030,
-);
-$glassBorder2Color: (
-  'light': #e6e6e6,
-  'dark': #303030,
-);
-$glassLightAngle: null;
 
 // --- Settings ---
 $axisDivisions: null;
@@ -74,3 +57,20 @@ $useBorders: true;
 $useTextBorders: true;
 $useRadius: true;
 $useGlass: true;
+
+// --- Glass ---
+$glassBlur: null;
+$glassColor: (
+  'light': #ffffff,
+  'dark': #000000,
+);
+$glassBorderThickness: null;
+$glassBorder1Color: (
+  'light': #e6e6e6,
+  'dark': #303030,
+);
+$glassBorder2Color: (
+  'light': #e6e6e6,
+  'dark': #303030,
+);
+$glassLightAngle: null;

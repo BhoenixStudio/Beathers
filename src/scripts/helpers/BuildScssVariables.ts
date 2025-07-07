@@ -151,15 +151,28 @@ function BuildGlass(glass: Theme['glass']): string {
 
   let scss = '\n\n// --- Glass ---\n'
 
-  scss += `$glassBlur: ${glass.blur};\n`
-  scss += `$glassColorLight: ${glass.glassColor?.light};\n`
-  scss += `$glassColorDark: ${glass.glassColor?.dark};\n`
-  scss += `$glassBorderThickness: ${glass.borderThickness};\n`
-  scss += `$glassBorder1ColorLight: ${glass.border1Color?.light};\n`
-  scss += `$glassBorder1ColorDark: ${glass.border1Color?.dark};\n`
-  scss += `$glassBorder2ColorLight: ${glass.border2Color?.light};\n`
-  scss += `$glassBorder2ColorDark: ${glass.border2Color?.dark};\n`
-  scss += `$glassLightAngle: ${glass.lightAngle};\n`
+  scss += `$glassBlur: ${glass.blur ?? 'null'};\n`
+  scss += `$glassBorderThickness: ${glass.borderThickness ?? 'null'};\n`
+  scss += `$glassLightAngle: ${glass.lightAngle ?? 'null'};\n`
+
+  if (glass.glassColor) {
+    scss += '$glassColor: (\n'
+    scss += `  'light': ${glass.glassColor.light},\n`
+    scss += `  'dark': ${glass.glassColor.dark},\n`
+    scss += ');\n'
+  } else scss += '$glassColor: ();\n'
+  if (glass.border1Color) {
+    scss += '$glassBorder1Color: (\n'
+    scss += `  'light': ${glass.border1Color.light},\n`
+    scss += `  'dark': ${glass.border1Color.dark},\n`
+    scss += ');\n'
+  } else scss += '$glassBorder1Color: ();\n'
+  if (glass.border2Color) {
+    scss += '$glassBorder2Color: (\n'
+    scss += `  'light': ${glass.border2Color.light},\n`
+    scss += `  'dark': ${glass.border2Color.dark},\n`
+    scss += ');\n'
+  } else scss += '$glassBorder2Color: ();\n'
 
   return scss
 }
