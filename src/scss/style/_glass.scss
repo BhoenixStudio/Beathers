@@ -1,3 +1,4 @@
+@use 'sass:map';
 @use '../functions/colors' as colors;
 @use '../settings/index' as settings;
 @use '../settings/defaults' as defs;
@@ -15,12 +16,12 @@ $glassBorder2Color: if(vars.$glassBorder2Color != null, vars.$glassBorder2Color,
 $glassLightAngle: if(vars.$glassLightAngle != null, vars.$glassLightAngle, defs.$glassLightAngle);
 
 @if $useGlass {
-  $glassColorLight: colors.hexToRgba(map-get($glassColor, 'light'), 0.15, 'Glass.light');
-  $glassColorDark: colors.hexToRgba(map-get($glassColor, 'dark'), 0.15, 'Glass.dark');
-  $glassBorder1ColorLight: colors.hexToRgba(map-get($glassBorder1Color, 'light'), 0.4, 'Glass.light');
-  $glassBorder1ColorDark: colors.hexToRgba(map-get($glassBorder1Color, 'dark'), 0.4, 'Glass.dark');
-  $glassBorder2ColorLight: colors.hexToRgba(map-get($glassBorder2Color, 'light'), 0.4, 'Glass.light');
-  $glassBorder2ColorDark: colors.hexToRgba(map-get($glassBorder2Color, 'dark'), 0.4, 'Glass.dark');
+  $glassColorLight: colors.hexToRgba(map.get($glassColor, 'light'), 0.15, 'Glass.light');
+  $glassColorDark: colors.hexToRgba(map.get($glassColor, 'dark'), 0.15, 'Glass.dark');
+  $glassBorder1ColorLight: colors.hexToRgba(map.get($glassBorder1Color, 'light'), 0.4, 'Glass.light');
+  $glassBorder1ColorDark: colors.hexToRgba(map.get($glassBorder1Color, 'dark'), 0.4, 'Glass.dark');
+  $glassBorder2ColorLight: colors.hexToRgba(map.get($glassBorder2Color, 'light'), 0.4, 'Glass.light');
+  $glassBorder2ColorDark: colors.hexToRgba(map.get($glassBorder2Color, 'dark'), 0.4, 'Glass.dark');
 
   .bg\:glass {
     position: relative;
