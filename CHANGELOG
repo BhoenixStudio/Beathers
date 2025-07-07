@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.5.2] - 2025-07-07
+
+### Improved
+
+- **Documentation**: Added comprehensive Glass settings documentation to README.md
+- **Glass utilities**: Enhanced glassmorphism configuration examples and usage instructions
+
+### Fixed
+
+- Minor documentation improvements and clarifications
+
 ## [5.5.1] - 2025-07-07
 
 ### Fixed
