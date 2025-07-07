@@ -72,7 +72,7 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
       $checkedSpread: val.number($spread, 'Shadows.spread');
       $checkedOpacity: val.opacity($opacity, 'Shadows.opacity');
 
-      $mainClass: if($size, '#{$size}#{$divider}divider-#{$class}', 'divider-#{$class}');
+      $mainClass: if($size, '#{$size}#{$divider}shadow\:#{$class}', 'shadow\:#{$class}');
 
       .#{$mainClass} {
         box-shadow: func.shadowValue($x)
