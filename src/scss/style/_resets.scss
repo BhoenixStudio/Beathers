@@ -24,16 +24,70 @@ body {
 *,
 ::before,
 ::after {
-  font-family: inherit;
+  font-family: 'regular', $defaultFontFamilies;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+input,
+textarea,
+select,
+button,
+kbd,
+samp,
+table,
+table *,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: inherit;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
 }
 
 :focus,
 button:focus {
   outline: unset;
   box-shadow: unset;
+}
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+legend {
+  padding: 0;
+}
+
+details {
+  display: block;
+}
+
+summary {
+  display: list-item;
+}
+
+img,
+video,
+svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 ul {
@@ -46,6 +100,20 @@ ul {
   }
 }
 
+hr {
+  border: 0;
+  height: 1px;
+  background: currentColor;
+}
+
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
 a {
   text-decoration: unset;
 }
@@ -54,13 +122,13 @@ a {
   @if $useColorsLightMode {
     .light::selection {
       background-color: colors.useColorWithMap('third');
-      color: colors.useColorWithMap('white');
+      color: colors.useColorWithMap('black');
     }
   }
   @if $useColorsDarkMode {
     .dark::selection {
       background-color: colors.useColorWithMap('third', 'dark');
-      color: colors.useColorWithMap('black');
+      color: colors.useColorWithMap('white');
     }
   }
 }
