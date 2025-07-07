@@ -10,34 +10,29 @@ $useColorsDarkMode: if(vars.$useColorsDarkMode != null, vars.$useColorsDarkMode,
 $glassBlur: if(vars.$glassBlur != null, vars.$glassBlur, defs.$glassBlur);
 $glassColor: if(vars.$glassColor != null, vars.$glassColor, defs.$glassColor);
 $glassBorderThickness: if(vars.$glassBorderThickness != null, vars.$glassBorderThickness, defs.$glassBorderThickness);
-$border1Color: if(vars.$border1Color != null, vars.$border1Color, defs.$border1Color);
-$border2Color: if(vars.$border2Color != null, vars.$border2Color, defs.$border2Color);
+$glassBorder1Color: if(vars.$glassBorder1Color != null, vars.$glassBorder1Color, defs.$glassBorder1Color);
+$glassBorder2Color: if(vars.$glassBorder2Color != null, vars.$glassBorder2Color, defs.$glassBorder2Color);
 $glassLightAngle: if(vars.$glassLightAngle != null, vars.$glassLightAngle, defs.$glassLightAngle);
 
 @if $useGlass {
-  :root {
-    --glass-blur: #{$glassBlur};
-    --glass-color-light: colors.hexToRgba(map-get($glassColor, 'light'), 0.15, 'Glass.light');
-    --glass-color-dark: colors.hexToRgba(map-get($glassColor, 'dark'), 0.15, 'Glass.dark');
-    --glass-border-thickness: #{$glassBorderThickness};
-    --glass-border-1-color-light: colors.hexToRgba(map-get($border1Color, 'light'), 0.4, 'Glass.light');
-    --glass-border-1-color-dark: colors.hexToRgba(map-get($border1Color, 'dark'), 0.4, 'Glass.dark');
-    --glass-border-2-color-light: colors.hexToRgba(map-get($border2Color, 'light'), 0.1, 'Glass.light');
-    --glass-border-2-color-dark: colors.hexToRgba(map-get($border2Color, 'dark'), 0.1, 'Glass.dark');
-    --glass-light-angle: #{$glassLightAngle};
-  }
+  $glassColorLight: colors.hexToRgba(map-get($glassColor, 'light'), 0.15, 'Glass.light');
+  $glassColorDark: colors.hexToRgba(map-get($glassColor, 'dark'), 0.15, 'Glass.dark');
+  $glassBorder1ColorLight: colors.hexToRgba(map-get($glassBorder1Color, 'light'), 0.4, 'Glass.light');
+  $glassBorder1ColorDark: colors.hexToRgba(map-get($glassBorder1Color, 'dark'), 0.4, 'Glass.dark');
+  $glassBorder2ColorLight: colors.hexToRgba(map-get($glassBorder2Color, 'light'), 0.4, 'Glass.light');
+  $glassBorder2ColorDark: colors.hexToRgba(map-get($glassBorder2Color, 'dark'), 0.4, 'Glass.dark');
 
   .bg\:glass {
     position: relative;
     isolation: isolate;
-    backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur, $glassBlur));
 
     &::before {
       content: '';
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      border: var(--glass-border-thickness) solid transparent;
+      border: var(--glass-border-thickness, $glassBorderThickness) solid transparent;
       mask:
         linear-gradient(black, black) border-box,
         linear-gradient(black, black) padding-box;
@@ -49,14 +44,14 @@ $glassLightAngle: if(vars.$glassLightAngle != null, vars.$glassLightAngle, defs.
       .light &,
       .light\:#{&},
       &.light {
-        background: var(--glass-color-light);
+        background: var(--glass-color-light, $glassColorLight);
 
         &::before {
           background: linear-gradient(
-              var(--glass-light-angle),
-              var(--glass-border-2-color-light),
-              var(--glass-border-1-color-light),
-              var(--glass-border-2-color-light)
+              var(--glass-light-angle, $glassLightAngle),
+              var(--glass-border-2-color-light, $glassBorder2ColorLight),
+              var(--glass-border-1-color-light, $glassBorder1ColorLight),
+              var(--glass-border-2-color-light, $glassBorder2ColorLight)
             )
             border-box;
         }
@@ -67,14 +62,14 @@ $glassLightAngle: if(vars.$glassLightAngle != null, vars.$glassLightAngle, defs.
       .dark &,
       .dark\:#{&},
       &.dark {
-        background: var(--glass-color-dark);
+        background: var(--glass-color-dark, $glassColorDark);
 
         &::before {
           background: linear-gradient(
-              var(--glass-light-angle),
-              var(--glass-border-2-color-dark),
-              var(--glass-border-1-color-dark),
-              var(--glass-border-2-color-dark)
+              var(--glass-light-angle, $glassLightAngle),
+              var(--glass-border-2-color-dark, $glassBorder2ColorDark),
+              var(--glass-border-1-color-dark, $glassBorder1ColorDark),
+              var(--glass-border-2-color-dark, $glassBorder2ColorDark)
             )
             border-box;
         }
