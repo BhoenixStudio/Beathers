@@ -24,8 +24,8 @@ function BuildTypography(typography: Theme['typography']): string {
   scss += typography?.defaultFontFamilies?.length ? typography.defaultFontFamilies.join(', ').replace(/"/g, '') : 'null'
   scss += ';\n'
 
-  let fontPath = typography?.fontMainPath || null
-  if (!fontPath.startsWith('/')) fontPath = `/${fontPath}`
+  let fontPath = typography?.fontMainPath
+  if (!fontPath?.startsWith('/')) fontPath = `/${fontPath}`
 
   scss += `$fontMainPath: ${fontPath ? `"${fontPath}"` : 'null'};\n`
   scss += `$fontFormat: ${typography?.fontFormat ? `"${typography.fontFormat}"` : 'null'};\n`
