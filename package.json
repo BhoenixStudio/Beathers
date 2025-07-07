@@ -21,7 +21,8 @@
     "beathers": "scripts/cli.js"
   },
   "scripts": {
-    "watch": "nodemon --watch src/scss/ --ext scss --exec \"npm-run-all build:pack\"",
+    "watch": "nodemon --watch src/scss/ --ext scss --exec \"npm run build:dev\"",
+    "build:dev": "sass --style expanded --source-map --embed-sources --no-error-css src/scss/:css/",
     "build:pack": "sass --style compressed --source-map --embed-sources --no-error-css src/scss/:css/",
     "build:test": "tsx src/scripts/cli.ts",
     "build:clean": "rimraf css scss && rimraf index.js index.d.ts index.d.ts.map && rimraf data scripts",
