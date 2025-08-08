@@ -114,9 +114,9 @@ $useMediaQueries: if(vars.$useMediaQueries != null, vars.$useMediaQueries, setti
 //       text-align: center !important;
 //     }
 //   }
-//
-@mixin multiSizes() {
-  @if $useMediaQueries {
+
+@mixin multiSizes($condition: false) {
+  @if $useMediaQueries or $condition {
     @each $size, $value in $breakpoints {
       $divider: if($size, #{\:}, '');
 

@@ -5,16 +5,22 @@ $useMediaQueries: false !default;
 // Typographic settings ----- ----- ----- -----
 // Enables or disables font family utilities.
 $useFontFamilies: true !default;
+$useFontFamiliesMediaQueries: false !default;
 // Enables or disables font size utilities.
 $useFontSizes: true !default;
+$useFontSizesMediaQueries: true !default;
 // Enables or disables font shape utilities (transform, decoration, styles).
 $useFontShapes: true !default;
+$useFontShapesMediaQueries: false !default;
 // Enables or disables text alignment utilities.
 $useTextAligns: true !default;
+$useTextAlignsMediaQueries: true !default;
 // Enables or disables text truncation utilities.
 $useTextTruncate: true !default;
+$useTextTruncateMediaQueries: true !default;
 
 // Colors settings ----- ----- ----- -----
+$useColorMediaQueries: false !default;
 // Enables or disables color utilities.
 $useColors: true !default;
 // Enables or disables color opacity utilities.
@@ -29,6 +35,7 @@ $useCurrentColors: true !default;
 $useRootColors: true !default;
 
 // Grid settings ----- ----- ----- -----
+$useGridMediaQueries: true !default;
 // Enables or disables grid utilities.
 $useGrid: true !default;
 // Enables or disables flexbox utilities.
@@ -39,31 +46,46 @@ $useFlex: true !default;
 $useTransitions: true !default;
 // Enables or disables wrapper utilities.
 $useWrappers: true !default;
+$useWrapperMediaQueries: false !default;
 // Enables or disables shadow utilities.
 $useShadows: true !default;
+$useShadowsMediaQueries: false !default;
 // Enables or disables display utilities.
 $useDisplays: true !default;
+$useDisplaysMediaQueries: false !default;
 // Enables or disables overflow utilities.
 $useOverflows: true !default;
+$useOverflowsMediaQueries: false !default;
 // Enables or disables opacity utilities.
 $useOpacities: true !default;
+$useOpacitiesMediaQueries: false !default;
 // Enables or disables blur utilities.
 $useBlur: true !default;
+$useBlurMediaQueries: false !default;
 // Enables or disables object-fit utilities.
 $useObjectFits: true !default;
+$useObjectFitsMediaQueries: false !default;
 // Enables or disables position utilities.
 $usePositions: true !default;
+$usePositionsMediaQueries: false !default;
 // Enables or disables inset utilities.
 $useInsets: true !default;
+$useInsetsMediaQueries: false !default;
 // Enables or disables size utilities (width, height).
 $useSizes: true !default;
+$useSizesMediaQueries: true !default;
 // Enables or disables gutter utilities (padding, margin, gap).
 $useGutters: true !default;
+$useGuttersMediaQueries: true !default;
 // Enables or disables border utilities.
 $useBorders: true !default;
+$useBordersMediaQueries: false !default;
 // Enables or disables text border utilities.
 $useTextBorders: true !default;
+$useTextBordersMediaQueries: false !default;
 // Enables or disables border-radius utilities.
 $useRadius: true !default;
+$useRadiusMediaQueries: false !default;
 // Enables or disables glass effect utilities.
 $useGlass: true !default;
+$useGlassMediaQueries: false !default;
