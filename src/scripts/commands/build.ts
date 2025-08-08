@@ -46,7 +46,6 @@ async function defaultTheme() {
         'useTextTruncate',
         'useTextTruncateMediaQueries',
         'useColors',
-        'useColorMediaQueries',
         'useColorsOpacities',
         'useColorsLightMode',
         'useColorsDarkMode',

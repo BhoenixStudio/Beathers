@@ -55,7 +55,6 @@ async function getDefaultValues(): Promise<Theme> {
       'useTextTruncate',
       'useTextTruncateMediaQueries',
       'useColors',
-      'useColorMediaQueries',
       'useColorsOpacities',
       'useColorsLightMode',
       'useColorsDarkMode',
