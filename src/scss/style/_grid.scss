@@ -47,7 +47,7 @@ $useFlex: if(vars.$useFlex != null, vars.$useFlex, settings.$useFlex);
         }
       }
 
-      &.wrapper {
+      &.flex-wrapper {
         &.row,
         &.row-reverse {
           @include func.flexDivision(width, 'cols', $size, $divider);
@@ -78,7 +78,9 @@ $useFlex: if(vars.$useFlex != null, vars.$useFlex, settings.$useFlex);
             $flexValue: #{$flexPrefix}#{$value};
 
             &#{$property} {
-              &.flex {
+              &.flex,
+              &.d-flex,
+              &.d-inline-flex {
                 #{$way}-#{$selection}: if($size, $flexValue !important, $flexValue);
               }
 
