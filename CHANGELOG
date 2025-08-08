@@ -27,6 +27,12 @@
 
 ### Improved
 
+- **CLI User Experience**: Significantly enhanced console output with professional, user-friendly messaging
+  - Added meaningful emojis and color coding for better visual clarity
+  - Implemented clean formatting for yes/no questions with clear [Y/N] options
+  - Enhanced loading and processing state indicators
+  - Improved error messages and success confirmations
+  - Added consistent color styling for interactive elements (cyan, green, yellow)
 - **CSS Output Optimization**: Users can now fine-tune which responsive utilities are generated, reducing CSS bundle size
 - **Documentation**: Updated README with comprehensive documentation for all new media query control variables
 - **Type Safety**: Enhanced TypeScript types to include all new role variables

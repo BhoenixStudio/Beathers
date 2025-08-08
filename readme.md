@@ -13,7 +13,9 @@
 **Beathers** is a flexible utility library built for developers who want **full control** over their **design system**.
 It compiles only what you need, based on a **configuration file** (`.js`, `.ts`, or `.json`) where you define your own colors (with `light`/`dark` variants), `fonts`, `breakpoints`, and more.
 You can _enable_ or _disable_ entire sections like typography or layout helpers to keep your CSS output minimal and tailored.
-Beathers also includes `CLI tools` that simplify config creation and support `importing fonts and color` packs with ease.
+
+Beathers features an **enhanced CLI experience** with professional, user-friendly console output including meaningful emojis, color coding, and clear formatting for all interactions. The CLI tools simplify config creation and support `importing fonts and color` packs with ease.
+
 The library works with both `SCSS` and plain `CSS`, making it compatible with any modern **frontend** project, no matter your stack.
 
 ## Get Started
@@ -52,13 +54,13 @@ npx beathers
 
 ### CLI Commands
 
-Beathers provides a comprehensive set of CLI commands to manage your design system:
+Beathers provides a comprehensive set of CLI commands to manage your design system with an enhanced, user-friendly interface:
 
 #### Configuration
 
-- `npx beathers init` - Initialize a new configuration file
-- `npx beathers` - Build theme from configuration
-- `npx beathers --local` - Build with custom output path
+- `npx beathers init` - Initialize a new configuration file with interactive prompts
+- `npx beathers` - Build theme from configuration with visual progress indicators
+- `npx beathers` - Build with custom output path
 
 #### Font Management
 
@@ -77,6 +79,7 @@ Beathers provides a comprehensive set of CLI commands to manage your design syst
 
 - `npx beathers --help` - Show all available commands
 - `npx beathers --version` - Show current version
+-
 
 ### Import in Your Project
 
