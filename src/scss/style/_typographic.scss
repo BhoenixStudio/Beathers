@@ -12,16 +12,41 @@
 
 // Definitions
 $useFontFamilies: if(vars.$useFontFamilies != null, vars.$useFontFamilies, settings.$useFontFamilies);
+$useFontFamiliesMediaQueries: if(
+  vars.$useFontFamiliesMediaQueries != null,
+  vars.$useFontFamiliesMediaQueries,
+  settings.$useFontFamiliesMediaQueries
+);
 $fonts: if(vars.$fonts != (), vars.$fonts, defs.$fonts);
 $fontWeights: if(vars.$fontWeights != (), vars.$fontWeights, defs.$fontWeights);
 $fontStyles: if(vars.$fontStyles != (), vars.$fontStyles, defs.$fontStyles);
 $fontFormat: if(vars.$fontFormat != (), vars.$fontFormat, defs.$fontFormat);
 $defaultFontFamilies: if(vars.$defaultFontFamilies != null, vars.$defaultFontFamilies, defs.$defaultFontFamilies);
 $useFontSizes: if(vars.$useFontSizes != null, vars.$useFontSizes, settings.$useFontSizes);
+$useFontSizesMediaQueries: if(
+  vars.$useFontSizesMediaQueries != null,
+  vars.$useFontSizesMediaQueries,
+  settings.$useFontSizesMediaQueries
+);
 $fontSizes: if(vars.$fontSizes != (), vars.$fontSizes, defs.$fontSizes);
 $useFontShapes: if(vars.$useFontShapes != null, vars.$useFontShapes, settings.$useFontShapes);
+$useFontShapesMediaQueries: if(
+  vars.$useFontShapesMediaQueries != null,
+  vars.$useFontShapesMediaQueries,
+  settings.$useFontShapesMediaQueries
+);
 $useTextAligns: if(vars.$useTextAligns != null, vars.$useTextAligns, settings.$useTextAligns);
+$useTextAlignsMediaQueries: if(
+  vars.$useTextAlignsMediaQueries != null,
+  vars.$useTextAlignsMediaQueries,
+  settings.$useTextAlignsMediaQueries
+);
 $useTextTruncate: if(vars.$useTextTruncate != null, vars.$useTextTruncate, settings.$useTextTruncate);
+$useTextTruncateMediaQueries: if(
+  vars.$useTextTruncateMediaQueries != null,
+  vars.$useTextTruncateMediaQueries,
+  settings.$useTextTruncateMediaQueries
+);
 $textTruncate: if(vars.$textTruncate != (), vars.$textTruncate, defs.$textTruncate);
 
 // Typographic Utilities
@@ -117,7 +142,7 @@ $textTruncate: if(vars.$textTruncate != (), vars.$textTruncate, defs.$textTrunca
       }
     }
 
-    @include mQ.multiSizes() using ($size, $divider) {
+    @include mQ.multiSizes($useFontFamiliesMediaQueries) using ($size, $divider) {
       @each $weight in $weights {
         @each $style in $styles {
           // Font weights
@@ -178,7 +203,7 @@ $textTruncate: if(vars.$textTruncate != (), vars.$textTruncate, defs.$textTrunca
 //   // ... responsive versions if applicable ...
 //
 @if $useFontSizes {
-  @include mQ.multiSizes() using ($size, $divider) {
+  @include mQ.multiSizes($useFontSizesMediaQueries) using ($size, $divider) {
     @each $fontSize, $value in $fontSizes {
       $mainClass: if($size, #{$size}#{$divider}#{$fontSize}, $fontSize);
 
@@ -222,7 +247,7 @@ $textTruncate: if(vars.$textTruncate != (), vars.$textTruncate, defs.$textTrunca
 //   // ... responsive versions if applicable ...
 //
 @if $useFontShapes {
-  @include mQ.multiSizes() using ($size, $divider) {
+  @include mQ.multiSizes($useFontShapesMediaQueries) using ($size, $divider) {
     @each $type, $values in configs.$fontShapes {
       @each $value in $values {
         @include typo.fontShapes(if($size, '#{$size}#{$divider}#{$value}', $value), $type, $value);
@@ -258,7 +283,7 @@ $textTruncate: if(vars.$textTruncate != (), vars.$textTruncate, defs.$textTrunca
 //   // ... responsive versions if applicable ...
 //
 @if $useTextAligns {
-  @include mQ.multiSizes() using ($size, $divider) {
+  @include mQ.multiSizes($useTextAlignsMediaQueries) using ($size, $divider) {
     @each $dir in configs.$aligns {
       // Validate parameters
       $checkedDir: val.listItem(configs.$aligns, $dir, 'Typographic.fonts.aligns');
@@ -304,7 +329,7 @@ $textTruncate: if(vars.$textTruncate != (), vars.$textTruncate, defs.$textTrunca
 //   // ... responsive versions if applicable ...
 //
 @if $useTextTruncate {
-  @include mQ.multiSizes() using ($size, $divider) {
+  @include mQ.multiSizes($useTextTruncateMediaQueries) using ($size, $divider) {
     @each $i in $textTruncate {
       $mainClass: if($size, '#{$size}#{$divider}text-lines#{\:}#{$i}', 'text-lines#{\:}#{$i}');
 
