@@ -44,7 +44,6 @@ async function getDefaultValues(): Promise<Theme> {
       'glassBorder2Color',
       'glassLightAngle',
       'useMediaQueries',
-      'useIcons',
       'useFontFamilies',
       'useFontSizes',
       'useFontShapes',

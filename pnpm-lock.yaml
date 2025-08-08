@@ -11,6 +11,9 @@ importers:
       fs-extra:
         specifier: ^11.3.0
         version: 11.3.0
+      sass:
+        specifier: ^1.88.0
+        version: 1.88.0
     devDependencies:
       '@eslint/js':
         specifier: ^9.26.0
@@ -63,9 +66,6 @@ importers:
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
-      sass:
-        specifier: ^1.88.0
-        version: 1.88.0
       stylelint:
         specifier: ^16.19.1
         version: 16.19.1(typescript@5.8.3)

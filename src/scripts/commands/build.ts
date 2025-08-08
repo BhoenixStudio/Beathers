@@ -35,7 +35,6 @@ async function defaultTheme() {
       [path.join(projectRoot, 'scss', 'settings', '_index.scss')],
       [
         'useMediaQueries',
-        'useIcons',
         'useFontFamilies',
         'useFontSizes',
         'useFontShapes',

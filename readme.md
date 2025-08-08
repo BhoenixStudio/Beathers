@@ -192,7 +192,6 @@ You can create one of these files in your project root:
 | `border2Color` <br /> Secondary border color (as json)                          | `{ light?: "#${string}"; dark?: "#${string}" }`                                                                                                                                                                   | {light: #e6e6e6, dark: #303030}                                                                                                                                |
 | **ROLES**                                                                       |
 | `useMediaQueries` <br /> Enable responsive utilities                            | `boolean`                                                                                                                                                                                                         | `true`                                                                                                                                                         |
-| `useIcons` <br /> Include icon styles                                           | `boolean`                                                                                                                                                                                                         | `true`                                                                                                                                                         |
 | `useFontFamilies` <br /> Include font family utilities                          | `boolean`                                                                                                                                                                                                         | `true`                                                                                                                                                         |
 | `useFontSizes` <br /> Include font size utilities                               | `boolean`                                                                                                                                                                                                         | `true`                                                                                                                                                         |
 | `useFontShapes` <br /> Include font style utilities                             | `boolean`                                                                                                                                                                                                         | `true`                                                                                                                                                         |
@@ -256,7 +255,6 @@ export default {
     },
   },
   roles: {
-    useIcons: false,
     useBlur: false,
   },
 } satisfies Theme

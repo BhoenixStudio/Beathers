@@ -120,8 +120,7 @@ export async function ReadDefaultValues(files: string[], VariableNames: string[]
         )
           result = buildArray(value)
         else if (['axisDivisions'].includes(name)) result = cleanNumber(value)
-        else if (['glassColor', 'glassBorder1Color', 'glassBorder2Color'].includes(name))
-          result = buildColors(value)
+        else if (['glassColor', 'glassBorder1Color', 'glassBorder2Color'].includes(name)) result = buildColors(value)
         else result = cleanString(value)
 
         variables[name] = result
@@ -153,7 +152,6 @@ export async function ReadDefaultValues(files: string[], VariableNames: string[]
   }
   theme.roles = {
     useMediaQueries: variables?.useMediaQueries,
-    useIcons: variables?.useIcons,
     useFontFamilies: variables?.useFontFamilies,
     useFontSizes: variables?.useFontSizes,
     useFontShapes: variables?.useFontShapes,
