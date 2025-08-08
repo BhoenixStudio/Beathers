@@ -40,9 +40,4 @@ export function Help() {
     const formattedRow = row.map((cell, colIndex) => cell.padEnd(maxLengths[colIndex])).join('  ')
     console.log(formattedRow)
   })
-
-  console.log('\nFlags:')
-  console.log("  --local               Build with user's custom output path (use with build command)")
-  console.log('                        Example: npx beathers build:pack --local')
-  console.log()
 }

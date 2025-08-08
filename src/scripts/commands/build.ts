@@ -23,7 +23,7 @@ if (isInstalledPackage) {
   packageRoot = path.join(userProjectRoot, 'node_modules', 'beathers')
   variablesPath = path.join(packageRoot, 'scss', '_variables.scss')
 } else {
-  packageRoot = path.resolve(projectRoot, '..')
+  packageRoot = projectRoot
   // Write variables to src location for development builds
   variablesPath = path.join(projectRoot, 'scss', '_variables.scss')
 }
@@ -92,7 +92,7 @@ async function defaultTheme() {
   return values
 }
 
-async function BuildTheme(customOutputPath?: string) {
+async function BuildTheme(customOutputPath: string) {
   try {
     console.log('📦 Loading theme configuration...')
     const defaults = await defaultTheme()
@@ -100,7 +100,7 @@ async function BuildTheme(customOutputPath?: string) {
 
     console.log('🔄 Building theme variables...')
     const theme = DeepMerge(defaults, userConfigs)
-    const variablesString = BuildScssVariables(theme, !!customOutputPath)
+    const variablesString = BuildScssVariables(theme, true)
 
     await fs.writeFile(variablesPath, variablesString, { flag: 'w' })
     console.log(`✅ Theme variables generated`)
@@ -109,17 +109,10 @@ async function BuildTheme(customOutputPath?: string) {
     console.log('🔨 Compiling SCSS to CSS...')
 
     const userProjectRoot = process.cwd()
-    const scssSourcePath = isInstalledPackage ? path.join(packageRoot, 'scss') : path.join(projectRoot, '../scss')
+    const scssSourcePath = path.join(packageRoot, 'scss')
 
-    let outputPath: string
-
-    if (customOutputPath) {
-      outputPath = path.join(userProjectRoot, customOutputPath)
-      console.log(`📁 Custom output directory: ${outputPath}`)
-    } else {
-      outputPath = isInstalledPackage ? path.join(packageRoot, 'css') : path.join(projectRoot, '../css')
-      console.log(`📁 Default output directory: ${outputPath}`)
-    }
+    const outputPath = path.join(userProjectRoot, customOutputPath)
+    console.log(`📁 Output directory: \x1b[36m${outputPath}\x1b[0m`)
 
     await fs.ensureDir(outputPath)
 
@@ -139,23 +132,33 @@ export async function Build() {
   try {
     console.log('🎨 Building \x1b[36mBeathers\x1b[0m theme...')
 
-    // Check if --local flag is provided
-    const args = process.argv.slice(2)
-    const hasLocalFlag = args.includes('--local')
+    const defaultOutputPath = 'public/css'
+    let outputPath = defaultOutputPath
 
-    let customOutputPath: string | undefined
+    try {
+      // Try to load user config to get outputPath
+      const userConfigs = await LoadUserConfigs()
+      if (userConfigs?.outputPath) {
+        outputPath = userConfigs.outputPath
+        console.log(`📁 Using output path from config: \x1b[36m${outputPath}\x1b[0m`)
+      } else {
+        // No config file or no outputPath in config, ask user
+        console.log('🏠 Where would you like to save the compiled CSS files?')
+        console.log(`💡 Default: \x1b[36m${defaultOutputPath}\x1b[0m (press Enter to use default)`)
 
-    if (hasLocalFlag) {
-      console.log('🏠 Local build mode enabled')
-      customOutputPath = await promptInput('📁 Output path (e.g., public/css): ')
-
-      if (!customOutputPath) {
-        console.error('❌ Please provide an output path when using \x1b[33m--local\x1b[0m flag.')
-        process.exit(1)
+        const customOutputPath = await promptInput('📁 Output path: ')
+        outputPath = customOutputPath.trim() || defaultOutputPath
       }
+    } catch {
+      // No config file exists, ask user
+      console.log('🏠 Where would you like to save the compiled CSS files?')
+      console.log(`💡 Default: \x1b[36m${defaultOutputPath}\x1b[0m (press Enter to use default)`)
+
+      const customOutputPath = await promptInput('📁 Output path: ')
+      outputPath = customOutputPath.trim() || defaultOutputPath
     }
 
-    await BuildTheme(customOutputPath)
+    await BuildTheme(outputPath)
   } catch (error) {
     console.error('❌ Failed to build theme:', error)
     process.exit(1)
@@ -163,25 +166,8 @@ export async function Build() {
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  const args = process.argv.slice(2)
-
-  if (args.includes('--local')) {
-    console.log('🏠 Local build mode enabled')
-    const { promptInput } = await import('../commands/index.js')
-    const customOutputPath = await promptInput('📁 Output path (e.g., public/css): ')
-
-    if (!customOutputPath) {
-      console.error('❌ Please provide an output path when using \x1b[33m--local\x1b[0m flag.')
-      process.exit(1)
-    }
-
-    BuildTheme(customOutputPath).catch((error) => {
-      console.error('❌ Build failed:', error)
-      process.exit(1)
-    })
-  } else
-    BuildTheme().catch((error) => {
-      console.error('❌ Build failed:', error)
-      process.exit(1)
-    })
+  Build().catch((error) => {
+    console.error('❌ Build failed:', error)
+    process.exit(1)
+  })
 }

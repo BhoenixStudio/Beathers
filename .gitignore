@@ -5,6 +5,7 @@ Thumbs.db
 # Ignore build artifacts
 /node_modules
 /css
+/public/css
 /scss
 /scripts
 /data
