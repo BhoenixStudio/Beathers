@@ -115,8 +115,8 @@ $useMediaQueries: if(vars.$useMediaQueries != null, vars.$useMediaQueries, setti
 //     }
 //   }
 
-@mixin multiSizes($condition: false) {
-  @if $useMediaQueries or $condition {
+@mixin multiSizes($condition: $useMediaQueries) {
+  @if $condition {
     @each $size, $value in $breakpoints {
       $divider: if($size, #{\:}, '');
 
