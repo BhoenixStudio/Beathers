@@ -1,5 +1,36 @@
 # Changelog
 
+## [5.6.0] - 2025-08-08
+
+### Added
+
+- **Media Query Controls**: Added granular control over responsive utility generation with new role variables:
+  - `useFontFamiliesMediaQueries` - Control responsive font family utilities
+  - `useFontSizesMediaQueries` - Control responsive font size utilities
+  - `useFontShapesMediaQueries` - Control responsive font style utilities
+  - `useTextAlignsMediaQueries` - Control responsive text alignment utilities
+  - `useTextTruncateMediaQueries` - Control responsive text truncation utilities
+  - `useShadowsMediaQueries` - Control responsive shadow utilities
+  - `useDisplaysMediaQueries` - Control responsive display utilities
+  - `useOverflowsMediaQueries` - Control responsive overflow utilities
+  - `useOpacitiesMediaQueries` - Control responsive opacity utilities
+  - `useBlurMediaQueries` - Control responsive blur utilities
+  - `useObjectFitsMediaQueries` - Control responsive object-fit utilities
+  - `usePositionsMediaQueries` - Control responsive positioning utilities
+  - `useInsetsMediaQueries` - Control responsive inset utilities
+  - `useSizesMediaQueries` - Control responsive sizing utilities
+  - `useGuttersMediaQueries` - Control responsive spacing utilities
+  - `useBordersMediaQueries` - Control responsive border utilities
+  - `useTextBordersMediaQueries` - Control responsive text border utilities
+  - `useRadiusMediaQueries` - Control responsive border radius utilities
+  - `useGridMediaQueries` - Control responsive grid utilities
+
+### Improved
+
+- **CSS Output Optimization**: Users can now fine-tune which responsive utilities are generated, reducing CSS bundle size
+- **Documentation**: Updated README with comprehensive documentation for all new media query control variables
+- **Type Safety**: Enhanced TypeScript types to include all new role variables
+
 ## [5.5.4] - 2025-07-07
 
 ### Improved
