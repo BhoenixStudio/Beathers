@@ -84,7 +84,6 @@ async function defaultTheme() {
         'useRadius',
         'useRadiusMediaQueries',
         'useGlass',
-        'useGlassMediaQueries',
       ]
     )
   } catch (error) {

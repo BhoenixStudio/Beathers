@@ -93,7 +93,6 @@ async function getDefaultValues(): Promise<Theme> {
       'useRadius',
       'useRadiusMediaQueries',
       'useGlass',
-      'useGlassMediaQueries',
     ]
   )) as Theme
 }

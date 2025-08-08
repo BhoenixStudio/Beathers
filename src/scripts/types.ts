@@ -161,7 +161,6 @@ type RoleKeys =
   | 'useRadius'
   | 'useRadiusMediaQueries'
   | 'useGlass'
-  | 'useGlassMediaQueries'
 
 /** Feature toggles for enabling/disabling CSS utility generation. @default all true */
 type Roles = Partial<Record<RoleKeys, boolean>>
