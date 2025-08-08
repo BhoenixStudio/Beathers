@@ -8,12 +8,13 @@
 // Definitions
 $useGrid: if(vars.$useGrid != null, vars.$useGrid, settings.$useGrid);
 $useFlex: if(vars.$useFlex != null, vars.$useFlex, settings.$useFlex);
+$useGridMediaQueries: if(vars.$useGridMediaQueries != null, vars.$useGridMediaQueries, settings.$useGridMediaQueries);
 
 @if $useGrid {
   .grid {
     display: grid;
 
-    @include mQ.multiSizes() using ($size, $divider) {
+    @include mQ.multiSizes($useGridMediaQueries) using ($size, $divider) {
       @include func.gridDivision(column, $size, $divider);
       @include func.gridDivision(row, $size, $divider);
     }
@@ -26,7 +27,7 @@ $useFlex: if(vars.$useFlex != null, vars.$useFlex, settings.$useFlex);
     flex-direction: row;
     flex-wrap: wrap;
 
-    @include mQ.multiSizes() using ($size, $divider) {
+    @include mQ.multiSizes($useGridMediaQueries) using ($size, $divider) {
       @each $property, $values in configs.$flexProperties {
         // Validate parameters
         $checkedProperty: val.listItem((flex-wrap, flex-direction), $property, 'flex.properties');
@@ -65,7 +66,7 @@ $useFlex: if(vars.$useFlex != null, vars.$useFlex, settings.$useFlex);
 }
 
 @if $useFlex or $useGrid {
-  @include mQ.multiSizes() using ($size, $divider) {
+  @include mQ.multiSizes($useGridMediaQueries) using ($size, $divider) {
     @each $way, $selections in configs.$justify {
       @each $selection, $properties in $selections {
         @each $property in $properties {
