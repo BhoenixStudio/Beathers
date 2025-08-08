@@ -56,7 +56,6 @@ async function defaultTheme() {
         'useFlex',
         'useGridMediaQueries',
         'useWrappers',
-        'useWrapperMediaQueries',
         'useShadows',
         'useShadowsMediaQueries',
         'useDisplays',

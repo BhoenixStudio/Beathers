@@ -65,7 +65,6 @@ async function getDefaultValues(): Promise<Theme> {
       'useFlex',
       'useGridMediaQueries',
       'useWrappers',
-      'useWrapperMediaQueries',
       'useShadows',
       'useShadowsMediaQueries',
       'useDisplays',

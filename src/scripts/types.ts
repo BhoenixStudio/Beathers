@@ -133,7 +133,6 @@ type RoleKeys =
   | 'useFlex'
   | 'useGridMediaQueries'
   | 'useWrappers'
-  | 'useWrapperMediaQueries'
   | 'useShadows'
   | 'useShadowsMediaQueries'
   | 'useDisplays'
