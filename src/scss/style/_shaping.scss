@@ -13,23 +13,84 @@
 $useWrappers: if(vars.$useWrappers != null, vars.$useWrappers, settings.$useWrappers);
 $wrappers: if(vars.$wrappers != null, vars.$wrappers, defs.$wrappers);
 $useShadows: if(vars.$useShadows != null, vars.$useShadows, settings.$useShadows);
+$useShadowsMediaQueries: if(
+  vars.$useShadowsMediaQueries != null,
+  vars.$useShadowsMediaQueries,
+  settings.$useShadowsMediaQueries
+);
 $useDisplays: if(vars.$useDisplays != null, vars.$useDisplays, settings.$useDisplays);
+$useDisplaysMediaQueries: if(
+  vars.$useDisplaysMediaQueries != null,
+  vars.$useDisplaysMediaQueries,
+  settings.$useDisplaysMediaQueries
+);
 $useOverflows: if(vars.$useOverflows != null, vars.$useOverflows, settings.$useOverflows);
+$useOverflowsMediaQueries: if(
+  vars.$useOverflowsMediaQueries != null,
+  vars.$useOverflowsMediaQueries,
+  settings.$useOverflowsMediaQueries
+);
 $useOpacities: if(vars.$useOpacities != null, vars.$useOpacities, settings.$useOpacities);
+$useOpacitiesMediaQueries: if(
+  vars.$useOpacitiesMediaQueries != null,
+  vars.$useOpacitiesMediaQueries,
+  settings.$useOpacitiesMediaQueries
+);
 $opacities: if(vars.$opacities != null, vars.$opacities, defs.$opacities);
 $useBlur: if(vars.$useBlur != null, vars.$useBlur, settings.$useBlur);
+$useBlurMediaQueries: if(vars.$useBlurMediaQueries != null, vars.$useBlurMediaQueries, settings.$useBlurMediaQueries);
 $blurValues: if(vars.$blurValues != null, vars.$blurValues, defs.$blurValues);
 $useObjectFits: if(vars.$useObjectFits != null, vars.$useObjectFits, settings.$useObjectFits);
+$useObjectFitsMediaQueries: if(
+  vars.$useObjectFitsMediaQueries != null,
+  vars.$useObjectFitsMediaQueries,
+  settings.$useObjectFitsMediaQueries
+);
 $usePositions: if(vars.$usePositions != null, vars.$usePositions, settings.$usePositions);
+$usePositionsMediaQueries: if(
+  vars.$usePositionsMediaQueries != null,
+  vars.$usePositionsMediaQueries,
+  settings.$usePositionsMediaQueries
+);
 $useInsets: if(vars.$useInsets != null, vars.$useInsets, settings.$useInsets);
+$useInsetsMediaQueries: if(
+  vars.$useInsetsMediaQueries != null,
+  vars.$useInsetsMediaQueries,
+  settings.$useInsetsMediaQueries
+);
 $insetValues: if(vars.$insetValues != null, vars.$insetValues, defs.$insetValues);
 $useSizes: if(vars.$useSizes != null, vars.$useSizes, settings.$useSizes);
+$useSizesMediaQueries: if(
+  vars.$useSizesMediaQueries != null,
+  vars.$useSizesMediaQueries,
+  settings.$useSizesMediaQueries
+);
 $useGutters: if(vars.$useGutters != null, vars.$useGutters, settings.$useGutters);
+$useGuttersMediaQueries: if(
+  vars.$useGuttersMediaQueries != null,
+  vars.$useGuttersMediaQueries,
+  settings.$useGuttersMediaQueries
+);
 $guttersValues: if(vars.$guttersValues != null, vars.$guttersValues, defs.$guttersValues);
 $useBorders: if(vars.$useBorders != null, vars.$useBorders, settings.$useBorders);
+$useBordersMediaQueries: if(
+  vars.$useBordersMediaQueries != null,
+  vars.$useBordersMediaQueries,
+  settings.$useBordersMediaQueries
+);
 $bordersValue: if(vars.$bordersValue != null, vars.$bordersValue, defs.$bordersValue);
 $useTextBorders: if(vars.$useTextBorders != null, vars.$useTextBorders, settings.$useTextBorders);
+$useTextBordersMediaQueries: if(
+  vars.$useTextBordersMediaQueries != null,
+  vars.$useTextBordersMediaQueries,
+  settings.$useTextBordersMediaQueries
+);
 $useRadius: if(vars.$useRadius != null, vars.$useRadius, settings.$useRadius);
+$useRadiusMediaQueries: if(
+  vars.$useRadiusMediaQueries != null,
+  vars.$useRadiusMediaQueries,
+  settings.$useRadiusMediaQueries
+);
 $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
 
 @if $useWrappers {
@@ -57,7 +118,7 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
 }
 
 @if $useShadows {
-  @include mQ.multiSizes() using ($size, $divider) {
+  @include mQ.multiSizes($useShadowsMediaQueries) using ($size, $divider) {
     @each $class, $values in configs.$shadows {
       $mainClass: if($size, '#{$size}#{$divider}shadow\:#{$class}', 'shadow\:#{$class}');
 
@@ -69,7 +130,7 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
 }
 
 @if $useDisplays {
-  @include mQ.multiSizes() using ($size, $divider) {
+  @include mQ.multiSizes($useDisplaysMediaQueries) using ($size, $divider) {
     @each $display in configs.$displays {
       // Validate parameters
       $checkedDisplay: val.listItem(configs.$displays, $display, 'Shaping.displays');
@@ -84,7 +145,7 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
 }
 
 @if $useOverflows {
-  @include mQ.multiSizes() using ($size, $divider) {
+  @include mQ.multiSizes($useOverflowsMediaQueries) using ($size, $divider) {
     @each $dir in configs.$overflowsDirections {
       // Validate parameters
       @if $dir {
@@ -110,7 +171,7 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
 }
 
 @if $useOpacities {
-  @include mQ.multiSizes() using ($size, $divider) {
+  @include mQ.multiSizes($useOpacitiesMediaQueries) using ($size, $divider) {
     @each $value in $opacities {
       $checkedValue: val.opacity(math.div($value, 100), 'Shaping.opacity');
 
@@ -128,7 +189,7 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
 }
 
 @if $useBlur {
-  @include mQ.multiSizes() using ($size, $divider) {
+  @include mQ.multiSizes($useBlurMediaQueries) using ($size, $divider) {
     @each $value in $blurValues {
       $checkedValue: val.listItem($blurValues, $value, 'Shaping.blur');
 
@@ -147,7 +208,7 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
 }
 
 @if $useObjectFits {
-  @include mQ.multiSizes() using ($size, $divider) {
+  @include mQ.multiSizes($useObjectFitsMediaQueries) using ($size, $divider) {
     @each $fit in configs.$objectsFits {
       // Validate parameters
       $checkedFit: val.listItem(configs.$objectsFits, $fit, 'Shaping.objectFit');
@@ -162,7 +223,7 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
 }
 
 @if $usePositions {
-  @include mQ.multiSizes() using ($size, $divider) {
+  @include mQ.multiSizes($usePositionsMediaQueries) using ($size, $divider) {
     @each $position in configs.$positions {
       // Validate parameters
       $checkedPosition: val.listItem(configs.$positions, $position, 'Shaping.position');
@@ -177,7 +238,7 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
 }
 
 @if $useInsets {
-  @include mQ.multiSizes() using ($size, $divider) {
+  @include mQ.multiSizes($useInsetsMediaQueries) using ($size, $divider) {
     @each $value in $insetValues {
       @each $position in configs.$insetPositions {
         // Validate parameters
@@ -197,7 +258,7 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
 }
 
 @if $useSizes {
-  @include mQ.multiSizes() using ($size, $divider) {
+  @include mQ.multiSizes($useSizesMediaQueries) using ($size, $divider) {
     @each $dir, $direction in configs.$spacesDirections {
       // Validate parameters
       $checkedDir: val.listItem(
@@ -230,7 +291,7 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
 }
 
 @if $useGutters {
-  @include mQ.multiSizes() using ($size, $divider) {
+  @include mQ.multiSizes($useGuttersMediaQueries) using ($size, $divider) {
     @each $class, $property in configs.$gutters {
       // Validate parameters
       $checkedClass: val.listItem(
@@ -285,7 +346,7 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
 }
 
 @if $useBorders {
-  @include mQ.multiSizes() using ($size, $divider) {
+  @include mQ.multiSizes($useBordersMediaQueries) using ($size, $divider) {
     @each $i in $bordersValue {
       @each $dir, $property in configs.$bordersDirections {
         // Validate parameters
@@ -312,7 +373,7 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
 }
 
 @if $useTextBorders {
-  @include mQ.multiSizes() using ($size, $divider) {
+  @include mQ.multiSizes($useTextBordersMediaQueries) using ($size, $divider) {
     @each $i in $bordersValue {
       $mainClass: if($size, '#{$size}#{$divider}stroke', 'stroke');
       $value: math.div($i, 10);
@@ -328,7 +389,7 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
 }
 
 @if $useRadius {
-  @include mQ.multiSizes() using ($size, $divider) {
+  @include mQ.multiSizes($useRadiusMediaQueries) using ($size, $divider) {
     @each $dir, $properties in configs.$radiusDirection {
       // Validate parameters
       $checkedDir: val.listItem(
