@@ -101,6 +101,7 @@ export async function Init() {
 
   const fileName = formatMap[format]
   const filePath = path.join(process.cwd(), fileName)
+  const outputPath = 'public/css'
 
   if (await fs.pathExists(filePath)) {
     const shouldOverride = await promptUser(
@@ -116,7 +117,7 @@ export async function Init() {
   const includeStarterValues = await promptUser(
     '\x1b[36m📝 Would you like to include starter configuration values?\x1b[0m\n\x1b[32m[Y]\x1b[0m Yes \x1b[31m[N]\x1b[0m No: '
   )
-
+  const defaultValues = await getDefaultValues()
   const emptyTemplate = {
     colors: {},
     typography: {
@@ -143,25 +144,16 @@ export async function Init() {
     roles: {},
   }
 
-  let content = ''
-  if (format === 'json') {
-    const data = includeStarterValues ? await getDefaultValues() : emptyTemplate
-    content = JSON.stringify(data, null, 2)
-  } else if (format === 'js') {
-    if (includeStarterValues) {
-      const defaultValues = await getDefaultValues()
-      content = `export default ${JSON.stringify(defaultValues, null, 2)}`
-    } else content = `export default ${JSON.stringify(emptyTemplate, null, 2)}`
-  } else if (format === 'ts') {
-    const importLine = "import type { Theme } from 'beathers'\n\n"
+  const data = includeStarterValues ? defaultValues : emptyTemplate
+  const finalData = { ...data, outputPath }
+  const content = JSON.stringify(finalData, null, 2)
 
-    if (includeStarterValues) {
-      const defaultValues = await getDefaultValues()
-      content = `${importLine}export default ${JSON.stringify(defaultValues, null, 2)} satisfies Theme`
-    } else content = `${importLine}export default ${JSON.stringify(emptyTemplate, null, 2)} satisfies Theme`
-  }
+  let pageContent = content
+  if (format === 'js') pageContent = `export default ${content}`
+  else if (format === 'ts')
+    pageContent = `import type { Theme } from 'beathers'\n\nexport default ${content} satisfies Theme`
 
-  await fs.writeFile(filePath, content)
+  await fs.writeFile(filePath, pageContent)
   const starterText = includeStarterValues ? ' with starter values' : ''
   console.log(`✅ Successfully created \x1b[32m${fileName}\x1b[0m${starterText}`)
 }

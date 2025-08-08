@@ -128,6 +128,7 @@ export async function ReadDefaultValues(files: string[], VariableNames: string[]
     }
   }
 
+  theme.outputPath = variables?.outputPath
   theme.colors = variables?.colors
   theme.typography = {
     fontMainPath: variables?.fontMainPath,

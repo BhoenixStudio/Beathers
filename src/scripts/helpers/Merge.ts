@@ -3,8 +3,20 @@ import { Theme } from '../types.js'
 export function DeepMerge(defaults: Partial<Theme>, configs: Partial<Theme> | null): Theme {
   if (!configs) return defaults as Theme
 
-  const { colors: tColors, roles: tRoles, settings: tSettings, typography: tTypography, glass: tGlass } = defaults ?? {}
-  const { colors: sColors, roles: sRoles, settings: sSettings, typography: sTypography, glass: sGlass } = configs ?? {}
+  const {
+    colors: tColors,
+    roles: tRoles,
+    settings: tSettings,
+    typography: tTypography,
+    glass: tGlass,
+  } = defaults ?? {}
+  const {
+    colors: sColors,
+    roles: sRoles,
+    settings: sSettings,
+    typography: sTypography,
+    glass: sGlass,
+  } = configs ?? {}
 
   const colors: Theme['colors'] = { ...tColors, ...sColors }
   const roles: Theme['roles'] = { ...tRoles, ...sRoles }
@@ -27,5 +39,5 @@ export function DeepMerge(defaults: Partial<Theme>, configs: Partial<Theme> | nu
   }
   const glass: Theme['glass'] = { ...tGlass, ...sGlass }
 
-  return { colors, roles, settings, typography, glass }
+  return {  colors, roles, settings, typography, glass }
 }

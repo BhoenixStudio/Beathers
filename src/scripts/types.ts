@@ -165,6 +165,9 @@ type Roles = Partial<Record<RoleKeys, boolean>>
 
 /** Main theme configuration object containing all design system settings */
 interface Theme {
+  /** Output path for compiled CSS files. @default 'public/css' */
+  outputPath?: string
+
   /** Color palette definitions with light/dark theme support */
   colors?: ColorType
 
