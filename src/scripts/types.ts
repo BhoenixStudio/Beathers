@@ -125,7 +125,6 @@ type RoleKeys =
   | 'useRootColors'
   | 'useGrid'
   | 'useFlex'
-  | 'useTransitions'
   | 'useWrappers'
   | 'useShadows'
   | 'useDisplays'

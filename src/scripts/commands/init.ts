@@ -57,7 +57,6 @@ async function getDefaultValues(): Promise<Theme> {
       'useRootColors',
       'useGrid',
       'useFlex',
-      'useTransitions',
       'useWrappers',
       'useShadows',
       'useDisplays',

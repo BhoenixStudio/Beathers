@@ -48,7 +48,6 @@ async function defaultTheme() {
         'useRootColors',
         'useGrid',
         'useFlex',
-        'useTransitions',
         'useWrappers',
         'useShadows',
         'useDisplays',

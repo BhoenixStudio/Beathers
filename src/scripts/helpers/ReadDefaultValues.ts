@@ -165,7 +165,6 @@ export async function ReadDefaultValues(files: string[], VariableNames: string[]
     useRootColors: variables?.useRootColors,
     useGrid: variables?.useGrid,
     useFlex: variables?.useFlex,
-    useTransitions: variables?.useTransitions,
     useWrappers: variables?.useWrappers,
     useShadows: variables?.useShadows,
     useDisplays: variables?.useDisplays,
