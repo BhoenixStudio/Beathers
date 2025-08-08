@@ -97,55 +97,30 @@ $cursors: (
 // Defines shadow presets.
 $shadows: (
   'light': (
-    x: 0,
-    y: 2,
-    blur: 5,
-    spread: 0,
-    opacity: 0.15,
+    rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+    rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+    rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset,
   ),
   'soft': (
-    x: 2,
-    y: 2,
-    blur: 12,
-    spread: 0,
-    opacity: 0.2,
+    rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px,
   ),
   'medium': (
-    x: 0,
-    y: 10,
-    blur: 20,
-    spread: 0,
-    opacity: 0.2,
+    rgba(0, 0, 0, 0.1) 0px 10px 50px,
   ),
   'solid': (
-    x: 0,
-    y: 4,
-    blur: 10,
-    spread: 0,
-    opacity: 0.3,
-  ),
-  'ambient': (
-    x: 0,
-    y: 0,
-    blur: 40,
-    spread: 10,
-    opacity: 0.1,
-  ),
-  'flat': (
-    x: 0,
-    y: 6,
-    blur: 6,
-    spread: 4,
-    opacity: 0.2,
+    rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
+    rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+    rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset,
   ),
   'floating': (
-    x: 0,
-    y: 20,
-    blur: 40,
-    spread: 0,
-    opacity: 0.15,
+    rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px,
   ),
-);
+  'flat': (
+    rgba(0, 0, 0, 0.15) 0px 3px 3px 0px,
+  ),
+) !default;
 
 // Defines utility classes for clearing properties.
 $clearanceOptions: (

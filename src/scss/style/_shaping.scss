@@ -59,27 +59,10 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
 @if $useShadows {
   @include mQ.multiSizes() using ($size, $divider) {
     @each $class, $values in configs.$shadows {
-      $x: map.get($values, x);
-      $y: map.get($values, y);
-      $blur: map.get($values, blur);
-      $spread: map.get($values, spread);
-      $opacity: map.get($values, opacity);
-
-      // Validate parameters
-      $checkedX: val.number($x, 'Shadows.x');
-      $checkedY: val.number($y, 'Shadows.y');
-      $checkedBlur: val.number($blur, 'Shadows.blur');
-      $checkedSpread: val.number($spread, 'Shadows.spread');
-      $checkedOpacity: val.opacity($opacity, 'Shadows.opacity');
-
       $mainClass: if($size, '#{$size}#{$divider}shadow\:#{$class}', 'shadow\:#{$class}');
 
       .#{$mainClass} {
-        box-shadow: func.shadowValue($x)
-          func.shadowValue($y)
-          func.shadowValue($blur)
-          func.shadowValue($spread)
-          rgba(0, 0, 0, $opacity);
+        box-shadow: $values;
       }
     }
   }
