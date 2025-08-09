@@ -120,7 +120,7 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
 @if $useShadows {
   @include mQ.multiSizes($useShadowsMediaQueries) using ($size, $divider) {
     @each $class, $values in configs.$shadows {
-      $mainClass: if($size, '#{$size}#{$divider}shadow\:#{$class}', 'shadow\:#{$class}');
+      $mainClass: if($size, '#{$size}#{$divider}shadow#{\:}#{$class}', 'shadow#{\:}#{$class}');
 
       .#{$mainClass} {
         box-shadow: $values;
