@@ -1,5 +1,20 @@
 # Changelog
 
+## [5.6.2] - 2025-09-27
+
+### Added
+
+- **Documentation**: Added comprehensive documentation for colors, typography, grid system, and visual effects
+- **Package Configuration**: Included documentation files in package.json for better distribution
+
+### Fixed
+
+- **SCSS Styling**: Uncommented style imports in beathers.min.scss to ensure proper styling functionality
+
+### Changed
+
+- **Media Query Settings**: Removed useMediaQueries from theme roles and related settings for cleaner configuration
+
 ## [5.6.0, 5.6.1] - 2025-08-08
 
 ### Added
