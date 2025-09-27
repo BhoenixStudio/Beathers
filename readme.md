@@ -280,10 +280,19 @@ export default {
 } satisfies Theme
 ```
 
+## Documentation
+
+Comprehensive guides to help you master Beathers and build amazing designs with our utility-first CSS framework.
+
+- **Colors & Theming** → [Colors Guide](https://www.npmjs.com/package/docs/colors.md)
+- **Typography & Text** → [Typography Guide](https://www.npmjs.com/package/docs/typography.md)
+- **Layout & Structure** → [Grid System Guide](https://www.npmjs.com/package/docs/grid-system.md)
+- **Visual Effects** → [Shaping Guide](https://www.npmjs.com/package/docs/shaping.md)
+
+---
+
 ## Contact & Support
 
 [![Website](https://img.shields.io/badge/Website-bhoenixstudio.com/beathers-blue?style=for-the-badge&logo=globe)](https://bhoenixstudio.com/beathers)
-
-[![Documentation](https://img.shields.io/badge/Documentation-Full%20Docs-green?style=for-the-badge&logo=book)](https://bhoenixstudio.com/beathers)
 
 [![Email](https://img.shields.io/badge/Email-contact@bhoenixstudio.com-red?style=for-the-badge&logo=gmail)](mailto:contact@bhoenixstudio.com)
