@@ -152,7 +152,6 @@ export async function ReadDefaultValues(files: string[], VariableNames: string[]
     guttersValues: variables.guttersValues,
   }
   theme.roles = {
-    useMediaQueries: variables?.useMediaQueries,
     useFontFamilies: variables?.useFontFamilies,
     useFontFamiliesMediaQueries: variables?.useFontFamiliesMediaQueries,
     useFontSizes: variables?.useFontSizes,

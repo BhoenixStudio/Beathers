@@ -111,7 +111,6 @@ interface Glass {
 
 /** Available feature keys for enabling/disabling CSS utilities */
 type RoleKeys =
-  | 'useMediaQueries'
   | 'useFontFamilies'
   | 'useFontFamiliesMediaQueries'
   | 'useFontSizes'

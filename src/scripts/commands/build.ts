@@ -34,7 +34,6 @@ async function defaultTheme() {
     values = await ReadDefaultValues(
       [path.join(projectRoot, 'scss', 'settings', '_index.scss')],
       [
-        'useMediaQueries',
         'useFontFamilies',
         'useFontFamiliesMediaQueries',
         'useFontSizes',

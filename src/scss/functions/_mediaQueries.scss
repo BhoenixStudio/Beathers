@@ -3,10 +3,10 @@
 @use '../variables' as vars;
 @use '../settings/defaults' as defs;
 @use '../settings/index' as settings;
+@use '../functions/validations' as val;
 
 // Definitions
 $breakpoints: if(vars.$breakpoints != (), vars.$breakpoints, defs.$breakpoints);
-$useMediaQueries: if(vars.$useMediaQueries != null, vars.$useMediaQueries, settings.$useMediaQueries);
 
 // Breakpoint Mixin
 // --------------------------------------
@@ -54,11 +54,12 @@ $useMediaQueries: if(vars.$useMediaQueries != null, vars.$useMediaQueries, setti
 //     }
 //   }
 //
-@mixin mQ($type, $key) {
+@mixin mQ($type, $key, $condition: null) {
   // Retrieve the size value from the breakpoints map using the provided key
   $size: map.get($breakpoints, $key);
+  $checkedCondition: val.boolean($condition, 'mQ().condition');
 
-  @if $size and $size > 0 and $useMediaQueries {
+  @if $size and $size > 0 and $checkedCondition {
     // Check if a valid size value exists
     // Generate the media query using the provided type and size
     @media (string.unquote("#{$type}-width"): $size) {
@@ -115,12 +116,14 @@ $useMediaQueries: if(vars.$useMediaQueries != null, vars.$useMediaQueries, setti
 //     }
 //   }
 
-@mixin multiSizes($condition: $useMediaQueries) {
-  @if $condition {
+@mixin multiSizes($condition: null) {
+  $checkedCondition: val.boolean($condition, 'mQ().condition');
+
+  @if $checkedCondition {
     @each $size, $value in $breakpoints {
       $divider: if($size, #{\:}, '');
 
-      @include mQ(min, $size) {
+      @include mQ(min, $size, $checkedCondition) {
         @content ($size, $divider);
       }
     }
