@@ -93,6 +93,7 @@
     "scss/**/*.scss",
     "public/images/logo.png",
     "public/fonts/*.{woff,woff2}",
+    "docs/*.{md}",
     "CHANGELOG",
     "readme.md"
   ]
