@@ -81,6 +81,8 @@ $useTextBordersMediaQueries: false !default;
 $useRadius: true !default;
 $useRadiusMediaQueries: false !default;
 // Enables or disables glass effect utilities.
-$useGlass: true !default;
+$useGlass: false !default;
 // Enables or disables loader/skeleton utilities.
-$useLoader: true !default;
+$useLoader: false !default;
+// Enables or disables dialog/modal utilities.
+$useDialog: false !default;

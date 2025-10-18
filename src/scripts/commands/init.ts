@@ -94,6 +94,7 @@ async function getDefaultValues(): Promise<Theme> {
       'useRadiusMediaQueries',
       'useGlass',
       'useLoader',
+      'useDialog',
     ]
   )) as Theme
 }

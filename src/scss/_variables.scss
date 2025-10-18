@@ -72,8 +72,9 @@ $useTextBorders: true;
 $useTextBordersMediaQueries: false;
 $useRadius: true;
 $useRadiusMediaQueries: false;
-$useGlass: true;
-$useLoader: true;
+$useGlass: false;
+$useLoader: false;
+$useDialog: false;
 
 // --- Glass ---
 $glassBlur: null;

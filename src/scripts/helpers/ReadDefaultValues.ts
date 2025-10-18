@@ -205,6 +205,7 @@ export async function ReadDefaultValues(files: string[], VariableNames: string[]
     useRadiusMediaQueries: variables?.useRadiusMediaQueries,
     useGlass: variables?.useGlass,
     useLoader: variables?.useLoader,
+    useDialog: variables?.useDialog,
   }
   theme.glass = {
     blur: variables?.glassBlur,
