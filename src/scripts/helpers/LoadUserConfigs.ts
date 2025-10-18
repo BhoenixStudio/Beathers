@@ -33,7 +33,10 @@ function loadJsonConfig(filePath: string): Theme {
   }
 }
 
-export async function LoadUserConfigs(projectPath?: string): Promise<Theme | null> {
+export async function LoadUserConfigs<T extends object = object>(
+  projectPath?: string,
+  extra?: T
+): Promise<(Theme & T) | null> {
   const basePath = projectPath ?? process.cwd()
 
   const configFilePath = findConfigFile(basePath)
@@ -41,8 +44,8 @@ export async function LoadUserConfigs(projectPath?: string): Promise<Theme | nul
 
   const extension = path.extname(configFilePath)
 
-  if (extension === '.json') return loadJsonConfig(configFilePath)
-  if (['.js', '.ts'].includes(extension)) return await loadJsOrTsConfig(configFilePath)
+  if (extension === '.json') return { ...loadJsonConfig(configFilePath), ...extra } as Theme & T
+  if (['.js', '.ts'].includes(extension)) return { ...(await loadJsOrTsConfig(configFilePath)), ...extra } as Theme & T
 
   throw new Error(`Unsupported config file format: ${extension}`)
 }
