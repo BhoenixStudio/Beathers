@@ -81,6 +81,7 @@ async function defaultTheme() {
         'useRadius',
         'useRadiusMediaQueries',
         'useGlass',
+        'useLoader',
       ]
     )
   } catch (error) {

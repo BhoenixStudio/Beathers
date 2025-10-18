@@ -198,3 +198,17 @@ $glassBorder2Color: (
 ) !default;
 // Glassmorphism light angle
 $glassLightAngle: 45deg !default;
+
+// Loader/Skeleton settings
+// Loader main color settings for light and dark modes
+$loaderColorMain: (
+  'light': #ffffff,
+  'dark': #1a1d21,
+) !default;
+// Loader second color settings for light and dark modes
+$loaderColorSecond: (
+  'light': #f4f4f4,
+  'dark': #2e2e3f,
+) !default;
+// Loader duration
+$loaderDuration: 2s !default;

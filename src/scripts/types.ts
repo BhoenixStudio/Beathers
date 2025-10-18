@@ -109,6 +109,12 @@ interface Glass {
   lightAngle?: `${number}deg`
 }
 
+interface Loader {
+  colorMain?: { light?: `#${string}`; dark?: `#${string}` }
+  colorSecond?: { light?: `#${string}`; dark?: `#${string}` }
+  duration?: `${number}s` | `${number}ms`
+}
+
 /** Available feature keys for enabling/disabling CSS utilities */
 type RoleKeys =
   | 'useFontFamilies'
@@ -158,6 +164,7 @@ type RoleKeys =
   | 'useRadius'
   | 'useRadiusMediaQueries'
   | 'useGlass'
+  | 'useLoader'
 
 /** Feature toggles for enabling/disabling CSS utility generation. @default all true */
 type Roles = Partial<Record<RoleKeys, boolean>>
@@ -181,6 +188,9 @@ interface Theme {
 
   /** Optional glassmorphism settings for frosted glass effects */
   glass?: Glass
+
+  /** Optional loader animation settings */
+  loader?: Loader
 }
 
 export type {

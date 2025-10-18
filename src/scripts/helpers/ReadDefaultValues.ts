@@ -120,7 +120,12 @@ export async function ReadDefaultValues(files: string[], VariableNames: string[]
         )
           result = buildArray(value)
         else if (['axisDivisions'].includes(name)) result = cleanNumber(value)
-        else if (['glassColor', 'glassBorder1Color', 'glassBorder2Color'].includes(name)) result = buildColors(value)
+        else if (
+          ['glassColor', 'glassBorder1Color', 'glassBorder2Color', 'loaderColorMain', 'loaderColorSecond'].includes(
+            name
+          )
+        )
+          result = buildColors(value)
         else result = cleanString(value)
 
         variables[name] = result
@@ -199,6 +204,7 @@ export async function ReadDefaultValues(files: string[], VariableNames: string[]
     useRadius: variables?.useRadius,
     useRadiusMediaQueries: variables?.useRadiusMediaQueries,
     useGlass: variables?.useGlass,
+    useLoader: variables?.useLoader,
   }
   theme.glass = {
     blur: variables?.glassBlur,
@@ -207,6 +213,11 @@ export async function ReadDefaultValues(files: string[], VariableNames: string[]
     border1Color: variables?.glassBorder1Color,
     border2Color: variables?.glassBorder2Color,
     lightAngle: variables?.glassLightAngle,
+  }
+  theme.loader = {
+    colorMain: variables?.loaderColorMain,
+    colorSecond: variables?.loaderColorSecond,
+    duration: variables?.loaderDuration,
   }
 
   return theme

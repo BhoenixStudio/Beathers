@@ -73,6 +73,7 @@ $useTextBordersMediaQueries: false;
 $useRadius: true;
 $useRadiusMediaQueries: false;
 $useGlass: true;
+$useLoader: true;
 
 // --- Glass ---
 $glassBlur: null;
@@ -90,3 +91,14 @@ $glassBorder2Color: (
   'dark': #303030,
 );
 $glassLightAngle: null;
+
+// --- Loader ---
+$loaderColorMain: (
+  'light': #ffffff,
+  'dark': #1a1d21,
+);
+$loaderColorSecond: (
+  'light': #f4f4f4,
+  'dark': #2e2e3f,
+);
+$loaderDuration: 2s;

@@ -43,6 +43,9 @@ async function getDefaultValues(): Promise<Theme> {
       'glassBorder1Color',
       'glassBorder2Color',
       'glassLightAngle',
+      'loaderColorMain',
+      'loaderColorSecond',
+      'loaderDuration',
       'useFontFamilies',
       'useFontFamiliesMediaQueries',
       'useFontSizes',
@@ -90,6 +93,7 @@ async function getDefaultValues(): Promise<Theme> {
       'useRadius',
       'useRadiusMediaQueries',
       'useGlass',
+      'useLoader',
     ]
   )) as Theme
 }

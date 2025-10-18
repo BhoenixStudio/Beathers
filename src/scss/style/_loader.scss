@@ -1,0 +1,61 @@
+@use '../settings/index' as settings;
+@use '../variables' as vars;
+
+// Definitions
+$useLoader: if(vars.$useLoader != null, vars.$useLoader, settings.$useLoader);
+$useColorsLightMode: if(vars.$useColorsLightMode != null, vars.$useColorsLightMode, settings.$useColorsLightMode);
+$useColorsDarkMode: if(vars.$useColorsDarkMode != null, vars.$useColorsDarkMode, settings.$useColorsDarkMode);
+$loaderColorMain: if(vars.$loaderColorMain != null, vars.$loaderColorMain, defs.$loaderColorMain);
+$loaderColorSecond: if(vars.$loaderColorSecond != null, vars.$loaderColorSecond, defs.$loaderColorSecond);
+$loaderDuration: if(vars.$loaderDuration != null, vars.$loaderDuration, defs.$loaderDuration);
+
+@if $useLoader {
+  $colorMainLight: colors.hexToRgba(map.get($colorMain, 'light'), 0.4, 'Glass.light');
+  $colorMainDark: colors.hexToRgba(map.get($colorMain, 'dark'), 0.4, 'Glass.dark');
+  $colorSecondLight: colors.hexToRgba(map.get($colorSecond, 'light'), 0.4, 'Glass.light');
+  $colorSecondDark: colors.hexToRgba(map.get($colorSecond, 'dark'), 0.4, 'Glass.dark');
+
+  .skeleton {
+    $skeletonsVariants: (
+      'rounded': 8px,
+      'sharp': unset,
+      'circle': 100vw,
+      'square': 5px,
+      'text': 3px,
+    ) !default;
+
+    display: inline-block;
+    background: linear-gradient(
+      110deg,
+      var(--skeleton-main-color, $colorMainLight) 0%,
+      var(--skeleton-second-color, $colorSecondLight) 30%,
+      var(--skeleton-second-color, $colorSecondLight) 30%,
+      var(--skeleton-main-color, $colorMainLight) 100%
+    );
+    background-size: 200% 100%;
+    animation: var(--skeleton-duration, $loaderDuration) shine linear infinite;
+
+    @each $variant, $radius in $skeletonsVariants {
+      &.#{$variant} {
+        border-radius: $radius;
+        aspect-ratio: if($variant == 'circle' or $variant == 'square', 1, unset);
+      }
+    }
+
+    .dark & {
+      background: linear-gradient(
+        110deg,
+        var(--skeleton-main-color, $colorMainDark) 0%,
+        var(--skeleton-second-color, $colorSecondDark) 30%,
+        var(--skeleton-second-color, $colorSecondDark) 30%,
+        var(--skeleton-main-color, $colorMainDark) 100%
+      );
+    }
+
+    @keyframes shine {
+      to {
+        background-position-x: -200%;
+      }
+    }
+  }
+}
