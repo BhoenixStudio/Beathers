@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.7.0] - 2025-10-20
+
+### Added
+
+- **Button Utilities**: Added comprehensive button utilities with support for rounded, circle, and sharp corners, loading states, hover effects, and proper focus management
+- **Configuration Options**: Added `useButton` toggle to enable/disable button utilities generation
+
+### Changed
+
+- **Button Styles**: Moved button-related styles from resets to dedicated button module for better organization
+
 ## [5.6.2, 5.6.3] - 2025-09-27
 
 ### Added
