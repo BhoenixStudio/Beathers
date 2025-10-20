@@ -95,6 +95,7 @@ async function getDefaultValues(): Promise<Theme> {
       'useGlass',
       'useLoader',
       'useDialog',
+      'useButton',
     ]
   )) as Theme
 }

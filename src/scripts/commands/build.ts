@@ -83,6 +83,7 @@ async function defaultTheme() {
         'useGlass',
         'useLoader',
         'useDialog',
+        'useButton',
       ]
     )
   } catch (error) {

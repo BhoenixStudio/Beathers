@@ -1,0 +1,101 @@
+$corners: (
+  'rounded': 0.25rem,
+  'circle': 100vw,
+  'sharp': 0,
+) !default;
+
+button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+
+  &.btn {
+    position: relative;
+    isolation: isolate;
+    appearance: none;
+    display: flex;
+    flex-wrap: nowrap;
+    cursor: pointer;
+    transition: 250ms ease-in-out;
+
+    &:not([class*='justify-content:']) {
+      justify-content: center;
+    }
+    &:not([class*='align-items:']) {
+      align-items: center;
+    }
+    &:not([class*='text-start'], [class*='text-left'], [class*='text-end'], [class*='text-right']) {
+      text-align: center;
+    }
+    &:not([class*='border:']) {
+      border-width: 0.15em;
+      border-style: solid;
+    }
+    &:not([class*='bg:']) {
+      background-color: unset;
+    }
+    &:not([class*='radius:']) {
+      @each $corner, $value in $corners {
+        &.btn-#{$corner} {
+          border-radius: $value;
+        }
+      }
+
+      &:is(.btn-circle) {
+        aspect-ratio: 1;
+      }
+    }
+
+    &:is([disabled]) {
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      z-index: -1;
+      transition: 250ms ease-in-out;
+      opacity: 0;
+    }
+
+    &:is(.loading) .loader-icon {
+      animation: rotate 4s ease-in-out infinite;
+
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    }
+
+    &:is(:focus-visible, :hover) {
+      transform: translateY(-0.1em);
+
+      &:is(.text-variant) {
+        text-shadow: 0 0.05em rgba(0, 0, 0, 0.4);
+      }
+
+      &:not(.text-variant) {
+        box-shadow: 0 0.15em 0.15em rgba(0, 0, 0, 0.4);
+
+        &::before {
+          background-color: rgba(0, 0, 0, 0.15);
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+:focus,
+button:focus {
+  outline: unset;
+  box-shadow: unset;
+}

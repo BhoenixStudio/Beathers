@@ -206,6 +206,7 @@ export async function ReadDefaultValues(files: string[], VariableNames: string[]
     useGlass: variables?.useGlass,
     useLoader: variables?.useLoader,
     useDialog: variables?.useDialog,
+    useButton: variables?.useButton,
   }
   theme.glass = {
     blur: variables?.glassBlur,
