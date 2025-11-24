@@ -9,6 +9,7 @@ export function DeepMerge(defaults: Partial<Theme>, configs: Partial<Theme> | nu
     settings: tSettings,
     typography: tTypography,
     glass: tGlass,
+    loader: tLoader,
   } = defaults ?? {}
   const {
     colors: sColors,
@@ -16,6 +17,7 @@ export function DeepMerge(defaults: Partial<Theme>, configs: Partial<Theme> | nu
     settings: sSettings,
     typography: sTypography,
     glass: sGlass,
+    loader: sLoader,
   } = configs ?? {}
 
   const colors: Theme['colors'] = { ...tColors, ...sColors }
@@ -38,6 +40,7 @@ export function DeepMerge(defaults: Partial<Theme>, configs: Partial<Theme> | nu
     ...(tTypography?.fonts || (sTypography?.fonts && { fonts: { ...tTypography?.fonts, ...sTypography?.fonts } })),
   }
   const glass: Theme['glass'] = { ...tGlass, ...sGlass }
+  const loader: Theme['loader'] = { ...tLoader, ...sLoader }
 
-  return {  colors, roles, settings, typography, glass }
+  return { colors, roles, settings, typography, glass, loader }
 }

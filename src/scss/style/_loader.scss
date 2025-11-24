@@ -6,7 +6,7 @@
 $useLoader: if(vars.$useLoader != null, vars.$useLoader, settings.$useLoader);
 $useColorsLightMode: if(vars.$useColorsLightMode != null, vars.$useColorsLightMode, settings.$useColorsLightMode);
 $useColorsDarkMode: if(vars.$useColorsDarkMode != null, vars.$useColorsDarkMode, settings.$useColorsDarkMode);
-$loaderColorMain: if(vars.$loaderColorMain != null, vars.$loaderColorMain, loaderColorMain.$loaderColorMain);
+$loaderColorMain: if(vars.$loaderColorMain != null, vars.$loaderColorMain, defs.$loaderColorMain);
 $loaderColorSecond: if(vars.$loaderColorSecond != null, vars.$loaderColorSecond, defs.$loaderColorSecond);
 $loaderDuration: if(vars.$loaderDuration != null, vars.$loaderDuration, defs.$loaderDuration);
 
