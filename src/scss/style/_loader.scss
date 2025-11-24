@@ -1,6 +1,6 @@
 @use '../settings/index' as settings;
 @use '../variables' as vars;
-@use '../settings/defaults' as loaderColorMain;
+@use '../settings/defaults' as defs;
 
 // Definitions
 $useLoader: if(vars.$useLoader != null, vars.$useLoader, settings.$useLoader);
