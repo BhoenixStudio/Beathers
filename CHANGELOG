@@ -1,4 +1,11 @@
+
 # Changelog
+
+## [5.7.4] - 2026-02-20
+
+### Fixed
+
+- **mQ Mixin**: Updated default condition in mQ mixin to true and adjusted wrapper breakpoint handling for improved SCSS logic.
 
 ## [5.7.0, 5.7.1, 5.7.2, 5.7.3] - 2025-11-24
 
