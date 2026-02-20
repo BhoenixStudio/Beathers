@@ -54,7 +54,7 @@ $breakpoints: if(vars.$breakpoints != (), vars.$breakpoints, defs.$breakpoints);
 //     }
 //   }
 //
-@mixin mQ($type, $key, $condition: null) {
+@mixin mQ($type, $key, $condition: true) {
   // Retrieve the size value from the breakpoints map using the provided key
   $size: map.get($breakpoints, $key);
   $checkedCondition: val.boolean($condition, 'mQ().condition');
