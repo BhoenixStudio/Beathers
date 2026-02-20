@@ -24,7 +24,7 @@ jobs:
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           registry-url: 'https://registry.npmjs.org'
 
       - name: 📦 Install pnpm
@@ -113,7 +113,7 @@ jobs:
         if: steps.check-tag.outputs.exists == 'false' && steps.check-npm.outputs.exists == 'false'
         run: |
           echo "Publishing ${{ steps.package-info.outputs.name }}@${{ steps.package-info.outputs.version }} to NPM..."
-          pnpm publish --access public --no-git-checks --provenance
+          pnpm publish --access public --no-git-checks
 
       - name: ⏭️ Skip NPM Publish
         if: steps.check-tag.outputs.exists == 'false' && steps.check-npm.outputs.exists == 'true'
