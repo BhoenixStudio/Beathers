@@ -12,6 +12,7 @@ jobs:
     permissions:
       contents: write
       actions: read
+      id-token: write
 
     steps:
       - name: 📥 Checkout code
@@ -112,14 +113,13 @@ jobs:
         if: steps.check-tag.outputs.exists == 'false' && steps.check-npm.outputs.exists == 'false'
         run: |
           echo "Publishing ${{ steps.package-info.outputs.name }}@${{ steps.package-info.outputs.version }} to NPM..."
-          pnpm publish --access public --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          pnpm publish --access public --no-git-checks --provenance
 
       - name: ⏭️ Skip NPM Publish
         if: steps.check-tag.outputs.exists == 'false' && steps.check-npm.outputs.exists == 'true'
         run: |
           echo "::warning::Version ${{ steps.package-info.outputs.version }} already exists on npm. Skipping publish."
+
       - name: ❌ Skip Actions (Already Exists)
         if: steps.check-tag.outputs.exists == 'true'
         run: |
