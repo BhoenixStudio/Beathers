@@ -11,7 +11,7 @@
 
 // Definitions
 $useWrappers: if(vars.$useWrappers != null, vars.$useWrappers, settings.$useWrappers);
-$wrappers: if(vars.$wrappers != (), vars.$wrappers, defs.$wrappers);
+$wrappers: if(vars.$wrappers != null, vars.$wrappers, defs.$wrappers);
 $useShadows: if(vars.$useShadows != null, vars.$useShadows, settings.$useShadows);
 $useShadowsMediaQueries: if(
   vars.$useShadowsMediaQueries != null,

@@ -6,7 +6,7 @@
 @use '../functions/validations' as val;
 
 // Definitions
-$breakpoints: if(vars.$breakpoints != (), vars.$breakpoints, defs.$breakpoints);
+$breakpoints: if(vars.$breakpoints != null, vars.$breakpoints, defs.$breakpoints);
 
 // Breakpoint Mixin
 // --------------------------------------

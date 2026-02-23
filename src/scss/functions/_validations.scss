@@ -7,7 +7,7 @@
 @use '../settings/configs' as configs;
 
 // Definitions
-$opacities: if(vars.$opacities != (), vars.$opacities, defs.$opacities);
+$opacities: if(vars.$opacities != null, vars.$opacities, defs.$opacities);
 
 // Basics validations functions
 

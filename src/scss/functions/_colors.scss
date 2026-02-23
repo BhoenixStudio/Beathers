@@ -9,8 +9,9 @@
 @use '../functions/validations' as val;
 
 // Definitions
-$colors: if(vars.$colors != (), vars.$colors, defs.$colors);
-$opacities: if(vars.$opacities != (), vars.$opacities, defs.$opacities);
+$colors: if(vars.$colors != null, vars.$colors, defs.$colors);
+@debug $colors;
+$opacities: if(vars.$opacities != null, vars.$opacities, defs.$opacities);
 $useColorsLightMode: if(vars.$useColorsLightMode != null, vars.$useColorsLightMode, settings.$useColorsLightMode);
 $useColorsDarkMode: if(vars.$useColorsDarkMode != null, vars.$useColorsDarkMode, settings.$useColorsDarkMode);
 $useColorsOpacities: if(vars.$useColorsOpacities != null, vars.$useColorsOpacities, settings.$useColorsOpacities);

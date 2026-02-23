@@ -8,7 +8,7 @@
 
 // Definitions
 $useColors: if(vars.$useColors != null, vars.$useColors, settings.$useColors);
-$colors: if(vars.$colors != (), vars.$colors, defs.$colors);
+$colors: if(vars.$colors != null, vars.$colors, defs.$colors);
 $useCurrentColors: if(vars.$useCurrentColors != null, vars.$useCurrentColors, settings.$useCurrentColors);
 $useRootColors: if(vars.$useRootColors != null, vars.$useRootColors, settings.$useRootColors);
 

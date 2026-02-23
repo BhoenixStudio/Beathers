@@ -17,10 +17,10 @@ $useFontFamiliesMediaQueries: if(
   vars.$useFontFamiliesMediaQueries,
   settings.$useFontFamiliesMediaQueries
 );
-$fonts: if(vars.$fonts != (), vars.$fonts, defs.$fonts);
-$fontWeights: if(vars.$fontWeights != (), vars.$fontWeights, defs.$fontWeights);
-$fontStyles: if(vars.$fontStyles != (), vars.$fontStyles, defs.$fontStyles);
-$fontFormat: if(vars.$fontFormat != (), vars.$fontFormat, defs.$fontFormat);
+$fonts: if(vars.$fonts != null, vars.$fonts, defs.$fonts);
+$fontWeights: if(vars.$fontWeights != null, vars.$fontWeights, defs.$fontWeights);
+$fontStyles: if(vars.$fontStyles != null, vars.$fontStyles, defs.$fontStyles);
+$fontFormat: if(vars.$fontFormat != null, vars.$fontFormat, defs.$fontFormat);
 $defaultFontFamilies: if(vars.$defaultFontFamilies != null, vars.$defaultFontFamilies, defs.$defaultFontFamilies);
 $useFontSizes: if(vars.$useFontSizes != null, vars.$useFontSizes, settings.$useFontSizes);
 $useFontSizesMediaQueries: if(
@@ -28,7 +28,7 @@ $useFontSizesMediaQueries: if(
   vars.$useFontSizesMediaQueries,
   settings.$useFontSizesMediaQueries
 );
-$fontSizes: if(vars.$fontSizes != (), vars.$fontSizes, defs.$fontSizes);
+$fontSizes: if(vars.$fontSizes != null, vars.$fontSizes, defs.$fontSizes);
 $useFontShapes: if(vars.$useFontShapes != null, vars.$useFontShapes, settings.$useFontShapes);
 $useFontShapesMediaQueries: if(
   vars.$useFontShapesMediaQueries != null,
@@ -47,7 +47,7 @@ $useTextTruncateMediaQueries: if(
   vars.$useTextTruncateMediaQueries,
   settings.$useTextTruncateMediaQueries
 );
-$textTruncate: if(vars.$textTruncate != (), vars.$textTruncate, defs.$textTruncate);
+$textTruncate: if(vars.$textTruncate != null, vars.$textTruncate, defs.$textTruncate);
 
 // Typographic Utilities
 // --------------------------------------
