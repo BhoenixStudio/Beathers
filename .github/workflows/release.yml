@@ -116,7 +116,7 @@ jobs:
         run: |
           echo "Publishing ${{ steps.package-info.outputs.name }}@${{ steps.package-info.outputs.version }} to NPM..."
           echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
-          pnpm publish --access public --no-git-checks 
+          pnpm publish --access public --no-git-checks
 
       - name: ⏭️ Skip NPM Publish
         if: steps.check-tag.outputs.exists == 'false' && steps.check-npm.outputs.exists == 'true'
