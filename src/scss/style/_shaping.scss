@@ -124,316 +124,316 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
   }
 }
 
-// @if $useShadows {
-//   @include mQ.multiSizes($useShadowsMediaQueries) using ($size, $divider) {
-//     @each $class, $values in configs.$shadows {
-//       $mainClass: if($size, '#{$size}#{$divider}shadow#{\:}#{$class}', 'shadow#{\:}#{$class}');
+@if $useShadows {
+  @include mQ.multiSizes($useShadowsMediaQueries) using ($size, $divider) {
+    @each $class, $values in configs.$shadows {
+      $mainClass: if($size, '#{$size}#{$divider}shadow#{\:}#{$class}', 'shadow#{\:}#{$class}');
 
-//       .#{$mainClass} {
-//         box-shadow: $values;
-//       }
-//     }
-//   }
-// }
+      .#{$mainClass} {
+        box-shadow: $values;
+      }
+    }
+  }
+}
 
-// @if $useDisplays {
-//   @include mQ.multiSizes($useDisplaysMediaQueries) using ($size, $divider) {
-//     @each $display in configs.$displays {
-//       // Validate parameters
-//       $checkedDisplay: val.listItem(configs.$displays, $display, 'Shaping.displays');
+@if $useDisplays {
+  @include mQ.multiSizes($useDisplaysMediaQueries) using ($size, $divider) {
+    @each $display in configs.$displays {
+      // Validate parameters
+      $checkedDisplay: val.listItem(configs.$displays, $display, 'Shaping.displays');
 
-//       $mainClass: if($size, '#{$size}#{$divider}d-#{$display}', 'd-#{$display}');
+      $mainClass: if($size, '#{$size}#{$divider}d-#{$display}', 'd-#{$display}');
 
-//       .#{$mainClass} {
-//         display: if($size, $display !important, $display);
-//       }
-//     }
-//   }
-// }
+      .#{$mainClass} {
+        display: if($size, $display !important, $display);
+      }
+    }
+  }
+}
 
-// @if $useOverflows {
-//   @include mQ.multiSizes($useOverflowsMediaQueries) using ($size, $divider) {
-//     @each $dir in configs.$overflowsDirections {
-//       // Validate parameters
-//       @if $dir {
-//         $checkedDir: val.listItem(('x', 'y'), $dir, 'Shaping.overflow.direction');
-//       }
+@if $useOverflows {
+  @include mQ.multiSizes($useOverflowsMediaQueries) using ($size, $divider) {
+    @each $dir in configs.$overflowsDirections {
+      // Validate parameters
+      @if $dir {
+        $checkedDir: val.listItem(('x', 'y'), $dir, 'Shaping.overflow.direction');
+      }
 
-//       $dirClass: if($dir, '#{$dir}#{\:}overflow', 'overflow');
-//       $mainClass: if($size, '#{$size}#{$divider}#{$dirClass}', $dirClass);
-//       $property: if($dir, 'overflow-#{$dir}', 'overflow');
+      $dirClass: if($dir, '#{$dir}#{\:}overflow', 'overflow');
+      $mainClass: if($size, '#{$size}#{$divider}#{$dirClass}', $dirClass);
+      $property: if($dir, 'overflow-#{$dir}', 'overflow');
 
-//       .#{$mainClass} {
-//         @each $value in configs.$overflows {
-//           // Validate parameters
-//           $checkedClass: val.listItem(configs.$overflows, $value, 'Shaping.overflow.value');
+      .#{$mainClass} {
+        @each $value in configs.$overflows {
+          // Validate parameters
+          $checkedClass: val.listItem(configs.$overflows, $value, 'Shaping.overflow.value');
 
-//           &-#{$value} {
-//             #{$property}: if($size, $value !important, $value);
-//           }
-//         }
-//       }
-//     }
-//   }
-// }
+          &-#{$value} {
+            #{$property}: if($size, $value !important, $value);
+          }
+        }
+      }
+    }
+  }
+}
 
-// @if $useOpacities {
-//   @include mQ.multiSizes($useOpacitiesMediaQueries) using ($size, $divider) {
-//     @each $value in $opacities {
-//       $checkedValue: val.opacity(math.div($value, 100), 'Shaping.opacity');
+@if $useOpacities {
+  @include mQ.multiSizes($useOpacitiesMediaQueries) using ($size, $divider) {
+    @each $value in $opacities {
+      $checkedValue: val.opacity(math.div($value, 100), 'Shaping.opacity');
 
-//       $mainClass: if($size, '#{$size}#{$divider}op', 'op');
+      $mainClass: if($size, '#{$size}#{$divider}op', 'op');
 
-//       .#{$mainClass}#{\:}#{$value} {
-//         opacity: if($size, $checkedValue !important, $checkedValue);
+      .#{$mainClass}#{\:}#{$value} {
+        opacity: if($size, $checkedValue !important, $checkedValue);
 
-//         &#{\:}hover:hover {
-//           opacity: if($size, $checkedValue !important, $checkedValue);
-//         }
-//       }
-//     }
-//   }
-// }
+        &#{\:}hover:hover {
+          opacity: if($size, $checkedValue !important, $checkedValue);
+        }
+      }
+    }
+  }
+}
 
-// @if $useBlur {
-//   @include mQ.multiSizes($useBlurMediaQueries) using ($size, $divider) {
-//     @each $value in $blurValues {
-//       $checkedValue: val.listItem($blurValues, $value, 'Shaping.blur');
+@if $useBlur {
+  @include mQ.multiSizes($useBlurMediaQueries) using ($size, $divider) {
+    @each $value in $blurValues {
+      $checkedValue: val.listItem($blurValues, $value, 'Shaping.blur');
 
-//       $mainClass: if($size, '#{$size}#{$divider}bg#{\:}blur', 'bg#{\:}blur');
-//       $calcValue: blur(#{$checkedValue}#{px});
+      $mainClass: if($size, '#{$size}#{$divider}bg#{\:}blur', 'bg#{\:}blur');
+      $calcValue: blur(#{$checkedValue}#{px});
 
-//       .#{$mainClass}#{\:}#{$value} {
-//         backdrop-filter: if($size, $calcValue !important, $calcValue);
+      .#{$mainClass}#{\:}#{$value} {
+        backdrop-filter: if($size, $calcValue !important, $calcValue);
 
-//         &#{\:}hover:hover {
-//           backdrop-filter: if($size, $calcValue !important, $calcValue);
-//         }
-//       }
-//     }
-//   }
-// }
+        &#{\:}hover:hover {
+          backdrop-filter: if($size, $calcValue !important, $calcValue);
+        }
+      }
+    }
+  }
+}
 
-// @if $useObjectFits {
-//   @include mQ.multiSizes($useObjectFitsMediaQueries) using ($size, $divider) {
-//     @each $fit in configs.$objectsFits {
-//       // Validate parameters
-//       $checkedFit: val.listItem(configs.$objectsFits, $fit, 'Shaping.objectFit');
+@if $useObjectFits {
+  @include mQ.multiSizes($useObjectFitsMediaQueries) using ($size, $divider) {
+    @each $fit in configs.$objectsFits {
+      // Validate parameters
+      $checkedFit: val.listItem(configs.$objectsFits, $fit, 'Shaping.objectFit');
 
-//       $mainClass: if($size, '#{$size}#{$divider}object-fit', 'object-fit');
+      $mainClass: if($size, '#{$size}#{$divider}object-fit', 'object-fit');
 
-//       .#{$mainClass}#{\:}#{$fit} {
-//         object-fit: if($size, $fit !important, $fit);
-//       }
-//     }
-//   }
-// }
+      .#{$mainClass}#{\:}#{$fit} {
+        object-fit: if($size, $fit !important, $fit);
+      }
+    }
+  }
+}
 
-// @if $usePositions {
-//   @include mQ.multiSizes($usePositionsMediaQueries) using ($size, $divider) {
-//     @each $position in configs.$positions {
-//       // Validate parameters
-//       $checkedPosition: val.listItem(configs.$positions, $position, 'Shaping.position');
+@if $usePositions {
+  @include mQ.multiSizes($usePositionsMediaQueries) using ($size, $divider) {
+    @each $position in configs.$positions {
+      // Validate parameters
+      $checkedPosition: val.listItem(configs.$positions, $position, 'Shaping.position');
 
-//       $mainClass: if($size, '#{$size}#{$divider}p-', 'p-');
+      $mainClass: if($size, '#{$size}#{$divider}p-', 'p-');
 
-//       .#{$mainClass}#{$position} {
-//         position: if($size, $position !important, $position);
-//       }
-//     }
-//   }
-// }
+      .#{$mainClass}#{$position} {
+        position: if($size, $position !important, $position);
+      }
+    }
+  }
+}
 
-// @if $useInsets {
-//   @include mQ.multiSizes($useInsetsMediaQueries) using ($size, $divider) {
-//     @each $value in $insetValues {
-//       @each $position in configs.$insetPositions {
-//         // Validate parameters
-//         $checkedPosition: val.listItem(configs.$insetPositions, $position, 'Shaping.inset');
+@if $useInsets {
+  @include mQ.multiSizes($useInsetsMediaQueries) using ($size, $divider) {
+    @each $value in $insetValues {
+      @each $position in configs.$insetPositions {
+        // Validate parameters
+        $checkedPosition: val.listItem(configs.$insetPositions, $position, 'Shaping.inset');
 
-//         $mainClass: if($size, '#{$size}#{$divider}inset', 'inset');
-//         $posClass: if($position, '#{$mainClass}-#{$position}', '#{$mainClass}');
-//         $property: if($position, 'inset-#{$position}', 'inset');
-//         $val: if($value == 0, 'full', $value);
+        $mainClass: if($size, '#{$size}#{$divider}inset', 'inset');
+        $posClass: if($position, '#{$mainClass}-#{$position}', '#{$mainClass}');
+        $property: if($position, 'inset-#{$position}', 'inset');
+        $val: if($value == 0, 'full', $value);
 
-//         .#{$posClass}#{\:}#{$val} {
-//           #{$property}: $value;
-//         }
-//       }
-//     }
-//   }
-// }
+        .#{$posClass}#{\:}#{$val} {
+          #{$property}: $value;
+        }
+      }
+    }
+  }
+}
 
-// @if $useSizes {
-//   @include mQ.multiSizes($useSizesMediaQueries) using ($size, $divider) {
-//     @each $dir, $direction in configs.$spacesDirections {
-//       // Validate parameters
-//       $checkedDir: val.listItem(
-//         ('w', 'min#{\:}w', 'max#{\:}w', 'h', 'min#{\:}h', 'max#{\:}h'),
-//         $dir,
-//         'Shaping.space.direction'
-//       );
-//       $checkedDirection: val.listItem(
-//         ('width', 'min-width', 'max-width', 'height', 'min-height', 'max-height'),
-//         $direction,
-//         'Shaping.space.direction'
-//       );
-//       $checkedStep: val.number(configs.$spacesStep, 'Shaping.space.step');
+@if $useSizes {
+  @include mQ.multiSizes($useSizesMediaQueries) using ($size, $divider) {
+    @each $dir, $direction in configs.$spacesDirections {
+      // Validate parameters
+      $checkedDir: val.listItem(
+        ('w', 'min#{\:}w', 'max#{\:}w', 'h', 'min#{\:}h', 'max#{\:}h'),
+        $dir,
+        'Shaping.space.direction'
+      );
+      $checkedDirection: val.listItem(
+        ('width', 'min-width', 'max-width', 'height', 'min-height', 'max-height'),
+        $direction,
+        'Shaping.space.direction'
+      );
+      $checkedStep: val.number(configs.$spacesStep, 'Shaping.space.step');
 
-//       $mainClass: if($size, #{$size}#{$divider}#{$dir}, $dir);
+      $mainClass: if($size, #{$size}#{$divider}#{$dir}, $dir);
 
-//       .#{$mainClass} {
-//         @for $i from 0 through 100 {
-//           $value: $i * $checkedStep;
+      .#{$mainClass} {
+        @for $i from 0 through 100 {
+          $value: $i * $checkedStep;
 
-//           @if ($value != 0) and ($value % $checkedStep == 0) and ($value <= 100) {
-//             &#{\:}#{$value} {
-//               #{$direction}: if($size, #{$value}#{'%'} !important, #{$value}#{'%'});
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }
-// }
+          @if ($value != 0) and ($value % $checkedStep == 0) and ($value <= 100) {
+            &#{\:}#{$value} {
+              #{$direction}: if($size, #{$value}#{'%'} !important, #{$value}#{'%'});
+            }
+          }
+        }
+      }
+    }
+  }
+}
 
-// @if $useGutters {
-//   @include mQ.multiSizes($useGuttersMediaQueries) using ($size, $divider) {
-//     @each $class, $property in configs.$gutters {
-//       // Validate parameters
-//       $checkedClass: val.listItem(
-//         (p, px, py, ps, pe, pt, pb, m, mx, my, ms, me, mt, mb, g, gx, gy),
-//         $class,
-//         'Shaping.gutter.class'
-//       );
-//       $checkedProperty: val.listItem(
-//         (
-//           padding,
-//           padding-inline,
-//           padding-block,
-//           padding-inline-start,
-//           padding-inline-end,
-//           padding-block-start,
-//           padding-block-end,
-//           margin,
-//           margin-inline,
-//           margin-block,
-//           margin-inline-start,
-//           margin-inline-end,
-//           margin-block-start,
-//           margin-block-end,
-//           gap,
-//           column-gap,
-//           row-gap
-//         ),
-//         $property,
-//         'Shaping.gutter.property'
-//       );
+@if $useGutters {
+  @include mQ.multiSizes($useGuttersMediaQueries) using ($size, $divider) {
+    @each $class, $property in configs.$gutters {
+      // Validate parameters
+      $checkedClass: val.listItem(
+        (p, px, py, ps, pe, pt, pb, m, mx, my, ms, me, mt, mb, g, gx, gy),
+        $class,
+        'Shaping.gutter.class'
+      );
+      $checkedProperty: val.listItem(
+        (
+          padding,
+          padding-inline,
+          padding-block,
+          padding-inline-start,
+          padding-inline-end,
+          padding-block-start,
+          padding-block-end,
+          margin,
+          margin-inline,
+          margin-block,
+          margin-inline-start,
+          margin-inline-end,
+          margin-block-start,
+          margin-block-end,
+          gap,
+          column-gap,
+          row-gap
+        ),
+        $property,
+        'Shaping.gutter.property'
+      );
 
-//       $mainClass: if($size, #{$size}#{$divider}#{$class}, $class);
+      $mainClass: if($size, #{$size}#{$divider}#{$class}, $class);
 
-//       .#{$mainClass} {
-//         @each $vClass, $value in $guttersValues {
-//           &-#{$vClass} {
-//             @if $size {
-//               #{$property}: if($size, $value !important, $value);
-//             } @else {
-//               #{$property}: $value;
+      .#{$mainClass} {
+        @each $vClass, $value in $guttersValues {
+          &-#{$vClass} {
+            @if $size {
+              #{$property}: if($size, $value !important, $value);
+            } @else {
+              #{$property}: $value;
 
-//               &\:i {
-//                 /* stylelint-disable declaration-no-important */
-//                 #{$property}: $value !important;
-//               }
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }
-// }
+              &\:i {
+                /* stylelint-disable declaration-no-important */
+                #{$property}: $value !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
 
-// @if $useBorders {
-//   @include mQ.multiSizes($useBordersMediaQueries) using ($size, $divider) {
-//     @each $i in $bordersValue {
-//       @each $dir, $property in configs.$bordersDirections {
-//         // Validate parameters
-//         $checkedDir: val.listItem((null, 'top', 'bottom', 'start', 'end'), $dir, 'Shaping.borders');
-//         $checkedProperty: val.listItem(
-//           (border, border-block-start, border-block-end, border-inline-start, border-inline-end),
-//           $property,
-//           'Shaping.borders'
-//         );
+@if $useBorders {
+  @include mQ.multiSizes($useBordersMediaQueries) using ($size, $divider) {
+    @each $i in $bordersValue {
+      @each $dir, $property in configs.$bordersDirections {
+        // Validate parameters
+        $checkedDir: val.listItem((null, 'top', 'bottom', 'start', 'end'), $dir, 'Shaping.borders');
+        $checkedProperty: val.listItem(
+          (border, border-block-start, border-block-end, border-inline-start, border-inline-end),
+          $property,
+          'Shaping.borders'
+        );
 
-//         $mainClass: if($size, '#{$size}#{$divider}border', 'border');
-//         $dirClass: if($dir, '#{$dir}#{\:}', $dir);
+        $mainClass: if($size, '#{$size}#{$divider}border', 'border');
+        $dirClass: if($dir, '#{$dir}#{\:}', $dir);
 
-//         .#{$mainClass}#{\:}#{$dirClass}#{$i} {
-//           #{$property}-width: if($size, #{$i}#{px} !important, #{$i}#{px});
+        .#{$mainClass}#{\:}#{$dirClass}#{$i} {
+          #{$property}-width: if($size, #{$i}#{px} !important, #{$i}#{px});
 
-//           @if not $size {
-//             #{$property}-style: if($size, solid !important, solid);
-//           }
-//         }
-//       }
-//     }
-//   }
-// }
+          @if not $size {
+            #{$property}-style: if($size, solid !important, solid);
+          }
+        }
+      }
+    }
+  }
+}
 
-// @if $useTextBorders {
-//   @include mQ.multiSizes($useTextBordersMediaQueries) using ($size, $divider) {
-//     @each $i in $bordersValue {
-//       $mainClass: if($size, '#{$size}#{$divider}stroke', 'stroke');
-//       $value: math.div($i, 10);
+@if $useTextBorders {
+  @include mQ.multiSizes($useTextBordersMediaQueries) using ($size, $divider) {
+    @each $i in $bordersValue {
+      $mainClass: if($size, '#{$size}#{$divider}stroke', 'stroke');
+      $value: math.div($i, 10);
 
-//       // Validate parameters
-//       $checkedValue: val.number($value, 'Shaping.textBorder');
+      // Validate parameters
+      $checkedValue: val.number($value, 'Shaping.textBorder');
 
-//       .#{$mainClass}#{\:}#{$i} {
-//         -webkit-text-stroke-width: if($size, #{$value}#{px} !important, #{$value}#{px});
-//       }
-//     }
-//   }
-// }
+      .#{$mainClass}#{\:}#{$i} {
+        -webkit-text-stroke-width: if($size, #{$value}#{px} !important, #{$value}#{px});
+      }
+    }
+  }
+}
 
-// @if $useRadius {
-//   @include mQ.multiSizes($useRadiusMediaQueries) using ($size, $divider) {
-//     @each $dir, $properties in configs.$radiusDirection {
-//       // Validate parameters
-//       $checkedDir: val.listItem(
-//         (null, 'top', 'bottom', 'start', 'end', 'top-start', 'top-end', 'bottom-start', 'bottom-end'),
-//         $dir,
-//         'Shaping.radius.direction'
-//       );
+@if $useRadius {
+  @include mQ.multiSizes($useRadiusMediaQueries) using ($size, $divider) {
+    @each $dir, $properties in configs.$radiusDirection {
+      // Validate parameters
+      $checkedDir: val.listItem(
+        (null, 'top', 'bottom', 'start', 'end', 'top-start', 'top-end', 'bottom-start', 'bottom-end'),
+        $dir,
+        'Shaping.radius.direction'
+      );
 
-//       $mainClass: if($size, '#{$size}#{$divider}radius', 'radius');
-//       $dirClass: if($dir, '#{$dir}#{\:}', $dir);
+      $mainClass: if($size, '#{$size}#{$divider}radius', 'radius');
+      $dirClass: if($dir, '#{$dir}#{\:}', $dir);
 
-//       @each $property in $properties {
-//         .#{$mainClass}#{\:}#{$dirClass} {
-//           &full {
-//             #{$property}: if($size, 100vw !important, 100vw);
-//           }
+      @each $property in $properties {
+        .#{$mainClass}#{\:}#{$dirClass} {
+          &full {
+            #{$property}: if($size, 100vw !important, 100vw);
+          }
 
-//           @each $value in $radiuses {
-//             // Validate parameters
-//             $checkedProperty: val.listItem(
-//               (
-//                 border-radius,
-//                 border-start-start-radius,
-//                 border-start-end-radius,
-//                 border-end-start-radius,
-//                 border-end-end-radius
-//               ),
-//               $property,
-//               'Shaping.radius.property'
-//             );
+          @each $value in $radiuses {
+            // Validate parameters
+            $checkedProperty: val.listItem(
+              (
+                border-radius,
+                border-start-start-radius,
+                border-start-end-radius,
+                border-end-start-radius,
+                border-end-end-radius
+              ),
+              $property,
+              'Shaping.radius.property'
+            );
 
-//             &#{$value} {
-//               #{$property}: if($size, #{$value}#{px} !important, #{$value}#{'px'});
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }
-// }
+            &#{$value} {
+              #{$property}: if($size, #{$value}#{px} !important, #{$value}#{'px'});
+            }
+          }
+        }
+      }
+    }
+  }
+}
