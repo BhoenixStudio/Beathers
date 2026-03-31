@@ -1,6 +1,31 @@
 
 # Changelog
 
+## [5.9.0] - 2026-04-01
+
+### Changed
+
+- Refactored SCSS variable assignments to use `sass()` for improved null checks and default values across style files, enhancing code readability and consistency.
+- Updated button styles and corner radius definitions for better visual consistency.
+- Updated import statements to use Node module syntax.
+- Refactored code structure for improved readability and maintainability.
+- Updated build:clean and build:update scripts for improved reliability and to use new commands.
+
+### Fixed
+
+- Removed trailing commas in SCSS variable definitions for syntax consistency.
+- Enhanced null checks in validation functions using `sass()` for better error handling.
+- Removed unused stylelint rules and cleaned up SCSS files.
+- Replaced error messages with debug statements in validation functions.
+- Removed debug statements for cleaner color definitions.
+- Removed baseUrl and paths from tsconfig.json for cleaner configuration.
+- Corrected font name assignment in font-face mixin and improved unicode check spacing.
+
+### Added
+
+- Added version update script with changelog integration.
+- Added overrides for SCSS and SASS files in Prettier configuration.
+
 ## [5.8.0] - 2026-03-31
 
 ### Changed
