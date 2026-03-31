@@ -29,7 +29,7 @@
     "build:dev": "sass --style expanded --source-map --embed-sources --no-error-css src/scss/:css/",
     "build:pack": "sass --style compressed --source-map --embed-sources --no-error-css src/scss/:css/",
     "build:test": "tsx src/scripts/cli.ts",
-    "build:clean": "rimraf css scss && rimraf index.js index.d.ts index.d.ts.map && rimraf data scripts",
+    "build:clean": "tsx src/scripts/commands/clean.ts",
     "build:update": "ts-node src/scripts/commands/version-update.ts",
     "build:publish": "npm run build:clean && tsc && copyfiles -u 2 \"src/scss/**/*\" scss/ && npm run build:pack",
     "lint": "eslint . && stylelint \"**/*.scss\"",
