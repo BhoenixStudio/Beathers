@@ -7,14 +7,14 @@ $colorsPropertiesMap: (
   border: border-color,
   fill: fill,
   stroke: stroke,
-  text-stroke: -webkit-text-stroke-color,
+  text-stroke: -webkit-text-stroke-color
 );
 
 // Defines pseudo-classes for color variants.
 $colorsPseudoMap: (
   'placeholder': '::placeholder',
   'hover': ':hover',
-  'focus': ':focus',
+  'focus': ':focus'
 );
 
 // Defines available font weights.
@@ -27,7 +27,7 @@ $fontWeightsValues: (
   'semibold': 600,
   'bold': 700,
   'extra-bold': 800,
-  'black': 900,
+  'black': 900
 );
 
 // Defines text transformation and decoration options.
@@ -35,18 +35,18 @@ $fontShapes: (
   'transform': (
     uppercase,
     lowercase,
-    capitalize,
+    capitalize
   ),
   'decoration': (
     underline,
-    line-through,
+    line-through
   ),
   'styles': (
     wavy,
     double,
     dotted,
-    dashed,
-  ),
+    dashed
+  )
 );
 
 // Defines text alignment options.
@@ -55,7 +55,7 @@ $aligns: (left, start, right, end, justify, center);
 // Defines flexbox properties.
 $flexProperties: (
   flex-wrap: wrap nowrap,
-  flex-direction: row row-reverse column column-reverse,
+  flex-direction: row row-reverse column column-reverse
 );
 
 // Defines display utility options.
@@ -99,47 +99,47 @@ $shadows: (
   'light': (
     rgb(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
     rgb(0, 0, 0, 0.25) 0px 0.125em 0.5em,
-    rgb(255, 255, 255, 0.1) 0px 0px 0px 1px inset,
+    rgb(255, 255, 255, 0.1) 0px 0px 0px 1px inset
   ),
   'soft': (
     rgb(0, 0, 0, 0.1) 0px 20px 25px -5px,
-    rgb(0, 0, 0, 0.04) 0px 10px 10px -5px,
+    rgb(0, 0, 0, 0.04) 0px 10px 10px -5px
   ),
   'medium': (
-    rgb(0, 0, 0, 0.1) 0px 10px 50px,
+    rgb(0, 0, 0, 0.1) 0px 10px 50px
   ),
   'solid': (
     rgb(0, 0, 0, 0.2) 0px 12px 28px 0px,
     rgb(0, 0, 0, 0.1) 0px 2px 4px 0px,
-    rgb(255, 255, 255, 0.05) 0px 0px 0px 1px inset,
+    rgb(255, 255, 255, 0.05) 0px 0px 0px 1px inset
   ),
   'floating': (
     rgb(50, 50, 93, 0.25) 0px 13px 27px -5px,
-    rgb(0, 0, 0, 0.3) 0px 8px 16px -8px,
+    rgb(0, 0, 0, 0.3) 0px 8px 16px -8px
   ),
   'flat': (
-    rgb(0, 0, 0, 0.15) 0px 3px 3px 0px,
-  ),
+    rgb(0, 0, 0, 0.15) 0px 3px 3px 0px
+  )
 ) !default;
 
 // Defines utility classes for clearing properties.
 $clearanceOptions: (
   no-bg: (
     background: unset,
-    background-color: unset,
+    background-color: unset
   ),
   no-border: (
-    border: unset,
+    border: unset
   ),
   no-radius: (
-    border-radius: unset,
+    border-radius: unset
   ),
   no-events: (
-    pointer-events: none,
+    pointer-events: none
   ),
   no-position: (
-    position: unset,
-  ),
+    position: unset
+  )
 );
 
 // Defines available position values.
@@ -158,7 +158,7 @@ $spacesDirections: (
   'max#{\:}w': max-width,
   'h': height,
   'min#{\:}h': min-height,
-  'max#{\:}h': max-height,
+  'max#{\:}h': max-height
 );
 
 // Defines properties for padding, margin and gap utilities.
@@ -179,7 +179,7 @@ $gutters: (
   mb: margin-block-end,
   g: gap,
   gx: column-gap,
-  gy: row-gap,
+  gy: row-gap
 );
 
 // Defines border direction properties.
@@ -188,42 +188,42 @@ $bordersDirections: (
   'top': border-block-start,
   'bottom': border-block-end,
   'start': border-inline-start,
-  'end': border-inline-end,
+  'end': border-inline-end
 );
 
 // Defines border-radius direction properties.
 $radiusDirection: (
   null: (
-    border-radius,
+    border-radius
   ),
   'top': (
     border-start-start-radius,
-    border-start-end-radius,
+    border-start-end-radius
   ),
   'bottom': (
     border-end-start-radius,
-    border-end-end-radius,
+    border-end-end-radius
   ),
   'start': (
     border-start-start-radius,
-    border-end-start-radius,
+    border-end-start-radius
   ),
   'end': (
     border-start-end-radius,
-    border-end-end-radius,
+    border-end-end-radius
   ),
   'top-start': (
-    border-start-start-radius,
+    border-start-start-radius
   ),
   'top-end': (
-    border-start-end-radius,
+    border-start-end-radius
   ),
   'bottom-start': (
-    border-end-start-radius,
+    border-end-start-radius
   ),
   'bottom-end': (
-    border-end-end-radius,
-  ),
+    border-end-end-radius
+  )
 );
 
 $justify: (
@@ -234,13 +234,13 @@ $justify: (
       end,
       between,
       around,
-      evenly,
+      evenly
     ),
     self: (
       auto,
       center,
-      stretch,
-    ),
+      stretch
+    )
   ),
   align: (
     content: (
@@ -249,14 +249,14 @@ $justify: (
       end,
       around,
       between,
-      stretch,
+      stretch
     ),
     items: (
       start,
       center,
       end,
       stretch,
-      baseline,
+      baseline
     ),
     self: (
       auto,
@@ -264,7 +264,7 @@ $justify: (
       center,
       end,
       stretch,
-      baseline,
-    ),
-  ),
+      baseline
+    )
+  )
 );

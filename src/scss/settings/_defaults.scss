@@ -11,64 +11,64 @@
 $colors: (
   'main': (
     'light': #ffffff,
-    'dark': #1a1d21,
+    'dark': #1a1d21
   ),
   'second': (
     'light': #f8f8ff,
-    'dark': #2e2e3f,
+    'dark': #2e2e3f
   ),
   'third': (
     'light': #ebecf7,
-    'dark': #39394a,
+    'dark': #39394a
   ),
   't1': (
     'light': #303030,
-    'dark': #fafafa,
+    'dark': #fafafa
   ),
   't2': (
     'light': #404040,
-    'dark': #f5f5f5,
+    'dark': #f5f5f5
   ),
   't3': (
     'light': #404040,
-    'dark': #f5f5f5,
+    'dark': #f5f5f5
   ),
   'd1': (
     'light': #505050,
-    'dark': #dfdfdf,
+    'dark': #dfdfdf
   ),
   'd2': (
     'light': #808080,
-    'dark': #bdbdbd,
+    'dark': #bdbdbd
   ),
   'd3': (
     'light': #909090,
-    'dark': #9e9e9e,
+    'dark': #9e9e9e
   ),
   'success': (
     'light': #099750,
-    'dark': #5ff2a9,
+    'dark': #5ff2a9
   ),
   'primary': (
     'light': #2a6e9f,
-    'dark': #89c5f0,
+    'dark': #89c5f0
   ),
   'secondary': (
     'light': #545454,
-    'dark': #c6c3c3,
+    'dark': #c6c3c3
   ),
   'danger': (
     'light': #b5333b,
-    'dark': #ee6b74,
+    'dark': #ee6b74
   ),
   'warning': (
     'light': #ca9420,
-    'dark': #fcd06f,
+    'dark': #fcd06f
   ),
   'info': (
     'light': #0c8181,
-    'dark': #49d1d1,
-  ),
+    'dark': #49d1d1
+  )
 ) !default;
 
 // Typography
@@ -103,7 +103,7 @@ $fontSizes: (
   'body2': 14px,
   'button': 14px,
   'caption': 12px,
-  'overline': 10px,
+  'overline': 10px
 ) !default;
 
 // Font families map with language variants, unicode ranges and font weights
@@ -135,7 +135,7 @@ $breakpoints: (
   md: 768px,
   lg: 992px,
   xl: 1200px,
-  xxl: 1400px,
+  xxl: 1400px
 ) !default;
 
 // Defines container max-widths and padding at different breakpoints.
@@ -145,7 +145,7 @@ $wrappers: (
   md: 720px 3rem,
   lg: 960px 3rem,
   xl: 1140px 2rem,
-  xxl: 1320px 2rem,
+  xxl: 1320px 2rem
 ) !default;
 
 // Defines the number of columns/rows in the grid system.
@@ -159,7 +159,7 @@ $guttersValues: (
   3: 0.75rem,
   4: 1rem,
   5: 1.5rem,
-  6: 2rem,
+  6: 2rem
 ) !default;
 
 // Defines available opacity values.
@@ -182,19 +182,19 @@ $glassBlur: 8px !default;
 // Glassmorphism color settings for light and dark modes
 $glassColor: (
   'light': #ffffff,
-  'dark': #000000,
+  'dark': #000000
 ) !default;
 // Glassmorphism border thickness
 $glassBorderThickness: 1px !default;
 // Glassmorphism border 1 settings for light and dark modes
 $glassBorder1Color: (
   'light': #e6e6e6,
-  'dark': #303030,
+  'dark': #303030
 ) !default;
 // Glassmorphism border 2 settings for light and dark modes
 $glassBorder2Color: (
   'light': #e6e6e6,
-  'dark': #303030,
+  'dark': #303030
 ) !default;
 // Glassmorphism light angle
 $glassLightAngle: 45deg !default;
@@ -203,12 +203,12 @@ $glassLightAngle: 45deg !default;
 // Loader main color settings for light and dark modes
 $loaderColorMain: (
   'light': #ffffff,
-  'dark': #1a1d21,
+  'dark': #1a1d21
 ) !default;
 // Loader second color settings for light and dark modes
 $loaderColorSecond: (
   'light': #f4f4f4,
-  'dark': #2e2e3f,
+  'dark': #2e2e3f
 ) !default;
 // Loader duration
 $loaderDuration: 2s !default;
