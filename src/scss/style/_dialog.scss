@@ -4,7 +4,6 @@
 // Definitions
 $useLoader: if(vars.$useLoader != null, vars.$useLoader, settings.$useLoader);
 
-
 $dialogInline: (
   height: 100dvh,
   transition: all 300ms ease-in-out,
