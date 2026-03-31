@@ -54,13 +54,14 @@ export async function AddFont(): Promise<void> {
       const unicode = await promptInput(question('unicode', l))
       const isLocal = await promptUser(question('isLocal', l))
 
-      if (!isLocal)
+      if (isLocal) format = await promptSelection(question('format', l), ['woff2', 'woff'])
+      else {
         while (true) {
           url = await promptInput(question('url', l))
           if (url && /^https?:\/\//.test(url)) break
           console.error('❌ Invalid URL format. URL must start with \x1b[36mhttp://\x1b[0m or \x1b[36mhttps://\x1b[0m')
         }
-      else format = await promptSelection(question('format', l), ['woff2', 'woff'])
+      }
 
       variants[l] = {
         title: title ?? fontName,

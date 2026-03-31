@@ -1,6 +1,6 @@
 import fs from 'fs-extra'
 import { pathToFileURL } from 'node:url'
-import path from 'path'
+import path from 'node:path'
 import { Theme } from '../types.js'
 
 const userConfigFiles = ['beathers.configs.js', 'beathers.configs.ts', 'beathers.configs.json']

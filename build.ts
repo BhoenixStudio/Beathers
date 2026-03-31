@@ -1,3 +1,3 @@
-import { execSync } from 'child_process'
+import { execSync } from 'node:child_process'
 
 execSync('npm run build:pack', { stdio: 'inherit' })
