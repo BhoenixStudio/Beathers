@@ -10,7 +10,6 @@
 
 // Definitions
 $colors: if(vars.$colors != null, vars.$colors, defs.$colors);
-@debug $colors;
 $opacities: if(vars.$opacities != null, vars.$opacities, defs.$opacities);
 $useColorsLightMode: if(vars.$useColorsLightMode != null, vars.$useColorsLightMode, settings.$useColorsLightMode);
 $useColorsDarkMode: if(vars.$useColorsDarkMode != null, vars.$useColorsDarkMode, settings.$useColorsDarkMode);
