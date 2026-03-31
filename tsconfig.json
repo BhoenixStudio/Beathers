@@ -11,9 +11,7 @@
     "declaration": true,
     "declarationMap": true,
     "outDir": "./",
-    "rootDir": "./src",
-    "baseUrl": "./",
-    "paths": { "@/*": ["./src/scripts/*"] }
+    "rootDir": "./src"
   },
   "ts-node": {
     "esm": true,
