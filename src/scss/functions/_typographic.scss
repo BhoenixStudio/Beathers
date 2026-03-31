@@ -62,7 +62,7 @@ $fontMainPath: if(vars.$fontMainPath != null, vars.$fontMainPath, defs.$fontMain
     $checkedExternalUrl: val.string($externalUrl, 'Typographic.fontFace.externalUrl');
   }
 
-  $name: if($index == 0, $title, '#{$key}\:#{$title}');
+  $name: if($index == 0, $weight, '#{$key}\:#{$weight}');
   $weightValue: map.get(configs.$fontWeightsValues, $weight);
 
   @font-face {

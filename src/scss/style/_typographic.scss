@@ -133,6 +133,7 @@ $textTruncate: if(vars.$textTruncate != null, vars.$textTruncate, defs.$textTrun
           $checkedIsLocal: val.boolean($isLocal, 'Typographic.fontFace.local');
           $checkedTitle: val.string($title, 'Typographic.fontFace.title');
           $checkedFormat: val.string($format, 'Typographic.fontFace.format');
+
           @if $unicode {
             $checkedUnicode: val.string($unicode, 'Typographic.fontFace.unicode');
           }
