@@ -4,7 +4,9 @@
 @use '../functions/validations' as val;
 
 // Definitions
-$axisDivisions: if(vars.$axisDivisions != null, vars.$axisDivisions, defs.$axisDivisions);
+$axisDivisions: if(
+  sass(vars.$axisDivisions != null): vars.$axisDivisions; else: defs.$axisDivisions
+);
 
 // @mixin gridDivision
 // @description Generates CSS grid classes for creating grid layouts.
@@ -16,9 +18,15 @@ $axisDivisions: if(vars.$axisDivisions != null, vars.$axisDivisions, defs.$axisD
   $checkedAxis: val.listItem((column, row), $axis, 'gridDivision.axis');
   $checkedBase: val.number($axisDivisions, 'gridDivision.axisDivisions');
 
-  $type: if($axis == 'column', 'col', 'row');
-  $mainClass: if($size, '#{$size}#{$divider}#{$type}s', '#{$type}s');
-  $subClass: if($size, '#{$size}#{$divider}#{$type}', $type);
+  $type: if(
+    sass($axis == 'column'): 'col' ; else: 'row'
+  );
+  $mainClass: if(
+    sass($size): '#{$size}#{$divider}#{$type}s' ; else: '#{$type}s'
+  );
+  $subClass: if(
+    sass($size): '#{$size}#{$divider}#{$type}' ; else: $type
+  );
 
   @for $i from 0 through $axisDivisions {
     @if ($i > 0) {
@@ -27,9 +35,15 @@ $axisDivisions: if(vars.$axisDivisions != null, vars.$axisDivisions, defs.$axisD
       }
     }
 
-    $axisProperty: if($i == 0, 'grid-#{$axis}-end', 'grid-#{$axis}');
-    $class: if($i == 0, auto, $i);
-    $value: if($i == 0, -1, 'span #{$i}');
+    $axisProperty: if(
+      sass($i == 0): 'grid-#{$axis}-end' ; else: 'grid-#{$axis}'
+    );
+    $class: if(
+      sass($i == 0): auto; else: $i
+    );
+    $value: if(
+      sass($i == 0): -1; else: 'span #{$i}'
+    );
 
     > .#{$subClass}#{\:}#{$class} {
       #{$axisProperty}: #{$value};
@@ -49,7 +63,9 @@ $axisDivisions: if(vars.$axisDivisions != null, vars.$axisDivisions, defs.$axisD
   $checkedType: val.listItem(('col', 'cols', 'rows', 'row'), $type, 'flexDivision.type');
   $checkedBase: val.number($axisDivisions, 'flexDivision.axisDivisions');
 
-  $mainClass: if($size, '#{$size}#{$divider}#{$type}', $type);
+  $mainClass: if(
+    sass($size): '#{$size}#{$divider}#{$type}' ; else: $type
+  );
 
   @if (not $size) and $type == 'cols' or $type == 'rows' {
     > * {
@@ -60,19 +76,37 @@ $axisDivisions: if(vars.$axisDivisions != null, vars.$axisDivisions, defs.$axisD
 
   @for $i from 0 through $axisDivisions {
     @if $type == 'cols' or $type == 'rows' {
-      $class: if($i == 0, auto, $i);
-      $axisSize: if($i == 0, auto, calc(100% / $i));
+      $class: if(
+        sass($i == 0): auto; else: $i
+      );
+      $axisSize: if(
+        sass($i == 0): auto; else: calc(100% / $i)
+      );
 
       &.#{$mainClass}#{\:}#{$class} > * {
-        #{$axis}: if($size, $axisSize !important, $axisSize);
+        @if ($size) {
+          #{$axis}: #{$axisSize} !important;
+        } @else {
+          #{$axis}: #{$axisSize};
+        }
       }
     } @else if $type == 'col' or $type == 'row' {
-      $axisSize: if($i == 0, 100%, calc(($i / $axisDivisions) * 100%));
-      $class: if($i == 0, '', $i);
-      $classSize: if($i == 0, #{$class}, #{\:}#{$class});
+      $axisSize: if(
+        sass($i == 0): 100%; else: calc(($i / $axisDivisions) * 100%)
+      );
+      $class: if(
+        sass($i == 0): '' ; else: $i
+      );
+      $classSize: if(
+        sass($i == 0): #{$class}; else: #{\:}#{$class}
+      );
 
       > .#{$mainClass}#{$classSize} {
-        #{$axis}: if($size, $axisSize !important, $axisSize);
+        @if ($size) {
+          #{$axis}: #{$axisSize} !important;
+        } @else {
+          #{$axis}: #{$axisSize};
+        }
       }
     }
   }

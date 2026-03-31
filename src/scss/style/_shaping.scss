@@ -10,94 +10,121 @@
 @use '../variables' as vars;
 
 // Definitions
-$useWrappers: if(vars.$useWrappers != null, vars.$useWrappers, settings.$useWrappers);
-$wrappers: if(vars.$wrappers != null, vars.$wrappers, defs.$wrappers);
-$useShadows: if(vars.$useShadows != null, vars.$useShadows, settings.$useShadows);
+
+$useWrappers: if(
+  sass(vars.$useWrappers != null): vars.$useWrappers; else: settings.$useWrappers
+);
+$wrappers: if(
+  sass(vars.$wrappers != null): vars.$wrappers; else: defs.$wrappers
+);
+$useShadows: if(
+  sass(vars.$useShadows != null): vars.$useShadows; else: settings.$useShadows
+);
 $useShadowsMediaQueries: if(
-  vars.$useShadowsMediaQueries != null,
-  vars.$useShadowsMediaQueries,
-  settings.$useShadowsMediaQueries
+  sass(vars.$useShadowsMediaQueries != null): vars.$useShadowsMediaQueries; else: settings.$useShadowsMediaQueries
 );
-$useDisplays: if(vars.$useDisplays != null, vars.$useDisplays, settings.$useDisplays);
+$useDisplays: if(
+  sass(vars.$useDisplays != null): vars.$useDisplays; else: settings.$useDisplays
+);
 $useDisplaysMediaQueries: if(
-  vars.$useDisplaysMediaQueries != null,
-  vars.$useDisplaysMediaQueries,
-  settings.$useDisplaysMediaQueries
+  sass(vars.$useDisplaysMediaQueries != null): vars.$useDisplaysMediaQueries; else: settings.$useDisplaysMediaQueries
 );
-$useOverflows: if(vars.$useOverflows != null, vars.$useOverflows, settings.$useOverflows);
+$useOverflows: if(
+  sass(vars.$useOverflows != null): vars.$useOverflows; else: settings.$useOverflows
+);
 $useOverflowsMediaQueries: if(
-  vars.$useOverflowsMediaQueries != null,
-  vars.$useOverflowsMediaQueries,
-  settings.$useOverflowsMediaQueries
+  sass(vars.$useOverflowsMediaQueries != null): vars.$useOverflowsMediaQueries; else: settings.$useOverflowsMediaQueries
 );
-$useOpacities: if(vars.$useOpacities != null, vars.$useOpacities, settings.$useOpacities);
+$useOpacities: if(
+  sass(vars.$useOpacities != null): vars.$useOpacities; else: settings.$useOpacities
+);
 $useOpacitiesMediaQueries: if(
-  vars.$useOpacitiesMediaQueries != null,
-  vars.$useOpacitiesMediaQueries,
-  settings.$useOpacitiesMediaQueries
+  sass(vars.$useOpacitiesMediaQueries != null): vars.$useOpacitiesMediaQueries; else: settings.$useOpacitiesMediaQueries
 );
-$opacities: if(vars.$opacities != null, vars.$opacities, defs.$opacities);
-$useBlur: if(vars.$useBlur != null, vars.$useBlur, settings.$useBlur);
-$useBlurMediaQueries: if(vars.$useBlurMediaQueries != null, vars.$useBlurMediaQueries, settings.$useBlurMediaQueries);
-$blurValues: if(vars.$blurValues != null, vars.$blurValues, defs.$blurValues);
-$useObjectFits: if(vars.$useObjectFits != null, vars.$useObjectFits, settings.$useObjectFits);
+$opacities: if(
+  sass(vars.$opacities != null): vars.$opacities; else: defs.$opacities
+);
+$useBlur: if(
+  sass(vars.$useBlur != null): vars.$useBlur; else: settings.$useBlur
+);
+$useBlurMediaQueries: if(
+  sass(vars.$useBlurMediaQueries != null): vars.$useBlurMediaQueries; else: settings.$useBlurMediaQueries
+);
+$blurValues: if(
+  sass(vars.$blurValues != null): vars.$blurValues; else: defs.$blurValues
+);
+$useObjectFits: if(
+  sass(vars.$useObjectFits != null): vars.$useObjectFits; else: settings.$useObjectFits
+);
 $useObjectFitsMediaQueries: if(
-  vars.$useObjectFitsMediaQueries != null,
-  vars.$useObjectFitsMediaQueries,
-  settings.$useObjectFitsMediaQueries
+  sass(vars.$useObjectFitsMediaQueries != null): vars.$useObjectFitsMediaQueries;
+    else: settings.$useObjectFitsMediaQueries
 );
-$usePositions: if(vars.$usePositions != null, vars.$usePositions, settings.$usePositions);
+$usePositions: if(
+  sass(vars.$usePositions != null): vars.$usePositions; else: settings.$usePositions
+);
 $usePositionsMediaQueries: if(
-  vars.$usePositionsMediaQueries != null,
-  vars.$usePositionsMediaQueries,
-  settings.$usePositionsMediaQueries
+  sass(vars.$usePositionsMediaQueries != null): vars.$usePositionsMediaQueries; else: settings.$usePositionsMediaQueries
 );
-$useInsets: if(vars.$useInsets != null, vars.$useInsets, settings.$useInsets);
+$useInsets: if(
+  sass(vars.$useInsets != null): vars.$useInsets; else: settings.$useInsets
+);
 $useInsetsMediaQueries: if(
-  vars.$useInsetsMediaQueries != null,
-  vars.$useInsetsMediaQueries,
-  settings.$useInsetsMediaQueries
+  sass(vars.$useInsetsMediaQueries != null): vars.$useInsetsMediaQueries; else: settings.$useInsetsMediaQueries
 );
-$insetValues: if(vars.$insetValues != null, vars.$insetValues, defs.$insetValues);
-$useSizes: if(vars.$useSizes != null, vars.$useSizes, settings.$useSizes);
+$insetValues: if(
+  sass(vars.$insetValues != null): vars.$insetValues; else: defs.$insetValues
+);
+$useSizes: if(
+  sass(vars.$useSizes != null): vars.$useSizes; else: settings.$useSizes
+);
 $useSizesMediaQueries: if(
-  vars.$useSizesMediaQueries != null,
-  vars.$useSizesMediaQueries,
-  settings.$useSizesMediaQueries
+  sass(vars.$useSizesMediaQueries != null): vars.$useSizesMediaQueries; else: settings.$useSizesMediaQueries
 );
-$useGutters: if(vars.$useGutters != null, vars.$useGutters, settings.$useGutters);
+$useGutters: if(
+  sass(vars.$useGutters != null): vars.$useGutters; else: settings.$useGutters
+);
 $useGuttersMediaQueries: if(
-  vars.$useGuttersMediaQueries != null,
-  vars.$useGuttersMediaQueries,
-  settings.$useGuttersMediaQueries
+  sass(vars.$useGuttersMediaQueries != null): vars.$useGuttersMediaQueries; else: settings.$useGuttersMediaQueries
 );
-$guttersValues: if(vars.$guttersValues != null, vars.$guttersValues, defs.$guttersValues);
-$useBorders: if(vars.$useBorders != null, vars.$useBorders, settings.$useBorders);
+$guttersValues: if(
+  sass(vars.$guttersValues != null): vars.$guttersValues; else: defs.$guttersValues
+);
+$useBorders: if(
+  sass(vars.$useBorders != null): vars.$useBorders; else: settings.$useBorders
+);
 $useBordersMediaQueries: if(
-  vars.$useBordersMediaQueries != null,
-  vars.$useBordersMediaQueries,
-  settings.$useBordersMediaQueries
+  sass(vars.$useBordersMediaQueries != null): vars.$useBordersMediaQueries; else: settings.$useBordersMediaQueries
 );
-$bordersValue: if(vars.$bordersValue != null, vars.$bordersValue, defs.$bordersValue);
-$useTextBorders: if(vars.$useTextBorders != null, vars.$useTextBorders, settings.$useTextBorders);
+$bordersValue: if(
+  sass(vars.$bordersValue != null): vars.$bordersValue; else: defs.$bordersValue
+);
+$useTextBorders: if(
+  sass(vars.$useTextBorders != null): vars.$useTextBorders; else: settings.$useTextBorders
+);
 $useTextBordersMediaQueries: if(
-  vars.$useTextBordersMediaQueries != null,
-  vars.$useTextBordersMediaQueries,
-  settings.$useTextBordersMediaQueries
+  sass(vars.$useTextBordersMediaQueries != null): vars.$useTextBordersMediaQueries;
+    else: settings.$useTextBordersMediaQueries
 );
-$useRadius: if(vars.$useRadius != null, vars.$useRadius, settings.$useRadius);
+$useRadius: if(
+  sass(vars.$useRadius != null): vars.$useRadius; else: settings.$useRadius
+);
 $useRadiusMediaQueries: if(
-  vars.$useRadiusMediaQueries != null,
-  vars.$useRadiusMediaQueries,
-  settings.$useRadiusMediaQueries
+  sass(vars.$useRadiusMediaQueries != null): vars.$useRadiusMediaQueries; else: settings.$useRadiusMediaQueries
 );
-$radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
+$radiuses: if(
+  sass(vars.$radiuses != null): vars.$radiuses; else: defs.$radiuses
+);
 
 @if $useWrappers {
   @each $wSize, $properties in $wrappers {
-    $mainWSize: if($wSize, '#{$wSize}#{\:}wrapper', 'wrapper');
+    $mainWSize: if(
+      sass($wSize): '#{$wSize}#{\:}wrapper' ; else: 'wrapper'
+    );
 
-    $padding: if(list.nth($properties, 2), list.nth($properties, 2), 0);
+    $padding: if(
+      sass(list.nth($properties, 2)): list.nth($properties, 2) ; else: 0
+    );
 
     .#{$mainWSize} {
       width: 100%;
@@ -109,10 +136,14 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
   }
   @include mQ.mQ(min, md) {
     @each $wSize, $properties in $wrappers {
-      $mainWSize: if($wSize, '#{$wSize}#{\:}wrapper', 'wrapper');
+      $mainWSize: if(
+        sass($wSize): '#{$wSize}#{\:}wrapper' ; else: 'wrapper'
+      );
 
       $size: list.nth($properties, 1);
-      $padding: if(list.nth($properties, 2), list.nth($properties, 2), 0);
+      $padding: if(
+        sass(list.nth($properties, 2)): list.nth($properties, 2) ; else: 0
+      );
 
       // Validate parameters
       $checkedSize: val.notNull($size, 'Wrappers.size');
@@ -127,7 +158,9 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
 @if $useShadows {
   @include mQ.multiSizes($useShadowsMediaQueries) using ($size, $divider) {
     @each $class, $values in configs.$shadows {
-      $mainClass: if($size, '#{$size}#{$divider}shadow#{\:}#{$class}', 'shadow#{\:}#{$class}');
+      $mainClass: if(
+        sass($size): '#{$size}#{$divider}shadow#{\:}#{$class}' ; else: 'shadow#{\:}#{$class}'
+      );
 
       .#{$mainClass} {
         box-shadow: $values;
@@ -142,10 +175,16 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
       // Validate parameters
       $checkedDisplay: val.listItem(configs.$displays, $display, 'Shaping.displays');
 
-      $mainClass: if($size, '#{$size}#{$divider}d-#{$display}', 'd-#{$display}');
+      $mainClass: if(
+        sass($size): '#{$size}#{$divider}d-#{$display}' ; else: 'd-#{$display}'
+      );
 
       .#{$mainClass} {
-        display: if($size, $display !important, $display);
+        @if ($size) {
+          display: $display !important;
+        } @else {
+          display: $display;
+        }
       }
     }
   }
@@ -159,9 +198,15 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
         $checkedDir: val.listItem(('x', 'y'), $dir, 'Shaping.overflow.direction');
       }
 
-      $dirClass: if($dir, '#{$dir}#{\:}overflow', 'overflow');
-      $mainClass: if($size, '#{$size}#{$divider}#{$dirClass}', $dirClass);
-      $property: if($dir, 'overflow-#{$dir}', 'overflow');
+      $dirClass: if(
+        sass($dir): '#{$dir}#{\:}overflow' ; else: 'overflow'
+      );
+      $mainClass: if(
+        sass($size): '#{$size}#{$divider}#{$dirClass}' ; else: $dirClass
+      );
+      $property: if(
+        sass($dir): 'overflow-#{$dir}' ; else: 'overflow'
+      );
 
       .#{$mainClass} {
         @each $value in configs.$overflows {
@@ -169,7 +214,11 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
           $checkedClass: val.listItem(configs.$overflows, $value, 'Shaping.overflow.value');
 
           &-#{$value} {
-            #{$property}: if($size, $value !important, $value);
+            @if ($size) {
+              #{$property}: $value !important;
+            } @else {
+              #{$property}: $value;
+            }
           }
         }
       }
@@ -182,13 +231,23 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
     @each $value in $opacities {
       $checkedValue: val.opacity(math.div($value, 100), 'Shaping.opacity');
 
-      $mainClass: if($size, '#{$size}#{$divider}op', 'op');
+      $mainClass: if(
+        sass($size): '#{$size}#{$divider}op' ; else: 'op'
+      );
 
       .#{$mainClass}#{\:}#{$value} {
-        opacity: if($size, $checkedValue !important, $checkedValue);
+        @if ($size) {
+          opacity: $checkedValue !important;
+        } @else {
+          opacity: $checkedValue;
+        }
 
         &#{\:}hover:hover {
-          opacity: if($size, $checkedValue !important, $checkedValue);
+          @if ($size) {
+            opacity: $checkedValue !important;
+          } @else {
+            opacity: $checkedValue;
+          }
         }
       }
     }
@@ -200,14 +259,24 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
     @each $value in $blurValues {
       $checkedValue: val.listItem($blurValues, $value, 'Shaping.blur');
 
-      $mainClass: if($size, '#{$size}#{$divider}bg#{\:}blur', 'bg#{\:}blur');
+      $mainClass: if(
+        sass($size): '#{$size}#{$divider}bg#{\:}blur' ; else: 'bg#{\:}blur'
+      );
       $calcValue: blur(#{$checkedValue}#{px});
 
       .#{$mainClass}#{\:}#{$value} {
-        backdrop-filter: if($size, $calcValue !important, $calcValue);
+        @if ($size) {
+          backdrop-filter: $calcValue !important;
+        } @else {
+          backdrop-filter: $calcValue;
+        }
 
         &#{\:}hover:hover {
-          backdrop-filter: if($size, $calcValue !important, $calcValue);
+          @if ($size) {
+            backdrop-filter: $calcValue !important;
+          } @else {
+            backdrop-filter: $calcValue;
+          }
         }
       }
     }
@@ -220,10 +289,16 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
       // Validate parameters
       $checkedFit: val.listItem(configs.$objectsFits, $fit, 'Shaping.objectFit');
 
-      $mainClass: if($size, '#{$size}#{$divider}object-fit', 'object-fit');
+      $mainClass: if(
+        sass($size): '#{$size}#{$divider}object-fit' ; else: 'object-fit'
+      );
 
       .#{$mainClass}#{\:}#{$fit} {
-        object-fit: if($size, $fit !important, $fit);
+        @if ($size) {
+          object-fit: $fit !important;
+        } @else {
+          object-fit: $fit;
+        }
       }
     }
   }
@@ -235,10 +310,16 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
       // Validate parameters
       $checkedPosition: val.listItem(configs.$positions, $position, 'Shaping.position');
 
-      $mainClass: if($size, '#{$size}#{$divider}p-', 'p-');
+      $mainClass: if(
+        sass($size): '#{$size}#{$divider}p-' ; else: 'p-'
+      );
 
       .#{$mainClass}#{$position} {
-        position: if($size, $position !important, $position);
+        @if ($size) {
+          position: $position !important;
+        } @else {
+          position: $position;
+        }
       }
     }
   }
@@ -251,10 +332,18 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
         // Validate parameters
         $checkedPosition: val.listItem(configs.$insetPositions, $position, 'Shaping.inset');
 
-        $mainClass: if($size, '#{$size}#{$divider}inset', 'inset');
-        $posClass: if($position, '#{$mainClass}-#{$position}', '#{$mainClass}');
-        $property: if($position, 'inset-#{$position}', 'inset');
-        $val: if($value == 0, 'full', $value);
+        $mainClass: if(
+          sass($size): '#{$size}#{$divider}inset' ; else: 'inset'
+        );
+        $posClass: if(
+          sass($position): '#{$mainClass}-#{$position}' ; else: '#{$mainClass}'
+        );
+        $property: if(
+          sass($position): 'inset-#{$position}' ; else: 'inset'
+        );
+        $val: if(
+          sass($value == 0): 'full' ; else: $value
+        );
 
         .#{$posClass}#{\:}#{$val} {
           #{$property}: $value;
@@ -280,7 +369,9 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
       );
       $checkedStep: val.number(configs.$spacesStep, 'Shaping.space.step');
 
-      $mainClass: if($size, #{$size}#{$divider}#{$dir}, $dir);
+      $mainClass: if(
+        sass($size): #{$size}#{$divider}#{$dir}; else: $dir
+      );
 
       .#{$mainClass} {
         @for $i from 0 through 100 {
@@ -288,7 +379,11 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
 
           @if ($value != 0) and ($value % $checkedStep == 0) and ($value <= 100) {
             &#{\:}#{$value} {
-              #{$direction}: if($size, #{$value}#{'%'} !important, #{$value}#{'%'});
+              @if ($size) {
+                #{$direction}: #{$value} !important;
+              } @else {
+                #{$direction}: #{$value};
+              }
             }
           }
         }
@@ -330,20 +425,21 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
         'Shaping.gutter.property'
       );
 
-      $mainClass: if($size, #{$size}#{$divider}#{$class}, $class);
+      $mainClass: if(
+        sass($size): #{$size}#{$divider}#{$class}; else: $class
+      );
 
       .#{$mainClass} {
         @each $vClass, $value in $guttersValues {
           &-#{$vClass} {
             @if $size {
-              #{$property}: if($size, $value !important, $value);
+              #{$property}: #{$value} !important;
             } @else {
               #{$property}: $value;
+            }
 
-              &\:i {
-                /* stylelint-disable declaration-no-important */
-                #{$property}: $value !important;
-              }
+            &\:i {
+              #{$property}: $value !important;
             }
           }
         }
@@ -364,14 +460,22 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
           'Shaping.borders'
         );
 
-        $mainClass: if($size, '#{$size}#{$divider}border', 'border');
-        $dirClass: if($dir, '#{$dir}#{\:}', $dir);
+        $mainClass: if(
+          sass($size): '#{$size}#{$divider}border' ; else: 'border'
+        );
+        $dirClass: if(
+          sass($dir): '#{$dir}#{\:}' ; else: $dir
+        );
 
         .#{$mainClass}#{\:}#{$dirClass}#{$i} {
-          #{$property}-width: if($size, #{$i}#{px} !important, #{$i}#{px});
+          @if ($size) {
+            #{$property}-width: #{$i}px !important;
+          } @else {
+            #{$property}-width: #{$i}px;
+          }
 
           @if not $size {
-            #{$property}-style: if($size, solid !important, solid);
+            #{$property}-style: solid;
           }
         }
       }
@@ -382,14 +486,20 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
 @if $useTextBorders {
   @include mQ.multiSizes($useTextBordersMediaQueries) using ($size, $divider) {
     @each $i in $bordersValue {
-      $mainClass: if($size, '#{$size}#{$divider}stroke', 'stroke');
+      $mainClass: if(
+        sass($size): '#{$size}#{$divider}stroke' ; else: 'stroke'
+      );
       $value: math.div($i, 10);
 
       // Validate parameters
       $checkedValue: val.number($value, 'Shaping.textBorder');
 
       .#{$mainClass}#{\:}#{$i} {
-        -webkit-text-stroke-width: if($size, #{$value}#{px} !important, #{$value}#{px});
+        @if ($size) {
+          -webkit-text-stroke-width: #{$value}px !important;
+        } @else {
+          -webkit-text-stroke-width: #{$value}px;
+        }
       }
     }
   }
@@ -405,13 +515,21 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
         'Shaping.radius.direction'
       );
 
-      $mainClass: if($size, '#{$size}#{$divider}radius', 'radius');
-      $dirClass: if($dir, '#{$dir}#{\:}', $dir);
+      $mainClass: if(
+        sass($size): '#{$size}#{$divider}radius' ; else: 'radius'
+      );
+      $dirClass: if(
+        sass($dir): '#{$dir}#{\:}' ; else: $dir
+      );
 
       @each $property in $properties {
         .#{$mainClass}#{\:}#{$dirClass} {
           &full {
-            #{$property}: if($size, 100vw !important, 100vw);
+            @if ($size) {
+              #{$property}: 100vw !important;
+            } @else {
+              #{$property}: 100vw;
+            }
           }
 
           @each $value in $radiuses {
@@ -429,7 +547,11 @@ $radiuses: if(vars.$radiuses != null, vars.$radiuses, defs.$radiuses);
             );
 
             &#{$value} {
-              #{$property}: if($size, #{$value}#{px} !important, #{$value}#{'px'});
+              @if ($size) {
+                #{$property}: #{$value}px !important;
+              } @else {
+                #{$property}: #{$value}px;
+              }
             }
           }
         }

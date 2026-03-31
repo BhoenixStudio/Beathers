@@ -3,12 +3,24 @@
 @use '../settings/defaults' as defs;
 
 // Definitions
-$useLoader: if(vars.$useLoader != null, vars.$useLoader, settings.$useLoader);
-$useColorsLightMode: if(vars.$useColorsLightMode != null, vars.$useColorsLightMode, settings.$useColorsLightMode);
-$useColorsDarkMode: if(vars.$useColorsDarkMode != null, vars.$useColorsDarkMode, settings.$useColorsDarkMode);
-$loaderColorMain: if(vars.$loaderColorMain != null, vars.$loaderColorMain, defs.$loaderColorMain);
-$loaderColorSecond: if(vars.$loaderColorSecond != null, vars.$loaderColorSecond, defs.$loaderColorSecond);
-$loaderDuration: if(vars.$loaderDuration != null, vars.$loaderDuration, defs.$loaderDuration);
+$useLoader: if(
+  sass(vars.$useLoader != null): vars.$useLoader; else: settings.$useLoader
+);
+$useColorsLightMode: if(
+  sass(vars.$useColorsLightMode != null): vars.$useColorsLightMode; else: settings.$useColorsLightMode
+);
+$useColorsDarkMode: if(
+  sass(vars.$useColorsDarkMode != null): vars.$useColorsDarkMode; else: settings.$useColorsDarkMode
+);
+$loaderColorMain: if(
+  sass(vars.$loaderColorMain != null): vars.$loaderColorMain; else: defs.$loaderColorMain
+);
+$loaderColorSecond: if(
+  sass(vars.$loaderColorSecond != null): vars.$loaderColorSecond; else: defs.$loaderColorSecond
+);
+$loaderDuration: if(
+  sass(vars.$loaderDuration != null): vars.$loaderDuration; else: defs.$loaderDuration
+);
 
 @if $useLoader {
   $colorMainLight: colors.hexToRgba(map.get($colorMain, 'light'), 0.4, 'Glass.light');
@@ -22,7 +34,7 @@ $loaderDuration: if(vars.$loaderDuration != null, vars.$loaderDuration, defs.$lo
       'sharp': unset,
       'circle': 100vw,
       'square': 5px,
-      'text': 3px,
+      'text': 3px
     ) !default;
 
     display: inline-block;
@@ -39,7 +51,7 @@ $loaderDuration: if(vars.$loaderDuration != null, vars.$loaderDuration, defs.$lo
     @each $variant, $radius in $skeletonsVariants {
       &.#{$variant} {
         border-radius: $radius;
-        aspect-ratio: if($variant == 'circle' or $variant == 'square', 1, unset);
+        aspect-ratio: if(sass($variant == 'circle' or $variant == 'square'): 1; else: unset);
       }
     }
 

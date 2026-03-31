@@ -5,15 +5,33 @@
 @use '../variables' as vars;
 
 // Definitions
-$useGlass: if(vars.$useGlass != null, vars.$useGlass, settings.$useGlass);
-$useColorsLightMode: if(vars.$useColorsLightMode != null, vars.$useColorsLightMode, settings.$useColorsLightMode);
-$useColorsDarkMode: if(vars.$useColorsDarkMode != null, vars.$useColorsDarkMode, settings.$useColorsDarkMode);
-$glassBlur: if(vars.$glassBlur != null, vars.$glassBlur, defs.$glassBlur);
-$glassColor: if(vars.$glassColor != null, vars.$glassColor, defs.$glassColor);
-$glassBorderThickness: if(vars.$glassBorderThickness != null, vars.$glassBorderThickness, defs.$glassBorderThickness);
-$glassBorder1Color: if(vars.$glassBorder1Color != null, vars.$glassBorder1Color, defs.$glassBorder1Color);
-$glassBorder2Color: if(vars.$glassBorder2Color != null, vars.$glassBorder2Color, defs.$glassBorder2Color);
-$glassLightAngle: if(vars.$glassLightAngle != null, vars.$glassLightAngle, defs.$glassLightAngle);
+$useGlass: if(
+  sass(vars.$useGlass != null): vars.$useGlass; else: settings.$useGlass
+);
+$useColorsLightMode: if(
+  sass(vars.$useColorsLightMode != null): vars.$useColorsLightMode; else: settings.$useColorsLightMode
+);
+$useColorsDarkMode: if(
+  sass(vars.$useColorsDarkMode != null): vars.$useColorsDarkMode; else: settings.$useColorsDarkMode
+);
+$glassBlur: if(
+  sass(vars.$glassBlur != null): vars.$glassBlur; else: defs.$glassBlur
+);
+$glassColor: if(
+  sass(vars.$glassColor != null): vars.$glassColor; else: defs.$glassColor
+);
+$glassBorderThickness: if(
+  sass(vars.$glassBorderThickness != null): vars.$glassBorderThickness; else: defs.$glassBorderThickness
+);
+$glassBorder1Color: if(
+  sass(vars.$glassBorder1Color != null): vars.$glassBorder1Color; else: defs.$glassBorder1Color
+);
+$glassBorder2Color: if(
+  sass(vars.$glassBorder2Color != null): vars.$glassBorder2Color; else: defs.$glassBorder2Color
+);
+$glassLightAngle: if(
+  sass(vars.$glassLightAngle != null): vars.$glassLightAngle; else: defs.$glassLightAngle
+);
 
 @if $useGlass {
   $glassColorLight: colors.hexToRgba(map.get($glassColor, 'light'), 0.15, 'Glass.light');

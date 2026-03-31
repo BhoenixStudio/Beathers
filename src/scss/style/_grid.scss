@@ -6,9 +6,15 @@
 @use '../variables' as vars;
 
 // Definitions
-$useGrid: if(vars.$useGrid != null, vars.$useGrid, settings.$useGrid);
-$useFlex: if(vars.$useFlex != null, vars.$useFlex, settings.$useFlex);
-$useGridMediaQueries: if(vars.$useGridMediaQueries != null, vars.$useGridMediaQueries, settings.$useGridMediaQueries);
+$useGrid: if(
+  sass(vars.$useGrid != null): vars.$useGrid; else: settings.$useGrid
+);
+$useFlex: if(
+  sass(vars.$useFlex != null): vars.$useFlex; else: settings.$useFlex
+);
+$useGridMediaQueries: if(
+  sass(vars.$useGridMediaQueries != null): vars.$useGridMediaQueries; else: settings.$useGridMediaQueries
+);
 
 @if $useGrid {
   .grid {
@@ -40,10 +46,16 @@ $useGridMediaQueries: if(vars.$useGridMediaQueries != null, vars.$useGridMediaQu
             'flex.properties.values'
           );
 
-          $mainClass: if($size, #{$size}#{$divider}#{$value}, $value);
+          $mainClass: if(
+            sass($size): #{$size}#{$divider}#{$value}; else: $value
+          );
 
           &.#{$mainClass} {
-            #{$property}: if($size, $value !important, $value);
+            @if ($size) {
+              #{$property}: $value !important;
+            } @else {
+              #{$property}: $value;
+            }
           }
         }
       }
@@ -70,11 +82,17 @@ $useGridMediaQueries: if(vars.$useGridMediaQueries != null, vars.$useGridMediaQu
     @each $way, $selections in configs.$justify {
       @each $selection, $properties in $selections {
         @each $property in $properties {
-          $mainClass: if($size, '#{$size}#{$divider}#{$way}-#{$selection}#{\:}', '#{$way}-#{$selection}#{\:}');
+          $mainClass: if(
+            sass($size): '#{$size}#{$divider}#{$way}-#{$selection}#{\:}' ; else: '#{$way}-#{$selection}#{\:}'
+          );
 
           .#{$mainClass} {
-            $prefix: if($property == 'around' or $property == 'between' or $property == 'evenly', 'space-', '');
-            $flexPrefix: if($property == 'start' or $property == 'end', 'flex-', '');
+            $prefix: if(
+              sass($property == 'around' or $property == 'between' or $property == 'evenly'): 'space-' ; else: ''
+            );
+            $flexPrefix: if(
+              sass($property == 'start' or $property == 'end'): 'flex-' ; else: ''
+            );
             $value: #{$prefix}#{$property};
             $flexValue: #{$flexPrefix}#{$value};
 
@@ -82,10 +100,18 @@ $useGridMediaQueries: if(vars.$useGridMediaQueries != null, vars.$useGridMediaQu
               &.flex,
               &.d-flex,
               &.d-inline-flex {
-                #{$way}-#{$selection}: if($size, $flexValue !important, $flexValue);
+                @if ($size) {
+                  #{$way}-#{$selection}: $flexValue !important;
+                } @else {
+                  #{$way}-#{$selection}: $flexValue;
+                }
               }
 
-              #{$way}-#{$selection}: if($size, $value !important, $value);
+              @if ($size) {
+                #{$way}-#{$selection}: $value !important;
+              } @else {
+                #{$way}-#{$selection}: $value;
+              }
             }
           }
         }

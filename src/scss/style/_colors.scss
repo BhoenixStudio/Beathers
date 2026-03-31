@@ -7,10 +7,18 @@
 @use '../settings/index' as settings;
 
 // Definitions
-$useColors: if(vars.$useColors != null, vars.$useColors, settings.$useColors);
-$colors: if(vars.$colors != null, vars.$colors, defs.$colors);
-$useCurrentColors: if(vars.$useCurrentColors != null, vars.$useCurrentColors, settings.$useCurrentColors);
-$useRootColors: if(vars.$useRootColors != null, vars.$useRootColors, settings.$useRootColors);
+$useColors: if(
+  sass(vars.$useColors != null): vars.$useColors; else: settings.$useColors
+);
+$colors: if(
+  sass(vars.$colors != null): vars.$colors; else: defs.$colors
+);
+$useCurrentColors: if(
+  sass(vars.$useCurrentColors != null): vars.$useCurrentColors; else: settings.$useCurrentColors
+);
+$useRootColors: if(
+  sass(vars.$useRootColors != null): vars.$useRootColors; else: settings.$useRootColors
+);
 
 // Colors System Module
 // --------------------------
@@ -80,7 +88,9 @@ $useRootColors: if(vars.$useRootColors != null, vars.$useRootColors, settings.$u
   //   This text uses currentColor and background changes to currentColor on hover
   // </div>
   @each $class, $property in configs.$colorsPropertiesMap {
-    $mainClass: if($class, '#{$class}#{\:}current-color', 'current-color');
+    $mainClass: if(
+      sass($class): '#{$class}#{\:}current-color' ; else: 'current-color'
+    );
 
     .#{$mainClass} {
       #{$property}: currentColor;

@@ -11,43 +11,62 @@
 @use '../settings/defaults' as defs;
 
 // Definitions
-$useFontFamilies: if(vars.$useFontFamilies != null, vars.$useFontFamilies, settings.$useFontFamilies);
+// Definitions
+$useFontFamilies: if(
+  sass(vars.$useFontFamilies != null): vars.$useFontFamilies; else: settings.$useFontFamilies
+);
 $useFontFamiliesMediaQueries: if(
-  vars.$useFontFamiliesMediaQueries != null,
-  vars.$useFontFamiliesMediaQueries,
-  settings.$useFontFamiliesMediaQueries
+  sass(vars.$useFontFamiliesMediaQueries != null): vars.$useFontFamiliesMediaQueries;
+    else: settings.$useFontFamiliesMediaQueries
 );
-$fonts: if(vars.$fonts != null, vars.$fonts, defs.$fonts);
-$fontWeights: if(vars.$fontWeights != null, vars.$fontWeights, defs.$fontWeights);
-$fontStyles: if(vars.$fontStyles != null, vars.$fontStyles, defs.$fontStyles);
-$fontFormat: if(vars.$fontFormat != null, vars.$fontFormat, defs.$fontFormat);
-$defaultFontFamilies: if(vars.$defaultFontFamilies != null, vars.$defaultFontFamilies, defs.$defaultFontFamilies);
-$useFontSizes: if(vars.$useFontSizes != null, vars.$useFontSizes, settings.$useFontSizes);
+$fonts: if(
+  sass(vars.$fonts != null): vars.$fonts; else: defs.$fonts
+);
+$fontWeights: if(
+  sass(vars.$fontWeights != null): vars.$fontWeights; else: defs.$fontWeights
+);
+$fontStyles: if(
+  sass(vars.$fontStyles != null): vars.$fontStyles; else: defs.$fontStyles
+);
+$fontFormat: if(
+  sass(vars.$fontFormat != null): vars.$fontFormat; else: defs.$fontFormat
+);
+$defaultFontFamilies: if(
+  sass(vars.$defaultFontFamilies != null): vars.$defaultFontFamilies; else: defs.$defaultFontFamilies
+);
+$useFontSizes: if(
+  sass(vars.$useFontSizes != null): vars.$useFontSizes; else: settings.$useFontSizes
+);
 $useFontSizesMediaQueries: if(
-  vars.$useFontSizesMediaQueries != null,
-  vars.$useFontSizesMediaQueries,
-  settings.$useFontSizesMediaQueries
+  sass(vars.$useFontSizesMediaQueries != null): vars.$useFontSizesMediaQueries; else: settings.$useFontSizesMediaQueries
 );
-$fontSizes: if(vars.$fontSizes != null, vars.$fontSizes, defs.$fontSizes);
-$useFontShapes: if(vars.$useFontShapes != null, vars.$useFontShapes, settings.$useFontShapes);
+$fontSizes: if(
+  sass(vars.$fontSizes != null): vars.$fontSizes; else: defs.$fontSizes
+);
+$useFontShapes: if(
+  sass(vars.$useFontShapes != null): vars.$useFontShapes; else: settings.$useFontShapes
+);
 $useFontShapesMediaQueries: if(
-  vars.$useFontShapesMediaQueries != null,
-  vars.$useFontShapesMediaQueries,
-  settings.$useFontShapesMediaQueries
+  sass(vars.$useFontShapesMediaQueries != null): vars.$useFontShapesMediaQueries;
+    else: settings.$useFontShapesMediaQueries
 );
-$useTextAligns: if(vars.$useTextAligns != null, vars.$useTextAligns, settings.$useTextAligns);
+$useTextAligns: if(
+  sass(vars.$useTextAligns != null): vars.$useTextAligns; else: settings.$useTextAligns
+);
 $useTextAlignsMediaQueries: if(
-  vars.$useTextAlignsMediaQueries != null,
-  vars.$useTextAlignsMediaQueries,
-  settings.$useTextAlignsMediaQueries
+  sass(vars.$useTextAlignsMediaQueries != null): vars.$useTextAlignsMediaQueries;
+    else: settings.$useTextAlignsMediaQueries
 );
-$useTextTruncate: if(vars.$useTextTruncate != null, vars.$useTextTruncate, settings.$useTextTruncate);
+$useTextTruncate: if(
+  sass(vars.$useTextTruncate != null): vars.$useTextTruncate; else: settings.$useTextTruncate
+);
 $useTextTruncateMediaQueries: if(
-  vars.$useTextTruncateMediaQueries != null,
-  vars.$useTextTruncateMediaQueries,
-  settings.$useTextTruncateMediaQueries
+  sass(vars.$useTextTruncateMediaQueries != null): vars.$useTextTruncateMediaQueries;
+    else: settings.$useTextTruncateMediaQueries
 );
-$textTruncate: if(vars.$textTruncate != null, vars.$textTruncate, defs.$textTruncate);
+$textTruncate: if(
+  sass(vars.$textTruncate != null): vars.$textTruncate; else: defs.$textTruncate
+);
 
 // Typographic Utilities
 // --------------------------------------
@@ -110,9 +129,12 @@ $textTruncate: if(vars.$textTruncate != null, vars.$textTruncate, defs.$textTrun
     $checkedFont: val.map($font, 'Typographic.fonts');
 
     $weights: map.get($font, 'weights');
-    $weights: if($weights != null, map.get($font, 'weights'), $fontWeights);
-    $styles: map.get($font, 'styles');
-    $styles: if($styles != null, map.get($font, 'styles'), $fontStyles);
+    $weights: if(
+      sass($weights != null): map.get($font, 'weights') ; else: $fontWeights
+    );
+    $styles: if(
+      sass(map.get($font, 'styles') != null): map.get($font, 'styles') ; else: $fontStyles
+    );
     $variants: map.get($font, 'variants');
 
     // Validate parameters
@@ -124,10 +146,18 @@ $textTruncate: if(vars.$textTruncate != null, vars.$textTruncate, defs.$textTrun
       @each $style in $styles {
         @each $lang, $fontFace in $variants {
           $title: map.get($fontFace, 'title');
-          $unicode: if(map.has-key($fontFace, 'unicode'), map.get($fontFace, 'unicode'), null);
-          $format: if(map.has-key($fontFace, 'format'), map.get($fontFace, 'format'), $fontFormat);
-          $isLocal: if(map.has-key($fontFace, 'local'), map.get($fontFace, 'isLocal'), true);
-          $externalUrl: if(map.has-key($fontFace, 'url'), map.get($fontFace, 'url'), null);
+          $unicode: if(
+            sass(map.has-key($fontFace, 'unicode')): map.get($fontFace, 'unicode') ; else: null
+          );
+          $format: if(
+            sass(map.has-key($fontFace, 'format')): map.get($fontFace, 'format') ; else: $fontFormat
+          );
+          $isLocal: if(
+            sass(map.has-key($fontFace, 'local')): map.get($fontFace, 'isLocal') ; else: true
+          );
+          $externalUrl: if(
+            sass(map.has-key($fontFace, 'url')): map.get($fontFace, 'url') ; else: null
+          );
 
           // Validate parameters
           $checkedIsLocal: val.boolean($isLocal, 'Typographic.fontFace.local');
@@ -148,16 +178,23 @@ $textTruncate: if(vars.$textTruncate != null, vars.$textTruncate, defs.$textTrun
         @each $style in $styles {
           // Font weights
           // Validate parameters
-          $styleClass: if($fI == 0, $weight, '#{$fontKey}\:#{$weight}');
+          $styleClass: if(
+            sass($fI == 0): $weight; else: '#{$fontKey}\:#{$weight}'
+          );
           $weightValue: map.get(configs.$fontWeightsValues, $weight);
 
-          $mainClass: if($size, #{$size}#{$divider}#{$styleClass}, $styleClass);
+          $mainClass: if(
+            sass($size): #{$size}#{$divider}#{$styleClass}; else: $styleClass
+          );
 
           .#{$mainClass} {
-            font-family:
-              '#{$styleClass}',
-              $defaultFontFamilies if($size, !important, null);
-            font-weight: if($size, $weightValue !important, $weightValue);
+            @if ($size) {
+              font-family: '#{$styleClass}', $defaultFontFamilies !important;
+              font-weight: $weightValue !important;
+            } @else {
+              font-family: '#{$styleClass}', $defaultFontFamilies;
+              font-weight: $weightValue;
+            }
 
             @if meta.type-of($styles) == 'list' and list.length($styles) > 0 {
               &.#{$style} {
@@ -206,10 +243,16 @@ $textTruncate: if(vars.$textTruncate != null, vars.$textTruncate, defs.$textTrun
 @if $useFontSizes {
   @include mQ.multiSizes($useFontSizesMediaQueries) using ($size, $divider) {
     @each $fontSize, $value in $fontSizes {
-      $mainClass: if($size, #{$size}#{$divider}#{$fontSize}, $fontSize);
+      $mainClass: if(
+        sass($size): #{$size}#{$divider}#{$fontSize}; else: $fontSize
+      );
 
       .#{$mainClass} {
-        font-size: $value if($size, !important, null);
+        @if ($size) {
+          font-size: $value !important;
+        } @else {
+          font-size: $value;
+        }
       }
     }
   }
@@ -251,7 +294,7 @@ $textTruncate: if(vars.$textTruncate != null, vars.$textTruncate, defs.$textTrun
   @include mQ.multiSizes($useFontShapesMediaQueries) using ($size, $divider) {
     @each $type, $values in configs.$fontShapes {
       @each $value in $values {
-        @include typo.fontShapes(if($size, '#{$size}#{$divider}#{$value}', $value), $type, $value);
+        @include typo.fontShapes(if(sass($size): '#{$size}#{$divider}#{$value}' ; else: $value), $type, $value);
       }
     }
   }
@@ -289,9 +332,15 @@ $textTruncate: if(vars.$textTruncate != null, vars.$textTruncate, defs.$textTrun
       // Validate parameters
       $checkedDir: val.listItem(configs.$aligns, $dir, 'Typographic.fonts.aligns');
 
-      $mainClass: if($size, '#{$size}#{$divider}text-#{$dir}', 'text-#{$dir}');
+      $mainClass: if(
+        sass($size): '#{$size}#{$divider}text-#{$dir}' ; else: 'text-#{$dir}'
+      );
       .#{$mainClass} {
-        text-align: if($size, $dir !important, $dir);
+        @if ($size) {
+          text-align: $dir !important;
+        } @else {
+          text-align: $dir;
+        }
       }
     }
   }
@@ -332,7 +381,9 @@ $textTruncate: if(vars.$textTruncate != null, vars.$textTruncate, defs.$textTrun
 @if $useTextTruncate {
   @include mQ.multiSizes($useTextTruncateMediaQueries) using ($size, $divider) {
     @each $i in $textTruncate {
-      $mainClass: if($size, '#{$size}#{$divider}text-lines#{\:}#{$i}', 'text-lines#{\:}#{$i}');
+      $mainClass: if(
+        sass($size): '#{$size}#{$divider}text-lines#{\:}#{$i}' ; else: 'text-lines#{\:}#{$i}'
+      );
 
       .#{$mainClass} {
         display: -webkit-box;

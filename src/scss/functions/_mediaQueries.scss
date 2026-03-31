@@ -6,7 +6,9 @@
 @use '../functions/validations' as val;
 
 // Definitions
-$breakpoints: if(vars.$breakpoints != null, vars.$breakpoints, defs.$breakpoints);
+$breakpoints: if(
+  sass(vars.$breakpoints != null): vars.$breakpoints; else: defs.$breakpoints
+);
 
 // Breakpoint Mixin
 // --------------------------------------
@@ -121,7 +123,9 @@ $breakpoints: if(vars.$breakpoints != null, vars.$breakpoints, defs.$breakpoints
 
   @if $checkedCondition {
     @each $size, $value in $breakpoints {
-      $divider: if($size, #{\:}, '');
+      $divider: if(
+        sass($size): #{\:}; else: ''
+      );
 
       @include mQ(min, $size, $checkedCondition) {
         @content ($size, $divider);

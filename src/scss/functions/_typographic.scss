@@ -6,7 +6,9 @@
 @use '../settings/configs' as configs;
 
 // Definitions
-$fontMainPath: if(vars.$fontMainPath != null, vars.$fontMainPath, defs.$fontMainPath);
+$fontMainPath: if(
+  sass(vars.$fontMainPath != null): vars.$fontMainPath; else: defs.$fontMainPath
+);
 
 // Font Face Mixin
 // --------------------------------------
@@ -62,7 +64,9 @@ $fontMainPath: if(vars.$fontMainPath != null, vars.$fontMainPath, defs.$fontMain
     $checkedExternalUrl: val.string($externalUrl, 'Typographic.fontFace.externalUrl');
   }
 
-  $name: if($index == 0, $weight, '#{$key}\:#{$weight}');
+  $name: if(
+    sass($index == 0): $weight; else: '#{$key}\:#{$weight}'
+  );
   $weightValue: map.get(configs.$fontWeightsValues, $weight);
 
   @font-face {

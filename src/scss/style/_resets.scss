@@ -5,10 +5,18 @@
 @use '../settings/index' as settings;
 
 // Definitions
-$defaultFontFamilies: if(vars.$defaultFontFamilies != null, vars.$defaultFontFamilies, defs.$defaultFontFamilies);
-$useColors: if(vars.$useColors != null, vars.$useColors, settings.$useColors);
-$useColorsLightMode: if(vars.$useColorsLightMode != null, vars.$useColorsLightMode, settings.$useColorsLightMode);
-$useColorsDarkMode: if(vars.$useColorsDarkMode != null, vars.$useColorsDarkMode, settings.$useColorsDarkMode);
+$defaultFontFamilies: if(
+  sass(vars.$defaultFontFamilies != null): vars.$defaultFontFamilies; else: defs.$defaultFontFamilies
+);
+$useColors: if(
+  sass(vars.$useColors != null): vars.$useColors; else: settings.$useColors
+);
+$useColorsLightMode: if(
+  sass(vars.$useColorsLightMode != null): vars.$useColorsLightMode; else: settings.$useColorsLightMode
+);
+$useColorsDarkMode: if(
+  sass(vars.$useColorsDarkMode != null): vars.$useColorsDarkMode; else: settings.$useColorsDarkMode
+);
 
 html {
   scroll-behavior: smooth;

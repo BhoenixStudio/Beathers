@@ -9,11 +9,21 @@
 @use '../functions/validations' as val;
 
 // Definitions
-$colors: if(vars.$colors != null, vars.$colors, defs.$colors);
-$opacities: if(vars.$opacities != null, vars.$opacities, defs.$opacities);
-$useColorsLightMode: if(vars.$useColorsLightMode != null, vars.$useColorsLightMode, settings.$useColorsLightMode);
-$useColorsDarkMode: if(vars.$useColorsDarkMode != null, vars.$useColorsDarkMode, settings.$useColorsDarkMode);
-$useColorsOpacities: if(vars.$useColorsOpacities != null, vars.$useColorsOpacities, settings.$useColorsOpacities);
+$colors: if(
+  sass(vars.$colors != null): vars.$colors; else: defs.$colors
+);
+$opacities: if(
+  sass(vars.$opacities != null): vars.$opacities; else: defs.$opacities
+);
+$useColorsLightMode: if(
+  sass(vars.$useColorsLightMode != null): vars.$useColorsLightMode; else: settings.$useColorsLightMode
+);
+$useColorsDarkMode: if(
+  sass(vars.$useColorsDarkMode != null): vars.$useColorsDarkMode; else: settings.$useColorsDarkMode
+);
+$useColorsOpacities: if(
+  sass(vars.$useColorsOpacities != null): vars.$useColorsOpacities; else: settings.$useColorsOpacities
+);
 
 // Color Convertors ----- ----- ----- -----
 //
@@ -165,7 +175,7 @@ $useColorsOpacities: if(vars.$useColorsOpacities != null, vars.$useColorsOpaciti
     }
   } @else {
     .#{$colorClass} {
-      #{$property}: useColor($color, if($light, 'light', 'dark'), $opacity);
+      #{$property}: useColor($color, if(sass($light): 'light' ; else: 'dark'), $opacity);
     }
   }
 }
@@ -196,7 +206,9 @@ $useColorsOpacities: if(vars.$useColorsOpacities != null, vars.$useColorsOpaciti
   @each $color, $modes in $checkedMap {
     @if $color {
       @each $class, $property in configs.$colorsPropertiesMap {
-        $mainClass: if($class, '#{$class}#{\:}color-#{$color}', 'color-#{$color}');
+        $mainClass: if(
+          sass($class): '#{$class}#{\:}color-#{$color}' ; else: 'color-#{$color}'
+        );
 
         @include useColorProperty($mainClass, $class, $property, $modes, $map);
 
