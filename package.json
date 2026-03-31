@@ -30,7 +30,7 @@
     "build:pack": "sass --style compressed --source-map --embed-sources --no-error-css src/scss/:css/",
     "build:test": "tsx src/scripts/cli.ts",
     "build:clean": "rimraf css scss && rimraf index.js index.d.ts index.d.ts.map && rimraf data scripts",
-    "build:update": "ts-node tsx src/scripts/commands/version-update.ts",
+    "build:update": "ts-node src/scripts/commands/version-update.ts",
     "build:publish": "npm run build:clean && tsc && copyfiles -u 2 \"src/scss/**/*\" scss/ && npm run build:pack",
     "lint": "eslint . && stylelint \"**/*.scss\"",
     "lint:fix": "eslint . --fix && stylelint \"**/*.scss\" --fix",
