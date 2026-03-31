@@ -380,9 +380,9 @@ $radiuses: if(
           @if ($value != 0) and ($value % $checkedStep == 0) and ($value <= 100) {
             &#{\:}#{$value} {
               @if ($size) {
-                #{$direction}: #{$value} !important;
+                #{$direction}: #{$value}#{'%'} !important;
               } @else {
-                #{$direction}: #{$value};
+                #{$direction}: #{$value}#{'%'};
               }
             }
           }
