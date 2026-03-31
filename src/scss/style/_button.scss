@@ -1,7 +1,9 @@
 $corners: (
   'rounded': 0.25rem,
+  'big-rounded': 0.75rem,
   'circle': 100vw,
   'sharp': 0,
+  'full': 100vw,
 ) !default;
 
 button {
@@ -13,7 +15,7 @@ button {
     position: relative;
     isolation: isolate;
     appearance: none;
-    display: flex;
+    display: inline-flex;
     flex-wrap: nowrap;
     cursor: pointer;
     transition: 250ms ease-in-out;
@@ -78,11 +80,11 @@ button {
     &:is(:focus-visible, :hover) {
       transform: translateY(-0.1em);
 
-      &:is(.text-variant) {
+      &:is(.btn-text) {
         text-shadow: 0 0.05em rgb(0, 0, 0, 0.4);
       }
 
-      &:not(.text-variant) {
+      &:not(.btn-text) {
         box-shadow: 0 0.15em 0.15em rgb(0, 0, 0, 0.4);
 
         &::before {
