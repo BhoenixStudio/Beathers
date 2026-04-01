@@ -25,17 +25,17 @@
     "beathers": "scripts/cli.js"
   },
   "scripts": {
-    "watch": "nodemon --watch src/scss/ --ext scss --exec \"npm run build:dev\"",
+    "watch": "nodemon --watch src/scss/ --ext scss --exec \"pnpm build:dev\"",
     "build:dev": "sass --style expanded --source-map --embed-sources --no-error-css src/scss/:css/",
     "build:pack": "sass --style compressed --source-map --embed-sources --no-error-css src/scss/:css/",
-    "build:test": "tsx src/scripts/cli.ts",
+    "build:publish": "pnpm build:clean && tsc && copyfiles -u 2 \"src/scss/**/*\" scss/ && pnpm build:pack",
+    "build:test": "pnpm build:publish && tsx scripts/cli.js",
     "build:clean": "tsx src/scripts/commands/clean.ts",
     "build:update": "ts-node src/scripts/commands/version-update.ts",
-    "build:publish": "npm run build:clean && tsc && copyfiles -u 2 \"src/scss/**/*\" scss/ && npm run build:pack",
     "lint": "eslint . && stylelint \"**/*.scss\"",
     "lint:fix": "eslint . --fix && stylelint \"**/*.scss\" --fix",
     "format:check": "prettier --check --ignore-path .gitignore .",
-    "format:fix": "prettier --write --ignore-path .gitignore . && npm run lint"
+    "format:fix": "prettier --write --ignore-path .gitignore . && pnpm lint"
   },
   "keywords": [
     "design-system",
