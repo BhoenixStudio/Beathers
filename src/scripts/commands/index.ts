@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 
 import fs from 'fs-extra'
-import path from 'path'
+import path from 'node:path'
 import { Theme } from '../types.js'
 
 // Functions
 export async function promptUser(question: string): Promise<boolean> {
-  const readline = await import('readline')
+  const readline = await import('node:readline')
   const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
 
   return new Promise((resolve) => {
@@ -18,7 +18,7 @@ export async function promptUser(question: string): Promise<boolean> {
 }
 
 export async function promptInput(question: string): Promise<string> {
-  const readline = await import('readline')
+  const readline = await import('node:readline')
   const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
 
   return new Promise((resolve) => {
@@ -30,7 +30,7 @@ export async function promptInput(question: string): Promise<string> {
 }
 
 export async function promptSelection<T extends string>(question: string, options: T[]): Promise<T> {
-  const readline = await import('readline')
+  const readline = await import('node:readline')
 
   return new Promise((resolve) => {
     const ask = () => {
@@ -39,7 +39,7 @@ export async function promptSelection<T extends string>(question: string, option
       options.forEach((option, index) => console.log(`  ${index + 1}. ${option}`))
       rl.question('Enter your choice (number): ', (answer) => {
         rl.close()
-        const choice = parseInt(answer.trim()) - 1
+        const choice = Number.parseInt(answer.trim()) - 1
         if (choice >= 0 && choice < options.length) resolve(options[choice])
         else {
           console.log('❌ Invalid choice. Please try again.')
@@ -70,9 +70,9 @@ export async function loadConfig(filePath: string): Promise<Theme> {
   } else if (['.js', '.ts'].includes(extension)) {
     let content = await fs.readFile(filePath, 'utf-8')
 
-    content = content.replace(/import.*from.*['"].*['"];?\n/g, '')
-    content = content.replace(/export default\s+/, '')
-    content = content.replace(/satisfies Theme\s*$/, '')
+    content = content.replaceAll(/import.*from.*['"].*['"];?\n/g, '')
+    content = content.replaceAll(/export default\s+/, '')
+    content = content.replaceAll(/satisfies Theme\s*$/, '')
 
     try {
       const config = eval(`(${content})`)

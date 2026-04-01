@@ -3,7 +3,7 @@
 import fs from 'fs-extra'
 import path from 'node:path'
 
-const targets = ['css', 'scss', 'index.js', 'index.d.ts', 'index.d.ts.map', 'data', 'scripts']
+const targets = ['public/css', 'css', 'scss', 'index.js', 'index.d.ts', 'index.d.ts.map', 'data', 'scripts']
 
 async function clean() {
   const cwd = process.cwd()

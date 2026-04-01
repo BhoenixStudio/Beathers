@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 
-import { exec } from 'child_process'
 import fs from 'fs-extra'
+import { exec } from 'node:child_process'
+import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import path from 'path'
-import { promisify } from 'util'
+import { promisify } from 'node:util'
 import { promptInput } from '../commands/index.js'
 import { BuildScssVariables, DeepMerge, LoadUserConfigs, ReadDefaultValues } from '../helpers/index.js'
 
@@ -102,7 +102,7 @@ async function BuildTheme(customOutputPath: string) {
 
     console.log('🔄 Building theme variables...')
     const theme = DeepMerge(defaults, userConfigs)
-    const variablesString = BuildScssVariables(theme, true)
+    const variablesString = BuildScssVariables(theme)
 
     await fs.writeFile(variablesPath, variablesString, { flag: 'w' })
     console.log(`✅ Theme variables generated`)

@@ -2,7 +2,7 @@
 
 import fs from 'fs-extra'
 import { fileURLToPath } from 'node:url'
-import path from 'path'
+import path from 'node:path'
 
 export function Version() {
   const __filename = fileURLToPath(import.meta.url)

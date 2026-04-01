@@ -127,7 +127,7 @@ import 'beathers/css/beathers.min.css'
     "success": { "light": "#28a745", "dark": "#20c997" }
   },
   "typography": {
-    "defaultFontFamilies": ["Inter", "system-ui", "sans-serif"]
+    "defaultFontFamilies": ["system-ui', 'Arial', 'sans-serif"]
   },
   "settings": {
     "axisDivisions": 12,
@@ -258,7 +258,7 @@ export default {
     success: { light: '#28a745', dark: '#20c997' },
   },
   typography: {
-    defaultFontFamilies: ['Inter', 'system-ui', 'sans-serif'],
+    defaultFontFamilies: ['system-ui', 'Arial', 'sans-serif'],
     fontSizes: {
       xs: '12px',
       sm: '14px',

@@ -2,7 +2,7 @@
 
 import fs from 'fs-extra'
 import { fileURLToPath } from 'node:url'
-import path from 'path'
+import path from 'node:path'
 import { promptSelection, promptUser } from '../commands/index.js'
 import { ReadDefaultValues } from '../helpers/index.js'
 import { Theme } from '../types.js'

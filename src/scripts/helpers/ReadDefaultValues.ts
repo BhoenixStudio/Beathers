@@ -8,7 +8,7 @@ function sanitize(val: any): any {
     const trimmed = val.trim()
     if (trimmed === 'true') return true
     if (trimmed === 'false') return false
-    if (!isNaN(Number(trimmed))) return Number(trimmed)
+    if (!Number.isNaN(Number(trimmed))) return Number(trimmed)
     return trimmed
   }
 
@@ -30,7 +30,7 @@ function cleanNumber(value: string): number | null {
   let result = null
 
   const num = Number(value)
-  if (!isNaN(num) && num.toString() === value) result = num
+  if (!Number.isNaN(num) && num.toString() === value) result = num
 
   return result
 }
@@ -46,13 +46,13 @@ function buildArray(value: string): any[] {
 
 function buildJson<T>(value: string): T {
   const raw = value
-    .replace(/\(/g, '{')
-    .replace(/\)/g, '}')
-    .replace(/'/g, '"')
-    .replace(/([a-zA-Z0-9_]+):/g, '"$1":')
-    .replace(/:\s*"?([0-9]+)"?\.(\d+)(rem)?/g, ':"$1.$2$3"')
-    .replace(/:\s*([a-zA-Z0-9_]+)/g, ': "$1"')
-    .replace(/,\s*}/g, '\n}')
+    .replaceAll('(', '{')
+    .replaceAll(')', '}')
+    .replaceAll("'", '"')
+    .replaceAll(/(\w+):/g, '"$1":')
+    .replaceAll(/:\s*"?(\d+)"?\.(\d+)(rem)?/g, ':"$1.$2$3"')
+    .replaceAll(/:\s*(\w+)/g, ': "$1"')
+    .replaceAll(/,\s*}/g, '\n}')
 
   const parsed: T = JSON.parse(raw)
   const sanitized = sanitize(parsed)
@@ -62,12 +62,12 @@ function buildJson<T>(value: string): T {
 
 function buildColors(value: string): ColorType {
   const raw = value
-    .replace(/\(/g, '{')
-    .replace(/\)/g, '}')
-    .replace(/'/g, '"')
-    .replace(/#([0-9a-fA-F]{3,6})/g, '"#$1"')
-    .replace(/,\s*}/g, '}')
-    .replace(/\n\s*/g, '')
+    .replaceAll('(', '{')
+    .replaceAll(')', '}')
+    .replaceAll("'", '"')
+    .replaceAll(/#([0-9a-fA-F]{3,6})/g, '"#$1"')
+    .replaceAll(/,\s*}/g, '}')
+    .replaceAll(/\n\s*/g, '')
 
   const parsed: ColorType = JSON.parse(raw)
   return parsed
@@ -75,10 +75,10 @@ function buildColors(value: string): ColorType {
 
 function buildWrappers(value: string): Settings['wrappers'] {
   const raw = value
-    .replace(/\(/g, '{')
-    .replace(/\)/g, '}')
-    .replace(/([a-zA-Z0-9_]+):\s*([0-9%px]+)\s+([0-9.]+rem)/g, '"$1": {"width": "$2", "padding": "$3"}')
-    .replace(/,\s*}/g, '}')
+    .replaceAll('(', '{')
+    .replaceAll(')', '}')
+    .replaceAll(/(\w+):\s*([0-9%px]+)\s+([0-9.]+rem)/g, '"$1": {"width": "$2", "padding": "$3"}')
+    .replaceAll(/,\s*}/g, '}')
 
   const parsed: Settings['wrappers'] = JSON.parse(raw)
   return parsed
@@ -91,7 +91,7 @@ export async function ReadDefaultValues(files: string[], VariableNames: string[]
   for (const file of files) {
     const content = await fs.readFile(file, 'utf8')
     for (const name of VariableNames) {
-      const variableRegex = new RegExp(`^\\s*\\$${name}\\s*:\\s*([\\s\\S]*?)\\s*!default\\s*;?`, 'm')
+      const variableRegex = new RegExp(String.raw`^\s*\$${name}\s*:\s*([\s\S]*?)\s*!default\s*;?`, 'm')
       const match = variableRegex.exec(content)
 
       if (match) {
