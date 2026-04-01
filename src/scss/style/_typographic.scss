@@ -178,8 +178,11 @@ $textTruncate: if(
         @each $style in $styles {
           // Font weights
           // Validate parameters
-          $styleClass: if(
+          $name: if(
             sass($fI == 0): $weight; else: '#{$fontKey}\:#{$weight}'
+          );
+          $styleClass: if(
+            sass($fI == 0): $weight; else: '#{$fontKey}\\:#{$weight}'
           );
           $weightValue: map.get(configs.$fontWeightsValues, $weight);
 
@@ -189,10 +192,10 @@ $textTruncate: if(
 
           .#{$mainClass} {
             @if ($size) {
-              font-family: '#{$styleClass}', $defaultFontFamilies !important;
+              font-family: '#{$name}', $defaultFontFamilies !important;
               font-weight: $weightValue !important;
             } @else {
-              font-family: '#{$styleClass}', $defaultFontFamilies;
+              font-family: '#{$name}', $defaultFontFamilies;
               font-weight: $weightValue;
             }
 

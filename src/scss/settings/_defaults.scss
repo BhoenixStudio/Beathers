@@ -82,12 +82,7 @@ $fontStyles: ('normal') !default;
 $textTruncate: (1, 2, 3) !default;
 
 // Defines the default font stack.
-$defaultFontFamilies:
-  system-ui,
-  -apple-system,
-  Roboto,
-  Arial,
-  sans-serif !default;
+$defaultFontFamilies: system-ui, Arial, sans-serif !default;
 
 // Defines the typography scale for font sizes.
 $fontSizes: (
